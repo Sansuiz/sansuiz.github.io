@@ -1,0 +1,360 @@
+I"7e<h2 class="no_toc" id="目录">目录</h2>
+
+<ul id="markdown-toc">
+  <li><a href="#操作界面" id="markdown-toc-操作界面">操作界面</a></li>
+  <li><a href="#基础使用" id="markdown-toc-基础使用">基础使用</a></li>
+  <li><a href="#文章格式及命名规范" id="markdown-toc-文章格式及命名规范">文章格式及命名规范</a></li>
+  <li><a href="#kramdown-语法" id="markdown-toc-kramdown-语法">kramdown 语法</a></li>
+  <li><a href="#文章版式" id="markdown-toc-文章版式">文章版式</a></li>
+  <li><a href="#脚注的使用" id="markdown-toc-脚注的使用">脚注的使用</a></li>
+  <li><a href="#块级引用" id="markdown-toc-块级引用">块级引用</a></li>
+  <li><a href="#页面模板" id="markdown-toc-页面模板">页面模板</a></li>
+  <li><a href="#目录表" id="markdown-toc-目录表">目录表</a></li>
+  <li><a href="#改变主题颜色和布局" id="markdown-toc-改变主题颜色和布局">改变主题颜色和布局</a></li>
+  <li><a href="#引用参考文献" id="markdown-toc-引用参考文献">引用参考文献</a></li>
+  <li><a href="#安全发布站点" id="markdown-toc-安全发布站点">安全发布站点</a></li>
+  <li><a href="#jekyll常用指令" id="markdown-toc-jekyll常用指令">jekyll常用指令</a></li>
+</ul>
+
+<hr />
+
+<h2 id="操作界面">操作界面</h2>
+
+<p><img src="/assets/11.png" alt=" " width="800px" height="320px" style="margin:0" /></p>
+
+<p>提示：这是<code class="language-plaintext highlighter-rouge">Hs.</code>主界面，指向的按钮可以打开侧边栏，关闭侧边栏鼠标点击其他的区域任意位置，侧边栏里的选项分别是：</p>
+
+<ul>
+  <li>Home 主页</li>
+  <li>作者简介</li>
+  <li>操作使用说明</li>
+  <li>测试页</li>
+  <li>技术博客链接</li>
+  <li>幕布链接 （一页纸极简思考、笔记工具）</li>
+  <li>Giuhub页面</li>
+</ul>
+
+<hr />
+<p><br />
+<img src="/assets/33.png" alt=" " width="680px" height="320px" style="margin:0" /></p>
+
+<p>提示：这是主要显示页面，<code class="language-plaintext highlighter-rouge">Hs.</code> 可以选中返回Home主页，文章列表可以选择打开阅读。</p>
+
+<hr />
+<p><br /></p>
+
+<p><img src="/assets/22.png" alt=" " width="680px" height="320px" style="margin:0" /></p>
+
+<p>提示：对于多章节的大部头文章，可以选中按钮，侧边栏会提供书签目录选择跳转;</p>
+
+<p><code class="language-plaintext highlighter-rouge">Return to Top</code> 是返回文章开头，这个功能一定会让你觉得贴心;</p>
+
+<p><code class="language-plaintext highlighter-rouge">Home</code> 也是返回主页,选<code class="language-plaintext highlighter-rouge">Hs.</code>还是这里，看你的习惯了。</p>
+
+<hr />
+<p><br />
+<img src="/assets/44.png" alt=" " width="680px" height="320px" style="margin:0" /></p>
+
+<p>提示：如果观看视频，不希望打开弹幕可以使用这个按钮关闭。</p>
+
+<hr />
+<p><br /></p>
+<h2 id="基础使用">基础使用</h2>
+
+<p>这是一个<code class="language-plaintext highlighter-rouge">Jekyll</code>的主题，它很简洁、很漂亮，适合撰写文章。你可以撰写自己的短文、诗歌、甚至小说、自传来发布，我一直有个写作的梦想，之所以喜欢这个主题，大致源于此吧！这里还是得感谢下<code class="language-plaintext highlighter-rouge">Ed</code>主题的发布者 <code class="language-plaintext highlighter-rouge">Alex Gil</code> 及其团队给了我们很好的体验。<br />
+要想很好的使用<code class="language-plaintext highlighter-rouge">Ed</code>，除了熟悉基础的<a href="https://symphonyh.github.io/cloudblog/2017/01/27/used-markdown/">markdown</a>语法，还需要会使用<a href="https://symphonyh.github.io/cloudblog/2017/03/12/git-commline/">git</a>,<a href="https://symphonyh.github.io/cloudblog/2017/01/20/rvm/">rvm</a>, <code class="language-plaintext highlighter-rouge">bundle</code>, <a href="https://www.jekyll.com.cn/">jekyll 3.7.3</a>的基础指令和<a href="https://symphonyh.github.io/cloudblog/2017/03/04/liquid/">Liquid</a> 的语法知识。<br />
+<code class="language-plaintext highlighter-rouge">Ed</code>的运行环境是<code class="language-plaintext highlighter-rouge">ubuntu</code>，相比<code class="language-plaintext highlighter-rouge">windows</code>环境运行更加稳定;所以手册里看到的终端命令和相关工具都是在<code class="language-plaintext highlighter-rouge">ubuntu 16.04 LTS</code>的环境中运行的。</p>
+
+<p>如果你迫不及待已经想撰写文章了，打开<code class="language-plaintext highlighter-rouge">blog</code>文件夹，右键选择<code class="language-plaintext highlighter-rouge">在终端打开</code>，或者<code class="language-plaintext highlighter-rouge">Ctrl+Alt+T</code> 打开终端（确保在blog目录下）：</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span><span class="nb">cd </span>blog
+<span class="nv">$ </span>rvm use 2.4.1@jekyll
+<span class="nv">$ </span>subl <span class="nb">.</span>
+</code></pre></div></div>
+<p>发布写好的文章前，最好先在本地启动<code class="language-plaintext highlighter-rouge">Jekyll</code>服务预览内容和格式，确保没有错误发生，本地<code class="language-plaintext highlighter-rouge">Firefox</code>浏览器地址为<code class="language-plaintext highlighter-rouge">127.0.0.1:4000</code></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>jekyll serve
+</code></pre></div></div>
+<p>发布到<code class="language-plaintext highlighter-rouge">Github</code>的服务器,需要注意的是：blog使用了<code class="language-plaintext highlighter-rouge">cloudhan.me</code>的域名，没有使用账户名（事实上账户名网站是我的技术blog），这是个项目网站，所以这里不是master分支：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>git status
+<span class="nv">$ </span>git add <span class="nb">.</span>
+<span class="nv">$ </span>git commit <span class="nt">-m</span> <span class="s2">"first commit"</span>
+<span class="nv">$ </span>git push origin gh-pages
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="文章格式及命名规范">文章格式及命名规范</h2>
+
+<p>对于<code class="language-plaintext highlighter-rouge">Jekyll</code>的文档可以参考 <a href="http://jekyllrb.com.cn/">Jekyll中文网</a> 或者<code class="language-plaintext highlighter-rouge">安道</code>的教程。我使用的纯文本编辑工具是<a href="https://symphonyh.github.io/cloudblog/2017/01/20/command/">sublime-text3</a>，我确保它是个神奇的工具，非常方便好用。</p>
+
+<p>撰写的blog文章在<code class="language-plaintext highlighter-rouge">_texts</code> 文件夹里，记住每篇文章命名规则是  <code class="language-plaintext highlighter-rouge">your-title.md</code> 。每篇文章的<code class="language-plaintext highlighter-rouge">YAML</code>顶部信息确保遵守如下规则：</p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">poem</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Cahier</span><span class="nv"> </span><span class="s">d'un</span><span class="nv"> </span><span class="s">retour</span><span class="nv"> </span><span class="s">au</span><span class="nv"> </span><span class="s">pays</span><span class="nv"> </span><span class="s">natal"</span>
+<span class="na">author</span><span class="pi">:</span> <span class="s">Cloudhan</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+<hr />
+
+<h2 id="kramdown-语法">kramdown 语法</h2>
+
+<p>除了使用<code class="language-plaintext highlighter-rouge">markdown</code>原生的语法，主题使用<code class="language-plaintext highlighter-rouge">kramdown</code>拓展语法，主要就是对表格的支持，还包括脚注，词汇定义，缩写, 图片和视频等。可以参考<a href="https://www.jianshu.com/p/d7d6da4b7c60">简书：让你的Markdown用起来得心应手</a>一文。</p>
+
+<hr />
+
+<h2 id="文章版式">文章版式</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Ed</code>主题提供了三种不同的版式:<code class="language-plaintext highlighter-rouge">诗歌：poem</code>、<code class="language-plaintext highlighter-rouge">故事:narrative</code>和<code class="language-plaintext highlighter-rouge">戏剧：drama</code>。文章顶部的<code class="language-plaintext highlighter-rouge">YAML</code>信息<code class="language-plaintext highlighter-rouge">layout: page</code>定义了该布局。布局模板文件在<code class="language-plaintext highlighter-rouge">_layouts</code>文件夹中可以找到。使用这些布局将允许您根据您不同的写作需求调整样式，一些特殊指令是需要了解的。</p>
+
+<p>诗歌中常用的行开始标记语法：</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">-</span> Hold fast to dreams
+<span class="p">-</span> For if dreams die
+<span class="p">-</span> Life is a broken-winged bird
+<span class="p">-</span> That cannot fly.
+<span class="p">-</span> Hold fast to dreams
+<span class="p">-</span> For when dreams go
+<span class="p">-</span> Life is a barren field
+<span class="p">-</span> Frozen with snow.
+</code></pre></div></div>
+
+<p>行缩进的语法：</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">-</span> {:.indent-3} But O heart! heart! heart!
+<span class="p">-</span> {:.indent-4} O the bleeding drops of red,
+<span class="p">-</span> {:.indent-5} Where on the deck my Captain lies,
+<span class="p">-</span> {:.indent-6} Fallen cold and dead.
+</code></pre></div></div>
+
+<p>这里 <code class="language-plaintext highlighter-rouge">-</code> 表示一行的开始;<code class="language-plaintext highlighter-rouge">{:.indent-3}</code> 表示缩进值，值得范围可以从1-10;<code class="language-plaintext highlighter-rouge">*</code> 包围则是使用斜体字，如：</p>
+
+<p><em>这里是斜体字</em></p>
+
+<hr />
+
+<h2 id="脚注的使用">脚注的使用</h2>
+
+<p>脚注的语法很简洁：行文中插入<code class="language-plaintext highlighter-rouge">[^fn2]</code>即可，注解处使用 <code class="language-plaintext highlighter-rouge">[^fn2]:XXX</code> 即可，可以实现相互跳转。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- O Captain! my Captain! rise up and hear the bells; 
+- Rise up—for you the flag is flung—for you the bugle[^fn2] trills,
+
+...
+
+[^fn2]: The bugle is a small trumpet implicated in the military industrial complex.
+</code></pre></div></div>
+
+<p>多行脚注需要同样保持缩进：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[^fn3]:
+	Ugh pinterest fixie cronut pitchfork beard. Literally deep 
+	cold-pressed distillery pabst austin. 
+
+	这是第二行注解：Typewriter 90's roof party poutine, kickstarter  
+	denim pabst readymade biodiesel umami chicharrones XOXO. 
+</code></pre></div></div>
+
+<p>文章中某些标记并不一定使用数字，例如只使用一个<code class="language-plaintext highlighter-rouge">*</code> 符号，脚注尾部使用↩︎返回标记处,
+<code class="language-plaintext highlighter-rouge">HTML</code>可以提供方法：</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code>... At this time, Anna,<span class="nt">&lt;sup&gt;&lt;a</span> <span class="na">href=</span><span class="s">"#fn2"</span> <span class="na">id=</span><span class="s">"ref2"</span><span class="nt">&gt;</span>\*<span class="nt">&lt;/a&gt;&lt;/sup&gt;</span> my intended wife, came on;
+
+...
+
+<span class="nt">&lt;sup</span> <span class="na">id=</span><span class="s">"fn2"</span><span class="nt">&gt;</span>*<span class="nt">&lt;/sup&gt;</span> She was free. [<span class="ni">&amp;#x21a9;&amp;#xfe0e;</span>](#ref2)
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="块级引用">块级引用</h2>
+
+<p>引用在<code class="language-plaintext highlighter-rouge">kramdown</code>的实现非常简单,其中的文字是引用内容。</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&gt; This is to certify that I, the undersigned, have given the bearer, my servant, full liberty to go to Baltimore, and spend the Easter holidays.
+&gt;
+&gt; Written with mine own hand, &amp;c., 1835.  
+&gt; WILLIAM HAMILTON,
+</code></pre></div></div>
+
+<p>设想在一个<code class="language-plaintext highlighter-rouge">故事:narrative</code>的版式中，块引用<code class="language-plaintext highlighter-rouge">诗歌：poem</code>，语法是怎样的呢？</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>...
+&gt; - Two others oped their iron jaws,
+&gt; - And waved their children-stealing paws;
+&gt; - There sat their children in gewgaws;
+&gt; - By stinting negroes' backs and maws,
+&gt; - They kept up heavenly union.
+&gt; ^
+&gt; - All good from Jack another takes,
+&gt; - And entertains their flirts and rakes,
+&gt; - Who dress as sleek as glossy snakes,
+&gt; - And cram their mouths with sweetened cakes;
+&gt; - And this goes down for union.
+{:.poetry}
+</code></pre></div></div>
+
+<p>这个<code class="language-plaintext highlighter-rouge">{:.poetry}</code>标记是告诉程序把上面的<code class="language-plaintext highlighter-rouge">-</code>行标记作为<code class="language-plaintext highlighter-rouge">诗歌：poem</code>版式处理，之所以需要声明是因为这段文字本身的版式是<code class="language-plaintext highlighter-rouge">故事:narrative</code>版式，以便程序正确调用。</p>
+
+<hr />
+
+<h2 id="页面模板">页面模板</h2>
+
+<p>你已经知道，blog 文章都是放在<code class="language-plaintext highlighter-rouge">_text</code>文件夹，其他的页面模板（例如：<code class="language-plaintext highlighter-rouge">about</code>, <code class="language-plaintext highlighter-rouge">index</code>, <code class="language-plaintext highlighter-rouge">documentation</code>）则是在根目录下的。
+你会注意到，模板文件有些是以<code class="language-plaintext highlighter-rouge">.html</code>而不是<code class="language-plaintext highlighter-rouge">.md</code>结尾。<code class="language-plaintext highlighter-rouge">Jekyll</code>中的所有模板文件都是<code class="language-plaintext highlighter-rouge">HTML</code>。虽然这些文件大多是用<code class="language-plaintext highlighter-rouge">HTML</code>编写的，但它们仍然包含<code class="language-plaintext highlighter-rouge">YAML</code>顶部信息和<code class="language-plaintext highlighter-rouge">Liquid</code>标签。
+不同的地方是：<code class="language-plaintext highlighter-rouge">.html</code>文件更方便于定制网页的布局及样式，也可以使用<code class="language-plaintext highlighter-rouge">Liquid</code>语句,但不能使用<code class="language-plaintext highlighter-rouge">markdown</code>语法和扩展;<code class="language-plaintext highlighter-rouge">.md</code>文件要更加丰富和灵活些，除了允许使用<code class="language-plaintext highlighter-rouge">markdown</code>及扩展外可以同时运用<code class="language-plaintext highlighter-rouge">HTML</code>标签和<code class="language-plaintext highlighter-rouge">Liquid</code>语句更适于书写文档。</p>
+
+<hr />
+
+<h2 id="目录表">目录表</h2>
+
+<p><code class="language-plaintext highlighter-rouge">Ed</code>主题里可以建立三种目录表，第一个示例是主页中用<code class="language-plaintext highlighter-rouge">Liquid</code> 模板语言编写的文章目录， <code class="language-plaintext highlighter-rouge">{% %}</code> 是逻辑表达式的写法， <code class="language-plaintext highlighter-rouge">{{ }}</code> 只是输出内容，示例中是文章的标题。
+<!--  `raw`-暂时停用标签处理以避免出现语法冲突。--></p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"toc"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2&gt;</span>Sample texts<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+ 
+  {% for item in site.posts do %}
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"post-title"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"{{ site.baseurl }}{{ item.url }}"</span><span class="nt">&gt;</span>
+      	{{ item.title }}
+      <span class="nt">&lt;/a&gt;</span>
+    <span class="nt">&lt;/li&gt;</span>
+  {% endfor %}
+  <span class="nt">&lt;/ul&gt;</span>  
+<span class="nt">&lt;/div&gt;</span>
+
+</code></pre></div></div>
+<p>第二个示例恰好就是本文件顶部应用的目录语法。这是<code class="language-plaintext highlighter-rouge">kramdown</code>的方式，<code class="language-plaintext highlighter-rouge">{:.no_toc}</code>的作用是告诉程序不要把<code class="language-plaintext highlighter-rouge">Contents</code>作为目录内容，下面的语句是把文中<code class="language-plaintext highlighter-rouge">markdown</code>标题自动生成目录内容放在<code class="language-plaintext highlighter-rouge">{:toc}</code>的位置。</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gu">## Contents</span>
+{:.no_toc}
+<span class="p">
+*</span> ToC
+{:toc}
+</code></pre></div></div>
+<p>对于多章节的长篇文章，第三种方式更为适合，在<code class="language-plaintext highlighter-rouge">YAML</code>的顶部信息中写入目录，这种方式的好处是在阅读文章时可以通过侧边栏看到目录大纲，实现方便的章节跳转和返回。</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">toc</span><span class="pi">:</span>
+<span class="pi">-</span> <span class="s">Title Page</span>
+<span class="pi">-</span> <span class="s">Preface</span>
+<span class="pi">-</span> <span class="s">Letter From Wendell Phillips</span>
+<span class="pi">-</span> <span class="s">Chapter I</span>
+<span class="pi">-</span> <span class="s">Chapter II</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="改变主题颜色和布局">改变主题颜色和布局</h2>
+
+<p>如果你不喜欢<code class="language-plaintext highlighter-rouge">Ed</code>默认的颜色，可以在<code class="language-plaintext highlighter-rouge">default.html</code>版式中方便的调整和修改。只需要改变<code class="language-plaintext highlighter-rouge">bord</code>标签的 <code class="language-plaintext highlighter-rouge">class</code> 属性即可。详细参见:<a href="https://github.com/poole/lanyon#themes">Lanyon documentation</a>.</p>
+
+<ul>
+  <li>侧边栏在右侧：<code class="language-plaintext highlighter-rouge">&lt;body class="layout-reverse sidebar-overlay"&gt;</code></li>
+  <li>改变基本主题颜色：<code class="language-plaintext highlighter-rouge">&lt;body class="theme-base-08"&gt;</code></li>
+</ul>
+
+<p>另一方式是：<code class="language-plaintext highlighter-rouge">Ed</code>在配置文件中提供了<code class="language-plaintext highlighter-rouge">color-scheme:</code>主题基本颜色的变量，可以在这里定义颜色，其实就是改变<code class="language-plaintext highlighter-rouge">bord</code>标签的属性值，和上面意思一样相对应的，<code class="language-plaintext highlighter-rouge">bord</code>的属性设置为：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;body class="theme-base-{{site.color-scheme}}"&gt;
+</code></pre></div></div>
+<p>配置技巧：<code class="language-plaintext highlighter-rouge">class</code>属性可以设置多项，</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>color-scheme: 0d layout-reverse sidebar-overlay
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>color-scheme: 0b
+</code></pre></div></div>
+
+<p>主题颜色代码:</p>
+
+<p><img src="https://f.cloud.github.com/assets/98681/1817044/e5b0ec06-6f68-11e3-83d7-acd1942797a1.png" alt="Available theme classes" /></p>
+
+<hr />
+
+<h2 id="引用参考文献">引用参考文献</h2>
+
+<p>为了帮助我们的自动生成书目和引文，<code class="language-plaintext highlighter-rouge">Ed</code>可以使用Sylvester Keil的<code class="language-plaintext highlighter-rouge">jekyll-scholar</code> 插件。这需要了解更多关于gem的基本指令，请务必阅读<a href="https://github.com/inukshuk/jekyll-scholar">jekyll-scholar</a> Github使用文档。</p>
+
+<p><code class="language-plaintext highlighter-rouge">jekyll-scholar</code>很棒，可以为你的书目编撰工作节省大量的时间，实现也并不复杂：</p>
+
+<p>第一步，必须将<code class="language-plaintext highlighter-rouge">jekyll-scholar starter kit</code>中的<code class="language-plaintext highlighter-rouge">_bibliography</code>文件夹、<code class="language-plaintext highlighter-rouge">bibliography.md</code>文件移到<code class="language-plaintext highlighter-rouge">blog</code>根目录文件夹中。
+不同于脚注，<code class="language-plaintext highlighter-rouge">Ed</code>需要一个单独的页面来引用您的书目或文献。这就是bibliography.md文件的作用，确保这个文件末尾使用以下行来引用书目文件<code class="language-plaintext highlighter-rouge">_bibliography</code>文件夹中<code class="language-plaintext highlighter-rouge">references.bib</code>提供的参考文献。</p>
+
+<pre>
+&#123;% bibliography %&#125;
+</pre>
+
+<p>第二步，在<code class="language-plaintext highlighter-rouge">_config.yml</code>文件中追加以下内容：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> # plugins
+plugins: ['jekyll/scholar']
+
+# Scholar
+scholar:
+  style: modern-language-association
+  locale: en
+
+  sort_by: none
+  order: ascending
+
+  group_by: none
+  group_order: ascending
+
+  source: ./_bibliography
+  bibliography: references.bib
+  bibliography_template: ""
+  relative: "/ed/bibliography.html"
+
+  replace_strings: true
+  join_strings:    true
+
+  use_raw_bibtex_entry: false
+
+  details_dir:    bibliography
+  details_layout: bibtex.html
+  details_link:   Details
+
+  query: "@*"
+</code></pre></div></div>
+
+<p>第三步，<code class="language-plaintext highlighter-rouge">Gemfile</code>文件中追加一行：</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  gem 'jekyll-scholar', '~&gt;5.7.1'
+</code></pre></div></div>
+
+<p>最后要启用<code class="language-plaintext highlighter-rouge">jekyll-scholar</code>，必须重新运行<code class="language-plaintext highlighter-rouge">bundle install</code>：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>rvm use 2.4.1@jekyll
+
+  <span class="nv">$ </span>bundle <span class="nb">install</span>
+</code></pre></div></div>
+<p>对于一些稍复杂的引用<code class="language-plaintext highlighter-rouge">jekyll-scholar</code>中引用书目文献提供了丰富的过滤函数：</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+{% cite cesaire_discourse_2001 %}
+
+</code></pre></div></div>
+<p>请注意，<code class="language-plaintext highlighter-rouge">jekyll-scholar starter kit</code>已经准备好了<code class="language-plaintext highlighter-rouge">mla</code>风格。若要使用 <code class="language-plaintext highlighter-rouge">Chicago</code>风格或更高级的文献格式，请参阅<a href="https://github.com/inukshuk/jekyll-scholar">jekyll-scholar</a>的文档以进行适当的更改。</p>
+
+<hr />
+
+<h2 id="安全发布站点">安全发布站点</h2>
+
+<p>如果你在<code class="language-plaintext highlighter-rouge">jekyll</code>中安装了<code class="language-plaintext highlighter-rouge">jekyll-scholar</code>或者其他插件，你需要在Github上发布你的站点，将<code class="language-plaintext highlighter-rouge">jekyll-scholar starter kit</code>的Rakefile文件复制到<code class="language-plaintext highlighter-rouge">blog</code>根目录下，使用一行命令便可以轻松完成这项任务。确保切换到gh-pages分支并运行以下命令：</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>rake ed:publish
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="jekyll常用指令">jekyll常用指令</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ jekyll build --watch
+$ jekyll clean
+$ jekyll serve --watch
+</code></pre></div></div>
+
+<hr />
+
+<p><a>by Cloudhan</a><br />
+    July 2018</p>
+:ET

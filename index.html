@@ -1,0 +1,29 @@
+---
+layout: default
+title: Hs.
+---
+<div class="introduction">
+<div style="font-size: 17px;font-family: 'lisu', 'CTLiShuSJ13f750d20b1dd28';">&nbsp;&nbsp;&nbsp;&nbsp;...完成的时候，它突然辉耀无比，成了梵天所创造的世界中间最美丽的一件作品，他在创造手杖之中创造了一个新制度，一个美妙而比例适度的新世界；其间古代古城虽都逝去了，新的更光荣的时代和城市却已代之而兴起。而现在他看到刨花还依然新鲜地堆在他的脚下，对于他和他的工作，所谓时间的流逝只是过眼幻影，时间一点也没逝去，就像梵天脑中闪过的思想立刻就点燃了凡人脑中的火绒一样。材料纯粹，他的艺术纯粹；结果怎能不神奇？</div>
+
+<p style="text-align: right;"> <a> by Thoreau 《Walden》</a></p>
+<hr>
+
+<div class="toc">
+  <h2>文章列表</h2>
+  <ul class="post">
+  
+  {% for item in site.texts  %}
+  
+    <li class="post-title">
+      <a style="font-size: 1.15em; " href="{{ site.baseurl }}{{ item.url }}">
+        {{ item.title }}
+      </a>
+    </li>
+  {% endfor %}
+  </ul>  
+
+</div>
+</div>
+
+
+

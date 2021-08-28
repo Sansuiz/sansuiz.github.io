@@ -1,0 +1,53 @@
+# Built with Jekyll 3.2.0
+
+# Setup
+title:               Hs.
+tagline:             'hope is good thing, mabye the best of things.'
+description:         '倘若可以简单的生活: 一抹油彩 半阙诗词 一段代码, 能让周围的世界微起波澜, 就是满意了。'
+url:                 'https://www.cloudhan.me'
+baseurl:             ''
+
+# About/contact
+author:
+  name:              cloudhan
+  url:               www.cloudhan.me
+  email:             hxy@cloudhan.me
+
+# Color scheme. Options: red, orange, Yellow, Gree, cyan, blue,  nmagenta, brown 
+#                         08     09      0a    0b    0c    0d     0e         0f
+#"color-scheme: 0a layout-reverse sidebar-overlay"
+
+color-scheme: 08
+
+
+# Permalinks
+permalink: pretty
+permalink: /:title/
+
+# Set encoding to UTF-8
+encoding: utf-8
+
+# Collections for texts
+collections:
+  texts:
+    output: true
+  
+# Markdown specs
+markdown: kramdown
+
+kramdown:
+  auto_ids:       true
+  footnote_nr:    1
+  entity_output:  as_char
+  footnote_backlink: "&#x21a9;&#xfe0e;"
+  toc_levels:     1..6
+  smart_quotes:   lsquo,rsquo,ldquo,rdquo
+  enable_coderay: false
+
+# Custom vars
+version:             0.0.9
+
+# Exclusions from the final site
+exclude: [optional, vendor]
+
+

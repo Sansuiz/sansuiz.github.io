@@ -1,1 +1,7 @@
-# sansuiz.github.io
+# 关于博客
+
+如果你看到这里，非常感谢您的光临，无论是有意还是无意的，算是一种缘分吧。这是一个使用Jekyll Theme [Ed.](https://github.com/elotroalex/ed) 的个人博客，这里首先要特别感谢模版作者的精心制作。
+
+Hs.主题，主要对`Docmenttation`文档中文化和扩充，在`CSS`中加入了中文字体的优化。具体使用可以参见`Docmenttation`文档，和看看`Page Testing`文档。
+
+工作之余，博客留下了自己内心些许记录。倘若可以简单的生活: 一抹油彩 半阙诗词 一段代码, 能让周围的世界微起波澜, 就是满意了。

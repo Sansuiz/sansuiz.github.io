@@ -1,0 +1,15 @@
+title:            muanchiou
+description:      who is muanchiou
+url:              https://muan.co
+permalink:        pretty
+timezone:         America/New_York
+kramdown:
+  hard_wrap: true
+sass:
+  sass_dir: assets
+  style: :compressed
+collections:
+  notes:
+    output: false
+  pages:
+    output: true

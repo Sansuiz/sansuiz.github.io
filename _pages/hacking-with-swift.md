@@ -1,10 +1,8 @@
 ---
 layout: default
-title: Hacking with Swift
+title: 送给你 | JUST FOR YOU
 feature: 1
 image_text: |
-  :red_apple::telephone:
-  Hacking with Swift
 ---
 
 Trying out [100 Days of SwiftUI](https://www.hackingwithswift.com/100/swiftui). This would probably be my 5th attempt for learning iOS/macOS development. 🤞 [Hopefully I keep this up](https://mobile.twitter.com/muanchiou/status/1302195083333206017).
@@ -135,21 +133,64 @@ Turns out I missed a few chapters for Day 5, specifically everything after **7. 
 
 Trailing closure syntax isn't confusing at all! Shorthand closure syntax isn't confusing at all!!
 
-## Day 2
-2020/09/04
+## Say 2
+2020/09/12
 
-- Day 3 – operators and conditions
-- Day 4 – loops, loops, and more loops
+你就像一片云
+轻轻地随风
+就到了我的手心
 
-`repeat { ... } while ...` is new to me.
+就像个孩子
+小心翼翼
+悄悄合上了五指
+想把你留在这里
 
-## Day 1
-2020/09/03
+你就像一片云
+柔软、纯洁，美丽
+这样的我的手
+会不会伤害了你
 
-- Day 1 – variables, simple data types, and string interpolation
-- Day 2 – arrays, dictionaries, sets, and enums
+怕我的用力
+让你碎去
 
-Sure `tuple` can exist.
+忽地一个趔趄
+一定要护着你
+忍不住握紧
+
+你就像一片云
+终究是从我的指缝间
+慢慢的离去
+
+我不想再伤害你
+张开了五指
+
+你似乎感觉到
+我是在抛弃
+便随着风
+消失到了天际
+
+我在追寻
+却怎么也看不见
+就没了踪影
+
+你就像一片云
+萦绕着我的
+小小的心
+
+## Say 1
+2020/09/12
+
+送给你
+这是初秋的雨
+带来的清凉
+
+我不知道
+何时能再见到你
+一如这风
+吹不尽的心情
+
+送给你
+我的亲爱
 
 <style>
   h2 + p { margin-top: -1.2em; font-size: .8em; }

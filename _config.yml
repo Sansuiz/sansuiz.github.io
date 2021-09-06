@@ -1,8 +1,8 @@
-title:            muanchiou
-description:      who is muanchiou
+title:            SASNUI | ZHAO
+description:      这是一个叫三岁的人
 url:              https://sansuiz.github.io/
 permalink:        pretty
-timezone:         America/New_York
+timezone:         Asia/Urumqi
 kramdown:
   hard_wrap: true
 sass:

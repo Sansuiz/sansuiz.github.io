@@ -79,7 +79,7 @@ header_content: |
 
 <hr class="hr">
 
-<h2 class="text">Posts <span class="smol"><a href="/feed.xml">[feed]</a></span></h2>
+<h2 class="text">文章 <span class="smol"><a href="/feed.xml">【订】</a></span></h2>
 <ul aria-label="posts" class="terminal">
 {% assign posts = site.pages | where: "feature", 1 %}
 {% for post in posts %}
@@ -102,7 +102,7 @@ header_content: |
 <hr class="hr">
 
 {% assign note = site.data.notes[0] %}
-<h2 class="text">Latest note <a href="/notes" class="smol">(all)</a> <span class="smol">[{{ note.date | date: "%b %d, %Y" }}]</span></h2>
+<h2 class="text">最近的便签 <a href="/notes" class="smol">【全】</a> <span class="smol">[{{ note.date | date: "%b %d, %Y" }}]</span></h2>
 <div class="note">
   {{ note.content | markdownify }}
 </div>

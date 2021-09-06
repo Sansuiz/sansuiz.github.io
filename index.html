@@ -54,6 +54,31 @@ header_content: |
 
 <hr class="hr">
 
+<h2 class="text">瞎折腾</h2>
+<ul class="terminal">
+  {% assign i = i | plus: 1 %}
+  {% capture content do %}
+    对代码虽然是不懂，但是胡乱折腾还是让我在互联网这片大海上不至于到处漂流。
+  {% endcapture %}{% include line.html i=i content=content %}
+
+  {% assign i = i | plus: 1 %}
+  {% capture content do %}
+    于是就编成了几个莫名的小舟。
+  {% endcapture %}{% include line.html i=i content=content %}
+
+  {% assign i = i | plus: 1 %}
+  {% capture content do %}
+    把自己的生活记录在<a href="https://sansuiz.github.io/blog/">BLOG</a>上。
+  {% endcapture %}{% include line.html i=i content=content %}
+
+  {% assign i = i | plus: 1 %}
+  {% capture content do %}
+    把自己的三岁文学放在一个简单的<a href="https://sansuiz.github.io/wenji/">文集</a>里。
+  {% endcapture %}{% include line.html i=i content=content %}
+</ul>
+
+<hr class="hr">
+
 <h2 class="text">Posts <span class="smol"><a href="/feed.xml">[feed]</a></span></h2>
 <ul aria-label="posts" class="terminal">
 {% assign posts = site.pages | where: "feature", 1 %}

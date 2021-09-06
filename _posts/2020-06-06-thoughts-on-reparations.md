@@ -1,7 +1,7 @@
 ---
 layout: default
 date: 2020-06-06
-title: Thoughts on Reparations
+title: 思考什么的
 feature: 1
 image_text: Thoughts on Reparations
 ---

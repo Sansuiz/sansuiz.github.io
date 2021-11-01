@@ -4,7 +4,7 @@ title: 便签20
 ---
 
 <ul class="notes20">
-{% for note in site.data.notes %}
+{% for note in site.data.notes20 %}
 <li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}">
   <h2 class="note-heading">
     <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>

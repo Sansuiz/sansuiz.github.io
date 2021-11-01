@@ -4,10 +4,10 @@
 {% capture srcbase %}src="{{site.url}}/{% endcapture %}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title }} notes</title>
-    <description>notes</description>
+    <title>{{ site.title }} notes20</title>
+    <description>notes20</description>
     <link>{{ site.url }}</link>
-    <atom:link href="{{ site.url }}/notes.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="{{ site.url }}/notes20.xml" rel="self" type="application/rss+xml" />
     <lastBuildDate>{{ site.data.notes.first.date | date_to_rfc822 }}</lastBuildDate>
     {% for note in site.data.notes limit: 10 %}
       <item>

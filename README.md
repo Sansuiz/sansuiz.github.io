@@ -1,16 +1,22 @@
-Forked from the excellent @muan repo [scribble](https://github.com/muan/scribble).
+# muan.co
 
-Running locally:
+Code for https://muan.co/. Some of the content is updated via [a micropub server](https://github.com/muan/micropub-endpoint#micropub-endpoint).
 
-```
-# You should let docker create Gemfile.lock
-docker-compose up -d
-```
-
-If using boot-2-docker, should be available at IP from <code>docker-machine ip default</code>.
-
-Generating tags:
+## Development
 
 ```
-python tag_gen.py
+$ bundle
+$ bundle exec jekyll server -w
 ```
+
+## License
+
+The following directories and their contents are Copyright Mu-An Chiou. You may not reuse anything therein without my permission:
+
+```
+_data/
+_posts/
+images/
+```
+
+All other directories and files are MIT Licensed (where applicable).

@@ -1,49 +1,52 @@
 ---
-title: 三岁，在一个浪漫的青春。
+title: SANSUI | Still in the romantic youth
 layout: default
+footer_content: |
+  Living life over.
 header_content: |
-  <span class="smol"><a href="/EN">English</a> / 中文简体</span>
+  <span class="smol">English / <a href="/">简体中文</a></span>
 ---
 
+{% assign i = 0 %}
 <ul class="terminal">
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    生于1998年，中国人。
+    1998, Chinese. 
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    是环境科学与工程专业的漏网之鱼，在水务及市政领域混迹过一段时间。
+    Bachelor of Science in Environmental Science and Engineering, have done water treatment and municipal work.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    还在不断学习，人很笨，没有什么学习天赋，只有反复去琢磨去练习。
+    Still learning, though not smart, but I will try to improve myself.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    在摄影、设计、新闻传播等工作上取得过一点点小成绩 — — 果然，我是漏网之鱼。
+    Have done photography, design, news communication and other work, harvest a lot.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    我对代码是一窍不通的，只是喜欢没事的时候瞎折腾。
+    I didn't know how to program, I didn't know anything about code, just messing around with things I'm interested in.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    很想写一些东西，或是分享或是吐槽一下<a href="/notes">自己生活中遇到的事情</a>。
+    I want to <a href="/notes">write something</a>, or share something or make fun of something in my life.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    总是会看到悲欢喜乐，总是会想要描绘出来。
+    Always see joys and sorrows, always want to describe the beauty of the present.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    可惜自己没有那么好的文笔，对能用语言或文字表达出来的那些人，唯有艳羡。
+    Unfortunately, I am not so good at writing, I envy those who can express themselves in words and writing.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
@@ -54,32 +57,33 @@ header_content: |
 
 <hr class="hr">
 
-<h2 class="text">瞎折腾</h2>
+<h2 class="text">Sundries</h2>
 <ul class="terminal">
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    对代码虽然是不懂，但是胡乱折腾还是让我在互联网这片大海上不至于到处漂流。
+    Although do not know programming, but these personal station or let me in the Internet this piece of the sea will not drift everywhere.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    于是就编成了几个莫名的小舟。
+    So, made a few small boats like this.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    把自己的生活记录在<a href="https://sansuiz.github.io/">BLOG</a>上。
+    I <a href="https://sansuiz.github.io/">Blog</a> about my life.
   {% endcapture %}{% include line.html i=i content=content %}
 
   {% assign i = i | plus: 1 %}
   {% capture content do %}
-    把自己的三岁文学放在一个简单的<a href="https://sansuiz.github.io/">文集</a>里。
+    I put all my essays in the<a href="https://sansuiz.github.io/">WENJI</a>。
   {% endcapture %}{% include line.html i=i content=content %}
 </ul>
 
 <hr class="hr">
 
-<h2 class="text">文章 <span class="smol"><a href="/feed.xml">【订】</a></span></h2>
+<h2 class="text">Posts <span class="smol"><a href="/feed.xml">[feed]</a></span></h2>
+
 <ul aria-label="posts" class="terminal">
 {% assign posts = site.pages | where: "feature", 1 %}
 {% for post in posts %}
@@ -96,13 +100,12 @@ header_content: |
     <a href="{{ post.url }}">{{ post.title }}</a> <time>{{ post.date | date_to_string }}</time>
   {% endcapture %}{% include line.html i=i content=content %}
 {% endfor %}
-
 </ul>
 
 <hr class="hr">
 
 {% assign note = site.data.notes[0] %}
-<h2 class="text">最近的便签 <a href="/notes" class="smol">【全】</a> <span class="smol">[{{ note.date | date: "%b %d, %Y" }}]</span></h2>
+<h2 class="text">Latest note <a href="/notes" class="smol">[all]</a> <span class="smol">[{{ note.date | date: "%b %d, %Y" }}]</span></h2>
 <div class="note">
   {{ note.content | markdownify }}
 </div>

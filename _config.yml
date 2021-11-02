@@ -1,31 +1,15 @@
-title:            Ben Brostoff
-description:
-url:     https://sansuiz.github.io
-signoff:          "ben"
-disqus_shortname: # disqus comment thread for post header options. ( leave blank if unwanted. )
-facebook_appid:   # appid for like button, remove from /_includes/share.html if unwanted.
-google_analytics: UA-51453428-1
-
-links:
-  - name:         About
-    url:          /about
-  - name:         Posts
-    url:          /
-  - name:         Book Recos
-    url:          /books
-  - name:         Email
-    url:          mailto:ben.brostoff@gmail.com
-    external:     true
-  - name:         GitHub
-    url:          http://github.com/BenBrostoff
-    external:     true
-
-# Jekyll 3 now only supports Kramdown for Markdown
+title:            SASNUI | ZHAO
+description:      这是一个叫三岁的人
+url:              https://sansuiz.github.io/
+permalink:        pretty
+timezone:         Asia/Urumqi
 kramdown:
-  # Use GitHub flavored markdown, including triple backtick fenced code blocks
-  input: GFM
-  # Jekyll 3 and GitHub Pages now only support rouge for syntax highlighting
-  syntax_highlighter: rouge
-  syntax_highlighter_opts:
-    # Use existing pygments syntax highlighting css
-    css_class: 'highlight'
+  hard_wrap: true
+sass:
+  sass_dir: assets
+  style: :compressed
+collections:
+  notes:
+    output: false
+  pages:
+    output: true

@@ -28,6 +28,10 @@ image_text: |
 [低头族](https://blog.dtz9.com/)
 
 
+<p><b>评论</b>请移步 <a href="https://sansuiz.notion.site/SANSUI-cae4a95f0006426497772337466074e8"> SANSUIZ | Notion </a></p>
+<p><b>反馈</b>请移步 <a href="https://support.qq.com/products/315295"> SANSUIZ | 兔小巢 </a> </p>
+
+
 <style>
   h2 + p { margin-top: -1.2em; font-size: .8em; }
   article ul { list-style: square; }

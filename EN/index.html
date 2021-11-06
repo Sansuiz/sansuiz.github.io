@@ -78,6 +78,11 @@ header_content: |
   {% capture content do %}
     I put all my essays in the<a href="/">WENJI</a>。
   {% endcapture %}{% include line.html i=i content=content %}
+
+  {% assign i = i | plus: 1 %}
+  {% capture content do %}
+    My → → <a href="https://buyivi.xyz/pages/friend/">Friend</a>。
+  {% endcapture %}{% include line.html i=i content=content %}
 </ul>
 
 <hr class="hr">

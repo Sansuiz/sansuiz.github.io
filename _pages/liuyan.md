@@ -1,0 +1,27 @@
+---
+layout: default
+title: 留言
+feature: 1
+image_text: |
+---
+           
+<br>
+<h4 align="left">「游客及非Github用户留言」：</h4>    
+<div id="comments"></div>
+    <!--Leancloud 操作库:-->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <!--Valine 的核心代码库:-->
+    <script src='//lib.baomitu.com/valine/latest/Valine.min.js'></script>
+    <script>
+         new Valine({
+            av: AV,
+            el: '#comments',
+            app_id: '{{ site.valine.appid }}',
+            app_key: '{{ site.valine.appkey }}',
+            placeholder: '{{ site.valine.placeholder }}',
+            notify: '{{ site.valine.notify }}',
+            verify: '{{ site.valine.verify }}',
+	    recordIP: 'true',
+            enableQQ: 'true',
+        })
+    </script>

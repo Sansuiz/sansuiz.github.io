@@ -29,7 +29,7 @@ image_text: |
 
 -----
 
-<p><b>留言</b>请移步 <a href="https://support.qq.com/products/315295"> SANSUIZ | 兔小巢 </a> </p>
+<p><b>反馈</b>请移步 <a href="https://support.qq.com/products/315295"> SANSUIZ | 兔小巢 </a> </p>
 
 
 <style>

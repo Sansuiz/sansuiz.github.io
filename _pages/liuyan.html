@@ -4,15 +4,6 @@ title: 留言
 ---
            
 <p>
-    <p align="right">
-    For Me
-    <br/>
-    {{ site.signoff }}
-    <br/>
-    <span class="muted">{{ page.date | date: "at %H:%M" }}</span>
-    </p>
-    <p><b>留言</b>请移步 <a href="https://support.qq.com/products/315295"> SANSUIZ | 兔小巢 </a> </p>
-    
           <!-- Valine 评论框 start -->
              {% if site.valine.enable %}
            {% include valine_comments.html %}

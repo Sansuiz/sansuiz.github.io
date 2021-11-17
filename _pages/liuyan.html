@@ -3,23 +3,19 @@ layout: default
 title: 留言
 ---
            
-<br>
-<h4 align="left">「游客及非Github用户留言」：</h4>    
-<div id="comments"></div>
-    <!--Leancloud 操作库:-->
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <!--Valine 的核心代码库:-->
-    <script src='//lib.baomitu.com/valine/latest/Valine.min.js'></script>
-    <script>
-         new Valine({
-            av: AV,
-            el: '#comments',
-            app_id: '{{ site.valine.appid }}',
-            app_key: '{{ site.valine.appkey }}',
-            placeholder: '{{ site.valine.placeholder }}',
-            notify: '{{ site.valine.notify }}',
-            verify: '{{ site.valine.verify }}',
-	    recordIP: 'true',
-            enableQQ: 'true',
-        })
-    </script>
+<p>
+    <p align="right">
+    For Me
+    <br/>
+    {{ site.signoff }}
+    <br/>
+    <span class="muted">{{ page.date | date: "at %H:%M" }}</span>
+    </p>
+    <p><b>留言</b>请移步 <a href="https://support.qq.com/products/315295"> SANSUIZ | 兔小巢 </a> </p>
+    
+          <!-- Valine 评论框 start -->
+             {% if site.valine.enable %}
+           {% include valine_comments.html %}
+           {% endif %}
+          <!-- Valine 评论框 end -->
+  </p>

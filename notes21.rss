@@ -5,18 +5,18 @@ comment: For micro.blog only.
 {% capture srcbase %}src="{{site.url}}/{% endcapture %}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title }} notes</title>
-    <description>notes</description>
+    <title>{{ site.title }} notes21</title>
+    <description>notes21</description>
     <link>{{ site.url }}</link>
-    <atom:link href="{{ site.url }}/notes.rss" rel="self" type="application/rss+xml" />
-    <lastBuildDate>{{ site.data.notes.first.date | date_to_rfc822 }}</lastBuildDate>
-    {% for note in site.data.notes limit: 10 %}
+    <atom:link href="{{ site.url }}/notes21.rss" rel="self" type="application/rss+xml" />
+    <lastBuildDate>{{ site.data.notes21.first.date | date_to_rfc822 }}</lastBuildDate>
+    {% for note in site.data.notes21 limit: 10 %}
       <item>
         <title></title>
         <description>{{ note.content | markdownify | xml_escape }}</description>
         <pubDate>{{ note.date | date_to_rfc822 }}</pubDate>
-        <link>https://sansuiz.github.io/notes#date-{{ note.date | date: "%Y-%m-%d" }}{{ note.slug }}</link>
-        <guid isPermaLink="true">https://sansuiz.github.io/notes#date-{{ note.date | date: "%Y-%m-%d" }}{{ note.slug }}</guid>
+        <link>https://sansuiz.github.io/notes21#date-{{ note.date | date: "%Y-%m-%d" }}{{ note.slug }}</link>
+        <guid isPermaLink="true">https://sansuiz.github.io/notes21#date-{{ note.date | date: "%Y-%m-%d" }}{{ note.slug }}</guid>
       </item>
     {% endfor %}
   </channel>

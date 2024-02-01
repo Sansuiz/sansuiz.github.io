@@ -14,7 +14,7 @@ header_content: |
 
 <hr class="hr">
 
-<h2 class="text">瞎折腾</h2>
+<h2 class="text">折腾</h2>
 <ul class="terminal">
   {% assign i = i | plus: 1 %}
   {% capture content do %}
@@ -57,7 +57,7 @@ header_content: |
 <hr class="hr">
 
 {% assign note = site.data.notes[0] %}
-<h2 class="text">最近的便签 <a href="/notes" class="smol">【全】</a> <span class="smol">[{{ note.date | date: "%b %d, %Y" }}]</span></h2>
+<h2 class="text">便签 <a href="/notes" class="smol">【全】</a> <span class="smol">[{{ note.date | date: "%b %d, %Y" }}]</span></h2>
 <div class="note">
   {{ note.content | markdownify }}
 </div>

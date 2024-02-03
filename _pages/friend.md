@@ -21,9 +21,6 @@ image_text: |
 
 部分友链失效，已被清理，抱歉。
 
-<p><b>反馈</b>请移步 <a href="https://support.qq.com/products/315295"> SANSUIZ | 兔小巢 </a> </p>
-
-
 <style>
   h2 + p { margin-top: -1.2em; font-size: .8em; }
   article ul { list-style: square; }

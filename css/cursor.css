@@ -63,3 +63,6 @@
     transform: scale(0.5);
 }
 
+#cursor.html {
+    cursor: url('https://files.cnblogs.com/files/yyyzyyyz/%E6%8C%87%E9%92%88.ico'), auto;
+}

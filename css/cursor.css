@@ -28,7 +28,7 @@
 /* 全局默认鼠标指针 */
 body,
 html{
-  cursor: url('/mouse/01_normal_select.cur'),auto !important;
+  cursor: url('https://buyivi.xyz/mouse/01_normal_select.cur'),auto !important;
 }
 /* 悬停图片时的鼠标指针 */
 img{

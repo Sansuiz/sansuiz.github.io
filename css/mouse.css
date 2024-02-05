@@ -9,18 +9,18 @@
     pointer-events: none;
     transition: 0.2s ease-in-out;
     transition-property: background, opacity, transform;
-}
-
-#cursor.hidden {
+  }
+  
+  #cursor.hidden {
     opacity: 0;
-}
-
-#cursor.hover {
+  }
+  
+  #cursor.hover {
     opacity: 0.1;
     transform: scale(2.5);
-}
-
-#cursor.active {
+  }
+  
+  #cursor.active {
     opacity: 0.5;
     transform: scale(0.5);
-}
+  }

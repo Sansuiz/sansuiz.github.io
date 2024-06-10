@@ -1,0 +1,15 @@
+---
+layout: default
+title: 2022-notes
+---
+
+<ul class="2022-notes">
+{% for note in site.data.2022-notes %}
+<li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}">
+  <h2 class="note-heading">
+    <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
+  </h2>
+  {{ note.content | markdownify }}
+</li>
+{% endfor %}
+<ul>

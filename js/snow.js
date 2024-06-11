@@ -8,7 +8,7 @@ if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobil
       let e = {
           flakeCount: 50,
           minDist: 150,
-          color: "255, 255, 255",
+          color: "43, 87, 129",
           size: 2,
           speed: .5,
           opacity: .2,

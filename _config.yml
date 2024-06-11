@@ -2,7 +2,7 @@ title:            SANSUIZ
 description:      今日晴，如约而至
 url:              https://buyivi.xyz/
 permalink:        pretty
-timezone:         Asia/Urumqi
+timezone:         Asia/Shenzhen
 kramdown:
   hard_wrap: true
 sass:

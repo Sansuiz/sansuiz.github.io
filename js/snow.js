@@ -6,11 +6,11 @@ if((navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobil
   
     window && (()=>{
       let e = {
-          flakeCount: 50,
+          flakeCount: 20,
           minDist: 150,
           color: "237, 85, 106",
           size: 2,
-          speed: .5,
+          speed: .3,
           opacity: .2,
           stepsize: .5
       };

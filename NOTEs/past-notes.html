@@ -1,10 +1,10 @@
 ---
 layout: default
-title: 2021-notes
+title: past-notes
 ---
 
-<ul class="2021-notes">
-{% for note in site.data.2021-notes %}
+<ul class="past-notes">
+{% for note in site.data.past-notes %}
 <li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}">
   <h2 class="note-heading">
     <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>

@@ -2,7 +2,6 @@
 layout: default
 date: 2021-02-05
 title: 菩萨蛮，我被打成了散漫派
-feature: 1
 footer_content: "待到山花烂漫时"
 ---
 

@@ -2,7 +2,6 @@
 layout: default
 date: 2021-11-16
 title: 什么是提倡者？
-feature: 1
 footer_content: "提倡者是什么样的呢"
 ---
 

@@ -2,7 +2,7 @@
 layout: default
 title: 送给你 | JUST FOR YOU
 feature: 1
-image_text: images\tu\2021\210326.jpg
+image_text: |
 ---
 
 

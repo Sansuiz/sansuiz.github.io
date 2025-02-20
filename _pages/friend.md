@@ -17,6 +17,8 @@ image_text: |
 
 [定格咖啡馆馆长](https://kaix.in/)
 
+[彼岸临窗](https://oneblogx.com/)
+
 -----
 
 部分友链失效，已被清理，抱歉。

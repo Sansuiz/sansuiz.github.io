@@ -21,6 +21,46 @@
     <script src="/js/construct.js"></script>
     <script src="js/Mouse.js"></script><!-- 点击烟花特效 -->
 
+    <script>
+      function secondToDate(second) {
+          if (!second) {
+              return 0;
+          }
+          var time = new Array(0, 0, 0, 0, 0);
+          if (second >= 365 * 24 * 3600) {
+              time[0] = parseInt(second / (365 * 24 * 3600));
+              second %= 365 * 24 * 3600;
+          }
+          if (second >= 24 * 3600) {
+              time[1] = parseInt(second / (24 * 3600));
+              second %= 24 * 3600;
+          }
+          if (second >= 3600) {
+              time[2] = parseInt(second / 3600);
+              second %= 3600;
+          }
+          if (second >= 60) {
+              time[3] = parseInt(second / 60);
+              second %= 60;
+          }
+          if (second > 0) {
+              time[4] = second;
+          }
+          return time;
+      }</script>
+  <script type="text/javascript" language="javascript">
+      function setTime() {
+          var create_time = Math.round(new Date(Date.UTC(2019, 01, 23, 11, 42, 23)).getTime() / 1000);
+          var timestamp = Math.round((new Date().getTime() + 8 * 60 * 60 * 1000) / 1000);
+          currentTime = secondToDate((timestamp - create_time));
+          currentTimeHtml = 'Wyc‘s博客已经运行了：' + currentTime[0] + '年 ' + currentTime[1] + '天 '
+                  + currentTime[2] + '时 ' + currentTime[3] + '分 ' + currentTime[4]
+                  + '秒';
+          document.getElementById("htmer_time").innerHTML = currentTimeHtml;
+      }    setInterval(setTime, 1000);
+  </script><!-- 网站运行时间 -->
+
+
     <!-- 雪花飘落特效 -->
     <script src="/js/snow.js"></script>
 
@@ -93,7 +133,7 @@
       {% if page.footer_content %}{{ page.footer_content }}{% else %}
       花有重开日，人无再少年 :)<br>
       <p><a href="https://beian.miit.gov.cn/">蜀ICP备19032927号</a></p>
-      <span id="sitetime"></span><!-- 运行时间 -->
+      <span id="htmer_time" /></span><!-- 运行时间 -->
       {% endif %}
       <p>
         <div style="text-align: left;">

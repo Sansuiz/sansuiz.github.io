@@ -4,7 +4,7 @@ title: 便签
 ---
 
 <div class="tag-filter">
-  <h3>筛选标签：</h3>
+  <h5></h5>
   <div class="tag-checkboxes">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
@@ -147,7 +147,7 @@ function clearFilter() {
 /* 笔记标签样式 */
 .note-tags {
   margin-top: 0.8rem;
-  color: #666;
+  color: #aba8a8;
   font-size: 0.9em;
 }
 </style>

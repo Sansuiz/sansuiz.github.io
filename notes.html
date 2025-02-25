@@ -3,8 +3,9 @@ layout: default
 title: 便签
 ---
 
+<details class="details-note-tags">
+<summary class="monospace smol">可选标签</summary>
 <div class="tag-filter">
-  <h3>筛选标签：</h3>
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
@@ -19,6 +20,9 @@ title: 便签
     <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
   </div>
 </div>
+</details>
+
+<br>
 
 <ul class="notes">
 {% for note in site.data.notes %}
@@ -42,62 +46,74 @@ title: 便签
 </ul>
 
 <script>
-// 初始化筛选状态
 let selectedTag = null;
 
+// 初始化时确保显示全部笔记
 document.addEventListener('DOMContentLoaded', () => {
+  // 先强制显示所有笔记
+  document.querySelectorAll('.note').forEach(note => {
+    note.style.display = 'block';
+  });
+
+  // 再处理URL参数
   const params = new URLSearchParams(location.search);
-  selectedTag = params.get('tag');
-  if (selectedTag) {
+  const urlTag = params.get('tag');
+  if (urlTag) {
+    selectedTag = decodeURIComponent(urlTag);
     document.querySelector(`.tag-option[data-tag="${CSS.escape(selectedTag)}"]`)
       ?.classList.add('active');
     updateFilter();
   }
 });
 
-// 标签点击处理
 function toggleTagFilter(tag) {
   const tagElement = document.querySelector(`.tag-option[data-tag="${CSS.escape(tag)}"]`);
   
   if (selectedTag === tag) {
-    // 点击已选标签时清除
     clearFilter();
   } else {
-    // 移除旧选中状态
-    document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('active'));
-    // 设置新选中状态
     selectedTag = tag;
+    document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('active'));
     tagElement?.classList.add('active');
     updateFilter();
   }
 }
 
-// 更新筛选逻辑
 function updateFilter() {
   const filterStatus = document.getElementById('filterStatus');
-  filterStatus.style.display = selectedTag ? 'block' : 'none';
+  
+  // 默认显示所有笔记
+  if (!selectedTag) {
+    document.querySelectorAll('.note').forEach(note => {
+      note.style.display = 'block';
+    });
+    filterStatus.style.display = 'none';
+    return;
+  }
 
+  // 执行筛选
   document.querySelectorAll('.note').forEach(note => {
     const noteTags = note.dataset.tags.split(',');
-    note.style.display = selectedTag && noteTags.includes(selectedTag) ? 'block' : 'none';
+    note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
   });
 
   // 更新URL
   const params = new URLSearchParams();
-  if (selectedTag) params.set('tag', selectedTag);
+  params.set('tag', selectedTag);
   history.replaceState({}, '', '?' + params.toString());
+  filterStatus.style.display = 'block';
 }
 
-// 清除筛选
 function clearFilter() {
   selectedTag = null;
   document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('active'));
-  updateFilter();
+  history.replaceState({}, '', window.location.pathname);
+  updateFilter(); // 强制刷新显示
 }
 </script>
 
 <style>
-/* 标签容器 */
+/* 核心样式 */
 .tag-filter {
   margin-bottom: 2rem;
   padding: 1rem 0;
@@ -111,16 +127,15 @@ function clearFilter() {
   margin: 1rem 0;
 }
 
-/* 标签样式 */
+/* 标签动态效果 */
 .tag-option {
   position: relative;
   padding: 0.4rem 0;
   color: #666;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color 0.2s;
 }
 
-/* 动态下划线效果 */
 .tag-option::after {
   content: '';
   position: absolute;
@@ -132,10 +147,10 @@ function clearFilter() {
   transition: width 0.3s ease-out;
 }
 
-/* 悬停效果 */
 .tag-option:hover {
   color: #333;
 }
+
 .tag-option:hover::after {
   width: 100%;
 }
@@ -145,9 +160,21 @@ function clearFilter() {
   color: #222;
   font-weight: 500;
 }
+
 .tag-option.active::before {
   content: "#";
   margin-right: 0.3em;
+}
+
+/* 笔记过渡动画 */
+.note {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.note[style*="display: none"] {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
 }
 
 /* 笔记标签样式 */
@@ -157,6 +184,7 @@ function clearFilter() {
   text-decoration: none;
   margin-right: 1em;
 }
+
 .note-tags a.tag-clickable::after {
   content: '';
   position: absolute;
@@ -167,9 +195,11 @@ function clearFilter() {
   background: #333;
   transition: width 0.3s ease-out;
 }
+
 .note-tags a.tag-clickable:hover {
   color: #333;
 }
+
 .note-tags a.tag-clickable:hover::after {
   width: 100%;
 }
@@ -179,6 +209,7 @@ function clearFilter() {
   margin: 1.5rem 0;
   text-align: right;
 }
+
 .clear-btn {
   padding: 0.3rem 1rem;
   background: #f8f8f8;
@@ -187,6 +218,7 @@ function clearFilter() {
   cursor: pointer;
   transition: background 0.2s;
 }
+
 .clear-btn:hover {
   background: #eee;
 }

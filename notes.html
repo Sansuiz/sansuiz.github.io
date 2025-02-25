@@ -3,9 +3,8 @@ layout: default
 title: 便签
 ---
 
-<details class="details-note-tags">
-<summary class="monospace smol">标签索引</summary>
 <div class="tag-filter">
+  <h3>筛选标签：</h3>
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
@@ -22,9 +21,6 @@ title: 便签
     <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
   </div>
 </div>
-</details>
-
-<br>
 
 <ul class="notes">
 {% for note in site.data.notes %}
@@ -48,7 +44,6 @@ title: 便签
 </ul>
 
 <script>
-// 初始化筛选状态
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(location.search);
   const selectedTag = params.get('tag');
@@ -61,12 +56,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// 标签点击处理
 function toggleTagFilter(tag) {
   const radio = document.querySelector(`input[value="${CSS.escape(tag)}"]`);
   if (radio) {
     if (radio.checked) {
-      clearFilter(); // 点击已选标签时清除
+      clearFilter();
     } else {
       radio.checked = true;
       updateFilter();
@@ -74,39 +68,34 @@ function toggleTagFilter(tag) {
   }
 }
 
-// 更新筛选逻辑（确保默认显示全部）
 function updateFilter() {
   const selectedTag = document.querySelector('input[name="tags"]:checked')?.value;
   const filterStatus = document.getElementById('filterStatus');
   
-  // 控制清除按钮
   filterStatus.style.display = selectedTag ? 'block' : 'none';
 
-  // 过滤笔记（新增默认显示逻辑）
   document.querySelectorAll('.note').forEach(note => {
     if (!selectedTag) {
-      note.style.display = 'block'; // 无选择时显示全部
+      note.style.display = 'block';
     } else {
       const noteTags = note.dataset.tags.split(',');
       note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
     }
   });
 
-  // 更新URL
   const params = new URLSearchParams();
   if (selectedTag) params.set('tag', selectedTag);
   history.replaceState({}, '', '?' + params.toString());
 }
 
-// 清除筛选（强制显示全部）
 function clearFilter() {
   document.querySelectorAll('input[name="tags"]').forEach(radio => radio.checked = false);
-  updateFilter(); // 触发显示全部
+  updateFilter();
 }
 </script>
 
 <style>
-/* 单选标签样式 */
+/* 动态下划线版本样式 */
 .tag-filter {
   margin-bottom: 2rem;
   padding: 1rem 0;
@@ -116,25 +105,36 @@ function clearFilter() {
 .tag-options {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
+  gap: 1rem;
   margin: 1rem 0;
 }
 
 .tag-option {
   position: relative;
-  padding: 0.4rem 0.8rem;
-  background: #f0f0f0;
-  border-radius: 4px;
+  padding: 0.4rem 0;
+  color: #666;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: color 0.2s;
 }
 
-/* 隐藏原生单选按钮 */
-.tag-option input {
+/* 下划线动画 */
+.tag-option::after {
+  content: '';
   position: absolute;
-  opacity: 0;
+  left: 0;
+  bottom: -2px;
   width: 0;
-  height: 0;
+  height: 1px;
+  background: #333;
+  transition: width 0.3s ease-out;
+}
+
+.tag-option:hover {
+  color: #333;
+}
+
+.tag-option:hover::after {
+  width: 100%;
 }
 
 /* 选中状态 */
@@ -146,42 +146,50 @@ function clearFilter() {
 .tag-option input:checked + span::before {
   content: "#";
   margin-right: 0.3em;
-  color: #333;
 }
 
-.tag-option:hover {
-  background: #e0e0e0;
-}
-
-/* 可点击笔记标签 */
+/* 笔记标签样式 */
 .note-tags a.tag-clickable {
+  position: relative;
   color: #666;
   text-decoration: none;
-  margin-right: 0.8em;
-  cursor: pointer;
-  transition: all 0.2s;
+  margin-right: 1em;
+}
+
+.note-tags a.tag-clickable::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 0;
+  height: 1px;
+  background: #333;
+  transition: width 0.3s ease-out;
 }
 
 .note-tags a.tag-clickable:hover {
   color: #333;
-  text-decoration: underline;
 }
 
-/* 清除按钮 */
+.note-tags a.tag-clickable:hover::after {
+  width: 100%;
+}
+
 .filter-status {
-  margin: 1rem 0;
+  margin: 1.5rem 0;
   text-align: right;
 }
 
 .clear-btn {
-  padding: 0.3rem 0.8rem;
-  background: #f0f0f0;
-  border: 1px solid #ddd;
+  padding: 0.3rem 1rem;
+  background: #f8f8f8;
+  border: none;
   border-radius: 15px;
   cursor: pointer;
+  transition: background 0.2s;
 }
 
 .clear-btn:hover {
-  background: #e0e0e0;
+  background: #eee;
 }
 </style>

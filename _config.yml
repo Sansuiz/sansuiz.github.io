@@ -21,6 +21,9 @@ defaults:
     values:
       tags: []
 
+sass:
+  sass_dir: assets/css
+
 # Valine评论系统开关
 # Valine.
 # You can get your appid and appkey from https://leancloud.app

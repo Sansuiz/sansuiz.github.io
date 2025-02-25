@@ -3,9 +3,23 @@ layout: default
 title: 便签
 ---
 
+<!-- 过滤状态栏 -->
+<div class="filter-status" id="filterStatus" style="display:none; margin-bottom: 2rem; padding: 0.5rem; background: #f8f8f8;">
+  <span>当前筛选标签：</span>
+  <strong id="currentTag" style="color: #222;"></strong>
+  <button onclick="clearFilter()" class="clear-btn" style="margin-left: 1rem; background: none; border: 1px solid #ddd; cursor: pointer;">× 清除</button>
+</div>
+
+<!-- 笔记列表 -->
 <ul class="notes">
-{% for note in site.data.notes %}
-<li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}">
+{% assign filtered_notes = site.data.notes %}
+{% if page.url contains '?tag=' %}
+  {% assign url_tag = page.url | split: '?tag=' | last | uri_decode %}
+  {% assign filtered_notes = site.data.notes | where_exp: "note", "note.tags contains url_tag" %}
+{% endif %}
+
+{% for note in filtered_notes %}
+<li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}" data-tags="{{ note.tags | join: ',' }}">
   <h2 class="note-heading">
     <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
   </h2>
@@ -15,10 +29,47 @@ title: 便签
   {% if note.tags %}
   <div class="note-tags">
     {% for tag in note.tags %}
-    <a href="{{ site.baseurl }}/tags#{{ tag | slugify }}" class="tag-pill">#{{ tag }}</a>
+    <a href="{{ site.baseurl }}/notes?tag={{ tag | uri_escape }}" 
+       class="tag-pill" 
+       onclick="filterNotes(event, '{{ tag }}')">#{{ tag }}</a>
     {% endfor %}
   </div>
   {% endif %}
 </li>
 {% endfor %}
 </ul>
+
+<!-- 过滤脚本 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const tag = urlParams.get('tag');
+  if (tag) {
+    document.getElementById('filterStatus').style.display = 'block';
+    document.getElementById('currentTag').textContent = `#${tag}`;
+    document.querySelectorAll('.note').forEach(note => {
+      const tags = note.dataset.tags.split(',');
+      note.style.display = tags.includes(tag) ? 'block' : 'none';
+    });
+  }
+});
+
+function filterNotes(event, tag) {
+  if (event) event.preventDefault();
+  history.pushState({}, '', `?tag=${encodeURIComponent(tag)}`);
+  document.getElementById('filterStatus').style.display = 'block';
+  document.getElementById('currentTag').textContent = `#${tag}`;
+  document.querySelectorAll('.note').forEach(note => {
+    const tags = note.dataset.tags.split(',');
+    note.style.display = tags.includes(tag) ? 'block' : 'none';
+  });
+}
+
+function clearFilter() {
+  history.pushState({}, '', window.location.pathname);
+  document.getElementById('filterStatus').style.display = 'none';
+  document.querySelectorAll('.note').forEach(note => {
+    note.style.display = 'block';
+  });
+}
+</script>

@@ -1,0 +1,25 @@
+/* 小型圆角胶囊样式 */
+.note-tags {
+  margin-top: 0.6rem;
+  font-size: 0.85em;
+}
+
+.tag-pill {
+  display: inline-block;
+  padding: 0.15em 0.7em;
+  margin-right: 0.5em;
+  background: #f0f0f0;
+  border-radius: 12px;
+  color: #555;
+  text-decoration: none;
+  transition: all 0.2s;
+  line-height: 1.4;
+}
+
+/* 悬停效果 */
+.tag-pill:hover {
+  background: #e0e0e0;
+  color: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

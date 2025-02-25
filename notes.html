@@ -4,18 +4,20 @@ title: 便签
 ---
 
 <details class="details-note-tags">
-<summary class="monospace smol">Tag filter</summary>
+<summary class="monospace smol">标签索引</summary>
 <div class="tag-filter">
+  <h3>筛选标签：</h3>
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
-    <label class="tag-option">
-      <input type="radio" 
-             name="tags" 
-             value="{{ tag }}" 
-             onchange="updateFilter()">
-      <span>{{ tag }}</span>
-    </label>
+      {% assign note_count = site.data.notes | where_exp: "note", "note.tags contains tag" | size %}
+      <label class="tag-option">
+        <input type="radio" 
+               name="tags" 
+               value="{{ tag }}" 
+               onchange="updateFilter()">
+        <span>{{ tag }} ({{ note_count }})</span>
+      </label>
     {% endfor %}
   </div>
   <div class="filter-status" id="filterStatus" style="display: none;">
@@ -66,7 +68,7 @@ function toggleTagFilter(tag) {
   const radio = document.querySelector(`input[value="${CSS.escape(tag)}"]`);
   if (radio) {
     if (radio.checked) {
-      clearFilter(); // 点击已选标签时清除
+      clearFilter();
     } else {
       radio.checked = true;
       updateFilter();
@@ -74,39 +76,36 @@ function toggleTagFilter(tag) {
   }
 }
 
-// 更新筛选逻辑（确保默认显示全部）
+// 更新筛选逻辑
 function updateFilter() {
   const selectedTag = document.querySelector('input[name="tags"]:checked')?.value;
   const filterStatus = document.getElementById('filterStatus');
   
-  // 控制清除按钮
   filterStatus.style.display = selectedTag ? 'block' : 'none';
 
-  // 过滤笔记（新增默认显示逻辑）
   document.querySelectorAll('.note').forEach(note => {
     if (!selectedTag) {
-      note.style.display = 'block'; // 无选择时显示全部
+      note.style.display = 'block';
     } else {
       const noteTags = note.dataset.tags.split(',');
       note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
     }
   });
 
-  // 更新URL
   const params = new URLSearchParams();
   if (selectedTag) params.set('tag', selectedTag);
   history.replaceState({}, '', '?' + params.toString());
 }
 
-// 清除筛选（强制显示全部）
+// 清除筛选
 function clearFilter() {
   document.querySelectorAll('input[name="tags"]').forEach(radio => radio.checked = false);
-  updateFilter(); // 触发显示全部
+  updateFilter();
 }
 </script>
 
 <style>
-/* 单选标签样式 */
+/* 标签筛选栏 */
 .tag-filter {
   margin-bottom: 2rem;
   padding: 1rem 0;
@@ -151,6 +150,13 @@ function clearFilter() {
 
 .tag-option:hover {
   background: #e0e0e0;
+}
+
+/* 数量显示样式 */
+.tag-option span::after {
+  content: " (" attr(data-count) ")";
+  font-size: 0.9em;
+  opacity: 0.8;
 }
 
 /* 可点击笔记标签 */

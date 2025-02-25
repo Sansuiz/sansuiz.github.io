@@ -4,7 +4,7 @@ title: 便签
 ---
 
 <details class="details-note-tags">
-<summary class="monospace smol">标签信息</summary>
+<summary class="monospace smol">Tag filter</summary>
 <div class="tag-filter">
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
@@ -180,7 +180,7 @@ function clearFilter() {
 /* 笔记标签样式 */
 .note-tags a.tag-clickable {
   position: relative;
-  color: #666;
+  color: #acacac;
   text-decoration: none;
   margin-right: 1em;
 }

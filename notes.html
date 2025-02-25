@@ -125,4 +125,51 @@ function clearFilter() {
   font-size: 0.9em;
   color: #aba8a8;
 }
+
+/* 新增自定义复选框样式 */
+.tag-checkbox {
+  position: relative;
+  padding-left: 28px; /* 为自定义图标留出空间 */
+}
+
+.tag-checkbox input {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.tag-checkbox span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  border: 2px solid #999;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.tag-checkbox input:checked + span::before {
+  background: radial-gradient(circle, 
+    #666 30%, 
+    transparent 30%);
+  border-color: #666;
+}
+
+.tag-checkbox:hover span::before {
+  border-color: #666;
+}
+
+/* 点击动画 */
+.tag-checkbox input:active + span::before {
+  transform: translateY(-50%) scale(0.9);
+}
+
 </style>

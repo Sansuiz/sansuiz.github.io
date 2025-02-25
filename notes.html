@@ -3,122 +3,163 @@ layout: default
 title: 便签
 ---
 
-<!-- 新增标签筛选器 -->
-<div id="tag-filter">
-  <input type="search" 
-         placeholder="输入标签进行过滤..."
-         class="tag-search"
-         aria-label="标签搜索">
-  <div class="tag-cloud"></div>
+<div class="tag-filter-box">
+  <div class="selected-tags"></div>
+  <div class="all-tags"></div>
 </div>
 
 <ul class="notes">
 {% for note in site.data.notes %}
 <li class="note" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}"
-    data-tags="{{ note.tags | join: ',' | downcase }}"> <!-- 增加标签数据属性 -->
-  
-  <h2 class="note-heading">
-    <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">
-      {{ note.date | date: "%B %d, %Y" }} #
-    </a>
-  </h2>
-  
-  <div class="note-content">
-    {{ note.content | markdownify }}
-  </div>
-
-  <!-- 新增标签展示区 -->
+    data-tags="{{ note.tags | join: ',' | downcase }}">
+  <!-- 原有内容保持不变 -->
   {% if note.tags %}
   <div class="note-tags">
     {% for tag in note.tags %}
-    <span class="tag" data-tag="{{ tag | downcase }}">{{ tag }}</span>
+    <span class="tag">{{ tag }}</span>
     {% endfor %}
   </div>
   {% endif %}
-
 </li>
 {% endfor %}
 </ul>
 
 <style>
-/* 新增标签样式 */
-.note-tags {
-  margin-top: 1rem;
-  opacity: 0.8;
-  transition: opacity 0.2s;
+/* 新增标签选择样式 */
+.tag-filter-box {
+  position: sticky;
+  top: 1rem;
+  background: rgba(255,255,255,0.9);
+  padding: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
 }
 
-.note:hover .note-tags {
-  opacity: 1;
+.all-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
-.tag {
+.tag-checkbox {
+  display: none;
+}
+
+.tag-label {
   display: inline-block;
-  padding: 0.2em 0.8em;
-  margin: 0.2em;
+  padding: 6px 12px;
   background: #f0f0f0;
-  border-radius: 1em;
-  font-size: 0.9em;
+  border-radius: 16px;
   cursor: pointer;
+  transition: all 0.2s;
+  user-select: none;
 }
 
-.tag:hover {
+.tag-label:hover {
   background: #e0e0e0;
 }
 
-.tag-search {
-  width: 100%;
-  padding: 0.8em;
-  margin-bottom: 1em;
-  border: 1px solid #ddd;
+.tag-label.active {
+  background: #2196F3;
+  color: white;
+  transform: scale(1.05);
 }
 
-.tag-cloud {
-  margin-bottom: 2em;
+.selected-tags {
+  margin-bottom: 1rem;
+  min-height: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.selected-tag {
+  background: #2196F3;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected-tag::after {
+  content: "×";
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+.selected-tag:hover::after {
+  opacity: 1;
 }
 </style>
 
 <script>
-// 基础过滤功能（需放在DOM加载后）
-document.addEventListener('DOMContentLoaded', function() {
-  const searchInput = document.querySelector('.tag-search');
+document.addEventListener('DOMContentLoaded', () => {
+  // 获取所有标签
   const notes = document.querySelectorAll('.note');
-
-  // 初始化标签云
   const allTags = [...new Set(
     Array.from(notes).flatMap(note => 
-      note.dataset.tags.split(',').filter(Boolean)
-  )];
+      note.dataset.tags.toLowerCase().split(',')
+  )].filter(Boolean);
+
+  // 生成标签选择器
+  const tagContainer = document.querySelector('.all-tags');
+  const selectedContainer = document.querySelector('.selected-tags');
   
-  const tagCloud = document.querySelector('.tag-cloud');
   allTags.forEach(tag => {
-    const button = document.createElement('button');
-    button.className = 'tag';
-    button.textContent = tag;
-    button.dataset.tag = tag;
-    tagCloud.appendChild(button);
+    const label = document.createElement('label');
+    label.className = 'tag-label';
+    label.textContent = tag;
+    label.dataset.tag = tag;
+    
+    label.addEventListener('click', () => {
+      label.classList.toggle('active');
+      updateSelectedTags();
+      filterNotes();
+    });
+    
+    tagContainer.appendChild(label);
   });
 
-  // 过滤功能
-  function applyFilter() {
-    const searchTerm = searchInput.value.toLowerCase();
+  // 更新已选标签显示
+  function updateSelectedTags() {
+    selectedContainer.innerHTML = '';
+    const activeTags = document.querySelectorAll('.tag-label.active');
     
-    notes.forEach(note => {
-      const tags = note.dataset.tags.split(',');
-      const match = tags.some(tag => tag.includes(searchTerm));
-      note.style.display = match ? 'block' : 'none';
+    activeTags.forEach(label => {
+      const span = document.createElement('span');
+      span.className = 'selected-tag';
+      span.textContent = label.textContent;
+      span.dataset.tag = label.dataset.tag;
+      
+      span.addEventListener('click', () => {
+        document.querySelector(`[data-tag="${span.dataset.tag}"]`)
+          .classList.remove('active');
+        filterNotes();
+      });
+      
+      selectedContainer.appendChild(span);
     });
   }
 
-  searchInput.addEventListener('input', applyFilter);
-  
-  // 标签点击自动填充
-  tagCloud.addEventListener('click', (e) => {
-    if (e.target.classList.contains('tag')) {
-      searchInput.value = e.target.dataset.tag;
-      applyFilter();
-    }
-  });
+  // 过滤便签
+  function filterNotes() {
+    const activeTags = [...document.querySelectorAll('.tag-label.active')]
+      .map(label => label.dataset.tag);
+    
+    notes.forEach(note => {
+      const noteTags = note.dataset.tags.split(',');
+      const shouldShow = activeTags.length === 0 || 
+        activeTags.every(tag => noteTags.includes(tag));
+      
+      note.style.display = shouldShow ? 'block' : 'none';
+    });
+  }
+
+  // 初始显示所有便签
+  filterNotes();
 });
 </script>

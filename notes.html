@@ -3,8 +3,9 @@ layout: default
 title: 便签
 ---
 
+<details class="details-note-tags">
 <div class="tag-filter">
-  <h3>筛选标签：</h3>
+  <h5></h5>
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
@@ -21,6 +22,7 @@ title: 便签
     <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
   </div>
 </div>
+</details>
 
 <ul class="notes">
 {% for note in site.data.notes %}
@@ -70,7 +72,7 @@ function toggleTagFilter(tag) {
   }
 }
 
-// 更新筛选逻辑
+// 更新筛选逻辑（确保默认显示全部）
 function updateFilter() {
   const selectedTag = document.querySelector('input[name="tags"]:checked')?.value;
   const filterStatus = document.getElementById('filterStatus');
@@ -78,10 +80,14 @@ function updateFilter() {
   // 控制清除按钮
   filterStatus.style.display = selectedTag ? 'block' : 'none';
 
-  // 过滤笔记
+  // 过滤笔记（新增默认显示逻辑）
   document.querySelectorAll('.note').forEach(note => {
-    const noteTags = note.dataset.tags.split(',');
-    note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
+    if (!selectedTag) {
+      note.style.display = 'block'; // 无选择时显示全部
+    } else {
+      const noteTags = note.dataset.tags.split(',');
+      note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
+    }
   });
 
   // 更新URL
@@ -90,10 +96,10 @@ function updateFilter() {
   history.replaceState({}, '', '?' + params.toString());
 }
 
-// 清除筛选
+// 清除筛选（强制显示全部）
 function clearFilter() {
   document.querySelectorAll('input[name="tags"]').forEach(radio => radio.checked = false);
-  updateFilter();
+  updateFilter(); // 触发显示全部
 }
 </script>
 

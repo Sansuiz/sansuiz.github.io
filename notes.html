@@ -3,27 +3,21 @@ layout: default
 title: 便签
 ---
 
-<!-- 新增标签筛选栏 -->
+<!-- 标签筛选栏 -->
 <div class="tag-filter">
-  <h3>选择标签组合筛选：</h3>
-  <div class="tags-checkbox">
+  <h3>筛选标签：</h3>
+  <div class="tag-checkboxes">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
-      <label class="tag-option">
-        <input type="checkbox" 
-               name="tags" 
-               value="{{ tag }}" 
-               onchange="updateFilter()"> 
-        <span class="tag-label">{{ tag }}</span>
-      </label>
+    <label class="tag-checkbox">
+      <input type="checkbox" 
+             value="{{ tag }}" 
+             onchange="updateFilter()">
+      <span>{{ tag }}</span>
+    </label>
     {% endfor %}
   </div>
-</div>
-
-<!-- 过滤状态显示 -->
-<div class="filter-status" id="filterStatus" style="display:none;">
-  当前筛选条件：<span id="activeTags"></span>
-  <button onclick="clearFilter()" class="clear-btn">× 清除</button>
+  <button onclick="clearFilter()" class="clear-btn">清除筛选</button>
 </div>
 
 <!-- 笔记列表 -->
@@ -36,119 +30,89 @@ title: 便签
     <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
   </h2>
   {{ note.content | markdownify }}
-  
-  <!-- 标签展示 -->
-  {% if note.tags %}
   <div class="note-tags">
     {% for tag in note.tags %}#{{ tag }} {% endfor %}
   </div>
-  {% endif %}
 </li>
 {% endfor %}
 </ul>
 
 <script>
 // 初始化筛选状态
-document.addEventListener('DOMContentLoaded', function() {
-  const params = new URLSearchParams(window.location.search);
-  const tags = params.get('tags');
-  if (tags) {
-    tags.split(',').forEach(tag => {
-      document.querySelector(`input[value="${decodeURIComponent(tag)}"]`).checked = true;
-    });
-    updateFilter();
-  }
+document.addEventListener('DOMContentLoaded', () => {
+  const params = new URLSearchParams(location.search);
+  const tags = params.get('tags')?.split(',') || [];
+  tags.forEach(tag => {
+    const decodedTag = decodeURIComponent(tag);
+    const checkbox = document.querySelector(`input[value="${CSS.escape(decodedTag)}"]`);
+    if (checkbox) checkbox.checked = true;
+  });
+  updateFilter();
 });
 
-// 主过滤函数
+// 更新筛选逻辑
 function updateFilter() {
-  const selectedTags = Array.from(document.querySelectorAll('input[name="tags"]:checked'))
+  const selectedTags = Array.from(document.querySelectorAll('input:checked'))
     .map(checkbox => checkbox.value);
-  
-  // 更新显示状态
+
+  // 过滤笔记
   document.querySelectorAll('.note').forEach(note => {
     const noteTags = note.dataset.tags.split(',');
-    const shouldShow = selectedTags.every(tag => noteTags.includes(tag));
-    note.style.display = shouldShow ? 'block' : 'none';
+    const match = selectedTags.every(tag => noteTags.includes(tag));
+    note.style.display = match ? 'block' : 'none';
   });
 
-  // 更新状态栏
-  const statusBar = document.getElementById('filterStatus');
-  const tagsDisplay = document.getElementById('activeTags');
-  if (selectedTags.length > 0) {
-    statusBar.style.display = 'block';
-    tagsDisplay.innerHTML = selectedTags.map(t => `#${t}`).join(' + ');
-  } else {
-    statusBar.style.display = 'none';
-  }
-
   // 更新URL
-  const newParams = new URLSearchParams();
-  if (selectedTags.length > 0) newParams.set('tags', selectedTags);
-  history.replaceState(null, '', '?' + newParams.toString());
+  const params = new URLSearchParams();
+  if (selectedTags.length) params.set('tags', selectedTags.map(encodeURIComponent).join(','));
+  history.replaceState({}, '', '?' + params.toString());
 }
 
 // 清除筛选
 function clearFilter() {
-  document.querySelectorAll('input[name="tags"]').forEach(checkbox => checkbox.checked = false);
+  document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
   updateFilter();
 }
 </script>
 
 <style>
-/* 标签筛选栏样式 */
+/* 标签筛选栏 */
 .tag-filter {
   margin-bottom: 2rem;
-  padding: 1rem;
-  background: #f8f8f8;
-  border-radius: 8px;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
 }
 
-.tags-checkbox {
+.tag-checkboxes {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  margin-top: 1rem;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
-.tag-option {
+.tag-checkbox {
   display: flex;
   align-items: center;
-  padding: 0.6rem 1rem;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.tag-option:hover {
-  border-color: #999;
-}
-
-.tag-option input {
-  margin-right: 0.6rem;
-}
-
-.tag-label {
+  gap: 0.5rem;
   font-size: 0.9em;
-  color: #555;
+  cursor: pointer;
 }
 
-/* 状态栏样式 */
-.filter-status {
-  padding: 1rem;
-  margin: 1rem 0;
-  background: #f0f0f0;
-  border-radius: 6px;
+.tag-checkbox input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
 }
 
 .clear-btn {
-  margin-left: 1rem;
-  padding: 0.3rem 0.8rem;
-  background: #ddd;
-  border: none;
+  padding: 0.5rem 1rem;
+  background: #f0f0f0;
+  border: 1px solid #ddd;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.clear-btn:hover {
+  background: #e0e0e0;
 }
 </style>

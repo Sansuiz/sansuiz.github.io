@@ -3,20 +3,16 @@ layout: default
 title: 便签
 ---
 
-<!-- 新增标签筛选器 -->
-<div id="tag-filter">
-  <input type="search" 
-         placeholder="输入标签进行过滤..."
-         class="tag-search"
-         aria-label="标签搜索">
-  <div class="tag-cloud"></div>
+<!-- 添加标签筛选容器 -->
+<div class="tag-filter">
+  <div class="tags-list"></div>
 </div>
 
 <ul class="notes">
 {% for note in site.data.notes %}
 <li class="note" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}"
-    data-tags="{{ note.tags | join: ',' | downcase }}"> <!-- 增加标签数据属性 -->
+    {% if note.tags %}data-tags="{{ note.tags | join: ',' | downcase }}"{% endif %}>
   
   <h2 class="note-heading">
     <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">
@@ -28,131 +24,116 @@ title: 便签
     {{ note.content | markdownify }}
   </div>
 
-  <!-- 新增标签展示区 -->
   {% if note.tags %}
   <div class="note-tags">
     {% for tag in note.tags %}
-    <span class="tag" data-tag="{{ tag | downcase }}">{{ tag }}</span>
+    <span class="tag">{{ tag }}</span>
     {% endfor %}
   </div>
   {% endif %}
-
 </li>
 {% endfor %}
 </ul>
 
 <style>
-/* 新增标签样式 */
+/* 新增标签筛选样式 */
+.tag-filter {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+
+.tags-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tag-item {
+  display: inline-block;
+  padding: 6px 12px;
+  background: #e0e0e0;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag-item.active {
+  background: #2196F3;
+  color: white;
+}
+
 .note-tags {
   margin-top: 1rem;
-  opacity: 0.8;
-  transition: opacity 0.2s;
 }
 
-.note:hover .note-tags {
-  opacity: 1;
-}
-
-.tag {
+.note-tags .tag {
   display: inline-block;
-  padding: 0.2em 0.8em;
-  margin: 0.2em;
+  padding: 4px 8px;
   background: #f0f0f0;
-  border-radius: 1em;
+  border-radius: 8px;
   font-size: 0.9em;
-  cursor: pointer;
+  margin: 2px;
 }
 
-.tag:hover {
-  background: #e0e0e0;
-}
-
-.tag-search {
-  width: 100%;
-  padding: 0.8em;
-  margin-bottom: 1em;
-  border: 1px solid #ddd;
-}
-
-.tag-cloud {
-  margin-bottom: 2em;
+/* 确保默认显示笔记 */
+.note {
+  display: block !important;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 8px;
 }
 </style>
 
-<!-- 在原有HTML基础上修改以下部分 -->
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const notes = document.querySelectorAll('.note');
-    
-    // 修复1：正确处理空标签情况
-    const allTags = [...new Set(
-      Array.from(notes).flatMap(note => {
-        const tags = note.dataset.tags ? note.dataset.tags.split(',') : [];
-        return tags.map(t => t.trim().toLowerCase()).filter(Boolean);
-      })
-    )];
+// 纯前端实现标签筛选（直接嵌入在HTML中）
+document.addEventListener('DOMContentLoaded', function() {
+  // 获取所有笔记元素
+  const notes = document.querySelectorAll('.note');
   
-    // 修复2：确保标签容器存在
-    const tagContainer = document.querySelector('.all-tags');
-    if (!tagContainer) return;
-    
-    // 生成标签按钮
-    allTags.forEach(tag => {
-      const label = document.createElement('label');
-      label.className = 'tag-label';
-      label.innerHTML = `
-        <input type="checkbox" class="tag-checkbox" hidden>
-        ${tag}
-      `;
-      
-      label.addEventListener('click', () => {
-        label.classList.toggle('active');
-        filterNotes();
-      });
-      
-      tagContainer.appendChild(label);
-    });
-  
-    // 修复3：优化过滤逻辑
-    function filterNotes() {
-      const activeTags = [...document.querySelectorAll('.tag-label.active')]
-        .map(label => label.textContent.trim().toLowerCase());
-  
-      notes.forEach(note => {
-        const noteTags = note.dataset.tags 
-          ? note.dataset.tags.split(',').map(t => t.trim().toLowerCase())
-          : [];
-        
-        // 修复4：使用OR逻辑进行过滤
-        const shouldShow = activeTags.length === 0 || 
-          activeTags.some(tag => noteTags.includes(tag));
-        
-        note.style.display = shouldShow ? 'block' : 'none';
-      });
-    }
-  
-    // 初始显示所有内容
-    filterNotes();
+  // 收集所有标签（带重复检测）
+  const tagsSet = new Set();
+  notes.forEach(note => {
+    const tags = note.dataset.tags ? note.dataset.tags.split(',') : [];
+    tags.forEach(tag => tagsSet.add(tag.trim().toLowerCase()));
   });
-  </style>
-  
-  <style>
-  /* 添加关键样式修正 */
-  .note {
-    display: block; /* 确保默认显示 */
-  }
-  
-  .tag-label {
-    margin: 4px;
-    padding: 6px 12px;
-    background: #f0f0f0;
-    border-radius: 16px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  
-  .tag-label.active {
-    background: #2196F3;
-    color: white;
-  }
-  </style>
+
+  // 生成标签按钮
+  const tagsContainer = document.querySelector('.tags-list');
+  tagsSet.forEach(tag => {
+    const button = document.createElement('div');
+    button.className = 'tag-item';
+    button.textContent = tag;
+    button.dataset.tag = tag;
+    tagsContainer.appendChild(button);
+  });
+
+  // 添加点击事件
+  let selectedTags = new Set();
+  tagsContainer.addEventListener('click', (e) => {
+    const target = e.target;
+    if (!target.classList.contains('tag-item')) return;
+
+    const tag = target.dataset.tag;
+    
+    // 切换选中状态
+    target.classList.toggle('active');
+    if (selectedTags.has(tag)) {
+      selectedTags.delete(tag);
+    } else {
+      selectedTags.add(tag);
+    }
+
+    // 过滤笔记
+    notes.forEach(note => {
+      const noteTags = note.dataset.tags ? note.dataset.tags.split(',') : [];
+      const shouldShow = selectedTags.size === 0 || 
+        noteTags.some(noteTag => selectedTags.has(noteTag.trim().toLowerCase()));
+      
+      note.style.display = shouldShow ? 'block' : 'none';
+    });
+  });
+});
+</script>

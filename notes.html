@@ -79,46 +79,80 @@ title: 便签
 }
 </style>
 
+<!-- 在原有HTML基础上修改以下部分 -->
 <script>
-// 基础过滤功能（需放在DOM加载后）
-document.addEventListener('DOMContentLoaded', function() {
-  const searchInput = document.querySelector('.tag-search');
-  const notes = document.querySelectorAll('.note');
-
-  // 初始化标签云
-  const allTags = [...new Set(
-    Array.from(notes).flatMap(note => 
-      note.dataset.tags.split(',').filter(Boolean)
-  )];
-  
-  const tagCloud = document.querySelector('.tag-cloud');
-  allTags.forEach(tag => {
-    const button = document.createElement('button');
-    button.className = 'tag';
-    button.textContent = tag;
-    button.dataset.tag = tag;
-    tagCloud.appendChild(button);
-  });
-
-  // 过滤功能
-  function applyFilter() {
-    const searchTerm = searchInput.value.toLowerCase();
+  document.addEventListener('DOMContentLoaded', () => {
+    const notes = document.querySelectorAll('.note');
     
-    notes.forEach(note => {
-      const tags = note.dataset.tags.split(',');
-      const match = tags.some(tag => tag.includes(searchTerm));
-      note.style.display = match ? 'block' : 'none';
-    });
-  }
-
-  searchInput.addEventListener('input', applyFilter);
+    // 修复1：正确处理空标签情况
+    const allTags = [...new Set(
+      Array.from(notes).flatMap(note => {
+        const tags = note.dataset.tags ? note.dataset.tags.split(',') : [];
+        return tags.map(t => t.trim().toLowerCase()).filter(Boolean);
+      })
+    )];
   
-  // 标签点击自动填充
-  tagCloud.addEventListener('click', (e) => {
-    if (e.target.classList.contains('tag')) {
-      searchInput.value = e.target.dataset.tag;
-      applyFilter();
+    // 修复2：确保标签容器存在
+    const tagContainer = document.querySelector('.all-tags');
+    if (!tagContainer) return;
+    
+    // 生成标签按钮
+    allTags.forEach(tag => {
+      const label = document.createElement('label');
+      label.className = 'tag-label';
+      label.innerHTML = `
+        <input type="checkbox" class="tag-checkbox" hidden>
+        ${tag}
+      `;
+      
+      label.addEventListener('click', () => {
+        label.classList.toggle('active');
+        filterNotes();
+      });
+      
+      tagContainer.appendChild(label);
+    });
+  
+    // 修复3：优化过滤逻辑
+    function filterNotes() {
+      const activeTags = [...document.querySelectorAll('.tag-label.active')]
+        .map(label => label.textContent.trim().toLowerCase());
+  
+      notes.forEach(note => {
+        const noteTags = note.dataset.tags 
+          ? note.dataset.tags.split(',').map(t => t.trim().toLowerCase())
+          : [];
+        
+        // 修复4：使用OR逻辑进行过滤
+        const shouldShow = activeTags.length === 0 || 
+          activeTags.some(tag => noteTags.includes(tag));
+        
+        note.style.display = shouldShow ? 'block' : 'none';
+      });
     }
+  
+    // 初始显示所有内容
+    filterNotes();
   });
-});
-</script>
+  </style>
+  
+  <style>
+  /* 添加关键样式修正 */
+  .note {
+    display: block; /* 确保默认显示 */
+  }
+  
+  .tag-label {
+    margin: 4px;
+    padding: 6px 12px;
+    background: #f0f0f0;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  
+  .tag-label.active {
+    background: #2196F3;
+    color: white;
+  }
+  </style>

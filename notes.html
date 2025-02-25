@@ -3,10 +3,8 @@ layout: default
 title: 便签
 ---
 
-<!-- 添加标签筛选容器 -->
-<div class="tag-filter">
-  <div class="tags-list"></div>
-</div>
+<!-- 标签过滤器 -->
+<div class="tag-filters"></div>
 
 <ul class="notes">
 {% for note in site.data.notes %}
@@ -36,30 +34,24 @@ title: 便签
 </ul>
 
 <style>
-/* 新增标签筛选样式 */
-.tag-filter {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background: #f8f8f8;
-  border-radius: 8px;
-}
-
-.tags-list {
+/* 标签样式 */
+.tag-filters {
+  margin-bottom: 1.5rem;
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.tag-item {
+.filter-tag {
   display: inline-block;
   padding: 6px 12px;
-  background: #e0e0e0;
+  background: #f0f0f0;
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.tag-item.active {
+.filter-tag.active {
   background: #2196F3;
   color: white;
 }
@@ -71,15 +63,13 @@ title: 便签
 .note-tags .tag {
   display: inline-block;
   padding: 4px 8px;
-  background: #f0f0f0;
+  background: #f8f8f8;
   border-radius: 8px;
   font-size: 0.9em;
   margin: 2px;
 }
 
-/* 确保默认显示笔记 */
 .note {
-  display: block !important;
   margin-bottom: 2rem;
   padding: 1rem;
   border: 1px solid #eee;
@@ -88,49 +78,53 @@ title: 便签
 </style>
 
 <script>
-// 纯前端实现标签筛选（直接嵌入在HTML中）
-document.addEventListener('DOMContentLoaded', function() {
-  // 获取所有笔记元素
+document.addEventListener('DOMContentLoaded', () => {
+  // 获取所有笔记
   const notes = document.querySelectorAll('.note');
+  const filterContainer = document.querySelector('.tag-filters');
   
-  // 收集所有标签（带重复检测）
-  const tagsSet = new Set();
+  // 收集所有标签
+  const tags = new Set();
   notes.forEach(note => {
-    const tags = note.dataset.tags ? note.dataset.tags.split(',') : [];
-    tags.forEach(tag => tagsSet.add(tag.trim().toLowerCase()));
+    if (note.dataset.tags) {
+      note.dataset.tags.split(',').forEach(tag => 
+        tags.add(tag.trim().toLowerCase())
+    }
   });
 
   // 生成标签按钮
-  const tagsContainer = document.querySelector('.tags-list');
-  tagsSet.forEach(tag => {
+  tags.forEach(tag => {
     const button = document.createElement('div');
-    button.className = 'tag-item';
+    button.className = 'filter-tag';
     button.textContent = tag;
     button.dataset.tag = tag;
-    tagsContainer.appendChild(button);
+    filterContainer.appendChild(button);
   });
 
-  // 添加点击事件
+  // 过滤功能
   let selectedTags = new Set();
-  tagsContainer.addEventListener('click', (e) => {
+  filterContainer.addEventListener('click', (e) => {
     const target = e.target;
-    if (!target.classList.contains('tag-item')) return;
+    if (!target.classList.contains('filter-tag')) return;
 
     const tag = target.dataset.tag;
-    
-    // 切换选中状态
     target.classList.toggle('active');
+    
+    // 更新选中标签
     if (selectedTags.has(tag)) {
       selectedTags.delete(tag);
     } else {
       selectedTags.add(tag);
     }
 
-    // 过滤笔记
+    // 应用过滤
     notes.forEach(note => {
-      const noteTags = note.dataset.tags ? note.dataset.tags.split(',') : [];
+      const noteTags = note.dataset.tags 
+        ? note.dataset.tags.split(',').map(t => t.trim())
+        : [];
+      
       const shouldShow = selectedTags.size === 0 || 
-        noteTags.some(noteTag => selectedTags.has(noteTag.trim().toLowerCase()));
+        [...selectedTags].some(st => noteTags.includes(st));
       
       note.style.display = shouldShow ? 'block' : 'none';
     });

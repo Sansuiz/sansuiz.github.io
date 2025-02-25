@@ -3,13 +3,122 @@ layout: default
 title: 便签
 ---
 
+<!-- 新增标签筛选器 -->
+<div id="tag-filter">
+  <input type="search" 
+         placeholder="输入标签进行过滤..."
+         class="tag-search"
+         aria-label="标签搜索">
+  <div class="tag-cloud"></div>
+</div>
+
 <ul class="notes">
 {% for note in site.data.notes %}
-<li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}">
+<li class="note" 
+    id="t{{ note.date | date: "%Y%m%d%I%M" }}"
+    data-tags="{{ note.tags | join: ',' | downcase }}"> <!-- 增加标签数据属性 -->
+  
   <h2 class="note-heading">
-    <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
+    <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">
+      {{ note.date | date: "%B %d, %Y" }} #
+    </a>
   </h2>
-  {{ note.content | markdownify }}
+  
+  <div class="note-content">
+    {{ note.content | markdownify }}
+  </div>
+
+  <!-- 新增标签展示区 -->
+  {% if note.tags %}
+  <div class="note-tags">
+    {% for tag in note.tags %}
+    <span class="tag" data-tag="{{ tag | downcase }}">{{ tag }}</span>
+    {% endfor %}
+  </div>
+  {% endif %}
+
 </li>
 {% endfor %}
-<ul>
+</ul>
+
+<style>
+/* 新增标签样式 */
+.note-tags {
+  margin-top: 1rem;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.note:hover .note-tags {
+  opacity: 1;
+}
+
+.tag {
+  display: inline-block;
+  padding: 0.2em 0.8em;
+  margin: 0.2em;
+  background: #f0f0f0;
+  border-radius: 1em;
+  font-size: 0.9em;
+  cursor: pointer;
+}
+
+.tag:hover {
+  background: #e0e0e0;
+}
+
+.tag-search {
+  width: 100%;
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 1px solid #ddd;
+}
+
+.tag-cloud {
+  margin-bottom: 2em;
+}
+</style>
+
+<script>
+// 基础过滤功能（需放在DOM加载后）
+document.addEventListener('DOMContentLoaded', function() {
+  const searchInput = document.querySelector('.tag-search');
+  const notes = document.querySelectorAll('.note');
+
+  // 初始化标签云
+  const allTags = [...new Set(
+    Array.from(notes).flatMap(note => 
+      note.dataset.tags.split(',').filter(Boolean)
+  )];
+  
+  const tagCloud = document.querySelector('.tag-cloud');
+  allTags.forEach(tag => {
+    const button = document.createElement('button');
+    button.className = 'tag';
+    button.textContent = tag;
+    button.dataset.tag = tag;
+    tagCloud.appendChild(button);
+  });
+
+  // 过滤功能
+  function applyFilter() {
+    const searchTerm = searchInput.value.toLowerCase();
+    
+    notes.forEach(note => {
+      const tags = note.dataset.tags.split(',');
+      const match = tags.some(tag => tag.includes(searchTerm));
+      note.style.display = match ? 'block' : 'none';
+    });
+  }
+
+  searchInput.addEventListener('input', applyFilter);
+  
+  // 标签点击自动填充
+  tagCloud.addEventListener('click', (e) => {
+    if (e.target.classList.contains('tag')) {
+      searchInput.value = e.target.dataset.tag;
+      applyFilter();
+    }
+  });
+});
+</script>

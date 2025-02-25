@@ -3,73 +3,152 @@ layout: default
 title: 便签
 ---
 
-<!-- 过滤状态栏 -->
-<div class="filter-status" id="filterStatus" style="display:none; margin-bottom: 2rem; padding: 0.5rem; background: #f8f8f8;">
-  <span>当前筛选标签：</span>
-  <strong id="currentTag" style="color: #222;"></strong>
-  <button onclick="clearFilter()" class="clear-btn" style="margin-left: 1rem; background: none; border: 1px solid #ddd; cursor: pointer;">× 清除</button>
+<!-- 新增标签筛选栏 -->
+<div class="tag-filter">
+  <h3>选择标签组合筛选：</h3>
+  <div class="tags-checkbox">
+    {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
+    {% for tag in all_tags %}
+      <label class="tag-option">
+        <input type="checkbox" 
+               name="tags" 
+               value="{{ tag }}" 
+               onchange="updateFilter()"> 
+        <span class="tag-label">{{ tag }}</span>
+      </label>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- 过滤状态显示 -->
+<div class="filter-status" id="filterStatus" style="display:none;">
+  当前筛选条件：<span id="activeTags"></span>
+  <button onclick="clearFilter()" class="clear-btn">× 清除</button>
 </div>
 
 <!-- 笔记列表 -->
 <ul class="notes">
-{% assign filtered_notes = site.data.notes %}
-{% if page.url contains '?tag=' %}
-  {% assign url_tag = page.url | split: '?tag=' | last | uri_decode %}
-  {% assign filtered_notes = site.data.notes | where_exp: "note", "note.tags contains url_tag" %}
-{% endif %}
-
-{% for note in filtered_notes %}
-<li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}" data-tags="{{ note.tags | join: ',' }}">
+{% for note in site.data.notes %}
+<li class="note" 
+    id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
+    data-tags="{{ note.tags | join: ',' }}">
   <h2 class="note-heading">
     <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
   </h2>
   {{ note.content | markdownify }}
   
-  <!-- 标签部分 -->
+  <!-- 标签展示 -->
   {% if note.tags %}
   <div class="note-tags">
-    {% for tag in note.tags %}
-    <a href="{{ site.baseurl }}/notes?tag={{ tag | uri_escape }}" 
-       class="tag-pill" 
-       onclick="filterNotes(event, '{{ tag }}')">#{{ tag }}</a>
-    {% endfor %}
+    {% for tag in note.tags %}#{{ tag }} {% endfor %}
   </div>
   {% endif %}
 </li>
 {% endfor %}
 </ul>
 
-<!-- 过滤脚本 -->
 <script>
+// 初始化筛选状态
 document.addEventListener('DOMContentLoaded', function() {
-  const urlParams = new URLSearchParams(window.location.search);
-  const tag = urlParams.get('tag');
-  if (tag) {
-    document.getElementById('filterStatus').style.display = 'block';
-    document.getElementById('currentTag').textContent = `#${tag}`;
-    document.querySelectorAll('.note').forEach(note => {
-      const tags = note.dataset.tags.split(',');
-      note.style.display = tags.includes(tag) ? 'block' : 'none';
+  const params = new URLSearchParams(window.location.search);
+  const tags = params.get('tags');
+  if (tags) {
+    tags.split(',').forEach(tag => {
+      document.querySelector(`input[value="${decodeURIComponent(tag)}"]`).checked = true;
     });
+    updateFilter();
   }
 });
 
-function filterNotes(event, tag) {
-  if (event) event.preventDefault();
-  history.pushState({}, '', `?tag=${encodeURIComponent(tag)}`);
-  document.getElementById('filterStatus').style.display = 'block';
-  document.getElementById('currentTag').textContent = `#${tag}`;
+// 主过滤函数
+function updateFilter() {
+  const selectedTags = Array.from(document.querySelectorAll('input[name="tags"]:checked'))
+    .map(checkbox => checkbox.value);
+  
+  // 更新显示状态
   document.querySelectorAll('.note').forEach(note => {
-    const tags = note.dataset.tags.split(',');
-    note.style.display = tags.includes(tag) ? 'block' : 'none';
+    const noteTags = note.dataset.tags.split(',');
+    const shouldShow = selectedTags.every(tag => noteTags.includes(tag));
+    note.style.display = shouldShow ? 'block' : 'none';
   });
+
+  // 更新状态栏
+  const statusBar = document.getElementById('filterStatus');
+  const tagsDisplay = document.getElementById('activeTags');
+  if (selectedTags.length > 0) {
+    statusBar.style.display = 'block';
+    tagsDisplay.innerHTML = selectedTags.map(t => `#${t}`).join(' + ');
+  } else {
+    statusBar.style.display = 'none';
+  }
+
+  // 更新URL
+  const newParams = new URLSearchParams();
+  if (selectedTags.length > 0) newParams.set('tags', selectedTags);
+  history.replaceState(null, '', '?' + newParams.toString());
 }
 
+// 清除筛选
 function clearFilter() {
-  history.pushState({}, '', window.location.pathname);
-  document.getElementById('filterStatus').style.display = 'none';
-  document.querySelectorAll('.note').forEach(note => {
-    note.style.display = 'block';
-  });
+  document.querySelectorAll('input[name="tags"]').forEach(checkbox => checkbox.checked = false);
+  updateFilter();
 }
 </script>
+
+<style>
+/* 标签筛选栏样式 */
+.tag-filter {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+
+.tags-checkbox {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.tag-option {
+  display: flex;
+  align-items: center;
+  padding: 0.6rem 1rem;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tag-option:hover {
+  border-color: #999;
+}
+
+.tag-option input {
+  margin-right: 0.6rem;
+}
+
+.tag-label {
+  font-size: 0.9em;
+  color: #555;
+}
+
+/* 状态栏样式 */
+.filter-status {
+  padding: 1rem;
+  margin: 1rem 0;
+  background: #f0f0f0;
+  border-radius: 6px;
+}
+
+.clear-btn {
+  margin-left: 1rem;
+  padding: 0.3rem 0.8rem;
+  background: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+</style>

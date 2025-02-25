@@ -3,31 +3,6 @@ layout: default
 title: 便签
 ---
 
-{% assign notes = site.notes | sort: "date" | reverse %}
-{% assign tags = notes | map: "tags" | uniq | sort %}
-<style>
-  {% for tag in tags %}
-  body:has([value="{{ tag }}"]:not(:checked)) .note:has([data-tag="{{ tag }}"]) { display: none; }
-  body:has([value="{{ tag }}"]:checked) .note:has([data-tag="{{ tag }}"]) { display: block !important; }
-  {% endfor %}
-</style>
-
-<details class="details-note-tags">
-  <summary class="monospace smol">Tag filter</summary>
-  <form action="#" method="get" class="note-tags">
-    {% for tag in tags %}
-    <label class="note-tag" data-tag="{{ tag }}">
-      <input id="{{ tag | slugify }}" name="tag" value="{{ tag }}" checked type="checkbox">
-      {% assign notes_with_tag = notes | where_exp: "note", "note.tags contains tag" %}
-      {{ tag }}
-      ({{ notes_with_tag | size }})
-    </label>
-    {% endfor %}
-    <hr class="inline-hr">
-    <button type="reset" class="note-tag check-all-tag">Check all</button>
-  </form>
-</details>
-
 <ul class="notes">
 {% for note in site.data.notes %}
 <li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}">

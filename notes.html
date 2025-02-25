@@ -3,8 +3,6 @@ layout: default
 title: 便签
 ---
 
-<details class="details-note-tags">
-<summary class="monospace smol">可选标签</summary>
 <div class="tag-filter">
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
@@ -20,7 +18,6 @@ title: 便签
     <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
   </div>
 </div>
-</details>
 
 <br>
 

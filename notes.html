@@ -4,7 +4,7 @@ title: 便签
 ---
 
 <div class="tag-filter">
-  <h5></h5>
+  <h3>筛选标签：</h3>
   <div class="tag-checkboxes">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
@@ -31,13 +31,19 @@ title: 便签
   </h2>
   {{ note.content | markdownify }}
   <div class="note-tags">
-    {% for tag in note.tags %}#{{ tag }} {% endfor %}
+    {% for tag in note.tags %}
+    <a href="javascript:;" 
+       class="tag-clickable" 
+       data-tag="{{ tag }}" 
+       onclick="toggleTagFilter('{{ tag }}')">#{{ tag }}</a>
+    {% endfor %}
   </div>
 </li>
 {% endfor %}
 </ul>
 
 <script>
+// 初始化筛选状态
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(location.search);
   const tags = params.get('tags')?.split(',') || [];
@@ -49,6 +55,16 @@ document.addEventListener('DOMContentLoaded', () => {
   updateFilter();
 });
 
+// 标签点击筛选功能
+function toggleTagFilter(tag) {
+  const checkbox = document.querySelector(`input[value="${CSS.escape(tag)}"]`);
+  if (checkbox) {
+    checkbox.checked = !checkbox.checked;
+    updateFilter();
+  }
+}
+
+// 更新筛选逻辑
 function updateFilter() {
   const selectedTags = Array.from(document.querySelectorAll('input:checked'))
     .map(checkbox => checkbox.value);
@@ -70,6 +86,7 @@ function updateFilter() {
   history.replaceState({}, '', '?' + params.toString());
 }
 
+// 清除筛选
 function clearFilter() {
   document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
   updateFilter();
@@ -101,7 +118,6 @@ function clearFilter() {
   transition: all 0.2s;
 }
 
-/* 隐藏原生复选框 */
 .tag-checkbox input {
   position: absolute;
   opacity: 0;
@@ -116,14 +132,22 @@ function clearFilter() {
   color: #333;
 }
 
-/* 交互状态 */
 .tag-checkbox:hover {
   background: #e0e0e0;
 }
 
-.tag-checkbox input:checked + span {
-  color: #222;
-  font-weight: 500;
+/* 可点击笔记标签 */
+.note-tags a.tag-clickable {
+  color: #666;
+  text-decoration: none;
+  margin-right: 0.8em;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.note-tags a.tag-clickable:hover {
+  color: #333;
+  text-decoration: underline;
 }
 
 /* 清除按钮 */
@@ -142,12 +166,5 @@ function clearFilter() {
 
 .clear-btn:hover {
   background: #e0e0e0;
-}
-
-/* 笔记标签样式 */
-.note-tags {
-  margin-top: 0.8rem;
-  color: #aba8a8;
-  font-size: 0.9em;
 }
 </style>

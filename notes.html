@@ -4,8 +4,8 @@ title: 便签
 ---
 
 <details class="details-note-tags">
+<summary class="monospace smol">Tag filter</summary>
 <div class="tag-filter">
-  <h5>标签云</h5>
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}

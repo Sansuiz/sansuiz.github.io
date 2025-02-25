@@ -14,6 +14,13 @@ collections:
   pages:
     output: true
 
+defaults:
+  - scope:
+      path: ""
+      type: "notes"
+    values:
+      tags: []
+
 # Valine评论系统开关
 # Valine.
 # You can get your appid and appkey from https://leancloud.app

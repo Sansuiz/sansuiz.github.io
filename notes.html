@@ -5,86 +5,20 @@ title: 便签
 
 <ul class="notes">
 {% for note in site.data.notes %}
-<li class="note" 
-    id="t{{ note.date | date: "%Y%m%d%I%M" }}"
-    data-tags="{{ note.tags | join: ',' | downcase }}"> <!-- 增加标签数据属性 -->
-  
+<li class="note" id="t{{ note.date | date: "%Y%m%d%I%M" }}">
   <h2 class="note-heading">
-    <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">
-      {{ note.date | date: "%B %d, %Y" }} #
-    </a>
+    <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
   </h2>
+  {{ note.content | markdownify }}
   
-  <div class="note-content">
-    {{ note.content | markdownify }}
-  </div>
-
-  <!-- 新增标签展示区 -->
+  <!-- 标签部分 -->
   {% if note.tags %}
   <div class="note-tags">
     {% for tag in note.tags %}
-    <span class="tag" data-tag="{{ tag | downcase }}">{{ tag }}</span>
+    <a href="{{ site.baseurl }}/tags#{{ tag | slugify }}" class="tag-pill">#{{ tag }}</a>
     {% endfor %}
   </div>
   {% endif %}
-
 </li>
 {% endfor %}
 </ul>
-
-<style>
-/* 新增标签样式 */
-.note-tags {
-  margin-top: 1rem;
-  opacity: 0.8;
-  transition: opacity 0.2s;
-}
-
-.note:hover .note-tags {
-  opacity: 1;
-}
-
-.tag {
-  display: inline-block;
-  padding: 0.2em 0.8em;
-  margin: 0.2em;
-  background: #f0f0f0;
-  border-radius: 1em;
-  font-size: 0.9em;
-  cursor: pointer;
-}
-
-.tag:hover {
-  background: #e0e0e0;
-}
-
-.tag-cloud {
-  margin-bottom: 2em;
-}
-</style>
-
-<script>
-  // 初始化标签云
-  const allTags = [...new Set(
-    Array.from(notes).flatMap(note => 
-      note.dataset.tags.split(',').filter(Boolean)
-  )];
-  
-  const tagCloud = document.querySelector('.tag-cloud');
-  allTags.forEach(tag => {
-    const button = document.createElement('button');
-    button.className = 'tag';
-    button.textContent = tag;
-    button.dataset.tag = tag;
-    tagCloud.appendChild(button);
-  });
-  
-  // 标签点击自动填充
-  tagCloud.addEventListener('click', (e) => {
-    if (e.target.classList.contains('tag')) {
-      searchInput.value = e.target.dataset.tag;
-      applyFilter();
-    }
-  });
-});
-</script>

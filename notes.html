@@ -3,7 +3,6 @@ layout: default
 title: 便签
 ---
 
-<!-- 标签筛选栏 -->
 <div class="tag-filter">
   <h3>筛选标签：</h3>
   <div class="tag-checkboxes">
@@ -17,10 +16,11 @@ title: 便签
     </label>
     {% endfor %}
   </div>
-  <button onclick="clearFilter()" class="clear-btn">清除筛选</button>
+  <div class="filter-status" id="filterStatus" style="display: none;">
+    <button onclick="clearFilter()" id="clearFilterBtn" class="clear-btn">× 清除筛选</button>
+  </div>
 </div>
 
-<!-- 笔记列表 -->
 <ul class="notes">
 {% for note in site.data.notes %}
 <li class="note" 
@@ -38,7 +38,6 @@ title: 便签
 </ul>
 
 <script>
-// 初始化筛选状态
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(location.search);
   const tags = params.get('tags')?.split(',') || [];
@@ -50,10 +49,13 @@ document.addEventListener('DOMContentLoaded', () => {
   updateFilter();
 });
 
-// 更新筛选逻辑
 function updateFilter() {
   const selectedTags = Array.from(document.querySelectorAll('input:checked'))
     .map(checkbox => checkbox.value);
+
+  // 控制清除按钮
+  const filterStatus = document.getElementById('filterStatus');
+  filterStatus.style.display = selectedTags.length ? 'block' : 'none';
 
   // 过滤笔记
   document.querySelectorAll('.note').forEach(note => {
@@ -68,7 +70,6 @@ function updateFilter() {
   history.replaceState({}, '', '?' + params.toString());
 }
 
-// 清除筛选
 function clearFilter() {
   document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => checkbox.checked = false);
   updateFilter();
@@ -98,21 +99,30 @@ function clearFilter() {
   cursor: pointer;
 }
 
-.tag-checkbox input {
-  width: 16px;
-  height: 16px;
-  margin: 0;
+/* 清除按钮 */
+.filter-status {
+  margin: 1rem 0;
+  text-align: right;
 }
 
 .clear-btn {
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.8rem;
   background: #f0f0f0;
   border: 1px solid #ddd;
-  border-radius: 4px;
+  border-radius: 15px;
   cursor: pointer;
+  transition: all 0.2s;
 }
 
 .clear-btn:hover {
   background: #e0e0e0;
+  border-color: #ccc;
+}
+
+/* 原有标签样式 */
+.note-tags {
+  margin-top: 0.8rem;
+  font-size: 0.9em;
+  color: #666;
 }
 </style>

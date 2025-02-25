@@ -8,13 +8,11 @@ title: 便签
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
-    <label class="tag-option">
-      <input type="radio" 
-             name="tags" 
-             value="{{ tag }}" 
-             onchange="updateFilter()">
+    <div class="tag-option" 
+         data-tag="{{ tag }}"
+         onclick="toggleTagFilter('{{ tag }}')">
       <span>{{ tag }}</span>
-    </label>
+    </div>
     {% endfor %}
   </div>
   <div class="filter-status" id="filterStatus" style="display: none;">
@@ -44,58 +42,62 @@ title: 便签
 </ul>
 
 <script>
+// 初始化筛选状态
+let selectedTag = null;
+
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(location.search);
-  const selectedTag = params.get('tag');
+  selectedTag = params.get('tag');
   if (selectedTag) {
-    const radio = document.querySelector(`input[value="${CSS.escape(selectedTag)}"]`);
-    if (radio) {
-      radio.checked = true;
-      updateFilter();
-    }
+    document.querySelector(`.tag-option[data-tag="${CSS.escape(selectedTag)}"]`)
+      ?.classList.add('active');
+    updateFilter();
   }
 });
 
+// 标签点击处理
 function toggleTagFilter(tag) {
-  const radio = document.querySelector(`input[value="${CSS.escape(tag)}"]`);
-  if (radio) {
-    if (radio.checked) {
-      clearFilter();
-    } else {
-      radio.checked = true;
-      updateFilter();
-    }
+  const tagElement = document.querySelector(`.tag-option[data-tag="${CSS.escape(tag)}"]`);
+  
+  if (selectedTag === tag) {
+    // 点击已选标签时清除
+    clearFilter();
+  } else {
+    // 移除旧选中状态
+    document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('active'));
+    // 设置新选中状态
+    selectedTag = tag;
+    tagElement?.classList.add('active');
+    updateFilter();
   }
 }
 
+// 更新筛选逻辑
 function updateFilter() {
-  const selectedTag = document.querySelector('input[name="tags"]:checked')?.value;
   const filterStatus = document.getElementById('filterStatus');
-  
   filterStatus.style.display = selectedTag ? 'block' : 'none';
 
   document.querySelectorAll('.note').forEach(note => {
-    if (!selectedTag) {
-      note.style.display = 'block';
-    } else {
-      const noteTags = note.dataset.tags.split(',');
-      note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
-    }
+    const noteTags = note.dataset.tags.split(',');
+    note.style.display = selectedTag && noteTags.includes(selectedTag) ? 'block' : 'none';
   });
 
+  // 更新URL
   const params = new URLSearchParams();
   if (selectedTag) params.set('tag', selectedTag);
   history.replaceState({}, '', '?' + params.toString());
 }
 
+// 清除筛选
 function clearFilter() {
-  document.querySelectorAll('input[name="tags"]').forEach(radio => radio.checked = false);
+  selectedTag = null;
+  document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('active'));
   updateFilter();
 }
 </script>
 
 <style>
-/* 动态下划线版本样式 */
+/* 标签容器 */
 .tag-filter {
   margin-bottom: 2rem;
   padding: 1rem 0;
@@ -109,15 +111,16 @@ function clearFilter() {
   margin: 1rem 0;
 }
 
+/* 标签样式 */
 .tag-option {
   position: relative;
   padding: 0.4rem 0;
   color: #666;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: all 0.2s;
 }
 
-/* 下划线动画 */
+/* 动态下划线效果 */
 .tag-option::after {
   content: '';
   position: absolute;
@@ -129,21 +132,20 @@ function clearFilter() {
   transition: width 0.3s ease-out;
 }
 
+/* 悬停效果 */
 .tag-option:hover {
   color: #333;
 }
-
 .tag-option:hover::after {
   width: 100%;
 }
 
 /* 选中状态 */
-.tag-option input:checked + span {
+.tag-option.active {
   color: #222;
   font-weight: 500;
 }
-
-.tag-option input:checked + span::before {
+.tag-option.active::before {
   content: "#";
   margin-right: 0.3em;
 }
@@ -155,7 +157,6 @@ function clearFilter() {
   text-decoration: none;
   margin-right: 1em;
 }
-
 .note-tags a.tag-clickable::after {
   content: '';
   position: absolute;
@@ -166,20 +167,18 @@ function clearFilter() {
   background: #333;
   transition: width 0.3s ease-out;
 }
-
 .note-tags a.tag-clickable:hover {
   color: #333;
 }
-
 .note-tags a.tag-clickable:hover::after {
   width: 100%;
 }
 
+/* 清除按钮 */
 .filter-status {
   margin: 1.5rem 0;
   text-align: right;
 }
-
 .clear-btn {
   padding: 0.3rem 1rem;
   background: #f8f8f8;
@@ -188,7 +187,6 @@ function clearFilter() {
   cursor: pointer;
   transition: background 0.2s;
 }
-
 .clear-btn:hover {
   background: #eee;
 }

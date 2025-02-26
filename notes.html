@@ -115,7 +115,79 @@ function clearFilter() {
   history.replaceState({}, '', window.location.pathname);
   updateFilter();
 }
+
+// 新增图片浏览功能
+let currentImageIndex = 0;
+let currentNoteImages = [];
+
+function initImagePreview() {
+    // 为所有笔记图片添加点击事件
+    document.querySelectorAll('.note-content img').forEach((img, index) => {
+        img.style.cursor = 'zoom-in';
+        img.onclick = (e) => {
+            e.stopPropagation();
+            const note = img.closest('.note');
+            currentNoteImages = Array.from(note.querySelectorAll('img')).map(img => img.src);
+            currentImageIndex = currentNoteImages.indexOf(img.src);
+            openImageModal(img.src);
+        };
+    });
+}
+
+function openImageModal(src) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImage');
+    modal.style.display = 'flex';
+    modalImg.src = src;
+    
+    // 根据图片数量显示/隐藏导航箭头
+    document.querySelectorAll('.modal-nav').forEach(nav => {
+        nav.style.display = currentNoteImages.length > 1 ? 'block' : 'none';
+    });
+}
+
+function changeImage(direction) {
+    currentImageIndex = (currentImageIndex + direction + currentNoteImages.length) % currentNoteImages.length;
+    document.getElementById('modalImage').src = currentNoteImages[currentImageIndex];
+}
+
+// 关闭功能
+document.getElementById('imageModal').onclick = (e) => {
+    if (e.target.classList.contains('image-modal') || 
+        e.target.classList.contains('modal-close')) {
+        document.getElementById('imageModal').style.display = 'none';
+    }
+};
+
+// 键盘控制
+document.addEventListener('keydown', (e) => {
+    const modal = document.getElementById('imageModal');
+    if (modal.style.display === 'none') return;
+    
+    if (e.key === 'Escape') {
+        modal.style.display = 'none';
+    } else if (e.key === 'ArrowLeft') {
+        changeImage(-1);
+    } else if (e.key === 'ArrowRight') {
+        changeImage(1);
+    }
+});
+
+// 在DOM加载后初始化
+document.addEventListener('DOMContentLoaded', () => {
+    initImagePreview(); // 新增初始化调用
+    // ...原有初始化代码...
+});
 </script>
+
+<div class="image-modal" id="imageModal">
+  <span class="modal-close">&times;</span>
+  <div class="modal-content">
+      <img class="modal-image" id="modalImage" src="" alt="">
+      <div class="modal-nav modal-prev" onclick="changeImage(-1)">❮</div>
+      <div class="modal-nav modal-next" onclick="changeImage(1)">❯</div>
+  </div>
+</div>
 
 <style>
 /* 标签筛选区样式 */
@@ -281,3 +353,71 @@ function clearFilter() {
   background: #eee;
 }
 </style>
+
+<style>
+  /* 图片放大样式 */
+  .image-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      cursor: pointer;
+  }
+  
+  .modal-content {
+      max-width: 90%;
+      max-height: 90vh;
+      position: relative;
+  }
+  
+  .modal-image {
+      max-width: 100%;
+      max-height: 90vh;
+      object-fit: contain;
+      animation: fadeIn 0.3s;
+  }
+  
+  @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+  }
+  
+  .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.2);
+      color: white;
+      padding: 1rem;
+      cursor: pointer;
+      border-radius: 50%;
+      transition: all 0.2s;
+  }
+  
+  .modal-nav:hover {
+      background: rgba(255,255,255,0.3);
+  }
+  
+  .modal-prev {
+      left: 2rem;
+  }
+  
+  .modal-next {
+      right: 2rem;
+  }
+  
+  .modal-close {
+      position: absolute;
+      top: 2rem;
+      right: 2rem;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+  }
+  </style>

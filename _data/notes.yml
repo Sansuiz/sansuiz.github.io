@@ -1,49 +1,7 @@
 - date: 2025/02/26 23:50
   content: |
     图片放大后点击切换上下图功能没有实现，而键盘操作是正常的。
-
-    新增功能的代码中，左右箭头的点击事件是通过`onclick`属性直接绑定到`changeImage`函数的：
-
-    ```html
-
-    <div class="modal-nav modal-prev" onclick="changeImage(-1)">❮</div>
-
-    <div class="modal-nav modal-next" onclick="changeImage(1)">❯</div>
-
-    ```
-
-    然而，点击这些箭头没有反应，但键盘事件有效。这可能意味着以下几个问题：
-
-    1. **事件冒泡或阻止默认行为**：点击箭头时，事件可能被父元素拦截或阻止，导致`onclick`处理函数没有被正确触发。
-    2. **作用域问题**：`changeImage`函数可能不在全局作用域中，导致`onclick`无法找到该函数。
-    3. **动态元素事件绑定**：如果箭头是动态生成的，`onclick`属性可能没有被正确绑定。
-
     在原代码中，`changeImage`函数是在一个立即调用的函数表达式（IIFE）中定义的，这意味着它被封装在闭包中，不在全局作用域。而HTML中的`onclick`属性需要全局可访问的函数。因此，`changeImage`函数无法通过`onclick`属性被访问到，导致点击箭头时找不到该函数。
-    解决方案是将事件监听器通过JavaScript动态绑定，而不是使用HTML的`onclick`属性。这样可以确保函数在正确的作用域内被调用，并且避免全局命名污染。
-    具体步骤如下：
-
-    1. **移除HTML中的`onclick`属性**：
-
-    ```html
-
-    <div class="modal-nav modal-prev">❮</div>
-
-    <div class="modal-nav modal-next">❯</div>
-
-    ```
-
-    2. **在JavaScript中动态绑定点击事件**：
-
-    ```javascript
-
-    document.querySelector('.modal-prev').addEventListener('click', () => changeImage(-1));
-
-    document.querySelector('.modal-next').addEventListener('click', () => changeImage(1));
-
-    ```
-
-    3. **确保`changeImage`函数在闭包内可访问**：由于事件监听器在闭包内部绑定，`changeImage`函数的作用域是正确的。
-    此外，还需要确保在模态框显示时正确更新箭头的显示状态，并且在动态生成箭头时重新绑定事件（如果有动态生成的情况）。
   tags: [折腾, 博客]
 
 - date: 2025/02/26 23:10

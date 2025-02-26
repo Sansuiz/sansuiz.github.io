@@ -1,3 +1,16 @@
+- date: 2025/02/26 23:10
+  content: |
+    原来的便签内容中的图片无法点击放大显示。
+    我让Deepseek帮我再次修改了代码，增加了图片放大显示功能，且多图适用。
+    最早的修改版，Deepseek把之前的样式也修改了，甚至出了问题，把标签过滤功能搞没了。
+    经过几次对话，终于成型，现在试试多图效果。
+
+    ![宝儿1](https://static.flomoapp.com/file/2025-02-27/3540/1740587615534D282138BCA442B48.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=cHjmZvfHq8wyczFY1kV2lYbHflw%3D){:width="30%"}
+    ![我和宝儿](https://static.flomoapp.com/file/2025-02-27/3540/1740587615546A943E6018FFEC8CC.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=menrqhW2i%2Bo8eS0zbQFjNGSk4dc%3D){:width="30%"}
+    ![宝儿2](https://static.flomoapp.com/file/2025-02-27/3540/1740587615543C9A0582812063373.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=W6s5%2F7qcROS2EYEMvZLmQi%2Ba1Js%3D){:width="30%"}
+  tags: [折腾, 博客]
+  image: https://static.flomoapp.com/file/2025-02-27/3540/1740587615534D282138BCA442B48.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=cHjmZvfHq8wyczFY1kV2lYbHflw%3D
+
 - date: 2025/02/26 21:20
   content: |
     再试一次。

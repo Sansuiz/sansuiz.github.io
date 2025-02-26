@@ -3,6 +3,8 @@ layout: default
 title: 便签
 ---
 
+<details class="details-note-tags">
+<summary class="monospace smol">_标签索引（该页面默认显示近三月内容）</summary>
 <div class="tag-filter">
   <h3>筛选标签：</h3>
   <div class="tag-options">
@@ -19,6 +21,9 @@ title: 便签
     <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
   </div>
 </div>
+</details>
+
+<br>
 
 <ul class="notes">
 {% for note in site.data.notes %}

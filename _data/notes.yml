@@ -1,3 +1,11 @@
+- date: 2025/02/26 21:00
+  content: |
+    试一下能不能直接调用上传至flomo的图片。
+
+    ![z](https://static.flomoapp.com/file/2025-02-26/3540/abfb033add9707a2bf2fd6b7c27439fc.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740835444&Signature=FvIXV6gjAI8yUIf0D655%2FXtYWGE%3D){:width="30%"}
+  tags: [折腾, 博客]
+  image: https://static.flomoapp.com/file/2025-02-26/3540/abfb033add9707a2bf2fd6b7c27439fc.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740835444&Signature=FvIXV6gjAI8yUIf0D655%2FXtYWGE%3D
+
 - date: 2025/02/26 16:40
   content: |
     让Deepseek帮我修改了代码。

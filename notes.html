@@ -49,12 +49,13 @@ title: 便签
 {% endfor %}
 </ul>
 
+<!-- 图片模态框 -->
 <div class="image-modal" id="imageModal">
   <span class="modal-close">&times;</span>
   <div class="modal-content">
       <img class="modal-image" id="modalImage">
-      <div class="modal-nav modal-prev" onclick="changeImage(-1)">❮</div>
-      <div class="modal-nav modal-next" onclick="changeImage(1)">❯</div>
+      <div class="modal-nav modal-prev">❮</div>
+      <div class="modal-nav modal-next">❯</div>
   </div>
 </div>
 
@@ -127,49 +128,60 @@ function clearFilter() {
 </script>
 
 <script>
-  // 独立图片功能模块（不影响原有JS）
+  // 修改后的独立图片模块
   (function(){
       let currentImages = [];
       let currentIndex = 0;
+      const modal = document.getElementById('imageModal');
       
       // 初始化图片点击
       function initImagePreview() {
+          // 绑定箭头点击事件
+          document.querySelector('.modal-prev').addEventListener('click', () => changeImage(-1));
+          document.querySelector('.modal-next').addEventListener('click', () => changeImage(1));
+  
           document.querySelectorAll('.note-content img').forEach(img => {
               img.style.cursor = 'zoom-in';
-              img.onclick = function(e) {
+              img.addEventListener('click', function(e) {
                   e.stopPropagation();
                   const note = this.closest('.note');
                   currentImages = [...note.querySelectorAll('img')].map(i => i.src);
                   currentIndex = currentImages.indexOf(this.src);
                   openModal(this.src);
-              };
+              });
           });
       }
   
       function openModal(src) {
-          const modal = document.getElementById('imageModal');
           document.getElementById('modalImage').src = src;
           modal.style.display = 'flex';
-          document.querySelectorAll('.modal-nav').forEach(nav => {
-              nav.style.display = currentImages.length > 1 ? 'block' : 'none';
-          });
+          updateNavVisibility();
       }
   
       function changeImage(step) {
           currentIndex = (currentIndex + step + currentImages.length) % currentImages.length;
           document.getElementById('modalImage').src = currentImages[currentIndex];
+          updateNavVisibility();
       }
   
-      // 事件绑定
-      document.getElementById('imageModal').onclick = function(e) {
+      function updateNavVisibility() {
+          const arrows = document.querySelectorAll('.modal-nav');
+          arrows.forEach(arrow => {
+              arrow.style.display = currentImages.length > 1 ? 'block' : 'none';
+          });
+      }
+  
+      // 关闭逻辑
+      modal.addEventListener('click', function(e) {
           if(e.target === this || e.target.classList.contains('modal-close')) {
               this.style.display = 'none';
           }
-      };
+      });
       
+      // 键盘控制
       document.addEventListener('keydown', e => {
-          if(document.getElementById('imageModal').style.display === 'none') return;
-          if(e.key === 'Escape') document.getElementById('imageModal').style.display = 'none';
+          if(modal.style.display === 'none') return;
+          if(e.key === 'Escape') modal.style.display = 'none';
           if(e.key === 'ArrowLeft') changeImage(-1);
           if(e.key === 'ArrowRight') changeImage(1);
       });
@@ -180,6 +192,14 @@ function clearFilter() {
   </script>
 
 <style>
+/* 保持原有样式不变，新增以下样式 */
+.modal-nav {
+    transition: opacity 0.2s;
+}
+.modal-nav:hover {
+    opacity: 0.8;
+}
+
 /* 新增图片模态框样式（不影响原有样式） */
 .image-modal {
     position: fixed;

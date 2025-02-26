@@ -3,9 +3,8 @@ layout: default
 title: 便签
 ---
 
-<details class="details-note-tags">
-<summary class="monospace smol">_标签索引（该页面默认显示近三月内容）</summary>
 <div class="tag-filter">
+  <h3>筛选标签：</h3>
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
@@ -20,27 +19,27 @@ title: 便签
     <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
   </div>
 </div>
-</details>
-
-<br>
 
 <ul class="notes">
 {% for note in site.data.notes %}
 <li class="note" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
-    data-date="{{ note.date | date: '%s' }}"> <!-- 新增日期属性 -->
-  <h2 class="note-heading">
-    <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
-  </h2>
-  {{ note.content | markdownify }}
-  <div class="note-tags">
-    {% for tag in note.tags %}
-    <a href="javascript:;" 
-       class="tag-clickable" 
-       data-tag="{{ tag }}" 
-       onclick="toggleTagFilter('{{ tag }}')">#{{ tag }}</a>
-    {% endfor %}
+    data-date="{{ note.date | date: '%s' }}"
+    {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
+  <div class="note-content">
+    <h2 class="note-heading">
+      <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
+    </h2>
+    {{ note.content | markdownify }}
+    <div class="note-tags">
+      {% for tag in note.tags %}
+      <a href="javascript:;" 
+         class="tag-clickable" 
+         data-tag="{{ tag }}" 
+         onclick="toggleTagFilter('{{ tag }}')">#{{ tag }}</a>
+      {% endfor %}
+    </div>
   </div>
 </li>
 {% endfor %}
@@ -48,31 +47,26 @@ title: 便签
 
 <script>
 let selectedTag = null;
-const threeMonthsAgo = Date.now() - 90 * 24 * 60 * 60 * 1000; // 三个月前时间戳
+const threeMonthsAgo = Date.now() - 90 * 24 * 60 * 60 * 1000;
 
-// 初始化逻辑
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(location.search);
   const urlTag = params.get('tag');
   
-  // 默认显示所有笔记（后续再过滤）
   document.querySelectorAll('.note').forEach(note => {
     note.style.display = 'block';
   });
 
   if (urlTag) {
-    // 有标签参数时直接筛选
     selectedTag = decodeURIComponent(urlTag);
     document.querySelector(`.tag-option[data-tag="${CSS.escape(selectedTag)}"]`)
       ?.classList.add('active');
     updateFilter();
   } else {
-    // 无标签参数时应用时间过滤
     applyTimeFilter();
   }
 });
 
-// 时间过滤函数
 function applyTimeFilter() {
   document.querySelectorAll('.note').forEach(note => {
     const noteDate = parseInt(note.dataset.date) * 1000;
@@ -80,33 +74,8 @@ function applyTimeFilter() {
   });
 }
 
-// 修改后的筛选逻辑
-function updateFilter() {
-  const filterStatus = document.getElementById('filterStatus');
-  
-  if (!selectedTag) {
-    applyTimeFilter();  // 无标签时应用时间过滤
-    filterStatus.style.display = 'none';
-    return;
-  }
-
-  // 有标签时显示所有匹配项
-  document.querySelectorAll('.note').forEach(note => {
-    const noteTags = note.dataset.tags.split(',');
-    note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
-  });
-
-  // 更新URL
-  const params = new URLSearchParams();
-  params.set('tag', selectedTag);
-  history.replaceState({}, '', '?' + params.toString());
-  filterStatus.style.display = 'block';
-}
-
-// 其他保持原有功能
 function toggleTagFilter(tag) {
   const tagElement = document.querySelector(`.tag-option[data-tag="${CSS.escape(tag)}"]`);
-  
   if (selectedTag === tag) {
     clearFilter();
   } else {
@@ -117,16 +86,35 @@ function toggleTagFilter(tag) {
   }
 }
 
+function updateFilter() {
+  const filterStatus = document.getElementById('filterStatus');
+  if (!selectedTag) {
+    applyTimeFilter();
+    filterStatus.style.display = 'none';
+    return;
+  }
+
+  document.querySelectorAll('.note').forEach(note => {
+    const noteTags = note.dataset.tags.split(',');
+    note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
+  });
+
+  const params = new URLSearchParams();
+  params.set('tag', selectedTag);
+  history.replaceState({}, '', '?' + params.toString());
+  filterStatus.style.display = 'block';
+}
+
 function clearFilter() {
   selectedTag = null;
   document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('active'));
   history.replaceState({}, '', window.location.pathname);
-  updateFilter(); // 会触发时间过滤
+  updateFilter();
 }
 </script>
 
 <style>
-/* 保持原有样式 */
+/* 标签筛选区样式 */
 .tag-filter {
   margin-bottom: 2rem;
   padding: 1rem 0;
@@ -142,7 +130,7 @@ function clearFilter() {
 
 .tag-option {
   position: relative;
-  padding: 0.4rem 0;
+  padding: 0.4rem 0.8rem;
   color: #666;
   cursor: pointer;
   transition: color 0.2s;
@@ -177,19 +165,76 @@ function clearFilter() {
   margin-right: 0.3em;
 }
 
+/* 笔记卡片样式 */
 .note {
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  position: relative;
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.9);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
 }
 
-.note[style*="display: none"] {
+.note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--note-bg);
+  background-size: 150%;
+  background-position: 100% 100%;
   opacity: 0;
-  transform: translateY(-10px);
-  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
+.note::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg, 
+    rgba(255,255,255,0.9) 0%, 
+    rgba(255,255,255,0.4) 100%
+  );
+  z-index: 2;
+}
+
+.note:hover::before {
+  opacity: 0.2;
+  background-size: 120%;
+}
+
+.note-content {
+  position: relative;
+  z-index: 3;
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .note {
+    background: rgba(0,0,0,0.8);
+  }
+  .note::after {
+    background: linear-gradient(
+      135deg, 
+      rgba(0,0,0,0.9) 0%, 
+      rgba(0,0,0,0.4) 100%
+    );
+  }
+}
+
+/* 标签样式 */
 .note-tags a.tag-clickable {
   position: relative;
-  color: #c9c5c5;
+  color: #666;
   text-decoration: none;
   margin-right: 1em;
 }
@@ -213,6 +258,7 @@ function clearFilter() {
   width: 100%;
 }
 
+/* 清除按钮 */
 .filter-status {
   margin: 1.5rem 0;
   text-align: right;

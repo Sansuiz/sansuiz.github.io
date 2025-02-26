@@ -49,14 +49,32 @@ title: 便签
 {% endfor %}
 </ul>
 
+<!-- 图片模态框 -->
+<div class="image-modal" id="imageModal">
+  <span class="modal-close">&times;</span>
+  <div class="modal-content">
+      <img class="modal-image" id="modalImage" src="" alt="">
+      <div class="modal-nav modal-prev" onclick="changeImage(-1)">❮</div>
+      <div class="modal-nav modal-next" onclick="changeImage(1)">❯</div>
+  </div>
+</div>
+
 <script>
 let selectedTag = null;
 const threeMonthsAgo = Date.now() - 90 * 24 * 60 * 60 * 1000;
+
+// 图片浏览系统
+let currentImageIndex = 0;
+let currentNoteImages = [];
 
 document.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(location.search);
   const urlTag = params.get('tag');
   
+  // 初始化图片预览
+  initImagePreview();
+});
+
   document.querySelectorAll('.note').forEach(note => {
     note.style.display = 'block';
   });
@@ -115,6 +133,62 @@ function clearFilter() {
   history.replaceState({}, '', window.location.pathname);
   updateFilter();
 }
+
+/* 图片放大功能 */
+function initImagePreview() {
+  document.querySelectorAll('.note-body img').forEach(img => {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const note = this.closest('.note');
+      currentNoteImages = Array.from(note.querySelectorAll('img')).map(img => img.src);
+      currentImageIndex = currentNoteImages.indexOf(this.src);
+      openImageModal(this.src);
+    });
+  });
+}
+
+function openImageModal(src) {
+  const modal = document.getElementById('imageModal');
+  const modalImg = document.getElementById('modalImage');
+  modal.style.display = 'flex';
+  modalImg.src = src;
+  
+  document.querySelectorAll('.modal-nav').forEach(nav => {
+    nav.style.display = currentNoteImages.length > 1 ? 'block' : 'none';
+  });
+}
+
+function changeImage(direction) {
+  currentImageIndex = (currentImageIndex + direction + currentNoteImages.length) % currentNoteImages.length;
+  document.getElementById('modalImage').src = currentNoteImages[currentImageIndex];
+}
+
+// 关闭模态框
+document.getElementById('imageModal').addEventListener('click', function(e) {
+  if (e.target.classList.contains('image-modal') || 
+      e.target.classList.contains('modal-close')) {
+    this.style.display = 'none';
+  }
+});
+
+// 键盘控制
+document.addEventListener('keydown', function(e) {
+  const modal = document.getElementById('imageModal');
+  if (modal.style.display === 'none') return;
+  
+  switch(e.key) {
+    case 'Escape':
+      modal.style.display = 'none';
+      break;
+    case 'ArrowLeft':
+      changeImage(-1);
+      break;
+    case 'ArrowRight':
+      changeImage(1);
+      break;
+  }
+});
 </script>
 
 <style>
@@ -220,6 +294,62 @@ function clearFilter() {
   position: relative;
   z-index: 3;
 }
+
+/* 图片模态框样式 */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.9);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-image {
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  animation: fadeIn 0.3s;
+  border-radius: 4px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.modal-close {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  color: white;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.modal-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  color: white;
+  padding: 1rem;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.2s;
+}
+
+.modal-nav:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+.modal-prev { left: 2rem; }
+.modal-next { right: 2rem; }
 
 /* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {

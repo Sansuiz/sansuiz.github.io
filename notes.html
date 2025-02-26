@@ -3,8 +3,9 @@ layout: default
 title: 便签
 ---
 
+<details class="details-note-tags">
+<summary class="monospace smol">_标签索引（该页面默认显示近三月内容）</summary>
 <div class="tag-filter">
-  <h3>筛选标签：</h3>
   <div class="tag-options">
     {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
     {% for tag in all_tags %}
@@ -19,6 +20,9 @@ title: 便签
     <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
   </div>
 </div>
+</details>
+
+<br>
 
 <ul class="notes">
 {% for note in site.data.notes %}
@@ -26,14 +30,12 @@ title: 便签
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
     data-date="{{ note.date | date: '%s' }}"
-    {% if note.bg_image %}style="--note-bg: url('{{ note.bg_image }}')"{% endif %}>
+    {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
   <div class="note-content">
     <h2 class="note-heading">
       <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
     </h2>
-    <div class="note-body">
-      {{ note.content | markdownify }}
-    </div>
+    {{ note.content | markdownify }}
     <div class="note-tags">
       {% for tag in note.tags %}
       <a href="javascript:;" 
@@ -47,27 +49,11 @@ title: 便签
 {% endfor %}
 </ul>
 
-<!-- 图片模态框 -->
-<div class="image-modal" id="imageModal">
-    <span class="modal-close">&times;</span>
-    <div class="modal-content">
-        <img class="modal-image" id="modalImage" src="" alt="">
-        <div class="modal-nav modal-prev" onclick="changeImage(-1)">❮</div>
-        <div class="modal-nav modal-next" onclick="changeImage(1)">❯</div>
-    </div>
-</div>
-
 <script>
-// 标签筛选逻辑
 let selectedTag = null;
 const threeMonthsAgo = Date.now() - 90 * 24 * 60 * 60 * 1000;
 
-// 图片浏览逻辑
-let currentImageIndex = 0;
-let currentNoteImages = [];
-
 document.addEventListener('DOMContentLoaded', () => {
-  // 初始化筛选
   const params = new URLSearchParams(location.search);
   const urlTag = params.get('tag');
   
@@ -83,49 +69,67 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     applyTimeFilter();
   }
-
-  // 初始化图片预览
-  initImagePreview();
 });
 
-function initImagePreview() {
-  document.querySelectorAll('.note-body img').forEach((img, index) => {
-    img.style.cursor = 'zoom-in';
-    img.onclick = (e) => {
-      e.stopPropagation();
-      const note = img.closest('.note');
-      currentNoteImages = Array.from(note.querySelectorAll('img')).map(img => img.src);
-      currentImageIndex = currentNoteImages.indexOf(img.src);
-      openImageModal(img.src);
-    };
+function applyTimeFilter() {
+  document.querySelectorAll('.note').forEach(note => {
+    const noteDate = parseInt(note.dataset.date) * 1000;
+    note.style.display = noteDate > threeMonthsAgo ? 'block' : 'none';
   });
 }
 
-function openImageModal(src) {
-  const modal = document.getElementById('imageModal');
-  const modalImg = document.getElementById('modalImage');
-  modal.style.display = 'flex';
-  modalImg.src = src;
-  
-  document.querySelectorAll('.modal-nav').forEach(nav => {
-    nav.style.display = currentNoteImages.length > 1 ? 'block' : 'none';
+function toggleTagFilter(tag) {
+  const tagElement = document.querySelector(`.tag-option[data-tag="${CSS.escape(tag)}"]`);
+  if (selectedTag === tag) {
+    clearFilter();
+  } else {
+    selectedTag = tag;
+    document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('active'));
+    tagElement?.classList.add('active');
+    updateFilter();
+  }
+}
+
+function updateFilter() {
+  const filterStatus = document.getElementById('filterStatus');
+  if (!selectedTag) {
+    applyTimeFilter();
+    filterStatus.style.display = 'none';
+    return;
+  }
+
+  document.querySelectorAll('.note').forEach(note => {
+    const noteTags = note.dataset.tags.split(',');
+    note.style.display = noteTags.includes(selectedTag) ? 'block' : 'none';
   });
+
+  const params = new URLSearchParams();
+  params.set('tag', selectedTag);
+  history.replaceState({}, '', '?' + params.toString());
+  filterStatus.style.display = 'block';
 }
 
-function changeImage(direction) {
-  currentImageIndex = (currentImageIndex + direction + currentNoteImages.length) % currentNoteImages.length;
-  document.getElementById('modalImage').src = currentNoteImages[currentImageIndex];
+function clearFilter() {
+  selectedTag = null;
+  document.querySelectorAll('.tag-option').forEach(t => t.classList.remove('active'));
+  history.replaceState({}, '', window.location.pathname);
+  updateFilter();
 }
-
-// 其他功能保持不变...
 </script>
 
 <style>
-/* 标签筛选样式 */
+/* 标签筛选区样式 */
 .tag-filter {
   margin-bottom: 2rem;
   padding: 1rem 0;
   border-bottom: 1px solid #eee;
+}
+
+.tag-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
 }
 
 .tag-option {
@@ -147,8 +151,22 @@ function changeImage(direction) {
   transition: width 0.3s ease-out;
 }
 
+.tag-option:hover {
+  color: #333;
+}
+
 .tag-option:hover::after {
   width: 100%;
+}
+
+.tag-option.active {
+  color: #222;
+  font-weight: 500;
+}
+
+.tag-option.active::before {
+  content: "#";
+  margin-right: 0.3em;
 }
 
 /* 笔记卡片样式 */
@@ -178,36 +196,88 @@ function changeImage(direction) {
   z-index: 1;
 }
 
+.note::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg, 
+    rgba(255,255,255,0.9) 0%, 
+    rgba(255,255,255,0.4) 100%
+  );
+  z-index: 2;
+}
+
 .note:hover::before {
   opacity: 0.2;
   background-size: 120%;
 }
 
-/* 图片模态框样式 */
-.image-modal {
-  position: fixed;
-  top: 0;
+.note-content {
+  position: relative;
+  z-index: 3;
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .note {
+    background: rgba(0,0,0,0.8);
+  }
+  .note::after {
+    background: linear-gradient(
+      135deg, 
+      rgba(0,0,0,0.9) 0%, 
+      rgba(0,0,0,0.4) 100%
+    );
+  }
+}
+
+/* 标签样式 */
+.note-tags a.tag-clickable {
+  position: relative;
+  color: #acacac;
+  text-decoration: none;
+  margin-right: 1em;
+}
+
+.note-tags a.tag-clickable::after {
+  content: '';
+  position: absolute;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.9);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  z-index: 999;
+  bottom: -1px;
+  width: 0;
+  height: 1px;
+  background: #333;
+  transition: width 0.3s ease-out;
 }
 
-.modal-image {
-  max-width: 90vw;
-  max-height: 90vh;
-  object-fit: contain;
-  animation: fadeIn 0.3s;
+.note-tags a.tag-clickable:hover {
+  color: #333;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+.note-tags a.tag-clickable:hover::after {
+  width: 100%;
 }
 
-/* 其他样式保持不变... */
+/* 清除按钮 */
+.filter-status {
+  margin: 1.5rem 0;
+  text-align: right;
+}
+
+.clear-btn {
+  padding: 0.3rem 1rem;
+  background: #f8f8f8;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.clear-btn:hover {
+  background: #eee;
+}
 </style>

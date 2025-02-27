@@ -1,0 +1,21 @@
+- title: "东京夜色"
+  cover: "/assets/photos/tokyo/cover.jpg"
+  date: "2023-02-20"
+  location: "日本东京"
+  tags: [城市, 夜景]
+  description: 涩谷十字路口的繁忙夜景
+  images:
+    - "/assets/photos/tokyo/1.jpg"
+    - "/assets/photos/tokyo/2.jpg"
+    - "/assets/photos/tokyo/3.jpg"
+
+- title: "冰岛极光" 
+  cover: "/assets/photos/iceland/cover.jpg"
+  date: "2022-12-01"
+  location: "冰岛维克"
+  tags: [自然, 极光]
+  description: 北极光与黑沙滩的碰撞
+  images:
+    - "/assets/photos/iceland/1.jpg"
+    - "/assets/photos/iceland/2.jpg"
+    - "/assets/photos/iceland/3.jpg"

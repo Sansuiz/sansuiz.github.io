@@ -56,10 +56,15 @@ title: 书单
 
 .book-cover img {
   width: 100%;
-  height: 300px;
+  height: 200px; /* 原300px调整为200px */
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.book-card:hover img {
+  transform: scale(1.05); /* 悬停时轻微放大 */
 }
 
 .book-cover figcaption {

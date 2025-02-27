@@ -28,6 +28,15 @@ title: 书单
         {% endfor %}
         <span>({{ book.rating }})</span>
       </div>
+      <!-- 新增阅读时间 -->
+      <div class="reading-time">
+        {% if book.start_date %}
+          <div>📖 {{ book.start_date }}</div>
+        {% endif %}
+        {% if book.end_date %}
+          <div>✅ {{ book.end_date }}</div>
+        {% endif %}
+      </div>
       <p class="review">{{ book.review | markdownify }}</p>
       <div class="book-tags">
         {% for tag in book.tags %}
@@ -56,15 +65,10 @@ title: 书单
 
 .book-cover img {
   width: 100%;
-  height: 200px; /* 原300px调整为200px */
+  height: 200px; /* 修改后的高度 */
   object-fit: cover;
   border-radius: 4px;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.book-card:hover img {
-  transform: scale(1.05); /* 悬停时轻微放大 */
 }
 
 .book-cover figcaption {
@@ -111,6 +115,20 @@ title: 书单
   vertical-align: super;
 }
 
+/* 新增阅读时间样式 */
+.reading-time {
+  margin: 0.8rem 0;
+  font-size: 0.85em;
+  color: #666;
+  line-height: 1.5;
+}
+
+.reading-time div {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 /* 书评内容 */
 .review {
   line-height: 1.6;
@@ -145,6 +163,9 @@ title: 书单
   .book-tags .tag {
     background: #333;
     color: #ccc;
+  }
+  .reading-time {
+    color: #bbb;
   }
 }
 </style>

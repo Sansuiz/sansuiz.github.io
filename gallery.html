@@ -1,3 +1,4 @@
+<!-- 文件名：gallery.html -->
 ---
 layout: default
 title: 摄影作品
@@ -5,24 +6,22 @@ title: 摄影作品
 
 <div class="gallery-container">
   {% for photo in site.data.photos %}
-  <div class="photo-card" data-index="0">
-    <!-- 主展示区域 -->
-    <div class="slider-container">
-      {% for image in photo.images %}
+  <div class="photo-card">
+    <!-- 封面图 -->
+    <div class="cover-wrapper">
       <img 
-        src="{{ image }}" 
-        class="slide-image {% if forloop.first %}active{% endif %}" 
-        alt="第 {{ forloop.index }} 张"
+        src="{{ photo.cover }}" 
+        class="main-cover"
+        alt="{{ photo.title }}"
+        data-images='{{ photo.images | jsonify }}'
         loading="lazy"
       >
-      {% endfor %}
-      
-      <!-- 导航指示器 -->
-      <div class="slide-indicator">
-        {% for image in photo.images %}
-        <span class="dot {% if forloop.first %}active{% endif %}"></span>
-        {% endfor %}
-      </div>
+    </div>
+
+    <!-- 浮窗画廊 -->
+    <div class="gallery-hover">
+      <div class="carousel-track"></div>
+      <div class="counter">1/{{ photo.images.size }}</div>
     </div>
 
     <!-- 文字信息 -->
@@ -56,51 +55,91 @@ title: 摄影作品
   position: relative;
 }
 
-/* 滑动容器 */
-.slider-container {
-  position: relative;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.slide-image {
+.main-cover {
   width: 100%;
   height: 70vh;
   object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: zoom-in;
+  transition: transform 0.3s;
+}
+
+.main-cover:hover {
+  transform: scale(1.01);
+}
+
+/* 悬浮画廊 */
+.gallery-hover {
   position: absolute;
+  top: -50px;
+  left: 0;
+  width: 100%;
+  height: calc(100% + 100px);
   opacity: 0;
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+  transition: opacity 0.3s;
 }
 
-.slide-image.active {
+.cover-wrapper:hover ~ .gallery-hover,
+.gallery-hover:hover {
   opacity: 1;
-  position: relative;
-  transform: translateX(0);
+  pointer-events: all;
 }
 
-/* 导航指示器 */
-.slide-indicator {
+.carousel-track {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  background: rgba(255,255,255,0.98);
+  border-radius: 12px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transform: translateY(20px);
+  transition: transform 0.3s;
+  backdrop-filter: blur(10px);
+  height: 80vh;
+  align-items: center;
+}
+
+.photo-card:hover .carousel-track {
+  transform: translateY(0);
+}
+
+.carousel-item {
+  flex: 0 0 60%;
+  opacity: 0.3;
+  transition: 
+    flex 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.4s,
+    filter 0.4s;
+  position: relative;
+  filter: brightness(0.8);
+}
+
+.carousel-item.active {
+  flex: 0 0 80%;
+  opacity: 1;
+  z-index: 2;
+  filter: brightness(1);
+}
+
+.carousel-item img {
+  width: 100%;
+  height: 60vh;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.counter {
   position: absolute;
   bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: 8px;
-  z-index: 2;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  background: rgba(255,255,255,0.5);
-  border-radius: 50%;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.dot.active {
-  background: rgba(255,255,255,0.9);
+  right: 30px;
+  background: rgba(0,0,0,0.7);
+  color: white;
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9em;
 }
 
 /* 文字信息 */
@@ -132,6 +171,9 @@ title: 摄影作品
 
 /* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {
+  .carousel-track {
+    background: rgba(30,30,30,0.98);
+  }
   .photo-tags span {
     background: #333;
     color: #ddd;
@@ -139,69 +181,108 @@ title: 摄影作品
   .meta {
     color: #aaa;
   }
+  .counter {
+    background: rgba(255,255,255,0.2);
+  }
 }
 </style>
 
 <script>
+// 图片预加载
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.main-cover').forEach(cover => {
+    const images = JSON.parse(cover.dataset.images);
+    images.forEach(img => new Image().src = img);
+  });
+});
+
 document.querySelectorAll('.photo-card').forEach(card => {
-  let isDragging = false;
-  let startX = 0;
+  const cover = card.querySelector('.main-cover');
+  const track = card.querySelector('.carousel-track');
+  const counter = card.querySelector('.counter');
+  const images = JSON.parse(cover.dataset.images);
   let currentIndex = 0;
-  const images = card.querySelectorAll('.slide-image');
-  const dots = card.querySelectorAll('.dot');
-  const total = images.length;
 
-  // 鼠标横向滑动逻辑
-  card.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX = e.clientX;
+  // 初始化画廊
+  images.forEach((img, index) => {
+    const item = document.createElement('div');
+    item.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+    item.innerHTML = `<img src="${img}" alt="Gallery image ${index + 1}" loading="lazy">`;
+    track.appendChild(item);
   });
 
-  card.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    const deltaX = e.clientX - startX;
-    
-    // 设置滑动阈值
-    if (Math.abs(deltaX) > 50) {
-      if (deltaX > 0 && currentIndex > 0) {
-        currentIndex--;
-      } else if (deltaX < 0 && currentIndex < total - 1) {
-        currentIndex++;
-      }
-      updateSlider();
-      isDragging = false;
-    }
-  });
-
-  card.addEventListener('mouseup', () => isDragging = false);
-  card.addEventListener('mouseleave', () => isDragging = false);
-
-  // 指示器点击
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      currentIndex = index;
-      updateSlider();
-    });
-  });
-
-  function updateSlider() {
-    images.forEach((img, i) => {
-      img.classList.toggle('active', i === currentIndex);
-    });
-    dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentIndex);
-    });
+  // 更新计数显示
+  function updateCounter() {
+    counter.textContent = `${currentIndex + 1}/${images.length}`;
   }
 
-  // 键盘左右键支持
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft' && currentIndex > 0) {
-      currentIndex--;
-      updateSlider();
-    } else if (e.key === 'ArrowRight' && currentIndex < total - 1) {
-      currentIndex++;
-      updateSlider();
+  // 滚轮控制
+  let wheelTimeout;
+  card.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if (wheelTimeout) return;
+    
+    const delta = Math.sign(e.deltaY);
+    const newIndex = Math.max(0, Math.min(images.length - 1, currentIndex + delta));
+    
+    if (newIndex !== currentIndex) {
+      currentIndex = newIndex;
+      updateCarousel();
+      updateCounter();
+    }
+
+    wheelTimeout = setTimeout(() => {
+      wheelTimeout = null;
+    }, 400);
+  });
+
+  // 触摸控制
+  let touchStartX = 0;
+  card.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+  });
+  
+  card.addEventListener('touchend', (e) => {
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(deltaX) > 50) {
+      const newIndex = Math.max(0, Math.min(images.length - 1, 
+        currentIndex + (deltaX > 0 ? -1 : 1)));
+      if (newIndex !== currentIndex) {
+        currentIndex = newIndex;
+        updateCarousel();
+        updateCounter();
+      }
     }
   });
+
+  // 键盘控制
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      currentIndex = Math.max(0, currentIndex - 1);
+      updateCarousel();
+      updateCounter();
+    } else if (e.key === 'ArrowRight') {
+      currentIndex = Math.min(images.length - 1, currentIndex + 1);
+      updateCarousel();
+      updateCounter();
+    }
+  });
+
+  function updateCarousel() {
+    track.querySelectorAll('.carousel-item').forEach((item, index) => {
+      item.classList.toggle('active', index === currentIndex);
+      item.style.order = index >= currentIndex ? 1 : -1;
+    });
+    
+    // 自动滚动到中间位置
+    const activeItem = track.querySelector('.carousel-item.active');
+    track.scrollTo({
+      left: activeItem.offsetLeft - track.offsetWidth/2 + activeItem.offsetWidth/2,
+      behavior: 'smooth'
+    });
+  }
+  
+  // 初始计数器更新
+  updateCounter();
 });
 </script>

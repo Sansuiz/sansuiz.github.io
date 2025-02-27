@@ -1,13 +1,12 @@
-- title: "东京夜色"
-  cover: "https://static.flomoapp.com/file/2025-02-27/3540/1740592234674DADB17EF58CD07C9.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740851469&Signature=EBGg68rXdUkfPwHdHBBUYllg7Io%3D"
-  date: "2023-02-20"
-  location: "日本东京"
-  tags: [城市, 夜景]
-  description: 涩谷十字路口的繁忙夜景
+- title: "我们"
+  cover: "https://static.flomoapp.com/file/2025-02-27/3540/1740587615534D282138BCA442B48.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=cHjmZvfHq8wyczFY1kV2lYbHflw%3D"
+  tags: [AI, 生活]
+  description: 这是在抖音平台上传照片并用AI生成的图片，记录的是我们。
   images:
     - "https://static.flomoapp.com/file/2025-02-27/3540/1740587615534D282138BCA442B48.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=cHjmZvfHq8wyczFY1kV2lYbHflw%3D"
     - "https://static.flomoapp.com/file/2025-02-27/3540/1740592234674DADB17EF58CD07C9.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740851469&Signature=EBGg68rXdUkfPwHdHBBUYllg7Io%3D"
     - "https://static.flomoapp.com/file/2025-02-27/3540/1740587615546A943E6018FFEC8CC.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=menrqhW2i%2Bo8eS0zbQFjNGSk4dc%3D"
+    - "https://static.flomoapp.com/file/2025-02-27/3540/1740587615543C9A0582812063373.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=W6s5%2F7qcROS2EYEMvZLmQi%2Ba1Js%3D"
 
 - title: "冰岛极光" 
   cover: "https://static.flomoapp.com/file/2025-02-27/3540/1740587615543C9A0582812063373.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740846858&Signature=W6s5%2F7qcROS2EYEMvZLmQi%2Ba1Js%3D"

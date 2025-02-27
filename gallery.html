@@ -17,9 +17,11 @@ title: 摄影作品
       >
     </div>
 
-    <!-- 浮窗画廊 -->
+    <!-- 悬浮画廊 -->
     <div class="gallery-hover">
-      <div class="carousel-track"></div>
+      <div class="carousel-track">
+        <div class="carousel-container"></div>
+      </div>
       <div class="counter">1/{{ photo.images.size }}</div>
     </div>
 
@@ -64,20 +66,17 @@ title: 摄影作品
   transition: transform 0.3s;
 }
 
-.main-cover:hover {
-  transform: scale(1.01);
-}
-
 /* 悬浮画廊 */
 .gallery-hover {
   position: absolute;
-  top: -50px;
+  top: 0;
   left: 0;
   width: 100%;
-  height: calc(100% + 100px);
+  height: 100%;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
+  z-index: 100;
 }
 
 .cover-wrapper:hover ~ .gallery-hover,
@@ -87,49 +86,51 @@ title: 摄影作品
 }
 
 .carousel-track {
-  display: flex;
-  gap: 2rem;
-  padding: 2rem;
-  background: rgba(255,255,255,0.98);
-  border-radius: 12px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-  transform: translateY(20px);
-  transition: transform 0.3s;
-  backdrop-filter: blur(10px);
+  position: relative;
   height: 80vh;
-  align-items: center;
+  overflow: hidden;
 }
 
-.photo-card:hover .carousel-track {
-  transform: translateY(0);
+.carousel-container {
+  display: flex;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .carousel-item {
-  flex: 0 0 60%;
-  opacity: 0.3;
-  transition: 
-    flex 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    opacity 0.4s,
-    filter 0.4s;
+  flex: 0 0 100%;
   position: relative;
-  filter: brightness(0.8);
+  transition: 
+    opacity 0.6s,
+    transform 0.6s;
+  opacity: 0.3;
+  transform: translateX(30%) scale(0.9);
 }
 
 .carousel-item.active {
-  flex: 0 0 80%;
   opacity: 1;
+  transform: translateX(0) scale(1);
   z-index: 2;
-  filter: brightness(1);
+}
+
+.carousel-item.next {
+  transform: translateX(30%) scale(0.9);
+  opacity: 0.5;
+}
+
+.carousel-item.prev {
+  transform: translateX(-30%) scale(0.9);
+  opacity: 0;
 }
 
 .carousel-item img {
   width: 100%;
-  height: 60vh;
-  object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
 }
 
+/* 计数器 */
 .counter {
   position: absolute;
   bottom: 20px;
@@ -139,46 +140,13 @@ title: 摄影作品
   padding: 8px 15px;
   border-radius: 20px;
   font-size: 0.9em;
+  z-index: 200;
 }
 
-/* 文字信息 */
-.photo-info {
-  margin: 1.5rem 0;
-  padding: 1.5rem;
-}
-
-.meta {
-  display: flex;
-  gap: 1.5rem;
-  color: #666;
-  margin: 0.5rem 0;
-}
-
-.photo-tags {
-  margin-top: 1rem;
-  display: flex;
-  gap: 0.8rem;
-  flex-wrap: wrap;
-}
-
-.photo-tags span {
-  background: #f0f0f0;
-  padding: 0.3rem 1rem;
-  border-radius: 20px;
-  font-size: 0.9em;
-}
-
-/* 暗色模式适配 */
+/* 暗色模式 */
 @media (prefers-color-scheme: dark) {
-  .carousel-track {
-    background: rgba(30,30,30,0.98);
-  }
-  .photo-tags span {
-    background: #333;
-    color: #ddd;
-  }
-  .meta {
-    color: #aaa;
+  .carousel-item {
+    filter: brightness(0.95);
   }
   .counter {
     background: rgba(255,255,255,0.2);
@@ -187,52 +155,64 @@ title: 摄影作品
 </style>
 
 <script>
-// 图片预加载
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.main-cover').forEach(cover => {
-    const images = JSON.parse(cover.dataset.images);
-    images.forEach(img => new Image().src = img);
-  });
-});
-
 document.querySelectorAll('.photo-card').forEach(card => {
   const cover = card.querySelector('.main-cover');
-  const track = card.querySelector('.carousel-track');
+  const container = card.querySelector('.carousel-container');
   const counter = card.querySelector('.counter');
   const images = JSON.parse(cover.dataset.images);
   let currentIndex = 0;
-
-  // 初始化画廊
+  
+  // 初始化轮播项
   images.forEach((img, index) => {
     const item = document.createElement('div');
-    item.className = `carousel-item ${index === 0 ? 'active' : ''}`;
-    item.innerHTML = `<img src="${img}" alt="Gallery image ${index + 1}" loading="lazy">`;
-    track.appendChild(item);
+    item.className = 'carousel-item';
+    item.innerHTML = `<img src="${img}" alt="Photo ${index + 1}">`;
+    container.appendChild(item);
   });
 
-  // 更新计数显示
+  // 设置初始状态
+  const items = container.querySelectorAll('.carousel-item');
+  items.forEach((item, index) => {
+    item.style.order = index;
+    if(index === 0) item.classList.add('active');
+    if(index === 1) item.classList.add('next');
+  });
+
+  // 更新轮播状态
+  function updateCarousel(direction) {
+    items.forEach(item => {
+      item.classList.remove('active', 'prev', 'next');
+    });
+
+    const prevIndex = (currentIndex - 1 + images.length) % images.length;
+    const nextIndex = (currentIndex + 1) % images.length;
+
+    items[prevIndex].classList.add('prev');
+    items[currentIndex].classList.add('active');
+    items[nextIndex].classList.add('next');
+
+    // 循环布局
+    container.style.transform = `translateX(-${currentIndex * 100}%)`;
+    updateCounter();
+  }
+
+  // 更新计数器
   function updateCounter() {
     counter.textContent = `${currentIndex + 1}/${images.length}`;
   }
 
   // 滚轮控制
-  let wheelTimeout;
+  let wheelLock = false;
   card.addEventListener('wheel', (e) => {
     e.preventDefault();
-    if (wheelTimeout) return;
-    
-    const delta = Math.sign(e.deltaY);
-    const newIndex = Math.max(0, Math.min(images.length - 1, currentIndex + delta));
-    
-    if (newIndex !== currentIndex) {
-      currentIndex = newIndex;
-      updateCarousel();
-      updateCounter();
-    }
+    if(wheelLock) return;
+    wheelLock = true;
 
-    wheelTimeout = setTimeout(() => {
-      wheelTimeout = null;
-    }, 400);
+    const delta = Math.sign(e.deltaY);
+    currentIndex = (currentIndex + delta + images.length) % images.length;
+    updateCarousel(delta > 0 ? 'next' : 'prev');
+
+    setTimeout(() => wheelLock = false, 600);
   });
 
   // 触摸控制
@@ -240,48 +220,27 @@ document.querySelectorAll('.photo-card').forEach(card => {
   card.addEventListener('touchstart', (e) => {
     touchStartX = e.touches[0].clientX;
   });
-  
+
   card.addEventListener('touchend', (e) => {
     const deltaX = e.changedTouches[0].clientX - touchStartX;
-    if (Math.abs(deltaX) > 50) {
-      const newIndex = Math.max(0, Math.min(images.length - 1, 
-        currentIndex + (deltaX > 0 ? -1 : 1)));
-      if (newIndex !== currentIndex) {
-        currentIndex = newIndex;
-        updateCarousel();
-        updateCounter();
-      }
+    if(Math.abs(deltaX) > 50) {
+      currentIndex = (currentIndex + (deltaX > 0 ? -1 : 1) + images.length) % images.length;
+      updateCarousel();
     }
   });
 
   // 键盘控制
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowLeft') {
-      currentIndex = Math.max(0, currentIndex - 1);
-      updateCarousel();
-      updateCounter();
-    } else if (e.key === 'ArrowRight') {
-      currentIndex = Math.min(images.length - 1, currentIndex + 1);
-      updateCarousel();
-      updateCounter();
+    if(e.key === 'ArrowLeft') {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateCarousel('prev');
+    } else if(e.key === 'ArrowRight') {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateCarousel('next');
     }
   });
 
-  function updateCarousel() {
-    track.querySelectorAll('.carousel-item').forEach((item, index) => {
-      item.classList.toggle('active', index === currentIndex);
-      item.style.order = index >= currentIndex ? 1 : -1;
-    });
-    
-    // 自动滚动到中间位置
-    const activeItem = track.querySelector('.carousel-item.active');
-    track.scrollTo({
-      left: activeItem.offsetLeft - track.offsetWidth/2 + activeItem.offsetWidth/2,
-      behavior: 'smooth'
-    });
-  }
-  
-  // 初始计数器更新
+  // 初始更新
   updateCounter();
 });
 </script>

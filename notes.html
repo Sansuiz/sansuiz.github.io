@@ -34,6 +34,10 @@ title: 便签
   <div class="note-content">
     <h2 class="note-heading">
       <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
+      <span class="like-container" data-note-id="t{{ note.date | date: "%Y%m%d%I%M" }}">
+        <span class="like-count">0</span>
+        <span class="like-btn">♡</span>
+      </span>
     </h2>
     {{ note.content | markdownify }}
     <div class="note-tags">
@@ -189,6 +193,64 @@ function clearFilter() {
       // 初始化
       document.addEventListener('DOMContentLoaded', initImagePreview);
   })();
+
+  // ======== 新增点赞功能 ========
+// 初始化Firebase（替换为你的配置）
+firebase.initializeApp({
+  apiKey: "AIzaSyCL-dq1c7Wtcyd6sUc33J0K7AedYRha5XE",
+  authDomain: "buyivi-dianzan.firebaseapp.com",
+  projectId: "buyivi-dianzan",
+  storageBucket: "buyivi-dianzan.firebasestorage.app",
+  messagingSenderId: "618501518588",
+  appId: "1:618501518588:web:50f4ee8dcaa91985795379"
+  measurementId: "G-YTY3KNELBC"
+});
+
+// 获取数据库引用
+const db = firebase.database();
+
+// 生成用户ID
+function getUserId() {
+  let userId = localStorage.getItem('userId');
+  if (!userId) {
+    userId = 'user_' + Math.random().toString(36).substr(2, 9);
+    localStorage.setItem('userId', userId);
+  }
+  return userId;
+}
+
+// 初始化点赞状态
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.like-container').forEach(container => {
+    const noteId = container.dataset.noteId;
+    const btn = container.querySelector('.like-btn');
+    
+    // 实时更新点赞数
+    db.ref(`likes/${noteId}/count`).on('value', (snapshot) => {
+      container.querySelector('.like-count').textContent = snapshot.val() || 0;
+    });
+
+    // 更新点赞状态
+    db.ref(`likes/${noteId}/users/${getUserId()}`).on('value', (snapshot) => {
+      btn.classList.toggle('liked', snapshot.exists());
+    });
+
+    // 点击处理
+    btn.addEventListener('click', async () => {
+      const isLiked = btn.classList.contains('liked');
+      const updates = {};
+      updates[`likes/${noteId}/users/${getUserId()}`] = !isLiked;
+      updates[`likes/${noteId}/count`] = firebase.database.ServerValue.increment(isLiked ? -1 : 1);
+      
+      try {
+        await db.ref().update(updates);
+      } catch (error) {
+        console.error('点赞失败:', error);
+      }
+    });
+  });
+});
+// ======== 点赞功能结束 ========
   </script>
 
 <style>
@@ -404,5 +466,34 @@ function clearFilter() {
 
 .clear-btn:hover {
   background: #eee;
+}
+
+/* 点赞样式 */
+.like-container {
+  margin-left: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.like-btn {
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 1.2em;
+}
+
+.like-btn.liked {
+  color: #ff4081;
+  animation: pop 0.3s;
+}
+
+@keyframes pop {
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+.like-count {
+  font-size: 0.9em;
+  color: #666;
 }
 </style>

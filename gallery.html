@@ -17,22 +17,25 @@ title: 摄影作品
       >
     </div>
 
-    <!-- 全屏悬浮层 -->
-    <div class="gallery-hover">
-      <div class="carousel-track">
-        <div class="carousel-container"></div>
-      </div>
-      <div class="counter">1/{{ photo.images.size }}</div>
-      <div class="close-btn">&times;</div>
-    </div>
-
-    <!-- 文字信息 -->
-    <div class="photo-info">
+    <!-- 文字信息卡片 -->
+    <div class="info-card">
       <h3>{{ photo.title }}</h3>
       <div class="meta">
         <span>📍 {{ photo.location }}</span>
         <time>📅 {{ photo.date }}</time>
       </div>
+      <p>{{ photo.description }}</p>
+      <div class="tags">
+        {% for tag in photo.tags %}
+        <span>#{{ tag }}</span>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- 小浮窗 -->
+    <div class="mini-gallery">
+      <div class="carousel-container"></div>
+      <div class="counter">1/{{ photo.images.size }}</div>
     </div>
   </div>
   {% endfor %}
@@ -41,208 +44,171 @@ title: 摄影作品
 <style>
 /* 基础布局 */
 .gallery-container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
 }
 
 .photo-card {
-  margin: 4rem 0;
+  margin: 2rem 0;
   position: relative;
 }
 
+/* 封面图样式 */
 .main-cover {
   width: 100%;
-  height: 70vh;
+  height: 400px;
   object-fit: cover;
   border-radius: 8px;
-  cursor: zoom-in;
-  transition: transform 0.3s;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-/* 全屏悬浮层 */
-.gallery-hover {
+/* 信息卡片 */
+.info-card {
+  background: white;
+  padding: 1.5rem;
+  margin-top: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.meta {
+  color: #666;
+  font-size: 0.9em;
+  margin: 0.5rem 0;
+}
+
+.tags span {
+  display: inline-block;
+  background: #f5f5f5;
+  padding: 4px 12px;
+  border-radius: 12px;
+  margin: 4px 4px 0 0;
+  font-size: 0.85em;
+}
+
+/* 小浮窗样式 */
+.mini-gallery {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(15px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 100;
+  max-width: 800px;
+  width: 90%;
+}
+
+.mini-gallery.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.carousel-container {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding-bottom: 1rem;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel-container img {
+  scroll-snap-align: center;
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.carousel-container img:hover {
+  transform: scale(1.03);
+}
+
+.counter {
+  position: absolute;
+  top: -25px;
+  right: 0;
+  background: rgba(255,255,255,0.9);
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.9em;
+}
+
+/* 关闭遮罩 */
+.overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.9);
-  backdrop-filter: blur(25px);
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(3px);
   opacity: 0;
   pointer-events: none;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: opacity 0.3s;
+  z-index: 99;
 }
 
-/* 轮播容器 */
-.carousel-track {
-  width: 80%;
-  height: 80vh;
-  position: relative;
-  overflow: hidden;
-}
-
-.carousel-container {
-  display: flex;
-  height: 100%;
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.carousel-item {
-  flex: 0 0 100%;
-  position: relative;
-  opacity: 0;
-  transform: translateX(30%) scale(0.9);
-  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-}
-
-.carousel-item.active {
+.overlay.active {
   opacity: 1;
-  transform: translateX(0) scale(1);
-  z-index: 2;
-}
-
-.carousel-item.next {
-  opacity: 0.3;
-  transform: translateX(30%) scale(0.9);
-}
-
-.carousel-item.prev {
-  opacity: 0.3;
-  transform: translateX(-30%) scale(0.9);
-}
-
-/* 控制元素 */
-.close-btn {
-  position: fixed;
-  top: 20px;
-  right: 30px;
-  color: white;
-  font-size: 2.5em;
-  cursor: pointer;
-  transition: transform 0.3s;
-}
-
-.close-btn:hover {
-  transform: rotate(90deg);
-}
-
-.counter {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  font-size: 1.1em;
-  background: rgba(255,255,255,0.1);
-  padding: 8px 20px;
-  border-radius: 20px;
-  backdrop-filter: blur(5px);
-}
-
-/* 文字信息 */
-.photo-info {
-  position: fixed;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: white;
-  text-align: center;
-  max-width: 80%;
-  padding: 1rem 2rem;
-  background: rgba(0,0,0,0.6);
-  border-radius: 8px;
-  z-index: 1001;
-}
-
-/* 暗色模式适配 */
-@media (prefers-color-scheme: dark) {
-  .gallery-hover {
-    background: rgba(0,0,0,0.95);
-  }
-  .counter {
-    background: rgba(255,255,255,0.15);
-  }
+  pointer-events: all;
 }
 </style>
 
 <script>
-document.querySelectorAll('.photo-card').forEach(card => {
-  const cover = card.querySelector('.main-cover');
-  const container = card.querySelector('.carousel-container');
-  const hover = card.querySelector('.gallery-hover');
-  const closeBtn = card.querySelector('.close-btn');
-  let currentIndex = 0;
-
-  // 初始化轮播
-  JSON.parse(cover.dataset.images).forEach((img, index) => {
-    const item = document.createElement('div');
-    item.className = 'carousel-item';
-    item.innerHTML = `<img src="${img}" loading="lazy" alt="Photo ${index + 1}">`;
-    container.appendChild(item);
+document.querySelectorAll('.main-cover').forEach(cover => {
+  // 初始化浮窗
+  const gallery = cover.closest('.photo-card').querySelector('.mini-gallery');
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  document.body.appendChild(overlay);
+  
+  // 加载图片
+  const images = JSON.parse(cover.dataset.images);
+  images.forEach((img, index) => {
+    const imgEl = document.createElement('img');
+    imgEl.src = img;
+    imgEl.alt = `Photo ${index + 1}`;
+    gallery.querySelector('.carousel-container').appendChild(imgEl);
   });
 
-  // 更新轮播状态
-  function updateCarousel() {
-    const items = container.querySelectorAll('.carousel-item');
-    items.forEach((item, index) => {
-      item.className = 'carousel-item';
-      if(index === currentIndex) item.classList.add('active');
-      if(index === (currentIndex + 1) % items.length) item.classList.add('next');
-      if(index === (currentIndex - 1 + items.length) % items.length) item.classList.add('prev');
-    });
-    container.style.transform = `translateX(-${currentIndex * 100}%)`;
-    hover.querySelector('.counter').textContent = `${currentIndex + 1}/${items.length}`;
+  // 点击封面显示浮窗
+  cover.addEventListener('click', () => {
+    gallery.classList.add('active');
+    overlay.classList.add('active');
+    updateCounter(gallery, 1);
+  });
+
+  // 点击遮罩关闭
+  overlay.addEventListener('click', () => {
+    gallery.classList.remove('active');
+    overlay.classList.remove('active');
+  });
+
+  // 更新计数器
+  function updateCounter(gallery, current) {
+    gallery.querySelector('.counter').textContent = `${current}/${images.length}`;
   }
 
-  // 交互事件
-  cover.addEventListener('mouseenter', () => {
-    hover.style.opacity = 1;
-    hover.style.pointerEvents = 'all';
-    document.body.style.overflow = 'hidden';
-    updateCarousel();
-  });
-
-  closeBtn.addEventListener('click', () => {
-    hover.style.opacity = 0;
-    hover.style.pointerEvents = 'none';
-    document.body.style.overflow = '';
-  });
-
-  // 滚轮控制
-  let wheelLock = false;
-  card.addEventListener('wheel', (e) => {
-    e.preventDefault();
-    if(wheelLock) return;
-    wheelLock = true;
-    
-    currentIndex = (currentIndex + Math.sign(e.deltaY) + container.children.length) % container.children.length;
-    updateCarousel();
-    
-    setTimeout(() => wheelLock = false, 600);
-  });
-
-  // 触摸控制
-  let touchStartX = 0;
-  card.addEventListener('touchstart', (e) => touchStartX = e.touches[0].clientX);
-  card.addEventListener('touchend', (e) => {
-    const delta = e.changedTouches[0].clientX - touchStartX;
-    if(Math.abs(delta) > 50) {
-      currentIndex = (currentIndex + (delta > 0 ? -1 : 1) + container.children.length) % container.children.length;
-      updateCarousel();
-    }
-  });
-
-  // 键盘控制
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'ArrowLeft') currentIndex = (currentIndex - 1 + container.children.length) % container.children.length;
-    if(e.key === 'ArrowRight') currentIndex = (currentIndex + 1) % container.children.length;
-    if(['ArrowLeft', 'ArrowRight'].includes(e.key)) updateCarousel();
+  // 滑动检测
+  let isDragging = false;
+  let startX = 0;
+  const container = gallery.querySelector('.carousel-container');
+  
+  container.addEventListener('scroll', () => {
+    const current = Math.round(container.scrollLeft / 300) + 1;
+    updateCounter(gallery, current);
   });
 });
 </script>

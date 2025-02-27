@@ -5,27 +5,33 @@ title: 摄影作品
 
 <div class="gallery-container">
   {% for photo in site.data.photos %}
-  <div class="photo-card">
-    <figure class="main-photo">
-      <img src="{{ photo.cover }}" alt="{{ photo.title }}">
-      <figcaption>
-        <h3>{{ photo.title }}</h3>
-        <div class="meta">
-          <span>📍 {{ photo.location }}</span>
-          <time>📅 {{ photo.date }}</time>
-        </div>
-      </figcaption>
-    </figure>
-
-    <!-- 悬停展示其他图片 -->
-    <div class="gallery-preview">
-      {% for image in photo.images offset:1 limit:3 %}
-      <img src="{{ image }}" class="preview-image" loading="lazy">
+  <div class="photo-card" data-index="0">
+    <!-- 主展示区域 -->
+    <div class="slider-container">
+      {% for image in photo.images %}
+      <img 
+        src="{{ image }}" 
+        class="slide-image {% if forloop.first %}active{% endif %}" 
+        alt="第 {{ forloop.index }} 张"
+        loading="lazy"
+      >
       {% endfor %}
+      
+      <!-- 导航指示器 -->
+      <div class="slide-indicator">
+        {% for image in photo.images %}
+        <span class="dot {% if forloop.first %}active{% endif %}"></span>
+        {% endfor %}
+      </div>
     </div>
-    
+
     <!-- 文字信息 -->
     <div class="photo-info">
+      <h3>{{ photo.title }}</h3>
+      <div class="meta">
+        <span>📍 {{ photo.location }}</span>
+        <time>📅 {{ photo.date }}</time>
+      </div>
       <p>{{ photo.description }}</p>
       <div class="photo-tags">
         {% for tag in photo.tags %}
@@ -50,67 +56,64 @@ title: 摄影作品
   position: relative;
 }
 
-.main-photo img {
+/* 滑动容器 */
+.slider-container {
+  position: relative;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.slide-image {
   width: 100%;
   height: 70vh;
   object-fit: cover;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease;
-}
-
-figcaption {
-  margin-top: 1rem;
-  padding: 0 1rem;
-}
-
-.meta {
-  display: flex;
-  gap: 1.5rem;
-  color: #666;
-  margin-top: 0.5rem;
-}
-
-/* 悬停预览 */
-.gallery-preview {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
   opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.3s ease;
-  pointer-events: none;
+  transition: opacity 0.6s ease, transform 0.6s ease;
 }
 
-.photo-card:hover .gallery-preview {
+.slide-image.active {
   opacity: 1;
-  transform: translateY(-100%);
+  position: relative;
+  transform: translateX(0);
 }
 
-.preview-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 4px;
-  filter: brightness(0.9);
-  transition: transform 0.2s ease;
+/* 导航指示器 */
+.slide-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
 }
 
-.preview-image:hover {
-  transform: scale(1.05);
-  z-index: 1;
+.dot {
+  width: 10px;
+  height: 10px;
+  background: rgba(255,255,255,0.5);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.dot.active {
+  background: rgba(255,255,255,0.9);
 }
 
 /* 文字信息 */
 .photo-info {
   margin: 1.5rem 0;
   padding: 1.5rem;
-  background: rgba(250, 250, 250, 0.95);
-  border-radius: 8px;
+}
+
+.meta {
+  display: flex;
+  gap: 1.5rem;
+  color: #666;
+  margin: 0.5rem 0;
 }
 
 .photo-tags {
@@ -129,9 +132,6 @@ figcaption {
 
 /* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {
-  .photo-info {
-    background: rgba(30, 30, 30, 0.95);
-  }
   .photo-tags span {
     background: #333;
     color: #ddd;
@@ -143,11 +143,65 @@ figcaption {
 </style>
 
 <script>
-// 图片预加载
-document.addEventListener('DOMContentLoaded', () => {
-  const images = document.querySelectorAll('.preview-image');
-  images.forEach(img => {
-    new Image().src = img.src; 
+document.querySelectorAll('.photo-card').forEach(card => {
+  let isDragging = false;
+  let startX = 0;
+  let currentIndex = 0;
+  const images = card.querySelectorAll('.slide-image');
+  const dots = card.querySelectorAll('.dot');
+  const total = images.length;
+
+  // 鼠标横向滑动逻辑
+  card.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.clientX;
+  });
+
+  card.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const deltaX = e.clientX - startX;
+    
+    // 设置滑动阈值
+    if (Math.abs(deltaX) > 50) {
+      if (deltaX > 0 && currentIndex > 0) {
+        currentIndex--;
+      } else if (deltaX < 0 && currentIndex < total - 1) {
+        currentIndex++;
+      }
+      updateSlider();
+      isDragging = false;
+    }
+  });
+
+  card.addEventListener('mouseup', () => isDragging = false);
+  card.addEventListener('mouseleave', () => isDragging = false);
+
+  // 指示器点击
+  dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+      currentIndex = index;
+      updateSlider();
+    });
+  });
+
+  function updateSlider() {
+    images.forEach((img, i) => {
+      img.classList.toggle('active', i === currentIndex);
+    });
+    dots.forEach((dot, i) => {
+      dot.classList.toggle('active', i === currentIndex);
+    });
+  }
+
+  // 键盘左右键支持
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' && currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    } else if (e.key === 'ArrowRight' && currentIndex < total - 1) {
+      currentIndex++;
+      updateSlider();
+    }
   });
 });
 </script>

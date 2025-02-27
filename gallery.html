@@ -62,6 +62,11 @@ title: 摄影作品
   border-radius: 8px;
   cursor: pointer;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.main-cover:hover {
+  transform: scale(1.02);
 }
 
 /* 信息卡片 */
@@ -71,12 +76,15 @@ title: 摄影作品
   margin-top: 1rem;
   border-radius: 6px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  line-height: 1.6;
 }
 
 .meta {
   color: #666;
   font-size: 0.9em;
   margin: 0.5rem 0;
+  display: flex;
+  gap: 1.5rem;
 }
 
 .tags span {
@@ -94,8 +102,8 @@ title: 摄影作品
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(255,255,255,0.95);
-  backdrop-filter: blur(15px);
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
   border-radius: 12px;
   padding: 1.5rem;
   box-shadow: 0 8px 20px rgba(0,0,0,0.12);
@@ -118,6 +126,7 @@ title: 摄影作品
   overflow-x: auto;
   padding-bottom: 1rem;
   scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 }
 
 .carousel-container img {
@@ -129,10 +138,11 @@ title: 摄影作品
   flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.3s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
 }
 
 .carousel-container img:hover {
-  transform: scale(1.03);
+  transform: scale(1.05);
 }
 
 .counter {
@@ -143,9 +153,10 @@ title: 摄影作品
   padding: 4px 12px;
   border-radius: 12px;
   font-size: 0.9em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* 关闭遮罩 */
+/* 遮罩层 */
 .overlay {
   position: fixed;
   top: 0;
@@ -153,7 +164,7 @@ title: 摄影作品
   width: 100vw;
   height: 100vh;
   background: rgba(0,0,0,0.15);
-  backdrop-filter: blur(3px);
+  backdrop-filter: blur(5px);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s;
@@ -176,39 +187,64 @@ document.querySelectorAll('.main-cover').forEach(cover => {
   
   // 加载图片
   const images = JSON.parse(cover.dataset.images);
+  const container = gallery.querySelector('.carousel-container');
+  
   images.forEach((img, index) => {
     const imgEl = document.createElement('img');
     imgEl.src = img;
     imgEl.alt = `Photo ${index + 1}`;
-    gallery.querySelector('.carousel-container').appendChild(imgEl);
+    imgEl.loading = 'lazy';
+    container.appendChild(imgEl);
   });
 
   // 点击封面显示浮窗
   cover.addEventListener('click', () => {
     gallery.classList.add('active');
     overlay.classList.add('active');
-    updateCounter(gallery, 1);
+    updateCounter();
   });
 
-  // 点击遮罩关闭
-  overlay.addEventListener('click', () => {
-    gallery.classList.remove('active');
-    overlay.classList.remove('active');
+  // 关闭浮窗
+  overlay.addEventListener('click', () => closeGallery());
+  gallery.addEventListener('click', (e) => {
+    if(e.target === gallery) closeGallery();
+  });
+
+  // 滚轮控制
+  let wheelTimeout;
+  container.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    if(wheelTimeout) return;
+    
+    const delta = Math.sign(e.deltaY);
+    const scrollAmount = 300 + 16; // 图片宽度 + 间隔
+    
+    container.scrollBy({
+      left: delta * scrollAmount,
+      behavior: 'smooth'
+    });
+
+    wheelTimeout = setTimeout(() => {
+      wheelTimeout = null;
+      updateCounter();
+    }, 400);
   });
 
   // 更新计数器
-  function updateCounter(gallery, current) {
+  function updateCounter() {
+    const current = Math.round(container.scrollLeft / 316) + 1;
     gallery.querySelector('.counter').textContent = `${current}/${images.length}`;
   }
 
+  // 关闭逻辑
+  function closeGallery() {
+    gallery.classList.remove('active');
+    overlay.classList.remove('active');
+  }
+
   // 滑动检测
-  let isDragging = false;
-  let startX = 0;
-  const container = gallery.querySelector('.carousel-container');
-  
   container.addEventListener('scroll', () => {
-    const current = Math.round(container.scrollLeft / 300) + 1;
-    updateCounter(gallery, current);
+    updateCounter();
   });
 });
 </script>

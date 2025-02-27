@@ -16,4 +16,11 @@
     重新解读人类发展历程。
   tags: [历史, 社科]
   start_date: "2023-04-10"
-  end_date: ""
+  end_date: "2023-05-01"
+
+- title: "百年孤独"
+  cover: "https://example.com/book3.jpg"
+  rating: 4.7
+  review: 魔幻现实主义文学代表作，布恩迪亚家族七代人的传奇故事
+  tags: [小说, 经典]
+  start_date: "2023-05-15"

@@ -5,19 +5,19 @@ image_text: |
 ---
 
 
-[安大略](http://www.anandalue.com/)
+<a href="http://www.anandalue.com/" target="_blank">安大略</a>
 
-[曼亚灿](https://manyacan.com/)
+<a href="https://manyacan.com/" target="_blank">曼亚灿</a>
 
-[于长野](https://rabithua.club/)
+<a href="https://rabithua.club/" target="_blank">于长野</a>
 
-[1900](http://1900.live/)
+<a href="http://1900.live/" target="_blank">1900</a>
 
-[秦枫鸢梦](https://blog.zwying.com/)
+<a href="https://blog.zwying.com/" target="_blank">秦枫鸢梦</a>
 
-[定格咖啡馆馆长](https://kaix.in/)
+<a href="https://kaix.in/" target="_blank">定格咖啡馆馆长</a>
 
-[彼岸临窗](https://oneblogx.com/)
+<a href="https://oneblogx.com/" target="_blank">彼岸临窗</a>
 
 -----
 

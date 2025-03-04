@@ -1,3 +1,14 @@
+- date: 2025/03/04 23:30
+  content: |
+    格桑花。
+    你的花语是什么呢？
+
+    >怜取眼前人。
+    
+    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1451729252&auto=0&height=66"></iframe>
+  tags: [小满生活]
+  image: https://static.flomoapp.com/file/2025-03-04/3540/1741069278949372BD4A974E48DF7.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1741349917&Signature=Tk8Yl2NbbmxRWr89agLmb%2BX962s%3D
+
 - date: 2025/03/04 19:30
   content: |
     周天和宝儿一起去了一趟成都，
@@ -26,16 +37,16 @@
     可以暂时不考虑换手机的事情了,
     接下来的一段日子，还是依靠老伙计咯。
 
-    ![老伙计](https://cdnv2.ruguoapp.com/Fgq_eyUfM_M5ic9HsgUEL4oRNGLCv3.jpg?imageMogr2/auto-orient/thumbnail/400x2000%3E/quality/70/interlace/1){:width="30%"}
-  tags: [数码人生]
-  image: https://cdnv2.ruguoapp.com/Fgq_eyUfM_M5ic9HsgUEL4oRNGLCv3.jpg?imageMogr2/auto-orient/thumbnail/400x2000%3E/quality/70/interlace/1
+    ![老伙计](https://cdnv2.ruguoapp.com/Fgq_eyUfM_M5ic9HsgUEL4oRNGLCv3.jpg?imageMogr2/auto-orient%7Cwatermark/3/image/aHR0cHM6Ly93YXRlcm1hcmsucnVndW9hcHAuY29tLz90ZXh0PSVFNSU4RCVCMyVFNSU4OCVCQiUyMCU0MFNBTlNVSVomaGVpZ2h0PTE1MQ==/gravity/SouthEast/dx/10/dy/10){:width="30%"}
+  tags: [数码人生, 折腾]
+  image: https://cdnv2.ruguoapp.com/Fgq_eyUfM_M5ic9HsgUEL4oRNGLCv3.jpg?imageMogr2/auto-orient%7Cwatermark/3/image/aHR0cHM6Ly93YXRlcm1hcmsucnVndW9hcHAuY29tLz90ZXh0PSVFNSU4RCVCMyVFNSU4OCVCQiUyMCU0MFNBTlNVSVomaGVpZ2h0PTE1MQ==/gravity/SouthEast/dx/10/dy/10
 
 - date: 2025/02/28 01:27
   content: |
     看了《保你平安》。
     谣言之所以可怕，是因为大部分人不过是看客，却做了审判员的工作。
     而谣言过去，这些审判者又毫无羞耻的去了下一场。
-  tags: [在人间, 简单评论]
+  tags: [小满生活, 简单评论]
 
 - date: 2025/02/27 23:27
   content: |
@@ -75,7 +86,7 @@
     但我想，这应该并非是抑郁焦虑导致的。
     可是，我什么时候可以好呢？
     曾经的我，去哪里了。
-  tags: [生活碎语, 在人间]
+  tags: [碎语, 在人间]
   image: https://static.flomoapp.com/file/2025-02-27/3540/1740592234674DADB17EF58CD07C9.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740851469&Signature=EBGg68rXdUkfPwHdHBBUYllg7Io%3D
 
 - date: 2025/02/27 13:27
@@ -92,7 +103,7 @@
     当然，也有例外。看到一个评论说对象突然变冷淡了也可能是喜欢上其他人了，他就是经历了这样的，这话看得我差点笑岔气。
 
     不过，如果真失去了不好的，那又何尝不是一种幸运，时间过去，一切都会更好的，不是吗。
-  tags: [简单评论, 爱情观]
+  tags: [简单评论]
 
 - date: 2025/02/27 13:10
   content: |
@@ -120,7 +131,7 @@
     其实感情中不论男女，如果抛开对象这个身份，如果遇到了什么不好的事，那么收到伤害最大的，其实是傻傻相信外人的这一个吧。我之前一直愿意说那么多，其实从心里来说，更是不希望她受伤。
 
     将来路还长远，我做的也还不够好，能优先考虑对方，或许还是一个需要一直努力的过程。我在沟通这件事，也算是在警醒我自己。
-  tags: [简单评论, 爱情观]
+  tags: [简单评论]
 
 - date: 2025/02/27 01:45
   content: |
@@ -132,7 +143,7 @@
 
     视频里说这句话出自毛姆，我没有求证，但就这句话而言，我内心是有认同感的。
     甚至，我希望自己就能如此：能经历，且仍能热爱。
-  tags: [生活碎语, 在人间]
+  tags: [碎语, 在人间]
   image: https://static.flomoapp.com/file/2025-02-27/3540/17405922346714E2E08B05ABA3082.jpeg?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1740851469&Signature=8pcDga%2FI2fNfRPHYxmulkXvaCUc%3D
 
 - date: 2025/02/26 23:55
@@ -193,7 +204,7 @@
   content: |
     早上难得出个早门，临行前看窗外天色不错。
     外面有点阳光，但不多，小风吹着还是冷飕飕的。
-  tags: [生活碎语]
+  tags: [碎语]
 
 - date: 2025/02/26 01:40
   content: |
@@ -212,7 +223,7 @@
 - date: 2025/02/25 19:40
   content: |
     窗外风起，似是春要来了。
-  tags: [生活碎语]
+  tags: [碎语]
 
 - date: 2025/02/25 18:00
   content: |
@@ -233,7 +244,7 @@
     尤其在结尾能看到，当这位教授说让她要喜欢个年轻小伙时，这位女博士还说喜欢他，即这位教授。
 
     其实我有时候看到这样的瓜，是有些不太理解的，看一些男性发言，其实男性有些很清楚到底什么样的女生适合过日子，但偏偏就有女生会觉得一个会为了她出轨的男生就是爱她的，在我看来，一个人会为了你出轨，那么将来有一天也会为了别人同样对待你。
-  tags: [生活碎语, 简单评论]
+  tags: [碎语, 简单评论]
 
 - date: 2025/02/25 14:00
   content: |
@@ -356,7 +367,7 @@
     一万遍的爱。
 
     ![一万遍的爱](https://buyivi.xyz/images/tu/2025/520.jpg){:width="30%"}
-  tags: [生活碎语]
+  tags: [碎语]
   image: https://buyivi.xyz/images/tu/2025/520.jpg
 
 - date: 2025/02/19 01:31
@@ -1736,7 +1747,7 @@
     而且你知道我不会变。
     
     这样的反思，我称之为与人来往时，自己思想上的缓慢成长。
-  tags: [生活碎语]
+  tags: [碎语]
 
 - date: 2024/10/02 22:00
   content: |
@@ -1754,4 +1765,4 @@
     朋友说我特别，说我很好，其实我也很想说的是，当你们这样看待我的时候，说明你们自己也很好。
     
     我很幸运，我相信自己已经是这个世界上顶顶幸福的人了。
-  tags: [生活碎语]
+  tags: [碎语]

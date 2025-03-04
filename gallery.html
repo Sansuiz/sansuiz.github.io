@@ -6,6 +6,7 @@ title: 图集 Beta
 <div class="gallery-container">
   {% for photo in site.data.photos %}
   <div class="photo-card">
+    <!-- 封面图 -->
     <div class="cover-wrapper">
       <img 
         src="{{ photo.cover }}" 
@@ -16,6 +17,7 @@ title: 图集 Beta
       >
     </div>
 
+    <!-- 信息卡片 -->
     <div class="info-card">
       <h3>{{ photo.title }}</h3>
       <div class="meta">
@@ -29,14 +31,16 @@ title: 图集 Beta
         {% endfor %}
       </div>
     </div>
-
-    <div class="mini-gallery">
-      <div class="carousel-container"></div>
-      <div class="counter">1/{{ photo.images.size }}</div>
-    </div>
   </div>
   {% endfor %}
 </div>
+
+<!-- 全局悬浮窗 -->
+<div class="mini-gallery">
+  <div class="carousel-container"></div>
+  <div class="counter"></div>
+</div>
+<div class="overlay"></div>
 
 <style>
 /* 基础布局 */
@@ -91,11 +95,25 @@ title: 图集 Beta
   font-size: 0.85em;
 }
 
-/* 浮窗优化 */
+/* 悬浮窗样式 */
 .mini-gallery {
-  max-width: 680px;
-  padding: 1rem;
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(20px);
   border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  z-index: 100;
+  max-width: 680px;
+  width: 90%;
+}
+
+.mini-gallery.active {
+  display: block;
 }
 
 .carousel-container {
@@ -127,16 +145,37 @@ title: 图集 Beta
 }
 
 .counter {
+  position: absolute;
   top: -28px;
   right: 10px;
+  background: rgba(255,255,255,0.9);
+  padding: 4px 12px;
+  border-radius: 12px;
   font-size: 0.85em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* 遮罩层 */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.15);
+  backdrop-filter: blur(5px);
+  z-index: 99;
+}
+
+.overlay.active {
+  display: block;
 }
 
 @media (max-width: 640px) {
   .carousel-container {
     height: 260px;
     gap: 1.5rem;
-    padding: 0 1rem;
   }
   
   .carousel-container img {
@@ -152,51 +191,60 @@ title: 图集 Beta
 </style>
 
 <script>
-document.querySelectorAll('.main-cover').forEach(cover => {
-  const gallery = cover.closest('.photo-card').querySelector('.mini-gallery');
-  const overlay = document.createElement('div');
-  overlay.className = 'overlay';
-  document.body.appendChild(overlay);
-  
-  const images = JSON.parse(cover.dataset.images);
+document.addEventListener('DOMContentLoaded', () => {
+  const gallery = document.querySelector('.mini-gallery');
+  const overlay = document.querySelector('.overlay');
   const container = gallery.querySelector('.carousel-container');
-  
-  // 动态加载图片
-  images.forEach(src => {
-    const img = new Image();
-    img.src = src;
-    img.onload = () => {
-      const imgEl = document.createElement('img');
-      imgEl.src = src;
-      imgEl.alt = 'Gallery Image';
-      container.appendChild(imgEl);
-    }
+  const counter = gallery.querySelector('.counter');
+
+  // 封面点击事件
+  document.querySelectorAll('.main-cover').forEach(cover => {
+    cover.addEventListener('click', () => {
+      // 清空旧内容
+      container.innerHTML = '';
+      
+      // 加载新图片
+      const images = JSON.parse(cover.dataset.images);
+      images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+        img.alt = 'Gallery Image';
+        img.style.height = '300px';
+        img.style.objectFit = 'cover';
+        container.appendChild(img);
+      });
+
+      // 显示悬浮窗
+      gallery.classList.add('active');
+      overlay.classList.add('active');
+      container.scrollTo(0, 0);
+      updateCounter();
+    });
   });
 
-  cover.addEventListener('click', () => {
-    gallery.classList.add('active');
-    overlay.classList.add('active');
-    updateCounter();
+  // 关闭逻辑
+  overlay.addEventListener('click', () => {
+    gallery.classList.remove('active');
+    overlay.classList.remove('active');
   });
 
-  // 优化滚轮滚动
-  let scrollLock = false;
+  // 滚轮控制
+  let isScrolling = false;
   container.addEventListener('wheel', (e) => {
     e.preventDefault();
-    if(scrollLock) return;
+    if (isScrolling) return;
     
+    isScrolling = true;
     const delta = Math.sign(e.deltaY);
-    const firstImg = container.querySelector('img');
-    const scrollStep = (firstImg?.offsetWidth || 300) + 24;
+    const scrollAmount = container.firstElementChild?.offsetWidth + 24 || 324;
     
-    scrollLock = true;
     container.scrollBy({
-      left: delta * scrollStep,
+      left: delta * scrollAmount,
       behavior: 'smooth'
     });
-    
+
     setTimeout(() => {
-      scrollLock = false;
+      isScrolling = false;
       updateCounter();
     }, 300);
   });
@@ -204,24 +252,20 @@ document.querySelectorAll('.main-cover').forEach(cover => {
   // 精准计数器
   function updateCounter() {
     const imgs = container.querySelectorAll('img');
-    const containerCenter = container.scrollLeft + (container.offsetWidth / 2);
+    const containerCenter = container.scrollLeft + container.offsetWidth/2;
     
     let activeIndex = 0;
     imgs.forEach((img, index) => {
-      const imgStart = img.offsetLeft;
-      const imgEnd = imgStart + img.offsetWidth;
-      if(containerCenter >= imgStart && containerCenter <= imgEnd) {
+      const imgCenter = img.offsetLeft + img.offsetWidth/2;
+      if (Math.abs(containerCenter - imgCenter) < img.offsetWidth/2) {
         activeIndex = index + 1;
       }
     });
     
-    gallery.querySelector('.counter').textContent = `${activeIndex || 1}/${images.length}`;
+    counter.textContent = `${activeIndex || 1}/${imgs.length}`;
   }
 
+  // 滑动检测
   container.addEventListener('scroll', () => updateCounter());
-  overlay.addEventListener('click', () => {
-    gallery.classList.remove('active');
-    overlay.classList.remove('active');
-  });
 });
 </script>

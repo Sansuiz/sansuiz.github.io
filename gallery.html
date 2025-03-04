@@ -6,7 +6,6 @@ title: 图集 Beta
 <div class="gallery-container">
   {% for photo in site.data.photos %}
   <div class="photo-card">
-    <!-- 封面图 -->
     <div class="cover-wrapper">
       <img 
         src="{{ photo.cover }}" 
@@ -17,7 +16,6 @@ title: 图集 Beta
       >
     </div>
 
-    <!-- 文字信息卡片 -->
     <div class="info-card">
       <h3>{{ photo.title }}</h3>
       <div class="meta">
@@ -32,7 +30,6 @@ title: 图集 Beta
       </div>
     </div>
 
-    <!-- 小浮窗 -->
     <div class="mini-gallery">
       <div class="carousel-container"></div>
       <div class="counter">1/{{ photo.images.size }}</div>
@@ -54,7 +51,6 @@ title: 图集 Beta
   position: relative;
 }
 
-/* 封面图样式 */
 .main-cover {
   width: 100%;
   height: 400px;
@@ -69,7 +65,6 @@ title: 图集 Beta
   transform: scale(1.02);
 }
 
-/* 信息卡片 */
 .info-card {
   background: white;
   padding: 1.5rem;
@@ -96,87 +91,63 @@ title: 图集 Beta
   font-size: 0.85em;
 }
 
-/* 小浮窗样式 */
+/* 浮窗优化 */
 .mini-gallery {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(255,255,255,0.97);
-  backdrop-filter: blur(20px);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-  z-index: 100;
-  max-width: 800px;
-  width: 90%;
-}
-
-.mini-gallery.active {
-  opacity: 1;
-  pointer-events: all;
+  max-width: 680px;
+  padding: 1rem;
+  border-radius: 8px;
 }
 
 .carousel-container {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   overflow-x: auto;
-  padding-bottom: 1rem;
+  padding: 1rem;
   scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  height: 420px;  /* 新增高度 */
-  align-items: center;  /* 垂直居中 */
+  height: 340px;
+  align-items: center;
 }
 
 .carousel-container img {
   scroll-snap-align: center;
-  height: 400px;  /* 固定高度 */
-  width: auto;  /* 宽度自适应 */
-  object-fit: contain;  /* 完整显示图片 */
-  border-radius: 6px;
+  height: 300px;
+  width: auto;
+  object-fit: cover;
+  border-radius: 4px;
   flex-shrink: 0;
   cursor: pointer;
-  transition: transform 0.3s;
+  transition: all 0.2s;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  max-width: 600px;  /* 限制最大宽度 */
+  max-width: 480px;
 }
 
 .carousel-container img:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .counter {
-  position: absolute;
-  top: -25px;
-  right: 0;
-  background: rgba(255,255,255,0.9);
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.9em;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  top: -28px;
+  right: 10px;
+  font-size: 0.85em;
 }
 
-/* 遮罩层 */
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0,0,0,0.15);
-  backdrop-filter: blur(5px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s;
-  z-index: 99;
-}
-
-.overlay.active {
-  opacity: 1;
-  pointer-events: all;
+@media (max-width: 640px) {
+  .carousel-container {
+    height: 260px;
+    gap: 1.5rem;
+    padding: 0 1rem;
+  }
+  
+  .carousel-container img {
+    height: 220px;
+    max-width: 80vw;
+  }
+  
+  .mini-gallery {
+    width: 95%;
+    padding: 0.5rem;
+  }
 }
 </style>
 
@@ -190,23 +161,16 @@ document.querySelectorAll('.main-cover').forEach(cover => {
   const images = JSON.parse(cover.dataset.images);
   const container = gallery.querySelector('.carousel-container');
   
-  // 加载图片并等待加载完成
-  const loadImages = images.map(src => {
-    return new Promise(resolve => {
-      const img = new Image();
-      img.src = src;
-      img.onload = () => resolve(img);
-    });
-  });
-
-  Promise.all(loadImages).then(loadedImages => {
-    loadedImages.forEach(img => {
+  // 动态加载图片
+  images.forEach(src => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
       const imgEl = document.createElement('img');
-      imgEl.src = img.src;
-      imgEl.alt = `Photo`;
-      imgEl.loading = 'lazy';
+      imgEl.src = src;
+      imgEl.alt = 'Gallery Image';
       container.appendChild(imgEl);
-    });
+    }
   });
 
   cover.addEventListener('click', () => {
@@ -215,51 +179,49 @@ document.querySelectorAll('.main-cover').forEach(cover => {
     updateCounter();
   });
 
-  overlay.addEventListener('click', () => closeGallery());
-  gallery.addEventListener('click', (e) => {
-    if(e.target === gallery) closeGallery();
-  });
-
-  let wheelTimeout;
+  // 优化滚轮滚动
+  let scrollLock = false;
   container.addEventListener('wheel', (e) => {
     e.preventDefault();
-    if(wheelTimeout) return;
+    if(scrollLock) return;
     
     const delta = Math.sign(e.deltaY);
-    const currentImg = container.querySelector(`img:nth-child(${Math.round(container.scrollLeft / (container.firstElementChild?.offsetWidth || 316)) + 1})`);
-    const scrollAmount = (currentImg?.offsetWidth || 316) + 16;
+    const firstImg = container.querySelector('img');
+    const scrollStep = (firstImg?.offsetWidth || 300) + 24;
     
+    scrollLock = true;
     container.scrollBy({
-      left: delta * scrollAmount,
+      left: delta * scrollStep,
       behavior: 'smooth'
     });
-
-    wheelTimeout = setTimeout(() => {
-      wheelTimeout = null;
+    
+    setTimeout(() => {
+      scrollLock = false;
       updateCounter();
-    }, 400);
+    }, 300);
   });
 
+  // 精准计数器
   function updateCounter() {
-    let currentIndex = 0;
     const imgs = container.querySelectorAll('img');
-    const containerRect = container.getBoundingClientRect();
+    const containerCenter = container.scrollLeft + (container.offsetWidth / 2);
     
+    let activeIndex = 0;
     imgs.forEach((img, index) => {
-      const imgRect = img.getBoundingClientRect();
-      if (imgRect.left >= containerRect.left && imgRect.right <= containerRect.right) {
-        currentIndex = index + 1;
+      const imgStart = img.offsetLeft;
+      const imgEnd = imgStart + img.offsetWidth;
+      if(containerCenter >= imgStart && containerCenter <= imgEnd) {
+        activeIndex = index + 1;
       }
     });
     
-    gallery.querySelector('.counter').textContent = `${currentIndex || 1}/${images.length}`;
-  }
-
-  function closeGallery() {
-    gallery.classList.remove('active');
-    overlay.classList.remove('active');
+    gallery.querySelector('.counter').textContent = `${activeIndex || 1}/${images.length}`;
   }
 
   container.addEventListener('scroll', () => updateCounter());
+  overlay.addEventListener('click', () => {
+    gallery.classList.remove('active');
+    overlay.classList.remove('active');
+  });
 });
 </script>

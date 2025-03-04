@@ -127,18 +127,21 @@ title: 图集 Beta
   padding-bottom: 1rem;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  height: 420px;  /* 新增高度 */
+  align-items: center;  /* 垂直居中 */
 }
 
 .carousel-container img {
   scroll-snap-align: center;
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
+  height: 400px;  /* 固定高度 */
+  width: auto;  /* 宽度自适应 */
+  object-fit: contain;  /* 完整显示图片 */
   border-radius: 6px;
   flex-shrink: 0;
   cursor: pointer;
   transition: transform 0.3s;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 600px;  /* 限制最大宽度 */
 }
 
 .carousel-container img:hover {
@@ -179,45 +182,52 @@ title: 图集 Beta
 
 <script>
 document.querySelectorAll('.main-cover').forEach(cover => {
-  // 初始化浮窗
   const gallery = cover.closest('.photo-card').querySelector('.mini-gallery');
   const overlay = document.createElement('div');
   overlay.className = 'overlay';
   document.body.appendChild(overlay);
   
-  // 加载图片
   const images = JSON.parse(cover.dataset.images);
   const container = gallery.querySelector('.carousel-container');
   
-  images.forEach((img, index) => {
-    const imgEl = document.createElement('img');
-    imgEl.src = img;
-    imgEl.alt = `Photo ${index + 1}`;
-    imgEl.loading = 'lazy';
-    container.appendChild(imgEl);
+  // 加载图片并等待加载完成
+  const loadImages = images.map(src => {
+    return new Promise(resolve => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => resolve(img);
+    });
   });
 
-  // 点击封面显示浮窗
+  Promise.all(loadImages).then(loadedImages => {
+    loadedImages.forEach(img => {
+      const imgEl = document.createElement('img');
+      imgEl.src = img.src;
+      imgEl.alt = `Photo`;
+      imgEl.loading = 'lazy';
+      container.appendChild(imgEl);
+    });
+  });
+
   cover.addEventListener('click', () => {
     gallery.classList.add('active');
     overlay.classList.add('active');
     updateCounter();
   });
 
-  // 关闭浮窗
   overlay.addEventListener('click', () => closeGallery());
   gallery.addEventListener('click', (e) => {
     if(e.target === gallery) closeGallery();
   });
 
-  // 滚轮控制
   let wheelTimeout;
   container.addEventListener('wheel', (e) => {
     e.preventDefault();
     if(wheelTimeout) return;
     
     const delta = Math.sign(e.deltaY);
-    const scrollAmount = 300 + 16; // 图片宽度 + 间隔
+    const currentImg = container.querySelector(`img:nth-child(${Math.round(container.scrollLeft / (container.firstElementChild?.offsetWidth || 316)) + 1})`);
+    const scrollAmount = (currentImg?.offsetWidth || 316) + 16;
     
     container.scrollBy({
       left: delta * scrollAmount,
@@ -230,21 +240,26 @@ document.querySelectorAll('.main-cover').forEach(cover => {
     }, 400);
   });
 
-  // 更新计数器
   function updateCounter() {
-    const current = Math.round(container.scrollLeft / 316) + 1;
-    gallery.querySelector('.counter').textContent = `${current}/${images.length}`;
+    let currentIndex = 0;
+    const imgs = container.querySelectorAll('img');
+    const containerRect = container.getBoundingClientRect();
+    
+    imgs.forEach((img, index) => {
+      const imgRect = img.getBoundingClientRect();
+      if (imgRect.left >= containerRect.left && imgRect.right <= containerRect.right) {
+        currentIndex = index + 1;
+      }
+    });
+    
+    gallery.querySelector('.counter').textContent = `${currentIndex || 1}/${images.length}`;
   }
 
-  // 关闭逻辑
   function closeGallery() {
     gallery.classList.remove('active');
     overlay.classList.remove('active');
   }
 
-  // 滑动检测
-  container.addEventListener('scroll', () => {
-    updateCounter();
-  });
+  container.addEventListener('scroll', () => updateCounter());
 });
 </script>

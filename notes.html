@@ -59,60 +59,6 @@ title: 便签
   </div>
 </div>
 
-{% raw %}
-<li class="note" 
-    data-privacy-type="{{ note.privacy.type }}"
-    data-privacy-value="{{ note.privacy.value }}">
-  <div class="note-content">
-    
-    <!-- 密码保护模块 -->
-    {% if note.privacy.type == 'password' %}
-    <div class="privacy-module password-module">
-      <input type="password" placeholder="输入查看密码" 
-             oninput="checkPrivacy(this)">
-      <span class="privacy-hint"></span>
-    </div>
-    {% endif %}
-
-    <!-- 内容容器 -->
-    <div class="content-body {% if note.privacy %}protected-content{% endif %}" 
-         data-privacy-type="{{ note.privacy.type }}">
-      {{ note.content | markdownify }}
-    </div>
-
-  </div>
-</li>
-{% endraw %}
-
-<script>
-// 密码验证逻辑
-function checkPrivacy(input) {
-  const note = input.closest('.note');
-  const correctValue = note.dataset.privacyValue;
-  const contentBody = note.querySelector('.content-body');
-  const hint = note.querySelector('.privacy-hint');
-
-  if (input.value === correctValue) {
-    contentBody.style.opacity = 1;
-    input.style.display = 'none';
-    hint.textContent = '✓ 验证通过';
-    // 解除文字选择限制
-    contentBody.style.userSelect = 'auto'; 
-  } else {
-    hint.textContent = input.value ? '密码错误' : '';
-  }
-}
-
-// 自动处理选中显示
-document.querySelectorAll('.protected-content[data-privacy-type="selection"]').forEach(el => {
-  el.addEventListener('click', () => {
-    if(window.getSelection().toString()) {
-      el.style.color = 'inherit';
-    }
-  });
-});
-</script>
-
 <script>
 let selectedTag = null;
 const threeMonthsAgo = Date.now() - 90 * 24 * 60 * 60 * 1000;
@@ -458,38 +404,5 @@ function clearFilter() {
 
 .clear-btn:hover {
   background: #eee;
-}
-
-/* 通用保护样式 */
-.protected-content {
-  position: relative;
-  transition: 0.3s;
-}
-
-/* 密码保护样式 */
-.password-module {
-  margin-bottom: 1rem;
-}
-.password-module input {
-  padding: 0.5rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  width: 200px;
-}
-
-/* 选中显示样式 */
-.protected-content[data-privacy-type="selection"] {
-  color: transparent;
-  user-select: none;
-}
-.protected-content[data-privacy-type="selection"]::before {
-  content: "🔒 请选中文字查看";
-  color: #666;
-  position: absolute;
-  left: 0;
-}
-.protected-content[data-privacy-type="selection"]::selection {
-  color: inherit;
-  background: rgba(0,0,0,0.1);
 }
 </style>

@@ -35,13 +35,13 @@ title: 便签
     <h2 class="note-heading">
       <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
     </h2>
-    {% if note.private == "hover" %}  <!-- 新增条件判断 -->
-    <div class="content-private">
+    {% if note.private == "hover" %}  <!-- 修改开始 -->
+    <div class="private-wrapper">
       {{ note.content | markdownify }}
     </div>
     {% else %}
       {{ note.content | markdownify }}
-    {% endif %}
+    {% endif %}  <!-- 修改结束 -->
     <div class="note-tags">
       <a href="javascript:;" 
          class="tag-clickable" 
@@ -411,51 +411,51 @@ function clearFilter() {
   background: #eee;
 }
 
-/* 隐私内容样式 */
-.content-private {
-  color: transparent;
-  text-shadow: 0 0 12px rgba(0,0,0,0.5); /* 模糊效果 */
+/* ========== 新版隐私样式 ========== */
+.private-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* 模糊层 */
+.private-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,0) 20%,
+    rgba(255,255,255,0.8) 50%,
+    rgba(255,255,255,0) 80%
+  ); /* 白色渐变遮罩 */
+  backdrop-filter: blur(8px); /* 关键模糊效果 */
+  z-index: 2;
   transition: all 0.3s ease;
-  user-select: none; /* 禁止直接选中 */
 }
 
-/* 鼠标悬停时显示 */
-.note:hover .content-private {
-  color: inherit;
-  text-shadow: none;
-  user-select: auto;
+/* 悬停时移除模糊 */
+.note:hover .private-wrapper::before {
+  opacity: 0;
 }
 
-/* 选中时保持可见 */
-.content-private::selection {
-  color: #333; /* 根据主题色调整 */
-  background: #f0f0f0;
-}
-
-/* 隐私内容样式 */
-.content-private {
-  color: transparent !important;
-  text-shadow: 0 0 12px rgba(0,0,0,0.5) !important;
-  transition: all 0.3s ease;
-  user-select: none;
-}
-
-.note:hover .content-private {
-  color: inherit !important;
-  text-shadow: none !important;
-  user-select: auto;
-}
-
-.content-private::selection {
-  color: #333 !important;
-  background: #f0f0f0 !important;
+/* 选中内容时保持可见 */
+.private-wrapper::selection,
+.private-wrapper ::selection {
+  background: rgba(100,200,255,0.3); /* 高亮选中区域 */
 }
 
 /* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {
-  .content-private::selection {
-    color: #ddd !important;
-    background: #333 !important;
+  .private-wrapper::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0) 20%,
+      rgba(0,0,0,0.8) 50%,
+      rgba(0,0,0,0) 80%
+    ); /* 黑色渐变遮罩 */
   }
 }
 </style>

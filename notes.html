@@ -220,7 +220,7 @@ document.querySelectorAll('.privacy-mask').forEach(mask => {
   mask.addEventListener('click', function(e) {
     e.stopPropagation();
     const password = prompt('请输入访问密码：');
-    if (password === 'YOUR_SECRET') { // 🔑 在此设置密码
+    if (password === '04010627') { // 🔑 在此设置密码
       this.closest('.private-content').classList.add('revealed');
     } else {
       alert('密码错误');

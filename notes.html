@@ -25,49 +25,28 @@ title: 便签
 <br>
 
 <ul class="notes">
-  {% for note in site.data.notes %}
-  <li class="note 
-      {% if note.private.type == 'password' %}password-note
-      {% elsif note.private == 'hover' %}hover-private{% endif %}" 
-      id="t{{ note.date | date: "%Y%m%d%I%M" }}"
-      data-tags="{{ note.tags | join: ',' }}"
-      data-date="{{ note.date | date: '%s' }}"
-      {% if note.private.type == 'password' %}
-        data-secret="{{ note.private.secret }}"
-        data-hint="{{ note.private.hint }}"
-      {% endif %}
-      {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
-    
-    <!-- 密码保护层 -->
-    {% if note.private.type == 'password' %}
-    <div class="lock-overlay">
-      <div class="password-prompt">
-        <input type="password" placeholder="{{ note.private.hint }}">
-        <button onclick="unlockNote(this)">解锁</button>
-      </div>
+{% for note in site.data.notes %}
+<li class="note" 
+    id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
+    data-tags="{{ note.tags | join: ',' }}"
+    data-date="{{ note.date | date: '%s' }}"
+    {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
+  <div class="note-content">
+    <h2 class="note-heading">
+      <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
+    </h2>
+    {{ note.content | markdownify }}
+    <div class="note-tags">
+      {% for tag in note.tags %}
+      <a href="javascript:;" 
+         class="tag-clickable" 
+         data-tag="{{ tag }}" 
+         onclick="toggleTagFilter('{{ tag }}')">#{{ tag }}</a>
+      {% endfor %}
     </div>
-    <div class="encrypted-content" style="display:none;">
-    {% endif %}
-  
-    <!-- 内容区域 -->
-    <div class="note-content {% if note.private == 'hover' %}blurred{% endif %}">
-      <h2 class="note-heading">
-        <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
-      </h2>
-      {{ note.content | markdownify }}
-      <div class="note-tags">
-        {% for tag in note.tags %}
-        <a href="javascript:;" 
-           class="tag-clickable" 
-           data-tag="{{ tag }}" 
-           onclick="toggleTagFilter('{{ tag }}')">#{{ tag }}</a>
-        {% endfor %}
-      </div>
-    </div>
-  
-    {% if note.private.type == 'password' %}</div>{% endif %}
-  </li>
-  {% endfor %}
+  </div>
+</li>
+{% endfor %}
 </ul>
 
 <!-- 图片模态框 -->
@@ -146,55 +125,6 @@ function clearFilter() {
   history.replaceState({}, '', window.location.pathname);
   updateFilter();
 }
-
-// 新增隐私保护功能
-function unlockNote(btn) {
-  const note = btn.closest('.password-note');
-  const input = note.querySelector('input');
-  const secret = note.dataset.secret;
-
-  if (input.value === secret) {
-    note.querySelector('.encrypted-content').style.display = 'block';
-    note.querySelector('.lock-overlay').style.display = 'none';
-    localStorage.setItem(`unlocked_${note.id}`, 'true');
-  } else {
-    alert('密码错误');
-    input.value = '';
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  // 初始化已解锁内容
-  document.querySelectorAll('.password-note').forEach(note => {
-    if (localStorage.getItem(`unlocked_${note.id}`)) {
-      note.querySelector('.encrypted-content').style.display = 'block';
-      note.querySelector('.lock-overlay').style.display = 'none';
-    }
-  });
-
-  // 原筛选逻辑修正
-  function updateFilter() {
-    const filterStatus = document.getElementById('filterStatus');
-    if (!selectedTag) {
-      applyTimeFilter();
-      filterStatus.style.display = 'none';
-      return;
-    }
-
-    document.querySelectorAll('.note').forEach(note => {
-      const noteTags = note.dataset.tags.split(',');
-      const isPrivacyNote = note.classList.contains('password-note') || note.classList.contains('hover-private');
-      note.style.display = noteTags.includes(selectedTag) || isPrivacyNote ? 'block' : 'none';
-    });
-  }
-});
-
-// 防右键检查
-document.addEventListener('contextmenu', e => {
-  if (e.target.closest('.password-note, .hover-private')) {
-    e.preventDefault();
-  }
-});
 </script>
 
 <script>
@@ -475,6 +405,4 @@ document.addEventListener('contextmenu', e => {
 .clear-btn:hover {
   background: #eee;
 }
-
-
 </style>

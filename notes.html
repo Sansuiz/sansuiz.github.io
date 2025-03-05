@@ -3,64 +3,69 @@ layout: default
 title: 便签
 ---
 
+<!-- 您的原始标签筛选代码 -->
 <details class="details-note-tags">
-  <summary class="monospace smol">_标签索引（该页面默认显示近三月内容）</summary>
-  <div class="tag-filter">
-    <div class="tag-options">
-      {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
-      {% for tag in all_tags %}
-      <div class="tag-option" 
-           data-tag="{{ tag }}"
-           onclick="toggleTagFilter('{{ tag }}')">
-        <span>{{ tag }}</span>
-      </div>
+<summary class="monospace smol">_标签索引（该页面默认显示近三月内容）</summary>
+<div class="tag-filter">
+  <div class="tag-options">
+    {% assign all_tags = site.data.notes | map: 'tags' | join: ',' | split: ',' | uniq %}
+    {% for tag in all_tags %}
+    <div class="tag-option" 
+         data-tag="{{ tag }}"
+         onclick="toggleTagFilter('{{ tag }}')">
+      <span>{{ tag }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="filter-status" id="filterStatus" style="display: none;">
+    <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
+  </div>
+</div>
+</details>
+
+<br>
+
+<!-- 您的原始笔记列表结构（新增置顶class） -->
+<ul class="notes">
+{% for note in site.data.notes %}
+<li class="note{% if note.pinned %} pinned{% endif %}"  <!-- 新增置顶class -->
+    id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
+    data-tags="{{ note.tags | join: ',' }}"
+    data-date="{{ note.date | date: '%s' }}"
+    {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
+  <div class="note-content{% if note.private %} private{% endif %}">  <!-- 新增隐私class -->
+    {% if note.private %}<div class="privacy-curtain"></div>{% endif %}  <!-- 新增隐私遮罩 -->
+    <!-- 您的原始内容结构 -->
+    <h2 class="note-heading">
+      <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
+    </h2>
+    {{ note.content | markdownify }}
+    <div class="note-tags">
+      {% for tag in note.tags %}
+      <a href="javascript:;" 
+         class="tag-clickable" 
+         data-tag="{{ tag }}" 
+         onclick="toggleTagFilter('{{ tag }}')">#{{ tag }}</a>
       {% endfor %}
     </div>
-    <div class="filter-status" id="filterStatus" style="display: none;">
-      <button onclick="clearFilter()" class="clear-btn">× 清除筛选</button>
-    </div>
   </div>
-  </details>
-  
-  <br>
-  
-  <ul class="notes">
-  {% for note in site.data.notes %}
-  <li class="note{% if note.pinned %} pinned{% endif %}" 
-      id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
-      data-tags="{{ note.tags | join: ',' }}"
-      data-date="{{ note.date | date: '%s' }}"
-      {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
-    <div class="note-content{% if note.private %} private{% endif %}">
-      {% if note.private %}<div class="privacy-curtain"></div>{% endif %}
-      <h2 class="note-heading">
-        <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
-      </h2>
-      {{ note.content | markdownify }}
-      <div class="note-tags">
-        {% for tag in note.tags %}
-        <a href="javascript:;" 
-           class="tag-clickable" 
-           data-tag="{{ tag }}" 
-           onclick="toggleTagFilter('{{ tag }}')">#{{ tag }}</a>
-        {% endfor %}
-      </div>
-    </div>
-  </li>
-  {% endfor %}
-  </ul>
-  
-  <!-- 图片模态框保持不变 -->
-  <div class="image-modal" id="imageModal">
-    <span class="modal-close">&times;</span>
-    <div class="modal-content">
-        <img class="modal-image" id="modalImage">
-        <div class="modal-nav modal-prev">❮</div>
-        <div class="modal-nav modal-next">❯</div>
-    </div>
+</li>
+{% endfor %}
+</ul>
+
+<!-- 您的原始图片模态框代码 -->
+<div class="image-modal" id="imageModal">
+  <span class="modal-close">&times;</span>
+  <div class="modal-content">
+      <img class="modal-image" id="modalImage">
+      <div class="modal-nav modal-prev">❮</div>
+      <div class="modal-nav modal-next">❯</div>
   </div>
-  
+</div>
+
+<!-- 您的原始脚本（新增隐私功能） -->
 <script>
+// 您的原始筛选功能
 let selectedTag = null;
 const threeMonthsAgo = Date.now() - 90 * 24 * 60 * 60 * 1000;
 
@@ -80,17 +85,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     applyTimeFilter();
   }
-});
-
-cument.querySelectorAll('.privacy-curtain').forEach(curtain => {
-  curtain.addEventListener('click', function(e) {
-    const password = prompt('请输入访问密码');
-    if (password === '12345') { // 🚨 修改此处的密码
-      this.style.display = 'none';
-    } else {
-      alert('密码错误');
-    }
-  });
 });
 
 function applyTimeFilter() {
@@ -137,72 +131,76 @@ function clearFilter() {
   history.replaceState({}, '', window.location.pathname);
   updateFilter();
 }
+
+// 您的原始图片预览功能
+(function(){
+  let currentImages = [];
+  let currentIndex = 0;
+  const modal = document.getElementById('imageModal');
+  
+  function initImagePreview() {
+    document.querySelector('.modal-prev').addEventListener('click', () => changeImage(-1));
+    document.querySelector('.modal-next').addEventListener('click', () => changeImage(1));
+
+    document.querySelectorAll('.note-content img').forEach(img => {
+        img.style.cursor = 'zoom-in';
+        img.addEventListener('click', function(e) {
+            e.stopPropagation();
+            const note = this.closest('.note');
+            currentImages = [...note.querySelectorAll('img')].map(i => i.src);
+            currentIndex = currentImages.indexOf(this.src);
+            openModal(this.src);
+        });
+    });
+  }
+
+  function openModal(src) {
+      document.getElementById('modalImage').src = src;
+      modal.style.display = 'flex';
+      updateNavVisibility();
+  }
+
+  function changeImage(step) {
+      currentIndex = (currentIndex + step + currentImages.length) % currentImages.length;
+      document.getElementById('modalImage').src = currentImages[currentIndex];
+      updateNavVisibility();
+  }
+
+  function updateNavVisibility() {
+      const arrows = document.querySelectorAll('.modal-nav');
+      arrows.forEach(arrow => {
+          arrow.style.display = currentImages.length > 1 ? 'block' : 'none';
+      });
+  }
+
+  modal.addEventListener('click', function(e) {
+      if(e.target === this || e.target.classList.contains('modal-close')) {
+          this.style.display = 'none';
+      }
+  });
+  
+  document.addEventListener('keydown', e => {
+      if(modal.style.display === 'none') return;
+      if(e.key === 'Escape') modal.style.display = 'none';
+      if(e.key === 'ArrowLeft') changeImage(-1);
+      if(e.key === 'ArrowRight') changeImage(1);
+  });
+
+  document.addEventListener('DOMContentLoaded', initImagePreview);
+})();
+
+// 新增的隐私功能（唯一新增脚本）
+document.querySelectorAll('.privacy-curtain').forEach(curtain => {
+  curtain.addEventListener('click', function(e) {
+    const password = prompt('请输入访问密码');
+    if (password === '12345') { // 在此修改密码
+      this.style.display = 'none';
+    }
+  });
+});
 </script>
 
-<script>
-  // 修改后的独立图片模块
-  (function(){
-      let currentImages = [];
-      let currentIndex = 0;
-      const modal = document.getElementById('imageModal');
-      
-      // 初始化图片点击
-      function initImagePreview() {
-          // 绑定箭头点击事件
-          document.querySelector('.modal-prev').addEventListener('click', () => changeImage(-1));
-          document.querySelector('.modal-next').addEventListener('click', () => changeImage(1));
-  
-          document.querySelectorAll('.note-content img').forEach(img => {
-              img.style.cursor = 'zoom-in';
-              img.addEventListener('click', function(e) {
-                  e.stopPropagation();
-                  const note = this.closest('.note');
-                  currentImages = [...note.querySelectorAll('img')].map(i => i.src);
-                  currentIndex = currentImages.indexOf(this.src);
-                  openModal(this.src);
-              });
-          });
-      }
-  
-      function openModal(src) {
-          document.getElementById('modalImage').src = src;
-          modal.style.display = 'flex';
-          updateNavVisibility();
-      }
-  
-      function changeImage(step) {
-          currentIndex = (currentIndex + step + currentImages.length) % currentImages.length;
-          document.getElementById('modalImage').src = currentImages[currentIndex];
-          updateNavVisibility();
-      }
-  
-      function updateNavVisibility() {
-          const arrows = document.querySelectorAll('.modal-nav');
-          arrows.forEach(arrow => {
-              arrow.style.display = currentImages.length > 1 ? 'block' : 'none';
-          });
-      }
-  
-      // 关闭逻辑
-      modal.addEventListener('click', function(e) {
-          if(e.target === this || e.target.classList.contains('modal-close')) {
-              this.style.display = 'none';
-          }
-      });
-      
-      // 键盘控制
-      document.addEventListener('keydown', e => {
-          if(modal.style.display === 'none') return;
-          if(e.key === 'Escape') modal.style.display = 'none';
-          if(e.key === 'ArrowLeft') changeImage(-1);
-          if(e.key === 'ArrowRight') changeImage(1);
-      });
-  
-      // 初始化
-      document.addEventListener('DOMContentLoaded', initImagePreview);
-  })();
-  </script>
-
+<!-- 您的原始样式（新增置顶/隐私样式） -->
 <style>
 /* 保持原有样式不变，新增以下样式 */
 .modal-nav {
@@ -444,4 +442,6 @@ function clearFilter() {
   cursor: pointer;
   z-index: 1;
 }
+
+/* 您原有的其他样式... */
 </style>

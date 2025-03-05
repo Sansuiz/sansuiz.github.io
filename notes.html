@@ -147,30 +147,45 @@ function clearFilter() {
   updateFilter();
 }
 
-// 新增隐私保护功能
+// 修改后的解锁逻辑
 function unlockNote(btn) {
   const note = btn.closest('.password-note');
   const input = note.querySelector('input');
   const secret = note.dataset.secret;
 
   if (input.value === secret) {
-    note.querySelector('.encrypted-content').style.display = 'block';
-    note.querySelector('.lock-overlay').style.display = 'none';
-    localStorage.setItem(`unlocked_${note.id}`, 'true');
+    // 添加持久化存储
+    const storageKey = `unlocked_${note.id}`;
+    const expireTime = Date.now() + 7*24*60*60*1000; // 7天有效期
+    localStorage.setItem(storageKey, expireTime);
+    
+    showEncryptedContent(note);
   } else {
     alert('密码错误');
     input.value = '';
   }
 }
 
+// 新增：显示加密内容的方法
+function showEncryptedContent(note) {
+  note.querySelector('.encrypted-content').style.display = 'block';
+  note.querySelector('.lock-overlay').style.display = 'none';
+}
+
+// 修改后的初始化检查
 document.addEventListener('DOMContentLoaded', () => {
-  // 初始化已解锁内容
   document.querySelectorAll('.password-note').forEach(note => {
-    if (localStorage.getItem(`unlocked_${note.id}`)) {
-      note.querySelector('.encrypted-content').style.display = 'block';
-      note.querySelector('.lock-overlay').style.display = 'none';
+    const storageKey = `unlocked_${note.id}`;
+    const storedTime = localStorage.getItem(storageKey);
+    
+    // 验证存储时间有效性
+    if (storedTime && Date.now() < parseInt(storedTime)) {
+      showEncryptedContent(note);
+    } else {
+      localStorage.removeItem(storageKey); // 清理过期项
     }
   });
+});
 
   // 原筛选逻辑修正
   function updateFilter() {

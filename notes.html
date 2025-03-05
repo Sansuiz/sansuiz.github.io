@@ -147,45 +147,30 @@ function clearFilter() {
   updateFilter();
 }
 
-// 修改后的解锁逻辑
+// 新增隐私保护功能
 function unlockNote(btn) {
   const note = btn.closest('.password-note');
   const input = note.querySelector('input');
   const secret = note.dataset.secret;
 
   if (input.value === secret) {
-    // 添加持久化存储
-    const storageKey = `unlocked_${note.id}`;
-    const expireTime = Date.now() + 7*24*60*60*1000; // 7天有效期
-    localStorage.setItem(storageKey, expireTime);
-    
-    showEncryptedContent(note);
+    note.querySelector('.encrypted-content').style.display = 'block';
+    note.querySelector('.lock-overlay').style.display = 'none';
+    localStorage.setItem(`unlocked_${note.id}`, 'true');
   } else {
     alert('密码错误');
     input.value = '';
   }
 }
 
-// 新增：显示加密内容的方法
-function showEncryptedContent(note) {
-  note.querySelector('.encrypted-content').style.display = 'block';
-  note.querySelector('.lock-overlay').style.display = 'none';
-}
-
-// 修改后的初始化检查
 document.addEventListener('DOMContentLoaded', () => {
+  // 初始化已解锁内容
   document.querySelectorAll('.password-note').forEach(note => {
-    const storageKey = `unlocked_${note.id}`;
-    const storedTime = localStorage.getItem(storageKey);
-    
-    // 验证存储时间有效性
-    if (storedTime && Date.now() < parseInt(storedTime)) {
-      showEncryptedContent(note);
-    } else {
-      localStorage.removeItem(storageKey); // 清理过期项
+    if (localStorage.getItem(`unlocked_${note.id}`)) {
+      note.querySelector('.encrypted-content').style.display = 'block';
+      note.querySelector('.lock-overlay').style.display = 'none';
     }
   });
-});
 
   // 原筛选逻辑修正
   function updateFilter() {
@@ -491,52 +476,5 @@ document.addEventListener('contextmenu', e => {
   background: #eee;
 }
 
-/* 新增隐私样式 */
-.password-note {
-  min-height: 200px;
-  position: relative;
-}
 
-.password-note .lock-overlay {
-  position: absolute;
-  top:0; left:0; right:0; bottom:0;
-  background: rgba(255,255,255,0.95);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(5px);
-  min-height: inherit;
-}
-
-.password-prompt {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  text-align: center;
-}
-
-.hover-private .blurred {
-  filter: blur(8px);
-  transition: filter 0.3s ease;
-  user-select: none;
-}
-
-.hover-private:hover .blurred {
-  filter: none;
-  user-select: auto;
-}
-
-.hover-private::after {
-  content: "👁️ 悬停查看";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  color: #666;
-  font-size: 0.9em;
-  pointer-events: none;
-  opacity: 0.7;
-}
 </style>

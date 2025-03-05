@@ -47,6 +47,20 @@ title: 便签
   </div>
 </li>
 {% endfor %}
+
+<li class="note" ...>
+  <div class="note-content">
+    <h2 class="note-heading">...</h2>
+    {% if note.private == "hover" %}  <!-- 判断是否为隐私便签 -->
+    <div class="content-private">
+      {{ note.content | markdownify }}
+    </div>
+    {% else %}
+      {{ note.content | markdownify }}
+    {% endif %}
+    <div class="note-tags">...</div>
+  </div>
+</li>
 </ul>
 
 <!-- 图片模态框 -->
@@ -404,5 +418,26 @@ function clearFilter() {
 
 .clear-btn:hover {
   background: #eee;
+}
+
+/* 隐私内容样式 */
+.content-private {
+  color: transparent;
+  text-shadow: 0 0 12px rgba(0,0,0,0.5); /* 模糊效果 */
+  transition: all 0.3s ease;
+  user-select: none; /* 禁止直接选中 */
+}
+
+/* 鼠标悬停时显示 */
+.note:hover .content-private {
+  color: inherit;
+  text-shadow: none;
+  user-select: auto;
+}
+
+/* 选中时保持可见 */
+.content-private::selection {
+  color: #333; /* 根据主题色调整 */
+  background: #f0f0f0;
 }
 </style>

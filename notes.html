@@ -35,7 +35,7 @@ title: 便签
     <h2 class="note-heading">
       <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
     </h2>
-    {% if note.private == "hover" %}  <!-- 新增隐私判断 -->
+    {% if note.private == "hover" %}  <!-- 新增条件判断 -->
     <div class="content-private">
       {{ note.content | markdownify }}
     </div>
@@ -430,5 +430,32 @@ function clearFilter() {
 .content-private::selection {
   color: #333; /* 根据主题色调整 */
   background: #f0f0f0;
+}
+
+/* 隐私内容样式 */
+.content-private {
+  color: transparent !important;
+  text-shadow: 0 0 12px rgba(0,0,0,0.5) !important;
+  transition: all 0.3s ease;
+  user-select: none;
+}
+
+.note:hover .content-private {
+  color: inherit !important;
+  text-shadow: none !important;
+  user-select: auto;
+}
+
+.content-private::selection {
+  color: #333 !important;
+  background: #f0f0f0 !important;
+}
+
+/* 暗色模式适配 */
+@media (prefers-color-scheme: dark) {
+  .content-private::selection {
+    color: #ddd !important;
+    background: #333 !important;
+  }
 }
 </style>

@@ -3,7 +3,6 @@ layout: default
 title: 便签
 ---
 
-<!-- 您的原始标签筛选代码 -->
 <details class="details-note-tags">
 <summary class="monospace smol">_标签索引（该页面默认显示近三月内容）</summary>
 <div class="tag-filter">
@@ -25,17 +24,14 @@ title: 便签
 
 <br>
 
-<!-- 您的原始笔记列表结构（新增置顶class） -->
 <ul class="notes">
 {% for note in site.data.notes %}
-<li class="note{% if note.pinned %} pinned{% endif %}"  <!-- 新增置顶class -->
+<li class="note" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
     data-date="{{ note.date | date: '%s' }}"
     {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
-  <div class="note-content{% if note.private %} private{% endif %}">  <!-- 新增隐私class -->
-    {% if note.private %}<div class="privacy-curtain"></div>{% endif %}  <!-- 新增隐私遮罩 -->
-    <!-- 您的原始内容结构 -->
+  <div class="note-content">
     <h2 class="note-heading">
       <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
     </h2>
@@ -53,7 +49,7 @@ title: 便签
 {% endfor %}
 </ul>
 
-<!-- 您的原始图片模态框代码 -->
+<!-- 图片模态框 -->
 <div class="image-modal" id="imageModal">
   <span class="modal-close">&times;</span>
   <div class="modal-content">
@@ -63,9 +59,7 @@ title: 便签
   </div>
 </div>
 
-<!-- 您的原始脚本（新增隐私功能） -->
 <script>
-// 您的原始筛选功能
 let selectedTag = null;
 const threeMonthsAgo = Date.now() - 90 * 24 * 60 * 60 * 1000;
 
@@ -131,76 +125,72 @@ function clearFilter() {
   history.replaceState({}, '', window.location.pathname);
   updateFilter();
 }
-
-// 您的原始图片预览功能
-(function(){
-  let currentImages = [];
-  let currentIndex = 0;
-  const modal = document.getElementById('imageModal');
-  
-  function initImagePreview() {
-    document.querySelector('.modal-prev').addEventListener('click', () => changeImage(-1));
-    document.querySelector('.modal-next').addEventListener('click', () => changeImage(1));
-
-    document.querySelectorAll('.note-content img').forEach(img => {
-        img.style.cursor = 'zoom-in';
-        img.addEventListener('click', function(e) {
-            e.stopPropagation();
-            const note = this.closest('.note');
-            currentImages = [...note.querySelectorAll('img')].map(i => i.src);
-            currentIndex = currentImages.indexOf(this.src);
-            openModal(this.src);
-        });
-    });
-  }
-
-  function openModal(src) {
-      document.getElementById('modalImage').src = src;
-      modal.style.display = 'flex';
-      updateNavVisibility();
-  }
-
-  function changeImage(step) {
-      currentIndex = (currentIndex + step + currentImages.length) % currentImages.length;
-      document.getElementById('modalImage').src = currentImages[currentIndex];
-      updateNavVisibility();
-  }
-
-  function updateNavVisibility() {
-      const arrows = document.querySelectorAll('.modal-nav');
-      arrows.forEach(arrow => {
-          arrow.style.display = currentImages.length > 1 ? 'block' : 'none';
-      });
-  }
-
-  modal.addEventListener('click', function(e) {
-      if(e.target === this || e.target.classList.contains('modal-close')) {
-          this.style.display = 'none';
-      }
-  });
-  
-  document.addEventListener('keydown', e => {
-      if(modal.style.display === 'none') return;
-      if(e.key === 'Escape') modal.style.display = 'none';
-      if(e.key === 'ArrowLeft') changeImage(-1);
-      if(e.key === 'ArrowRight') changeImage(1);
-  });
-
-  document.addEventListener('DOMContentLoaded', initImagePreview);
-})();
-
-// 新增的隐私功能（唯一新增脚本）
-document.querySelectorAll('.privacy-curtain').forEach(curtain => {
-  curtain.addEventListener('click', function(e) {
-    const password = prompt('请输入访问密码');
-    if (password === '12345') { // 在此修改密码
-      this.style.display = 'none';
-    }
-  });
-});
 </script>
 
-<!-- 您的原始样式（新增置顶/隐私样式） -->
+<script>
+  // 修改后的独立图片模块
+  (function(){
+      let currentImages = [];
+      let currentIndex = 0;
+      const modal = document.getElementById('imageModal');
+      
+      // 初始化图片点击
+      function initImagePreview() {
+          // 绑定箭头点击事件
+          document.querySelector('.modal-prev').addEventListener('click', () => changeImage(-1));
+          document.querySelector('.modal-next').addEventListener('click', () => changeImage(1));
+  
+          document.querySelectorAll('.note-content img').forEach(img => {
+              img.style.cursor = 'zoom-in';
+              img.addEventListener('click', function(e) {
+                  e.stopPropagation();
+                  const note = this.closest('.note');
+                  currentImages = [...note.querySelectorAll('img')].map(i => i.src);
+                  currentIndex = currentImages.indexOf(this.src);
+                  openModal(this.src);
+              });
+          });
+      }
+  
+      function openModal(src) {
+          document.getElementById('modalImage').src = src;
+          modal.style.display = 'flex';
+          updateNavVisibility();
+      }
+  
+      function changeImage(step) {
+          currentIndex = (currentIndex + step + currentImages.length) % currentImages.length;
+          document.getElementById('modalImage').src = currentImages[currentIndex];
+          updateNavVisibility();
+      }
+  
+      function updateNavVisibility() {
+          const arrows = document.querySelectorAll('.modal-nav');
+          arrows.forEach(arrow => {
+              arrow.style.display = currentImages.length > 1 ? 'block' : 'none';
+          });
+      }
+  
+      // 关闭逻辑
+      modal.addEventListener('click', function(e) {
+          if(e.target === this || e.target.classList.contains('modal-close')) {
+              this.style.display = 'none';
+          }
+      });
+      
+      // 键盘控制
+      document.addEventListener('keydown', e => {
+          if(modal.style.display === 'none') return;
+          if(e.key === 'Escape') modal.style.display = 'none';
+          if(e.key === 'ArrowLeft') changeImage(-1);
+          if(e.key === 'ArrowRight') changeImage(1);
+      });
+  
+      // 初始化
+      document.addEventListener('DOMContentLoaded', initImagePreview);
+  })();
+  </script>
+
 <style>
 /* 保持原有样式不变，新增以下样式 */
 .modal-nav {
@@ -415,33 +405,4 @@ document.querySelectorAll('.privacy-curtain').forEach(curtain => {
 .clear-btn:hover {
   background: #eee;
 }
-
-/* 新增置顶样式 */
-.note.pinned {
-  border: 2px solid #6fa3eb;
-}
-
-/* 新增隐私样式 */
-.note-content.private {
-  position: relative;
-}
-.privacy-curtain {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(
-    45deg,
-    rgba(200,200,200,0.15),
-    rgba(200,200,200,0.15) 10px,
-    rgba(255,255,255,0.1) 10px,
-    rgba(255,255,255,0.1) 20px
-  );
-  backdrop-filter: blur(2px);
-  cursor: pointer;
-  z-index: 1;
-}
-
-/* 您原有的其他样式... */
 </style>

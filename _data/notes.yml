@@ -49,12 +49,12 @@
   tags: [纸上行]
 
 - date: 2025/02/27 23:27
-  private: hover
   content: |
     做了一个书单和影集页面。
     就当玩儿了。
 
     调试中。
+  private: hover
   tags: [折腾, 博客]
 
 - date: 2025/02/27 20:40

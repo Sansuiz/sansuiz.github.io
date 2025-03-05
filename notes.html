@@ -35,9 +35,14 @@ title: 便签
     <h2 class="note-heading">
       <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
     </h2>
-    {{ note.content | markdownify }}
+    {% if note.private == "hover" %}  <!-- 新增隐私判断 -->
+    <div class="content-private">
+      {{ note.content | markdownify }}
+    </div>
+    {% else %}
+      {{ note.content | markdownify }}
+    {% endif %}
     <div class="note-tags">
-      {% for tag in note.tags %}
       <a href="javascript:;" 
          class="tag-clickable" 
          data-tag="{{ tag }}" 
@@ -47,20 +52,6 @@ title: 便签
   </div>
 </li>
 {% endfor %}
-
-<li class="note" ...>
-  <div class="note-content">
-    <h2 class="note-heading">...</h2>
-    {% if note.private == "hover" %}  <!-- 判断是否为隐私便签 -->
-    <div class="content-private">
-      {{ note.content | markdownify }}
-    </div>
-    {% else %}
-      {{ note.content | markdownify }}
-    {% endif %}
-    <div class="note-tags">...</div>
-  </div>
-</li>
 </ul>
 
 <!-- 图片模态框 -->

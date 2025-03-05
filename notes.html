@@ -25,44 +25,28 @@ title: 便签
 <br>
 
 <ul class="notes">
-  {% for note in site.data.notes %}
-  <li class="note 
-      {% if note.private.type == 'password' %}password-note
-      {% elsif note.private == 'hover' %}hover-private{% endif %}" 
-      id="t{{ note.date | date: "%Y%m%d%I%M" }}"
-      {% if note.private.type == 'password' %}
-        data-secret="{{ note.private.secret }}"
-        data-hint="{{ note.private.hint }}"
-      {% endif %}
-      {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
-    
-    <!-- 密码保护层 -->
-    {% if note.private.type == 'password' %}
-    <div class="lock-overlay">
-      <div class="password-prompt">
-        <input type="password" placeholder="{{ note.private.hint }}">
-        <button onclick="unlockNote(this)">解锁</button>
-      </div>
+{% for note in site.data.notes %}
+<li class="note" 
+    id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
+    data-tags="{{ note.tags | join: ',' }}"
+    data-date="{{ note.date | date: '%s' }}"
+    {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
+  <div class="note-content">
+    <h2 class="note-heading">
+      <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
+    </h2>
+    {{ note.content | markdownify }}
+    <div class="note-tags">
+      {% for tag in note.tags %}
+      <a href="javascript:;" 
+         class="tag-clickable" 
+         data-tag="{{ tag }}" 
+         onclick="toggleTagFilter('{{ tag }}')">#{{ tag }}</a>
+      {% endfor %}
     </div>
-    <div class="encrypted-content" style="display:none;">
-    {% endif %}
-  
-    <!-- 内容区域 -->
-    <div class="note-content {% if note.private == 'hover' %}blurred{% endif %}">
-      <h2 class="note-heading">
-        <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
-      </h2>
-      {{ note.content | markdownify }}
-      <div class="note-tags">
-        {% for tag in note.tags %}
-        <a href="javascript:;" class="tag-clickable" data-tag="{{ tag }}">#{{ tag }}</a>
-        {% endfor %}
-      </div>
-    </div>
-  
-    {% if note.private.type == 'password' %}</div>{% endif %}
-  </li>
-  {% endfor %}
+  </div>
+</li>
+{% endfor %}
 </ul>
 
 <!-- 图片模态框 -->
@@ -76,40 +60,6 @@ title: 便签
 </div>
 
 <script>
-// 密码验证逻辑
-function unlockNote(btn) {
-  const note = btn.closest('.password-note');
-  const input = note.querySelector('input');
-  const secret = note.dataset.secret;
-
-  if (input.value === secret) {
-    note.querySelector('.encrypted-content').style.display = 'block';
-    note.querySelector('.lock-overlay').style.display = 'none';
-    localStorage.setItem(`unlocked_${note.id}`, 'true');
-  } else {
-    alert('密码错误');
-    input.value = '';
-  }
-}
-
-// 初始化已解锁内容
-document.addEventListener('DOMContentLoaded', () => {
-  document.querySelectorAll('.password-note').forEach(note => {
-    if (localStorage.getItem(`unlocked_${note.id}`)) {
-      note.querySelector('.encrypted-content').style.display = 'block';
-      note.querySelector('.lock-overlay').style.display = 'none';
-    }
-  });
-});
-
-// 基础防开发者工具保护
-document.addEventListener('contextmenu', e => {
-  if (e.target.closest('.password-note, .hover-private')) {
-    e.preventDefault();
-    alert('禁止检查隐私内容');
-  }
-}); 
- 
 let selectedTag = null;
 const threeMonthsAgo = Date.now() - 90 * 24 * 60 * 60 * 1000;
 
@@ -454,56 +404,5 @@ function clearFilter() {
 
 .clear-btn:hover {
   background: #eee;
-}
-
-/* 密码保护样式 */
-.password-note .lock-overlay {
-  position: absolute;
-  top:0; left:0; right:0; bottom:0;
-  background: rgba(255,255,255,0.95);
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  backdrop-filter: blur(5px);
-}
-
-.password-prompt {
-  background: #fff;
-  padding: 1.5rem;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  text-align: center;
-}
-
-.password-prompt input {
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-/* 悬停保护样式 */
-.hover-private .blurred {
-  filter: blur(8px);
-  transition: filter 0.3s ease;
-  user-select: none;
-}
-
-.hover-private:hover .blurred {
-  filter: none;
-  user-select: auto;
-}
-
-.hover-private::after {
-  content: "👁️ 悬停查看";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  color: #666;
-  font-size: 0.9em;
-  pointer-events: none;
-  opacity: 0.7;
 }
 </style>

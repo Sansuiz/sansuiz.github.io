@@ -26,14 +26,6 @@ title: 便签
 
 <ul class="notes">
 {% for note in site.data.notes %}
-  <li class="note 
-      {% if note.private == 'hover' %}hover-private{% endif %}" 
-      id="t{{ note.date | date: "%Y%m%d%I%M" }}"
-      data-tags="{{ note.tags | join: ',' }}"
-      data-date="{{ note.date | date: '%s' }}"
-      {% if note.image %}style="--note-bg: url('{{ note.image }}')"{% endif %}>
-
-{% for note in site.data.notes %}
 <li class="note" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
@@ -43,14 +35,9 @@ title: 便签
     <h2 class="note-heading">
       <a href="#t{{ note.date | date: "%Y%m%d%I%M" }}">{{ note.date | date: "%B %d, %Y" }} #</a>
     </h2>
-    {% if note.private == "hover" %}  <!-- 修改开始 -->
-    <div class="private-wrapper">
-      {{ note.content | markdownify }}
-    </div>
-    {% else %}
-      {{ note.content | markdownify }}
-    {% endif %}  <!-- 修改结束 -->
+    {{ note.content | markdownify }}
     <div class="note-tags">
+      {% for tag in note.tags %}
       <a href="javascript:;" 
          class="tag-clickable" 
          data-tag="{{ tag }}" 
@@ -202,13 +189,6 @@ function clearFilter() {
       // 初始化
       document.addEventListener('DOMContentLoaded', initImagePreview);
   })();
-
-// 防右键检查
-document.addEventListener('contextmenu', e => {
-  if (e.target.closest('.hover-private')) {
-    e.preventDefault();
-  }
-});
   </script>
 
 <style>
@@ -424,28 +404,5 @@ document.addEventListener('contextmenu', e => {
 
 .clear-btn:hover {
   background: #eee;
-}
-
-.hover-private .blurred {
-  filter: blur(8px);
-  transition: filter 0.3s ease;
-  user-select: none;
-}
-
-.hover-private:hover .blurred {
-  filter: none;
-  user-select: auto;
-}
-
-.hover-private::after {
-  content: "👁️ 悬停查看";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-  color: #666;
-  font-size: 0.9em;
-  pointer-events: none;
-  opacity: 0.7;
 }
 </style>

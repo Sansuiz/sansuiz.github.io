@@ -358,8 +358,9 @@ document.addEventListener('copy', e => {
 }
 
 @keyframes heartbeat-glow {
-  0%, 100% { opacity: 0.8; }
-  50% { opacity: 1; }
+  0% { opacity: 0.8; background-position: 0% 50%; }
+  50% { opacity: 1; background-position: 100% 50%; }
+  100% { opacity: 0.8; background-position: 0% 50%; }
 }
 
 .heartbeat-note::before {
@@ -371,6 +372,7 @@ document.addEventListener('copy', e => {
   height: 100%;
   background: inherit;
   z-index: 3;
+  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   border-radius: 8px;
 }

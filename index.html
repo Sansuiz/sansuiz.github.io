@@ -44,6 +44,18 @@ header_content: |
 
 <hr class="hr">
 
+<h2 class="text">动态</h2>
+<ul class="terminal">
+  {% for note in site.data.notes limit:5 %}
+    <li class="dynamic-item">
+      <time class="timestamp">{{ note.date | date: '%Y/%m/%d %H:%M' }}</time>
+      <div class="dynamic-content">{{ note.content | markdownify }}</div>
+    </li>
+  {% endfor %}
+</ul>
+
+<hr class="hr">
+
 <h2 class="text">折腾</h2>
 <ul class="terminal">
   {% assign i = i | plus: 1 %}

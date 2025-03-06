@@ -104,6 +104,41 @@ footer {
 .terminal {
   list-style: none;
   padding-left: 0;
+}
+
+.dynamic-item {
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .timestamp {
+    font-size: 0.9em;
+    color: #999;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .dynamic-content {
+    line-height: 1.5;
+    p {
+      margin: 0.5em 0;
+    }
+
+    &:hover {
+      background: #f8f8f8;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.8rem 1rem;
+    .timestamp {
+      font-size: 0.85em;
+    }
+  }
+
 
   li {
     padding: .1rem 0;

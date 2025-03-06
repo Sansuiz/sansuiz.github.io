@@ -23,8 +23,8 @@ title: 友邻
   margin: 0 auto;
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.2rem;
 }
 
 .friend-card {
@@ -37,8 +37,8 @@ title: 友邻
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
-  min-height: 120px;
-  aspect-ratio: 1/1;
+  min-height: 160px;
+  aspect-ratio: 16/9;
 }
 
 .avatar-wrapper {
@@ -62,6 +62,7 @@ title: 友邻
 
 .friend-card:hover .avatar-wrapper {
   opacity: 0.3;
+  transform: scale(1.05);
 }
 
 .friend-card:active {
@@ -123,6 +124,13 @@ title: 友邻
 @media (max-width: 992px) {
   .friends-container {
     grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .friends-container {
+    grid-template-columns: 1fr;
   }
 }
 

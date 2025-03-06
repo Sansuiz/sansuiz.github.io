@@ -5,16 +5,13 @@ title: 友邻
 
 <div class="friends-container">
   {% for friend in site.data.friends %}
-  <div class="friend-card">
+  <div class="friend-card" data-url="{{ friend.url }}">
     <div class="avatar-wrapper">
       <img src="{{ friend.avatar }}" alt="{{ friend.name }}" loading="lazy">
     </div>
     <div class="friend-info">
-      <h3><a href="{{ friend.url }}" target="_blank">{{ friend.name }}</a></h3>
-      <p class="bio">{{ friend.bio }}</p>
-      <div class="friend-meta">
-        <a href="{{ friend.url }}" target="_blank">🌐 网站</a>
-      </div>
+      <h3>{{ friend.name }}</h3>
+
     </div>
   </div>
   {% endfor %}
@@ -26,18 +23,19 @@ title: 友邻
   margin: 0 auto;
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1.5rem;
 }
 
 .friend-card {
   position: relative;
-  padding: 1.5rem;
-  min-height: 180px;
+  padding: 1rem;
+  cursor: pointer;
   background: rgba(255,255,255,0.9);
   border-radius: 8px;
   overflow: hidden;
-  transition: transform 0.3s ease;
+  transition: all 0.3s ease;
+  min-height: auto;
 }
 
 .avatar-wrapper {
@@ -61,6 +59,11 @@ title: 友邻
 
 .friend-card:hover .avatar-wrapper {
   opacity: 0.3;
+}
+
+.friend-card:active {
+  transform: scale(0.98);
+  opacity: 0.9;
 }
 
 .friend-info {
@@ -119,3 +122,12 @@ title: 友邻
   }
 }
 </style>
+
+<script>
+document.querySelectorAll('.friend-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const url = card.dataset.url;
+    window.open(url, '_blank');
+  });
+});
+</script>

@@ -44,6 +44,20 @@ header_content: |
 
 <hr class="hr">
 
+<h2 class="text">文辑 <span class="smol"><a href="https://buyivi.xyz/wenji/cn/">【全】</a></span></h2>
+<ul class="terminal">
+  {% assign feed_url = 'https://buyivi.xyz/wenji/feed.xml' %}
+  {% assign feed = site.feeds | where: 'url', feed_url | first %}
+  {% for item in feed.items limit:3 %}
+    {% assign i = i | plus: 1 %}
+    {% capture content %}
+      <a href="{{ item.url }}">{{ item.title }}</a> <time>{{ item.date | date_to_string }}</time>
+    {% endcapture %}{% include line.html i=i content=content %}
+  {% endfor %}
+</ul>
+
+<hr class="hr">
+
 <h2 class="text">折腾</h2>
 <ul class="terminal">
   {% assign i = i | plus: 1 %}

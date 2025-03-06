@@ -26,7 +26,7 @@ title: 便签
 
 <ul class="notes">
 {% for note in site.data.notes %}
-<li class="note {% if note.private %}private-note{% endif %}" 
+<li class="note {% if note.private %}private-note{% endif %} {% if note.favorite %}favorite-note{% endif %}" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
     data-date="{{ note.date | date: '%s' }}"

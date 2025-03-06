@@ -465,3 +465,11 @@ document.addEventListener('copy', e => {
   user-select: none;
 }
 </style>
+.note {
+  padding: 1.5rem;
+  position: relative;
+}
+.note.favorite-note::after {
+  right: -20px;
+  z-index: 1;
+}

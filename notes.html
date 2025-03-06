@@ -446,26 +446,23 @@ document.addEventListener('copy', e => {
 /* 心动便签样式 */
 .note.favorite-note {
   position: relative;
-  border: 2px solid #ff3860;
-  animation: heartbeat 1.5s ease-in-out infinite;
+  border-right: 4px solid #ff3860;
 }
 
 .note.favorite-note::after {
-  content: '❤️';
+  content: '❤';
   position: absolute;
-  top: -12px;
-  right: -12px;
-  background: white;
-  border-radius: 50%;
-  padding: 4px;
-  transition: transform 0.3s ease;
+  top: 8px;
+  right: 8px;
+  font-size: 1.2em;
+  filter: grayscale(1);
+  opacity: 0.8;
+  transition: all 0.3s ease;
 }
 
-@keyframes heartbeat {
-  0% { transform: scale(1); }
-  15% { transform: scale(1.03); }
-  30% { transform: scale(1); }
-  45% { transform: scale(1.02); }
-  60% { transform: scale(1); }
+.note.favorite-note:hover::after {
+  filter: none;
+  opacity: 1;
+  color: #ff3860;
 }
 </style>

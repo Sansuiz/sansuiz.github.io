@@ -19,26 +19,23 @@ title: 友邻
 
 <style>
 .friends-container {
-  max-width: 1200px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
 }
 
 .friend-card {
   position: relative;
-  padding: 1rem;
+  padding: 1.5rem;
   cursor: pointer;
   background: rgba(255,255,255,0.9);
   border-radius: 8px;
   overflow: hidden;
   transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  min-height: 160px;
-  aspect-ratio: 16/9;
+  min-height: 180px;
 }
 
 .avatar-wrapper {
@@ -136,13 +133,11 @@ title: 友邻
 
 @media (max-width: 768px) {
   .friends-container {
-    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     padding: 1rem;
   }
   .friend-card {
-    min-height: 100px;
-    aspect-ratio: 1/1;
+    min-height: 120px;
   }
 }
 </style>

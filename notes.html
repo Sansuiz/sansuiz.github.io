@@ -442,4 +442,30 @@ document.addEventListener('copy', e => {
   -ms-user-select: none;
   user-select: none;
 }
+
+/* 心动便签样式 */
+.note.favorite-note {
+  position: relative;
+  border: 2px solid #ff3860;
+  animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.note.favorite-note::after {
+  content: '❤️';
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: white;
+  border-radius: 50%;
+  padding: 4px;
+  transition: transform 0.3s ease;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  15% { transform: scale(1.03); }
+  30% { transform: scale(1); }
+  45% { transform: scale(1.02); }
+  60% { transform: scale(1); }
+}
 </style>

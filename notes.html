@@ -26,7 +26,7 @@ title: 便签
 
 <ul class="notes">
 {% for note in site.data.notes %}
-<li class="note {% if note.private %}private-note{% endif %}" 
+<li class="note {% if note.private %}private-note{% endif %} {% if note.heartbeat %}heartbeat-note{% endif %}" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
     data-date="{{ note.date | date: '%s' }}"
@@ -332,6 +332,47 @@ document.addEventListener('copy', e => {
   opacity: 0;
   transition: opacity 0.3s ease;
   z-index: 1;
+}
+
+.heartbeat-note {
+  position: relative;
+  overflow: hidden;
+}
+
+.heartbeat-note::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ff6b6b, #ff8e53, #a855f7);
+  z-index: 4;
+  border-radius: 10px;
+  animation: heartbeat-glow 3s ease infinite;
+  mask: 
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 2px;
+}
+
+@keyframes heartbeat-glow {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+
+.heartbeat-note::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  z-index: 3;
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
 }
 
 .note::after {

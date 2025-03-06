@@ -5,7 +5,7 @@ title: 友邻
 
 <div class="friends-container">
   {% for friend in site.data.friends %}
-  <div class="friend-card" data-url="{{ friend.url }}">
+  <div class="friend-card" data-url="{{ friend.url }}" style="--bg-image: url('{{ friend.avatar }}')">
     <div class="avatar-wrapper">
       <img src="{{ friend.avatar }}" alt="{{ friend.name }}" loading="lazy">
     </div>
@@ -96,9 +96,17 @@ title: 友邻
   border: none;
 }
 
-.friend-card:hover .avatar-wrapper {
+.friend-card::before {
+  content: '';
+  background-image: var(--bg-image);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.friend-card:hover::before {
   opacity: 0.8;
-  transform: scale(1.05);
 }
 
 .friend-card:hover {

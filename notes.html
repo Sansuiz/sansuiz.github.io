@@ -26,7 +26,7 @@ title: 便签
 
 <ul class="notes">
 {% for note in site.data.notes %}
-<li class="note {% if note.private %}private-note{% endif %}" 
+<li class="note {% if note.private %}private-note{% endif %} {% if note.featured %}featured-note{% endif %}" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
     data-date="{{ note.date | date: '%s' }}"
@@ -441,5 +441,25 @@ document.addEventListener('copy', e => {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+/* 心动便签样式 */
+.featured-note {
+  position: relative;
+  border: 2px solid transparent;
+  border-image: linear-gradient(135deg, #4a90e2 0%, #6a8eff 100%);
+  border-image-slice: 1;
+  animation: breathe 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { border-color: #4a90e2; }
+  50% { border-color: #6a8eff; }
+}
+
+@media (prefers-color-scheme: dark) {
+  .featured-note {
+    border-image: linear-gradient(135deg, #6a8eff 0%, #4a90e2 100%);
+  }
 }
 </style>

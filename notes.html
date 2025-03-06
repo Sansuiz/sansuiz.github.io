@@ -21,9 +21,7 @@ title: 便签
   </div>
 </div>
 </details>
-<div class="tag-filter" style="margin-top:1rem;">
-  <div id="heatmap-container"></div>
-</div>
+
 <br>
 
 <ul class="notes">
@@ -141,16 +139,8 @@ document.addEventListener('copy', e => {
   }
 });
 </script>
+
 <script>
-// 在DOM加载完成后初始化热力图
-document.addEventListener('DOMContentLoaded', () => {
-  window.notesDates = [
-    {% for note in site.data.notes %}
-    { date: new Date('{{ note.date | date: "%Y-%m-%d" }}') },
-    {% endfor %}
-  ];
-  initHeatmap();
-});
   // 修改后的独立图片模块
   (function(){
       let currentImages = [];

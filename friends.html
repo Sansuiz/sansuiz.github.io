@@ -8,6 +8,10 @@ title: 友邻
   <div class="friend-card" data-url="{{ friend.url }}" style="--bg-image: url('{{ friend.avatar }}')">
     <div class="avatar-wrapper">
       <img src="{{ friend.avatar }}" alt="{{ friend.name }}" loading="lazy">
+      <div class="preview-container">
+        <div class="loading-spinner"></div>
+        <img class="preview-image" alt="网站预览" data-src="https://image.thum.io/get/width=400/crop=800/{{ friend.url }}">
+      </div>
     </div>
     <div class="friend-info">
       <h3>{{ friend.name }}</h3>
@@ -195,9 +199,128 @@ title: 友邻
 
 <script>
 document.querySelectorAll('.friend-card').forEach(card => {
+  const preview = card.querySelector('.preview-container');
+  const img = preview.querySelector('.preview-image');
+  
+  let isLoading = false;
+  
+  card.addEventListener('mouseenter', () => {
+    if (!img.src) {
+      isLoading = true;
+      preview.querySelector('.loading-spinner').style.display = 'block';
+      img.src = img.dataset.src;
+    }
+    
+    preview.style.opacity = '1';
+    preview.style.transform = 'translateY(-50%) translateX(-20px)';
+  });
+
+  card.addEventListener('mouseleave', () => {
+    preview.style.opacity = '0';
+    preview.style.transform = 'translateY(-50%)';
+    
+    if (isLoading) {
+      img.src = ''; // 取消未完成的请求
+      preview.querySelector('.loading-spinner').style.display = 'none';
+    }
+  });
+
+  img.addEventListener('load', () => {
+    isLoading = false;
+    preview.querySelector('.loading-spinner').style.display = 'none';
+  });
+
+  img.addEventListener('error', () => {
+    isLoading = false;
+    preview.querySelector('.loading-spinner').style.display = 'none';
+    img.src = '';
+    preview.innerHTML = '<div class="error-msg">预览加载失败</div>';
+  });
+});
+
+// 移动端触摸支持
+let touchTimer;
+document.querySelectorAll('.friend-card').forEach(card => {
+  card.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    touchTimer = setTimeout(() => {
+      card.dispatchEvent(new Event('mouseenter'));
+    }, 500);
+  });
+
+  card.addEventListener('touchend', () => {
+    clearTimeout(touchTimer);
+    card.dispatchEvent(new Event('mouseleave'));
+  });
+});
+
+// 点击跳转功能
+document.querySelectorAll('.friend-card').forEach(card => {
   card.addEventListener('click', () => {
     const url = card.dataset.url;
     window.open(url, '_blank');
   });
 });
+
+// 优化触控防抖
+const touchHandler = {
+  timer: null,
+  handleTouch(e) {
+    clearTimeout(this.timer);
+    if (e.type === 'touchstart') {
+      this.timer = setTimeout(() => {
+        e.target.dispatchEvent(new Event('mouseenter'));
+      }, 400);
+    } else {
+      e.target.dispatchEvent(new Event('mouseleave'));
+    }
+  }
+};
+
+// 错误提示样式
+.error-msg {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  text-align: center;
+  color: #666;
+  font-size: 0.9em;
+  padding: 1rem;
+}
+</script>
+
+/* 预览容器样式 */
+.preview-container {
+  position: absolute;
+  left: -320px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 300px;
+  height: 200px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  pointer-events: none;
+  z-index: 100;
+}
+
+.loading-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(0,0,0,0.1);
+  border-top-color: #2ecc71;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
 </script>

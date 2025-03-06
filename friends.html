@@ -22,31 +22,50 @@ title: 友邻
 
 <style>
 .friends-container {
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 2rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
 .friend-card {
-  display: flex;
-  gap: 2rem;
-  margin: 2rem 0;
+  position: relative;
   padding: 1.5rem;
+  min-height: 180px;
   background: rgba(255,255,255,0.9);
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.avatar-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+  transition: opacity 0.3s ease;
+  z-index: 1;
 }
 
 .avatar-wrapper img {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  border: 3px solid #f0f0f0;
+  border-radius: 0;
+  border: none;
+}
+
+.friend-card:hover .avatar-wrapper {
+  opacity: 0.3;
 }
 
 .friend-info {
-  flex: 1;
+  position: relative;
+  z-index: 2;
 }
 
 .friend-info h3 {
@@ -85,6 +104,18 @@ title: 友邻
   }
   .friend-meta a {
     background: #333;
+  }
+}
+
+@media (max-width: 992px) {
+  .friends-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .friends-container {
+    grid-template-columns: 1fr;
   }
 }
 </style>

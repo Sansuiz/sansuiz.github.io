@@ -19,34 +19,37 @@ title: 友邻
 
 <style>
 .friends-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
   display: grid;
-  grid-template-columns: repeat(3, minmax(160px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(280px, 1fr));
+  gap: 1.5rem;
 }
 
 .friend-card {
   position: relative;
-  padding: 1rem;
+  padding: 1.5rem;
   cursor: pointer;
-  background: rgba(255,255,255,0.9);
-  border-radius: 8px;
-  overflow: hidden;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  overflow: visible;
   transition: all 0.3s ease;
-  min-height: 120px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  gap: 1rem;
+  align-items: center;
 }
 
 .avatar-wrapper {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.1;
-  transition: opacity 0.3s ease;
-  z-index: 1;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  opacity: 0.3;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .avatar-wrapper img {
@@ -58,8 +61,13 @@ title: 友邻
 }
 
 .friend-card:hover .avatar-wrapper {
-  opacity: 0.3;
+  opacity: 0.8;
   transform: scale(1.05);
+}
+
+.friend-card:hover {
+  background: rgba(255,255,255,0.3);
+  transform: translateY(-2px);
 }
 
 .friend-card:active {
@@ -72,19 +80,23 @@ title: 友邻
   z-index: 2;
 }
 
+.friend-info {
+  flex: 1;
+}
+
 .friend-info h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #333;
+  text-align: left;
+}
+
+.friend-info .bio {
+  font-size: 0.9em;
+  color: #666;
+  line-height: 1.4;
   margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 100%;
-  padding: 0 1rem;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  line-height: 1.3;
 }
 
 .bio {

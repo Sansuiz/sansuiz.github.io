@@ -362,14 +362,21 @@ document.addEventListener('copy', e => {
 .note.favorite-note {
   position: relative;
   background: #fff5f7;
-  border-left: 4px solid #FFB6C1;
-  margin-left: 8px;
+  border-right: 2px solid #FFB6C1;
+  margin-right: 8px;
 }
 
 .note.favorite-note .note-heading a::before {
-  content: '❤️ ';
-  font-size: 0.8em;
-  margin-right: 0.3em;
+  content: '❤️';
+  position: absolute;
+  right: -24px;
+  top: 0;
+  font-size: 1.2em;
+  transition: transform 0.3s ease;
+}
+
+.note.favorite-note:hover .note-heading a::before {
+  transform: translateX(24px);
 }
 
 .note.favorite-note .note-heading {

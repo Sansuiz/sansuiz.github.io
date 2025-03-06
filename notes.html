@@ -446,23 +446,11 @@ document.addEventListener('copy', e => {
 /* 心动便签样式 */
 .note.favorite-note {
   position: relative;
-  border-right: 4px solid #ff3860;
+  border-right: 4px solid #ccc;
+  transition: border-color 0.3s ease;
 }
 
-.note.favorite-note::after {
-  content: '❤';
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  font-size: 1.2em;
-  filter: grayscale(1);
-  opacity: 0.8;
-  transition: all 0.3s ease;
-}
-
-.note.favorite-note:hover::after {
-  filter: none;
-  opacity: 1;
-  color: #ff3860;
+.note.favorite-note:hover {
+  border-color: #ff3860;
 }
 </style>

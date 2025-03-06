@@ -26,7 +26,7 @@ title: 便签
 
 <ul class="notes">
 {% for note in site.data.notes %}
-<li class="note" 
+<li class="note {% if note.private %}private-note{% endif %}" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
     data-date="{{ note.date | date: '%s' }}"
@@ -125,6 +125,19 @@ function clearFilter() {
   history.replaceState({}, '', window.location.pathname);
   updateFilter();
 }
+
+// 阻止右键菜单和复制操作
+document.addEventListener('contextmenu', e => {
+  if(e.target.closest('.private-note')) {
+    e.preventDefault();
+  }
+});
+
+document.addEventListener('copy', e => {
+  if(e.target.closest('.private-note')) {
+    e.preventDefault();
+  }
+});
 </script>
 
 <script>
@@ -404,5 +417,29 @@ function clearFilter() {
 
 .clear-btn:hover {
   background: #eee;
+}
+
+/* 新增隐私样式 */
+.private-note .note-content {
+  filter: blur(5px) !important;
+  transition: filter 0.3s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
+.private-note:hover .note-content {
+  filter: none !important;
+  pointer-events: auto;
+}
+
+/* 阻止文本选择 */
+.private-note {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 </style>

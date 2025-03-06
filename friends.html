@@ -1,0 +1,90 @@
+---
+layout: default
+title: 友邻
+---
+
+<div class="friends-container">
+  {% for friend in site.data.friends %}
+  <div class="friend-card">
+    <div class="avatar-wrapper">
+      <img src="{{ friend.avatar }}" alt="{{ friend.name }}" loading="lazy">
+    </div>
+    <div class="friend-info">
+      <h3><a href="{{ friend.url }}" target="_blank">{{ friend.name }}</a></h3>
+      <p class="bio">{{ friend.bio }}</p>
+      <div class="friend-meta">
+        <a href="{{ friend.url }}" target="_blank">🌐 网站</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<style>
+.friends-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.friend-card {
+  display: flex;
+  gap: 2rem;
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.9);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.avatar-wrapper img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #f0f0f0;
+}
+
+.friend-info {
+  flex: 1;
+}
+
+.friend-info h3 {
+  margin: 0 0 0.5rem;
+}
+
+.bio {
+  color: #666;
+  line-height: 1.6;
+}
+
+.friend-meta {
+  margin-top: 1rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.friend-meta a {
+  padding: 0.3rem 1rem;
+  background: #f8f8f8;
+  border-radius: 15px;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.friend-meta a:hover {
+  background: #eee;
+}
+
+@media (prefers-color-scheme: dark) {
+  .friend-card {
+    background: rgba(0,0,0,0.8);
+  }
+  .bio {
+    color: #ccc;
+  }
+  .friend-meta a {
+    background: #333;
+  }
+}
+</style>

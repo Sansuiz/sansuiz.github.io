@@ -26,7 +26,7 @@ title: 便签
 
 <ul class="notes">
 {% for note in site.data.notes %}
-<li class="note {% if note.private %}private-note{% endif %} {% if note.favorite %}favorite-note{% endif %}"
+<li class="note {% if note.private %}private-note{% endif %}" 
     id="t{{ note.date | date: "%Y%m%d%I%M" }}" 
     data-tags="{{ note.tags | join: ',' }}"
     data-date="{{ note.date | date: '%s' }}"
@@ -359,31 +359,6 @@ document.addEventListener('copy', e => {
   z-index: 3;
 }
 
-.note.favorite-note {
-  position: relative;
-  background: #fff5f7;
-  border-right: 4px solid #FFB6C1;
-  margin-right: 8px;
-}
-
-.note.favorite-note .note-heading a::before {
-  content: '❤️';
-  position: absolute;
-  right: -20px;
-  top: -20px;
-  font-size: 1.2em;
-  transition: transform 0.3s ease;
-}
-
-.note.favorite-note:hover .note-heading a::before {
-  transform: translateY(40px);
-}
-
-.note.favorite-note .note-heading {
-  position: relative;
-  padding-left: 1.2rem;
-}
-
 /* 暗色模式适配 */
 @media (prefers-color-scheme: dark) {
   .note {
@@ -468,11 +443,3 @@ document.addEventListener('copy', e => {
   user-select: none;
 }
 </style>
-.note {
-  padding: 1.5rem;
-  position: relative;
-}
-.note.favorite-note::after {
-  right: -20px;
-  z-index: 1;
-}

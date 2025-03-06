@@ -1,4 +1,0 @@
-# 订阅源配置
-feeds:
-  - name: 文集
-    url: https://buyivi.xyz/wenji/feed.xml

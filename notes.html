@@ -446,20 +446,47 @@ document.addEventListener('copy', e => {
 /* 心动便签样式 */
 .featured-note {
   position: relative;
-  border: 2px solid transparent;
-  border-image: linear-gradient(135deg, #4a90e2 0%, #6a8eff 100%);
-  border-image-slice: 1;
+  overflow: visible;
+  background-clip: padding-box;
+}
+
+.featured-note::before,
+.featured-note::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 10px;
+  z-index: -1;
+}
+
+.featured-note::before {
+  background: linear-gradient(45deg, #4a90e2 0%, #6a8eff 100%);
   animation: breathe 2s ease-in-out infinite;
 }
 
+.featured-note::after {
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  background: linear-gradient(120deg, rgba(106,142,255,0.6) 0%, rgba(74,144,226,0.6) 100%);
+  animation: breathe 2s ease-in-out infinite alternate;
+}
+
 @keyframes breathe {
-  0%, 100% { border-color: #4a90e2; }
-  50% { border-color: #6a8eff; }
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 0.4; }
 }
 
 @media (prefers-color-scheme: dark) {
-  .featured-note {
-    border-image: linear-gradient(135deg, #6a8eff 0%, #4a90e2 100%);
+  .featured-note::before {
+    background: linear-gradient(45deg, #6a8eff 0%, #4a90e2 100%);
+  }
+  .featured-note::after {
+    background: linear-gradient(120deg, rgba(74,144,226,0.6) 0%, rgba(106,142,255,0.6) 100%);
   }
 }
 </style>

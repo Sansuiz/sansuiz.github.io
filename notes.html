@@ -361,24 +361,20 @@ document.addEventListener('copy', e => {
 
 .note.favorite-note {
   position: relative;
-  background: linear-gradient(145deg, #fff0f3 0%, #ffe9ec 100%);
-  box-shadow: 0 4px 6px rgba(255, 100, 150, 0.1);
+  background: #fff5f7;
+  border-left: 4px solid #FFB6C1;
+  margin-left: 8px;
 }
 
-.note.favorite-note::after {
-  content: '❤️';
-  position: absolute;
-  top: -12px;
-  right: -12px;
-  font-size: 28px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transform: rotate(15deg);
-  z-index: 4;
+.note.favorite-note .note-heading a::before {
+  content: '❤️ ';
+  font-size: 0.8em;
+  margin-right: 0.3em;
 }
 
-.note.favorite-note:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 12px rgba(255, 100, 150, 0.2);
+.note.favorite-note .note-heading {
+  position: relative;
+  padding-left: 1.2rem;
 }
 
 /* 暗色模式适配 */

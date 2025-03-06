@@ -23,34 +23,3 @@
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-
-.tag-scroll-container {
-  height: 60vh;
-  overflow-y: auto;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
-
-.note-card {
-  scroll-snap-align: start;
-  height: 55vh;
-  padding: 2rem;
-  opacity: 0.5;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.note-card.active {
-  opacity: 1;
-  transform: scale(1.02);
-}
-
-.note-date {
-  font-size: 0.9em;
-  color: #666;
-  margin-bottom: 0.5rem;
-}
-
-.note-excerpt {
-  line-height: 1.6;
-  max-width: 65ch;
-}

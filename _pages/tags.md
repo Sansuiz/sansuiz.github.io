@@ -9,16 +9,16 @@ title: 标签索引
 {% for tag in all_tags %}
 <section class="tag-section" style="margin-bottom: 2rem;">
   <h2 id="{{ tag | slugify }}">#{{ tag }}</h2>
-  <div class="tag-scroll-container">
-    {% assign sorted_notes = site.data.notes | where: 'tags', tag | sort: 'date' | reverse %}
-    {% for note in sorted_notes %}
-      <div class="note-card" data-index="{{ forloop.index0 }}">
-        <div class="note-date">{{ note.date | date: "%Y-%m-%d" }}</div>
-        <div class="note-excerpt">{{ note.content | markdownify | strip_html | truncate: 80 }}</div>
-      </div>
+  <ul>
+    {% for note in site.data.notes %}
+      {% if note.tags contains tag %}
+        <li style="margin-bottom: 0.5rem;">
+          <a href="{{ site.baseurl }}/notes#t{{ note.date | date: "%Y%m%d%I%M" }}">
+            {{ note.date | date: "%Y-%m-%d" }} — {{ note.content | markdownify | strip_html | truncate: 40 }}
+          </a>
+        </li>
+      {% endif %}
     {% endfor %}
-  </div>
+  </ul>
 </section>
 {% endfor %}
-
-<script src="/js/scroll.js"></script>

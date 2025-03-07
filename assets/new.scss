@@ -122,13 +122,14 @@ footer {
 
 .social-links {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 1.5rem;
   padding: 1rem 0;
+  margin-left: 1rem;
 
   a {
     color: rgba(255,255,255,0.8);
-    font-size: 2rem;
+    font-size: 1.5rem;
     transition: all 0.3s ease;
     opacity: 0.8;
 

@@ -69,19 +69,13 @@ header_content: |
 
 <hr class="hr">
 
-<h2 class="text">社交</h2>
-<ul class="terminal">
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-  <div class="social-links">
-    <a href="https://github.com/sansuiz" target="_blank"><i class="fab fa-github"></i></a>
-    <a href="https://twitter.com/sansuiz" target="_blank"><i class="fab fa-twitter"></i></a>
-    <a href="https://weibo.com/sansuiz" target="_blank"><i class="fab fa-weibo"></i></a>
-    <a href="https://t.me/sansuiz" target="_blank"><i class="fab fa-telegram"></i></a>
-    <a href="https://www.instagram.com/sansuiz" target="_blank"><i class="fab fa-instagram"></i></a>
-  </div>
-  {% endcapture %}{% include line.html i=i content=content %}
-</ul>
+<div class="social-links">
+  <a href="https://github.com/sansuiz" target="_blank"><i class="fab fa-github"></i></a>
+  <a href="https://twitter.com/sansuiz" target="_blank"><i class="fab fa-twitter"></i></a>
+  <a href="https://weibo.com/sansuiz" target="_blank"><i class="fab fa-weibo"></i></a>
+  <a href="https://t.me/sansuiz" target="_blank"><i class="fab fa-telegram"></i></a>
+  <a href="https://www.instagram.com/sansuiz" target="_blank"><i class="fab fa-instagram"></i></a>
+</div>
 
 <hr class="hr">
 

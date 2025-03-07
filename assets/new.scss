@@ -120,6 +120,25 @@ footer {
   height: .7em;
 }
 
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+
+  a {
+    color: rgba(255,255,255,0.8);
+    font-size: 2rem;
+    transition: all 0.3s ease;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+      transform: translateY(-3px);
+    }
+  }
+}
+
 .notes {
   list-style: none;
   margin: 0;

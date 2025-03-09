@@ -13,6 +13,8 @@ title: 便签
          data-tag="{{ tag }}"
          onclick="toggleTagFilter('{{ tag }}')">
       <span>{{ tag }}</span>
+      {% assign tag_count = site.data.notes | where_exp: 'note', 'note.tags contains tag' | size %}
+      <span class="tag-count">{{ tag_count }}</span>
     </div>
     {% endfor %}
   </div>
@@ -276,6 +278,7 @@ document.addEventListener('copy', e => {
   color: #666;
   cursor: pointer;
   transition: color 0.2s;
+  padding-right: 1.8rem;
 }
 
 .tag-option::after {
@@ -300,6 +303,24 @@ document.addEventListener('copy', e => {
 .tag-option.active {
   color: #222;
   font-weight: 500;
+}
+
+.tag-count {
+  position: absolute;
+  top: -6px;
+  right: 4px;
+  font-size: 0.7em;
+  background: #f0f0f0;
+  border-radius: 8px;
+  padding: 2px 5px;
+  line-height: 1;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tag-count {
+    background: #333;
+    color: #ccc;
+  }
 }
 
 .tag-option.active::before {

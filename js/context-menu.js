@@ -7,7 +7,7 @@ const items = [
   { name: '♾️ 刷新页面', action: () => location.reload() },
   { name: '🌿 返回首页', action: () => location.href = '/' },
   { name: '🍵 博客友人', action: () => location.href = '/friends/' },
-  { name: '💫 数字卡片', action: () => location.href = 'https://bento.me/sansuiz' },
+  { name: '💫 数字卡片', action: () => window.open('https://bento.me/sansuiz', '_blank') },
 ];
 
 // 构建菜单项

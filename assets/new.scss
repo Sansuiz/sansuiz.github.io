@@ -1,32 +1,9 @@
 ---
 ---
 
-:root {
-  --bg-color: #f9f9f9;
-  --text-color: #454545;
-  --accent-color: #ed556a;
-  --selection-bg: #d8eef8;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #1a1a1a;
-    --text-color: #e0e0e0;
-    --accent-color: #ff7b93;
-    --selection-bg: #2d4d5c;
-  }
-}
-
-[data-theme="dark"] {
-  --bg-color: #1a1a1a;
-  --text-color: #e0e0e0;
-  --accent-color: #ff7b93;
-  --selection-bg: #2d4d5c;
-}
-
 body {
-  background: var(--bg-color);
-  color: var(--text-color);
+  background: #f9f9f9;
+  color: #454545;
   font-family: 'Cousine', monospace;
   line-height: 1.65rem;
   padding: 0 2.5em;
@@ -36,7 +13,7 @@ body {
 }
 
 a {
-  color: var(--accent-color);
+  color: #ed556a;
 }
 
 *:focus {
@@ -45,7 +22,7 @@ a {
 }
 
 ::selection {
-  background: var(--selection-bg);
+  background: #d8eef8;
 }
 
 header {

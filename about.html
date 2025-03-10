@@ -1,0 +1,150 @@
+---
+layout: default
+title: 关于
+---
+
+<div class="about-container">
+  <!-- 左侧信息卡 -->
+  <div class="profile-card">
+    <img src="/images/sansuiz.png" alt="头像" class="profile-avatar" loading="lazy">
+    <h2>三岁</h2>
+    
+    <div class="info-box">
+      <p>📌 数字游民 | 全栈开发者</p>
+      <p>📧 <a href="mailto:hi@buyivi.xyz">hi@buyivi.xyz</a></p>
+      <div class="social-links">
+        <a href="https://github.com/sansuiz" target="_blank"> GitHub</a>
+        <a href="/feed.xml"> RSS订阅</a>
+      </div>
+    </div>
+
+    <div class="skill-tags">
+      <span class="tag">JavaScript</span>
+      <span class="tag">Python</span>
+      <span class="tag">UI设计</span>
+    </div>
+  </div>
+
+  <!-- 右侧时间轴 -->
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-marker"></div>
+      <div class="timeline-content">
+        <h3>2019</h3>
+        <p>开始接触前端开发，建立个人博客</p>
+      </div>
+    </div>
+    <!-- 更多时间轴条目 -->
+  </div>
+</div>
+
+<style>
+.about-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 2rem;
+}
+
+.profile-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  backdrop-filter: blur(12px);
+}
+
+.profile-avatar {
+  width: 100%;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.info-box {
+  border-top: 1px solid rgba(0,0,0,0.1);
+  padding-top: 1rem;
+}
+
+.social-links a {
+  display: block;
+  padding: 0.5rem;
+  color: #ff3860;
+  transition: transform 0.2s;
+}
+
+.skill-tags {
+  margin-top: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 20px;
+}
+
+.timeline-marker {
+  position: absolute;
+  left: -6px;
+  width: 12px;
+  height: 12px;
+  background: #ff3860;
+  border-radius: 50%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .profile-card {
+    background: rgba(0,0,0,0.9);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .social-links a {
+    color: #ff7597;
+  }
+}
+
+.profile-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.timeline {
+  border-left: 2px solid #ff3860;
+}
+
+.timeline-item {
+  margin-bottom: 2rem;
+  position: relative;
+  left: -6px;
+}
+
+.timeline-content {
+  background: rgba(255,255,255,0.9);
+  padding: 1rem;
+  border-radius: 8px;
+  margin-left: 1.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  .timeline-content {
+    background: rgba(0,0,0,0.8);
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .skill-tags .tag {
+    background: #333;
+    color: #ccc;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

@@ -11,9 +11,9 @@ body {
     rgba(255,255,255,0.04) 100%
   );
   background-image: 
-    radial-gradient(circle at 80% 20%, rgba(255,255,255,0.03) 10%, transparent 30%),
-    radial-gradient(circle at 20% 80%, rgba(255,255,255,0.02) 15%, transparent 35%),
-    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.01) 20%, transparent 40%);
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,0.08) 15%, transparent 40%),
+    radial-gradient(circle at 20% 70%, rgba(255,255,255,0.06) 20%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04) 25%, transparent 50%);
   background-blend-mode: soft-light;
   position: relative;
   z-index: 0;
@@ -22,9 +22,9 @@ body {
 @media (prefers-color-scheme: dark) {
   body {
     background-image: 
-      radial-gradient(circle at 80% 20%, rgba(40,40,40,0.05) 10%, transparent 30%),
-      radial-gradient(circle at 20% 80%, rgba(30,30,30,0.04) 15%, transparent 35%),
-      radial-gradient(circle at 50% 50%, rgba(25,25,25,0.03) 20%, transparent 40%);
+      radial-gradient(circle at 80% 30%, rgba(60,60,60,0.12) 15%, transparent 40%),
+      radial-gradient(circle at 20% 70%, rgba(50,50,50,0.1) 20%, transparent 45%),
+      radial-gradient(circle at 50% 50%, rgba(40,40,40,0.08) 25%, transparent 50%);
   }
 }
   color: #454545;

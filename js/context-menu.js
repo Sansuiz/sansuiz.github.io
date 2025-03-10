@@ -7,9 +7,9 @@ const items = [
   { name: '♾️ 刷新页面', action: () => location.reload() },
   { name: '🌿 返回首页', action: () => location.href = '/' },
   { name: '🍵 博客友人', action: () => location.href = '/friends/' },
-  { name: '💫 数字卡片', action: () => window.open('https://bento.me/sansuiz', '_blank') },
   { name: '🪢 备注留言', action: () => window.open('https://f.wps.cn/g/hQQzfcZC/', '_blank') },
   { name: '🗞️ 三歳文集', action: () => window.open('https://buyivi.xyz/wenji/', '_blank') },
+  { name: '🎫 SANSUIZ', action: () => window.open('https://bento.me/sansuiz', '_blank') },
 ];
 
 // 构建菜单项

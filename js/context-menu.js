@@ -28,8 +28,27 @@ document.addEventListener('contextmenu', e => {
   
   // 定位菜单
   menu.style.display = 'block';
-  menu.style.left = `${e.pageX}px`;
-  menu.style.top = `${e.pageY}px`;
+  // 添加视口坐标定位和边界检测
+  const viewportWidth = window.innerWidth;
+  const viewportHeight = window.innerHeight;
+  const menuWidth = menu.offsetWidth;
+  const menuHeight = menu.offsetHeight;
+  
+  let leftPos = e.clientX + 8;
+  let topPos = e.clientY + 8;
+  
+  // 防止右侧溢出
+  if (leftPos + menuWidth > viewportWidth) {
+    leftPos = viewportWidth - menuWidth - 8;
+  }
+  
+  // 防止底部溢出
+  if (topPos + menuHeight > viewportHeight) {
+    topPos = viewportHeight - menuHeight - 8;
+  }
+  
+  menu.style.left = `${leftPos}px`;
+  menu.style.top = `${topPos}px`;
   
   // 点击外部关闭
   const closeMenu = () => {

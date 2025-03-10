@@ -7,7 +7,7 @@ const items = [
   { name: '♾️ 刷新页面', action: () => location.reload() },
   { name: '🌿 返回首页', action: () => location.href = '/' },
   { name: '💫 站内搜索', action: () => alert('搜索功能开发中') },
-  { name: '🍵 博客友人', action: () => location.href = '/friends' }
+  { name: '🍵 博客友人', action: () => location.href = 'https://buyivi.xyz/friends/' }
 ];
 
 // 构建菜单项

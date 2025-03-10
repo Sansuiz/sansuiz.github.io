@@ -15,6 +15,9 @@ body {
     radial-gradient(circle at 20% 70%, rgba(255,255,255,0.06) 20%, transparent 45%),
     radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04) 25%, transparent 50%);
   background-blend-mode: soft-light;
+-webkit-background-blend-mode: soft-light;
+-moz-background-blend-mode: soft-light;
+mix-blend-mode: multiply;
   position: relative;
   z-index: 0;
 }

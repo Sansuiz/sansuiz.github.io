@@ -14,11 +14,6 @@ title: 观影记录
         alt="{{ movie.title }}"
         loading="lazy"
       >
-      {% if movie.type %}
-      <div class="movie-type">
-        {{ movie.type | join: ", " }}
-      </div>
-      {% endif %}
       <div class="info-overlay">
         <h3>{{ movie.title }}</h3>
         <div class="meta">

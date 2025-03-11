@@ -6,6 +6,14 @@
   rating: 9.7
   intro: 希望让人自由...
 
+- title: "A计划"
+  poster: https://static.flomoapp.com/file/2025-03-11/3540/67b44f831e863bf4faf4f7323d3edcd1.png?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1741955451&Signature=ugdJSdGLYHChSj419Hx6jbsvPJU%3D
+  year: 1994
+  director: 成龙
+  type: 电影, 动作
+  rating: 9.7
+  intro: 外面真的好多警察阿，已经把这个岛包围了，有的站不下都站到海浪上去了
+
 - title: "阿甘正传"
   poster: /images/movies/forrest_gump.jpg
   year: 1994

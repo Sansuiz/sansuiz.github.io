@@ -9,8 +9,8 @@
 
 .movie-card {
   position: relative;
-  aspect-ratio: 3/4;
-  height: 90%;
+  aspect-ratio: 9/16;
+  height: 95%;
   overflow: visible;
   border-radius: 0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);

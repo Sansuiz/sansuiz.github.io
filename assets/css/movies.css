@@ -10,7 +10,8 @@
 .movie-card {
   position: relative;
   aspect-ratio: 9/16;
-  height: 100%;
+  height: 80%;
+  overflow: hidden;
   border-radius: 0;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
@@ -20,19 +21,22 @@
   width: 100%;
   height: 100%;
   position: relative;
+  overflow: hidden;
 }
 
 .poster-wrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center top;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-
+.movie-card {
+  overflow: hidden;
+}
 
 .movie-type {
   background: linear-gradient(135deg, #ff6b6b, #ff8787);

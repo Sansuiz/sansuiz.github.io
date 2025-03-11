@@ -1,0 +1,28 @@
+---
+layout: default
+title: 已阅
+---
+
+<link rel="stylesheet" href="/assets/css/yiyue.css">
+
+<div class="yiyue-container">
+  {% for yiyue in site.data.yiyue %}
+  <div class="yiyue-card">
+    <div class="poster-wrapper">
+      <img 
+        src="{{ yiyue.poster }}" 
+        alt="{{ yiyue.title }}"
+        loading="lazy"
+      >
+      <div class="info-overlay">
+        <h3>{{ yiyue.title }}</h3>
+        <div class="meta">
+          <span>{{ yiyue.year }} · {{ yiyue.director }}</span>
+          <span>⭐ {{ yiyue.rating }}</span>
+        </div>
+        <p>{{ yiyue.intro }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>

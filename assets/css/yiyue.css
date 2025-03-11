@@ -1,4 +1,4 @@
-.movies-container {
+.yiyue-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
@@ -7,7 +7,7 @@
   margin: 0 auto;
 }
 
-.movie-card {
+.yiyue-card {
   position: relative;
   aspect-ratio: 9/16;
   height: 95%;
@@ -34,11 +34,11 @@
   left: 0;
 }
 
-.movie-card {
+.yiyue-card {
   overflow: hidden;
 }
 
-.movie-type {
+.yiyue-type {
   background: linear-gradient(135deg, #ff6b6b, #ff8787);
   color: white;
   padding: 4px 12px;
@@ -48,7 +48,7 @@
   display: inline-block;
 }
 
-.movie-card::after {
+.yiyue-card::after {
   content: '';
   position: absolute;
   bottom: 0;
@@ -73,8 +73,8 @@
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.movie-card:hover::after,
-.movie-card:hover .info-overlay {
+.yiyue-card:hover::after,
+.yiyue-card:hover .info-overlay {
   transform: translateY(0);
 }
 
@@ -103,7 +103,7 @@
 }
 
 @media (max-width: 768px) {
-  .movies-container {
+  .yiyue-container {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.75rem;
     padding: 1rem;

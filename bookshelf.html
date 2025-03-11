@@ -96,28 +96,43 @@ title: 书单 Beta
 }
 
 /* 悬停信息卡片 */
+.book-cover {
+  position: relative;
+  overflow: hidden;
+}
+
+.book-cover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px) saturate(180%);
+  transform: translateY(100%);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.book-card:hover .book-cover::after {
+  transform: translateY(0);
+}
+
 .book-info {
   position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 280px;
-  padding: 1.5rem;
-  background: rgba(255,255,255,0.85);
-  backdrop-filter: blur(10px);
-  border-radius: 8px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  padding: 1rem;
   opacity: 0;
-  pointer-events: none;
-  transition: 
-    opacity 0.3s ease,
-    top 0.3s ease;
-  z-index: 10;
+  transform: translateY(20px);
+  transition: all 0.3s 0.1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .book-card:hover .book-info {
   opacity: 1;
-  top: -40px;
+  transform: translateY(0);
 }
 
 /* 评分样式 */

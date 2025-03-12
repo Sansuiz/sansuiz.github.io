@@ -15,8 +15,8 @@ comment: For micro.blog only.
         <title></title>
         <description>{{ note.content | markdownify | xml_escape }}</description>
         <pubDate>{{ note.date | date_to_rfc822 }}</pubDate>
-        <link>https://sansuiz.github.io/notes#date-{{ note.date | date: "%Y-%m-%d" }}{{ note.slug }}</link>
-        <guid isPermaLink="true">https://sansuiz.github.io/notes#date-{{ note.date | date: "%Y-%m-%d" }}{{ note.slug }}</guid>
+        <link>https://buyivi.xyz/notes#date-{{ note.date | date: "%Y-%m-%d" }}{{ note.slug }}</link>
+        <guid isPermaLink="true">https://buyivi.xyz/notes#date-{{ note.date | date: "%Y-%m-%d" }}{{ note.slug }}</guid>
       </item>
     {% endfor %}
   </channel>

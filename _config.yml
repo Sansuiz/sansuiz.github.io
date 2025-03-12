@@ -23,21 +23,3 @@ defaults:
 
 sass:
   sass_dir: assets/css
-
-# Valine评论系统开关
-# Valine.
-# You can get your appid and appkey from https://leancloud.app
-# more info please open https://valine.js.org
-valine:
-  enable: false
-  appid:   # your leancloud app id
-  appkey:  # your leancloud app key
-  notify: true # mail notifier , https://github.com/xCss/Valine/wiki，v1.4.0+ 已废弃
-  verify: true # Verification code，v1.4.0+ 已废弃
-  placeholder: 打算说点什么呢？ # comment box placeholder
-  avatar:   # gravatar style
-  guest_info: 昵称,邮件,网址 # custom comment header
-  pageSize: 10 # pagination size
-  # path: window.location.pathname #  v1.4.0+不要使用参数“app_key: 'LHvLGcwcauE5B2JpMxJ3lbtF',”
-  recordIP: true # 是否记录评论者IP
-  enableQQ: true # 是否启用昵称框自动获取QQ昵称和QQ头像, 默认关闭

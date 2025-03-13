@@ -1,5 +1,3 @@
-## 我的朋友
-
 ### [安大略](http://www.anandalue.com/)
 
 Just another ordinary personal blog.

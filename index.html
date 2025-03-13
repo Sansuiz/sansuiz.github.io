@@ -1,95 +1,65 @@
----
-title: 乐天
-layout: default
-header_content: |
-  <span class="smol"><a href="/EN">English</a> / 中文简体</span>
-  <!-- 心知天气固定插件 -->
-  <div align="right" id="tp-weather-widget"></div>
-  <script>(function(T,h,i,n,k,P,a,g,e){g=function(){P=h.createElement(i);a=h.getElementsByTagName(i)[0];P.src=k;P.charset="utf-8";P.async=1;a.parentNode.insertBefore(P,a)};T["ThinkPageWeatherWidgetObject"]=n;T[n]||(T[n]=function(){(T[n].q=T[n].q||[]).push(arguments)});T[n].l=+new Date();if(T.attachEvent){T.attachEvent("onload",g)}else{T.addEventListener("load",g,false)}}(window,document,"script","tpwidget","//widget.seniverse.com/widget/chameleon.js"))</script>
-  <script>tpwidget("init", {
-    "flavor": "slim",
-    "location": "WS0E9D8WN298",
-    "geolocation": "enabled",
-    "language": "auto",
-    "unit": "c",
-    "theme": "chameleon",
-    "container": "tp-weather-widget",
-    "bubble": "enabled",
-    "alarmType": "badge",
-    "uid": "U81EB522D4",
-    "hash": "6b972a5f25f3cc4e8beb25e2feab9d4b"
-  });
-  tpwidget("show");
-  </script>
----
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人博客 | Yesterlife</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
 
+<body>
+    <!-- 鼠标指针样式 -->
+  <link rel="stylesheet" href="css/mouse.css">
+  <script src="js/mouse.js"></script>
 
+  <main class="container">
+    <header>
+      <h1>Hi，</h1>
+      <small>这里是SANSUIZ。</small>
+    </header>
 
-<ul class="terminal">
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-    其实是一个很笨的人。
-  {% endcapture %}{% include line.html i=i content=content %}
+    <section class="bio">
+      <div class="bio" id="markdown-content"></div>
 
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-    如果再懒一点，可能就什么都没有了。
-  {% endcapture %}{% include line.html i=i content=content %}
+      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      <script>
+        fetch('intro.md')
+          .then(response => response.text())
+          .then(text => {
+            document.getElementById('markdown-content').innerHTML = marked.parse(text);
+          })
+          .catch(err => console.error('加载MD文件失败:', err));
+      </script>
+    </section>
 
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-    希望有一天，家人闲坐，灯火可亲。
-  {% endcapture %}{% include line.html i=i content=content %}
-</ul>
+    <div class="logo-container">
+      <a href="/">
+        <img src="https://static.flomoapp.com/file/2025-03-12/3540/08595fc04a6dc5fba640cd35aed8b838.gif?OSSAccessKeyId=LTAI5tAXfrgN5cBQ7Bym1EcM&Expires=1742054172&Signature=FyN1KXgxHXCCfYicsPBZuBs2%2F0Q%3D" alt="网站LOGO" class="logo-img">
+      </a>
+    </div>
 
-<hr class="hr">
+    <br>
 
-<h2 class="text">折腾</h2>
-<ul class="terminal">
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-    把自己的碎碎念放在<a href="/notes">便签 ↗</a>里，偶尔也会想要写一些文字在<a href="/wenji">BLOG ↗</a>上。
-  {% endcapture %}{% include line.html i=i content=content %}
-
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-    这里有我的博客朋友 → <a href="https://buyivi.xyz/friends/">友邻 ↗</a>。
-  {% endcapture %}{% include line.html i=i content=content %}
-
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-    随意折腾了一个 → <a href="https://buyivi.xyz/yiyue/">已阅 ↗</a>，和一个 → <a href="https://buyivi.xyz/gallery/">图集 ↗</a>。
-  {% endcapture %}{% include line.html i=i content=content %}
-</ul>
-
-<hr class="hr">
-
-<h2 class="text">文章 <span class="smol"><a href="/feed.xml">【订】</a></span></h2>
-<ul aria-label="posts" class="terminal">
-{% assign posts = site.pages | where: "feature", 1 %}
-{% for post in posts %}
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-    <a href="{{ post.url }}">{{ post.title }}</a>
-  {% endcapture %}{% include line.html i=i content=content %}
-{% endfor %}
-
-{% assign posts = site.posts | where: "feature", 1 %}
-{% for post in posts %}
-  {% assign i = i | plus: 1 %}
-  {% capture content do %}
-    <a href="{{ post.url }}">{{ post.title }}</a> <time>{{ post.date | date_to_string }}</time>
-  {% endcapture %}{% include line.html i=i content=content %}
-{% endfor %}
-
-</ul>
-
-<hr class="hr">
-
-{% assign note = site.data.notes[0] %}
-<h2 class="text">便签 <a href="/notes" class="smol">【全】</a> <span class="smol">[{{ note.date | date: "%b %d, %Y" }}]</span></h2>
-<div class="note">
-  {{ note.content | markdownify }}
-</div>
-
-<hr class="hr">
+    <nav class="social-links">
+      <ul>
+        <li>
+          <a href="https://github.com/yesterlife" target="_blank">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+        </li>
+        <li>
+          <a href="https://twitter.com/yesterlife" target="_blank">
+            <i class="fab fa-twitter"></i> Twitter
+          </a>
+        </li>
+        <li>
+          <a href="mailto:yesterlife@example.com">
+            <i class="fas fa-envelope"></i> Email
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </main>
+</body>
+</html>

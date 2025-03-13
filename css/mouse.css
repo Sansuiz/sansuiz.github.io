@@ -18,6 +18,17 @@
   #cursor.hover {
     opacity: 0.1;
     transform: scale(2.5);
+}
+  
+  #cursor.hover::after {
+    content: '';
+    position: absolute;
+    width: 80%;
+    height: 80%;
+    border: 2px solid rgba(255,255,255,0.8);
+    border-radius: 50%;
+    transform: scale(1.8);
+    transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
   }
   
   #cursor.active {

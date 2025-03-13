@@ -154,3 +154,29 @@ header small {
     margin-left: 2%;
   }
 }
+
+.about-content {
+  max-width: 800px;
+  margin: 2rem auto;
+  line-height: 1.8;
+}
+
+.about-content p {
+  margin-bottom: 1.2rem;
+  text-indent: 2em;
+}
+
+.about-content img {
+  max-width: 300px;
+  float: right;
+  margin: 0 0 1rem 2rem;
+  border-radius: 8px;
+}
+
+@media (max-width: 768px) {
+  .about-content img {
+    float: none;
+    display: block;
+    margin: 1rem auto;
+  }
+}

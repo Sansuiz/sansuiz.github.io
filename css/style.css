@@ -149,7 +149,7 @@ header small {
 .logo-container {
   margin-left: 80%;
 }
-@media (max-width: 2px) {
+@media (max-width: 480px) {
   .logo-container {
     margin-left: 2%;
   }

@@ -1,7 +1,4 @@
-这里是
-[<ruby>
-SANSUIZ<rp>(</rp><rt>三歳</rt><rp>)</rp>
-</ruby>](https://buyivi.xyz/)。
+这里是[<ruby>SANSUIZ<rp>(</rp><rt>三歳</rt><rp>)</rp></ruby>](https://buyivi.xyz/)。
 
 并非前端开发者，只是喜欢折腾体验软件和数码产品，偶尔写下一些文字，记录一些心情。<br>
 现居绵阳，四川的一座小城，我常常一个人到涪江边散步，放空自己，享受阳光、晚风。<br>

@@ -6,4 +6,4 @@
 
 即便作为一个工科生，难免也会有想要写下一些文字的冲动，[**<ruby>便签<rp>(</rp><rt>notes</rt><rp>)</rp></ruby>**](https://blog.buyivi.xyz/)记录着我的生活和心情，[**<ruby>文集<rp>(</rp><rt>wenji</rt><rp>)</rp></ruby>**](https://wenji.buyivi.xyz/)留着些我胡乱写下的东西。<br>
 
-博客就像是漂流着的一叶扁舟，很感激能相遇相识，致[**「友人」**](https://buyivi.xyz/friend)。
+博客就像是漂流着的一叶扁舟，很感激能相遇相识，致[**<ruby>友人<rp>(</rp><rt>friends</rt><rp>)</rp></ruby>**](https://buyivi.xyz/friend)。

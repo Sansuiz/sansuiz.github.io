@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const container = document.querySelector('.countdown-content');
       
       events.forEach(event => {
-        const lunarDate = event.lunar_date ? dayjs().lunar(event.lunar_date) : null;
-const eventDate = lunarDate || dayjs(event.date);
+        const eventDate = event.lunar ? dayjs(event.lunar).lunar() : dayjs(event.date);
         const today = dayjs();
         let diffDays = eventDate.diff(today, 'day');
         let yearText = '';
@@ -26,8 +25,8 @@ const eventDate = lunarDate || dayjs(event.date);
         card.className = 'event-card';
         
         card.innerHTML = `
-          <h3 class="event-title">${event.title}${event.lunar_date ? `<span class="lunar-mark">（${event.lunar_date}）</span>` : ''}</h3>
-          <p class="event-description">${event.description}</p>
+          <h3 class="event-title">${event.title}</h3>
+          <p class="event-description">${event.description}${event.lunar ? `<span class="lunar-mark">农历${event.lunar.format('YYYY-MM-DD')}</span>` : ''}</p>
           <div class="date-progress">
             <div class="progress-bar" style="width: ${Math.min(100, Math.abs(diffDays))}%"></div>
           </div>

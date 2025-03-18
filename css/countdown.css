@@ -76,52 +76,16 @@
 .event-description {
   color: #666;
   line-height: 1.6;
-  margin-bottom: 0.8rem;
-}
-
-.next-date {
-  color: #777;
-  font-size: 0.9em;
-  margin: 0.5rem 0 1rem;
-  padding-left: 0.3rem;
-  border-left: 3px solid #ed627e;
 }
 
 
 @media (max-width: 768px) {
-  .next-date {
-    font-size: 0.85em;
-    margin: 0.3rem 0 0.8rem;
-  }
   .year-mark {
     font-size: 0.7em;
   }
   .event-card {
     padding: 1rem;
     margin: 1rem 0;
-    position: relative;
-  }
-
-  .lunar-card {
-    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-    border: 2px solid #ffb300;
-    box-shadow: 0 2px 8px rgba(255, 179, 0, 0.15);
-  }
-  
-  .lunar-card::after {
-    content: '🌙';
-    position: absolute;
-    right: 12px;
-    top: 8px;
-    font-size: 1.2em;
-    opacity: 0.8;
-  }
-  
-  @media (max-width: 768px) {
-    .lunar-card {
-      margin: 0.8rem 0;
-      padding: 0.8rem;
-    }
   }
   
   .days-number {

@@ -3,17 +3,14 @@ events:
     date: 1997-04-01
     description: 农历四月初一
     is_birthday: true
-    lunar: true
   - title: 母亲
     date: 1978-04-16
     description: 农历四月十六日
     is_birthday: true
-    lunar: true
   - title: 父亲
     date: 1976-09-05
     description: 农历九月初五
     is_birthday: true
-    lunar: true
 
   - title: 不见朝熙
     date: 2024-09-09

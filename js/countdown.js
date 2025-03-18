@@ -48,7 +48,10 @@ document.addEventListener('DOMContentLoaded', () => {
         container.appendChild(card);
       });
     })
-    .catch(err => console.error('加载数据失败:', err));
+    .catch(err => {
+  console.error('加载数据失败:', err);
+  document.querySelector('.countdown-content').innerHTML = `<p class='error'>数据加载失败，请检查控制台</p>`;
+});
 });
 
 
@@ -81,9 +84,3 @@ function getNextBirthday(event) {
   }
   return baseDate;
 }
-
-// 替换原有事件处理逻辑
-targetDate = getNextBirthday(event);
-
-// 在日期显示处添加农历角标
-const lunarMark = event.lunar ? '<span class="lunar-mark">(农历)</span>' : '';

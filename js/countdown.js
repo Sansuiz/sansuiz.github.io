@@ -48,16 +48,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function parseDate(dateStr, isLunar) {
   if(isLunar) {
-    const lunarDate = dayjs(dateStr).lunar().format('YYYY-MM-DD');
-    return dayjs(lunarDate);
+    const currentYear = dayjs().year();
+    const lunarDate = dayjs(dateStr).lunar().year(currentYear).format('YYYY-MM-DD');
+    return dayjs(lunarDate).isBefore(dayjs()) ? 
+      dayjs(dateStr).lunar().year(currentYear + 1) : 
+      dayjs(lunarDate);
   }
-  return dayjs(dateStr);
+  return dayjs(`${dayjs().year()}-${dayjs(dateStr).format('MM-DD')}`).isBefore(dayjs()) ?
+    dayjs(dateStr).add(1, 'year') :
+    dayjs(`${dayjs().year()}-${dayjs(dateStr).format('MM-DD')}`);
 }
 
-// 在事件处理循环中添加判断
-if(event.lunar) {
-  targetDate = parseDate(event.date, true);
+function getNextBirthday(event) {
+  let baseDate = parseDate(event.date, event.lunar);
+  if (event.is_birthday) {
+    const now = dayjs();
+    let nextDate = baseDate.year(now.year());
+    if (nextDate.isBefore(now, 'day')) {
+      nextDate = nextDate.add(1, 'year');
+    }
+    return nextDate;
+  }
+  return baseDate;
 }
+
+// 替换原有事件处理逻辑
+targetDate = getNextBirthday(event);
 
 // 在日期显示处添加农历角标
 const lunarMark = event.lunar ? '<span class="lunar-mark">(农历)</span>' : '';

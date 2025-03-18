@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const container = document.querySelector('.countdown-content');
       
       events.forEach(event => {
-        const eventDate = event.lunar ? dayjs(event.lunar).lunar() : dayjs(event.date);
+        const eventDate = dayjs(event.date);
         const today = dayjs();
         let diffDays = eventDate.diff(today, 'day');
         let yearText = '';
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         card.innerHTML = `
           <h3 class="event-title">${event.title}</h3>
-          <p class="event-description">${event.description}${event.lunar ? `<span class="lunar-mark">农历${event.lunar.format('YYYY-MM-DD')}</span>` : ''}</p>
+          <p class="event-description">${event.description}</p>
           <div class="date-progress">
             <div class="progress-bar" style="width: ${Math.min(100, Math.abs(diffDays))}%"></div>
           </div>
@@ -44,3 +44,20 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(err => console.error('加载数据失败:', err));
 });
+
+
+function parseDate(dateStr, isLunar) {
+  if(isLunar) {
+    const lunarDate = dayjs(dateStr).lunar().format('YYYY-MM-DD');
+    return dayjs(lunarDate);
+  }
+  return dayjs(dateStr);
+}
+
+// 在事件处理循环中添加判断
+if(event.lunar) {
+  targetDate = parseDate(event.date, true);
+}
+
+// 在日期显示处添加农历角标
+const lunarMark = event.lunar ? '<span class="lunar-mark">(农历)</span>' : '';

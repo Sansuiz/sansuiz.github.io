@@ -1,0 +1,75 @@
+.countdown-content {
+  max-width: 800px;
+  margin: 2rem auto;
+}
+
+.event-card {
+  background: rgba(255,255,255,0.95);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-3px);
+}
+
+.date-progress {
+  height: 6px;
+  background: #f0f0f0;
+  border-radius: 3px;
+  margin: 1rem 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #ed627e;
+  transition: width 0.5s ease;
+}
+
+.days-counter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.days-number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  font-family: 'Source Han Serif CN', serif;
+}
+
+.past-day {
+  color: #108adc;
+}
+
+.future-day {
+  color: #ed627e;
+}
+
+.event-title {
+  color: #2c3e50;
+  border-bottom: 2px solid #ed627e;
+  display: inline-block;
+  margin: 0 0 0.5rem;
+}
+
+.event-description {
+  color: #666;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .event-card {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .days-number {
+    font-size: 1.8rem;
+  }
+}

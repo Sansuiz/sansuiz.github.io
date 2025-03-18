@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const card = document.createElement('div');
-        card.className = 'event-card';
+        card.className = 'event-card' + (event.lunar ? ' lunar-card' : '');
         
         card.innerHTML = `
           <h3 class="event-title">${event.title}</h3>

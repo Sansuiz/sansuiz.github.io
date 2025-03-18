@@ -1,8 +1,17 @@
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('/data/days.yml')
+  dayjs.extend(dayjs_plugin_lunar);
+  fetch('/data/days.yml').catch(err => {
+    console.error('网络请求失败:', err);
+    throw err;
+  })
     .then(res => res.text())
     .then(yaml => {
-      const events = jsyaml.load(yaml).events;
+      try {
+    const events = jsyaml.load(yaml).events;
+  } catch(e) {
+    console.error('YAML解析错误:', e);
+    throw e;
+  }
       const container = document.querySelector('.countdown-content');
       
       events.forEach(event => {

@@ -3,45 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(res => res.text())
     .then(yaml => {
       const events = jsyaml.load(yaml).events;
-      // 创建分类导航
-const categoryNav = document.createElement('nav');
-categoryNav.className = 'category-nav';
-
-// 获取所有分类
-const categories = [...new Set(events.map(e => e.category))];
-
-// 生成分类按钮
-categories.forEach(category => {
-  const button = document.createElement('button');
-  button.className = 'category-filter';
-  button.dataset.category = category;
-  button.textContent = category;
-  categoryNav.appendChild(button);
-});
-
-// 创建分类容器
-const categoryWrapper = document.createElement('div');
-categoryWrapper.className = 'category-wrapper';
-
-// 插入导航和容器
-container.appendChild(categoryNav);
-container.appendChild(categoryWrapper);
-
-// 按分类分组显示
-events.reduce((groups, event) => {
-  const category = event.category || '其他';
-  if (!groups[category]) {
-    groups[category] = [];
-    
-    // 创建分类标题
-    const categorySection = document.createElement('section');
-    categorySection.className = 'category-group';
-    categorySection.innerHTML = `<h2 class="category-title">${category}</h2>`;
-    categoryWrapper.appendChild(categorySection);
-  }
-  
-  // 创建事件卡片
-  const eventDate = dayjs(event.date);
+      const container = document.querySelector('.countdown-content');
+      
+      events.forEach(event => {
         const eventDate = dayjs(event.date);
         const today = dayjs();
         const diffDays = eventDate.diff(today, 'day');
@@ -63,9 +27,7 @@ events.reduce((groups, event) => {
           </div>
         `;
         
-        // 添加到对应分类容器
-  const lastGroup = categoryWrapper.lastElementChild;
-  lastGroup.appendChild(card);
+        container.appendChild(card);
       });
     })
     .catch(err => console.error('加载数据失败:', err));

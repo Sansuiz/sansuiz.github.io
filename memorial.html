@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>纪念日 - SANSUIZ</title>
+  <link rel="shortcut icon" href="{{ site.baseurl }}/assets/fav.svg">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+
+<body>
+  <main class="container">
+    <header>
+      <h1>Memorial Days</h1>
+      <small>时光会走远，影像能长存</small>
+    </header>
+
+    <section class="bio memorial-content">
+      <div id="memorial-container"></div>
+
+      <script>
+        fetch('memorial_days.yml')
+          .then(response => response.text())
+          .then(yaml => {
+            const data = jsyaml.load(yaml);
+            renderMemorials(data.days);
+          })
+          .catch(err => console.error('加载纪念日数据失败:', err));
+
+        function renderMemorials(days) {
+          const container = document.getElementById('memorial-container');
+          
+          days.forEach(day => {
+            const item = document.createElement('div');
+            item.className = 'timeline-item';
+            item.innerHTML = `
+              <div class="timeline-line"></div>
+              <time datetime="${day.date}">${day.date.replace(/-/g,'.')}</time>
+              <h3>${day.title}</h3>
+              <p>${day.description}</p>
+              <img src="${day.image}" alt="${day.title}">
+            `;
+            
+            item.querySelector('img').onload = function() {
+              this.style.opacity = 1;
+              this.style.transform = 'translateY(0)';
+            };
+            
+            container.appendChild(item);
+          });
+        }
+      </script>
+    </section>
+
+    <div class="logo-container">
+      <a href="/">
+        <img src="https://static.flomoapp.com/file/2025-03-12/3540/08595fc04a6dc5fba640cd35aed8b838.gif" alt="返回主页" class="logo">
+      </a>
+    </div>
+  </main>
+</body>
+</html>

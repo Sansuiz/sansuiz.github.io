@@ -248,6 +248,32 @@ header small {
   transform: translateX(10px);
 }
 
+.days-counter {
+  position: absolute;
+  right: 2rem;
+  top: 1.5rem;
+  font-size: 0.9em;
+  color: #ed627e;
+  background: rgba(237,98,126,0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+}
+
+.timeline-item time {
+  display: block;
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-family: monospace;
+}
+
+@media (max-width: 768px) {
+  .days-counter {
+    position: static;
+    margin-top: 0.5rem;
+    display: inline-block;
+  }
+}
+
 .timeline-item::before {
   content: '';
   position: absolute;

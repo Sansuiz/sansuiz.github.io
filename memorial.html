@@ -28,6 +28,16 @@
           })
           .catch(err => console.error('加载纪念日数据失败:', err));
 
+        function calculateDaysDifference(targetDate) {
+          const oneDay = 24 * 60 * 60 * 1000;
+          const target = new Date(targetDate);
+          const today = new Date();
+          today.setHours(0, 0, 0, 0);
+          
+          const diff = Math.round((target - today) / oneDay);
+          return diff > 0 ? `还剩 ${diff} 天` : `已过去 ${Math.abs(diff)} 天`;
+        }
+
         function renderMemorials(days) {
           const container = document.getElementById('memorial-container');
           
@@ -39,13 +49,11 @@
               <time datetime="${day.date}">${day.date.replace(/-/g,'.')}</time>
               <h3>${day.title}</h3>
               <p>${day.description}</p>
-              <img src="${day.image}" alt="${day.title}">
-            `;
+              <div class="days-counter">
+                <span>${calculateDaysDifference(day.date)}</span>
+              </div>
+              `;
             
-            item.querySelector('img').onload = function() {
-              this.style.opacity = 1;
-              this.style.transform = 'translateY(0)';
-            };
             
             container.appendChild(item);
           });

@@ -8,8 +8,19 @@ document.addEventListener('DOMContentLoaded', () => {
       events.forEach(event => {
         const eventDate = dayjs(event.date);
         const today = dayjs();
-        const diffDays = eventDate.diff(today, 'day');
-        
+        let diffDays = eventDate.diff(today, 'day');
+        let yearText = '';
+
+        if(event.is_birthday) {
+          const nextYearDate = eventDate.add(1, 'year');
+          if(today.isAfter(eventDate)) {
+            diffDays = nextYearDate.diff(today, 'day');
+            yearText = nextYearDate.year();
+          } else {
+            yearText = eventDate.year();
+          }
+        }
+
         const card = document.createElement('div');
         card.className = 'event-card';
         
@@ -22,8 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <div class="days-counter">
             <span class="days-number ${diffDays < 0 ? 'past-day' : 'future-day'}">
               ${Math.abs(diffDays)}天
+              ${event.is_birthday ? `<span class="year-mark">${yearText}</span>` : ''}
             </span>
-            <span>${diffDays < 0 ? '已过去' : '还剩'}</span>
+            <span>${event.is_birthday ? (diffDays < 0 ? '距离明年生日' : '生日倒计时') : (diffDays < 0 ? '已过去' : '还剩')}</span>
           </div>
         `;
         

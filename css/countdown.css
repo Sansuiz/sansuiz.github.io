@@ -51,6 +51,21 @@
   color: #ed627e;
 }
 
+.year-mark {
+  font-size: 0.8em;
+  color: #999;
+  margin-left: 0.5rem;
+  vertical-align: super;
+}
+
+.birthday-remain {
+  color: #ff69b4;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  background: #fff0f6;
+}
+
 .event-title {
   color: #2c3e50;
   border-bottom: 2px solid #ed627e;
@@ -63,7 +78,11 @@
   line-height: 1.6;
 }
 
+
 @media (max-width: 768px) {
+  .year-mark {
+    font-size: 0.7em;
+  }
   .event-card {
     padding: 1rem;
     margin: 1rem 0;

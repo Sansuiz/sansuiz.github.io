@@ -51,6 +51,13 @@
   color: #ed627e;
 }
 
+.lunar-mark {
+  font-size: 0.85em;
+  color: #ed627e;
+  margin-left: 0.3rem;
+  font-style: italic;
+}
+
 .year-mark {
   font-size: 0.8em;
   color: #999;
@@ -80,7 +87,14 @@
 
 
 @media (max-width: 768px) {
-  .year-mark {
+  .lunar-mark {
+  font-size: 0.85em;
+  color: #ed627e;
+  margin-left: 0.3rem;
+  font-style: italic;
+}
+
+.year-mark {
     font-size: 0.7em;
   }
   .event-card {

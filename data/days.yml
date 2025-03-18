@@ -6,6 +6,7 @@ events:
     date: 2024-12-25
     description: 圣诞生日庆祝
     is_birthday: true
+    lunar_date: 腊月初八
   - title: 项目启动
     date: 2023-09-01
     description: 新项目启动日

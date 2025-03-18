@@ -48,11 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function parseDate(dateStr, isLunar) {
   if(isLunar) {
-    const currentYear = dayjs().year();
-    const lunarDate = dayjs(dateStr).lunar().year(currentYear).format('YYYY-MM-DD');
-    return dayjs(lunarDate).isBefore(dayjs()) ? 
-      dayjs(dateStr).lunar().year(currentYear + 1) : 
-      dayjs(lunarDate);
+    const currentLunarYear = dayjs().lunar().year();
+    let lunarDate = dayjs(dateStr).lunar().year(currentLunarYear);
+    
+    // 如果转换后的日期已过，则使用下一年
+    if(lunarDate.isBefore(dayjs())) {
+      lunarDate = lunarDate.add(1, 'year').lunar();
+    }
+    console.log('农历转换结果:', lunarDate.format('YYYY-MM-DD'));
+    return lunarDate;
   }
   return dayjs(`${dayjs().year()}-${dayjs(dateStr).format('MM-DD')}`).isBefore(dayjs()) ?
     dayjs(dateStr).add(1, 'year') :
@@ -61,6 +65,7 @@ function parseDate(dateStr, isLunar) {
 
 function getNextBirthday(event) {
   let baseDate = parseDate(event.date, event.lunar);
+  console.log('基准日期:', baseDate.format('YYYY-MM-DD'), '是否农历:', event.lunar);
   if (event.is_birthday) {
     const now = dayjs();
     let nextDate = baseDate.year(now.year());

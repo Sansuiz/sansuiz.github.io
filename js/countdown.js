@@ -24,11 +24,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement('div');
         card.className = 'event-card' + (event.lunar ? ' lunar-card' : '');
         
+        const nextDate = getNextBirthday(event);
+        const progressWidth = Math.min(100, Math.abs(diffDays)/365*100);
+        
         card.innerHTML = `
           <h3 class="event-title">${event.title}</h3>
           <p class="event-description">${event.description}</p>
+          <div class="next-date">
+            下次公历：${nextDate.format('YYYY年MM月DD日')}
+          </div>
           <div class="date-progress">
-            <div class="progress-bar" style="width: ${Math.min(100, Math.abs(diffDays))}%"></div>
+            <div class="progress-bar" style="width: ${progressWidth}%"></div>
           </div>
           <div class="days-counter">
             <span class="days-number ${diffDays < 0 ? 'past-day' : 'future-day'}">
@@ -48,19 +54,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function parseDate(dateStr, isLunar) {
   if(isLunar) {
-    const currentLunarYear = dayjs().lunar().year();
-    let lunarDate = dayjs(dateStr).lunar().year(currentLunarYear);
+    const currentYear = dayjs().year();
+    let lunarDate = dayjs().lunar().year(currentYear).month(dayjs(dateStr, 'MM-DD').month()).date(dayjs(dateStr, 'MM-DD').date());
     
-    // 如果转换后的日期已过，则使用下一年
+    // 如果日期已过则使用下一年
     if(lunarDate.isBefore(dayjs())) {
       lunarDate = lunarDate.add(1, 'year').lunar();
     }
-    console.log('农历转换结果:', lunarDate.format('YYYY-MM-DD'));
     return lunarDate;
   }
-  return dayjs(`${dayjs().year()}-${dayjs(dateStr).format('MM-DD')}`).isBefore(dayjs()) ?
-    dayjs(dateStr).add(1, 'year') :
-    dayjs(`${dayjs().year()}-${dayjs(dateStr).format('MM-DD')}`);
+  return dayjs(`${currentYear}-${dateStr}`).isBefore(dayjs()) ?
+    dayjs(`${currentYear}-${dateStr}`).add(1, 'year') :
+    dayjs(`${currentYear}-${dateStr}`);
 }
 
 function getNextBirthday(event) {

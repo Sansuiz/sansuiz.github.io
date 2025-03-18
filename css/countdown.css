@@ -76,10 +76,23 @@
 .event-description {
   color: #666;
   line-height: 1.6;
+  margin-bottom: 0.8rem;
+}
+
+.next-date {
+  color: #777;
+  font-size: 0.9em;
+  margin: 0.5rem 0 1rem;
+  padding-left: 0.3rem;
+  border-left: 3px solid #ed627e;
 }
 
 
 @media (max-width: 768px) {
+  .next-date {
+    font-size: 0.85em;
+    margin: 0.3rem 0 0.8rem;
+  }
   .year-mark {
     font-size: 0.7em;
   }

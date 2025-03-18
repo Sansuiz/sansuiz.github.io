@@ -63,6 +63,34 @@
   line-height: 1.6;
 }
 
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin: 1.5rem 0 2rem;
+  padding: 0 1rem;
+}
+
+.tag {
+  cursor: pointer;
+  color: #999;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 1rem;
+  background: #f5f5f5;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  color: #ed627e;
+  background: #ffe6eb;
+}
+
+.tag.active {
+  color: #ed627e;
+  background: #ffe6eb;
+}
+
 @media (max-width: 768px) {
   .event-card {
     padding: 1rem;

@@ -1,0 +1,20 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+@import 'mouse.css';
+
+/* 公共字体定义 */
+:root {
+  --primary-font: 'Segoe UI', system-ui, sans-serif;
+}
+
+/* 鼠标指针基础样式 */
+.custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  z-index: 9999;
+}
+
+/* 第三方库样式覆写 */
+.fa-icon {
+  vertical-align: middle;
+  margin: 0 0.3em;
+}

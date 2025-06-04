@@ -22,6 +22,6 @@ Just another ordinary personal blog.
 
 来一杯咖啡。
 
-### [彼岸临窗](https://oneblogx.com/)
+### [彼岸临窗](https://oneblog.net/)
 
 生活就是他最好的作品。

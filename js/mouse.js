@@ -126,7 +126,7 @@ const menuItems = [
     {text: '乐天便签', action: () => location.href = '/blog/'},
     {text: '三歳文集', action: () => location.href = '/wenji/'},
     {text: '备注留言', action: () => window.open('https://f.wps.cn/g/hQQzfcZC/', '_blank')},
-    {text: 'SANSUIZ', action: () => window.open('https://bento.me/sansuiz', '_blank')}
+    {text: 'SANSUIZ', action: () => window.open('https://buyivi.xyz/')}
 ];
 
 (() => {

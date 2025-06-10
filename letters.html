@@ -190,7 +190,6 @@ title: letters-SANSUIZ
 }
 
 .modal-text-container {
-  position: relative;
   flex: 1;
   overflow-y: auto;
   padding-left: 2rem;
@@ -262,18 +261,6 @@ title: letters-SANSUIZ
 .modal-title {
   font-family: 'Source Han Serif CN Heavy', serif;
   font-weight: 900;
-}
-.modal-cover-image {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 100px;
-  height: 100px;
-  background-size: cover;
-  background-position: center;
-  opacity: 0.3;
-  z-index: 1;
-  pointer-events: none;
 }
 </style>
 
@@ -370,21 +357,11 @@ document.addEventListener('DOMContentLoaded', function() {
       modalTitle.textContent = card.querySelector('h3').textContent;
       modalText.innerHTML = md.render(card.dataset.content); 
       modal.classList.add('active');
-      
-      // 添加封面图
-      const modalCover = document.createElement('div');
-      modalCover.className = 'modal-cover-image';
-      modalCover.style.backgroundImage = `url(${card.querySelector('.card-image').src})`;
-      document.querySelector('.modal-text-container').appendChild(modalCover);
     });
   });
-  
-  // 关闭时移除封面图
-  closeModal.addEventListener('click', () => {
-    const modalCover = document.querySelector('.modal-cover-image');
-    if(modalCover) {
-      modalCover.remove();
-    }
+
+  // 点击模态框外部关闭
+  modal.addEventListener('click', () => {
     modal.classList.remove('active');
   });
 

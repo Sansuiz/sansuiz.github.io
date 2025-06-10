@@ -2,26 +2,29 @@
 layout: default
 ---
 
-<link rel="stylesheet" href="/css/shared.css">
-<link rel="stylesheet" href="/css/style.css">
+<div class="tag-cloud">
+  <a href="#" class="tag active" data-type="all">全部</a>
+  <a href="#" class="tag" data-type="shmily">Shmily</a>
+  <a href="#" class="tag" data-type="friend">朋友</a>
+</div>
 
 <div class="card-wall">
   <div class="card-container">
-    {% for letter in site.posts %}
-      {% if letter.path contains 'letters/' %}
-      <div class="e-card" data-content="{{ letter.content | markdownify | escape }}" data-back-image="{{ letter.back_image | escape }}" data-type="{{ letter.type | default: 'other' | escape }}">
-        <div class="card-front">
-          <img src="{{ letter.image }}" alt="{{ letter.title }}" class="card-image">
-          <div class="card-label">
-            <h3>{{ letter.title }}</h3>
-            <span class="card-date">{{ letter.date | date: "%Y.%m.%d" }}</span>
-          </div>
+    {% for letter in site.data.letters %}
+    <div class="e-card" data-content="{{ letter.content | escape }}" data-back-image="{{ letter.back_image | escape }}" data-type="{{ letter.type | default: 'other' | escape }}">
+      <div class="card-front">
+        <img src="{{ letter.image }}" alt="{{ letter.title }}" class="card-image">
+        <div class="card-label">
+          <h3>{{ letter.title }}</h3>
+          <span class="card-date">{{ letter.date }}</span>
         </div>
       </div>
-      {% endif %}
+    </div>
     {% endfor %}
   </div>
 </div>
+
+<!-- 保留cards.html中的模态框和样式 -->
 
 <div class="card-modal">
   <div class="modal-content">
@@ -37,114 +40,64 @@ layout: default
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
-<script src="/js/shared.js"></script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const tags = document.querySelectorAll('.tag');
-  const cards = document.querySelectorAll('.e-card');
-  
-  tags.forEach(tag => {
-    tag.addEventListener('click', (e) => {
-      e.preventDefault();
-      
-      // 更新标签状态
-      tags.forEach(t => t.classList.remove('active'));
-      tag.classList.add('active');
-      
-      // 筛选卡片
-      const type = tag.dataset.type;
-      cards.forEach(card => {
-        if(type === 'all' || card.dataset.type === type) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    });
-  });
-});
-const modal = document.querySelector('.card-modal');
-const modalImage = document.querySelector('.modal-image');
-const modalTitle = document.querySelector('.modal-title');
-const modalText = document.querySelector('.modal-text');
-const md = new markdownit();
-
-  // 根据类型设置卡片标签颜色
-  cards.forEach(card => {
-    const type = card.dataset.type;
-    const label = card.querySelector('.card-label');
-    
-    if(type === 'shmily') {
-      label.style.background = 'linear-gradient(to top, rgba(237, 98, 126, 0.8) 0%, transparent 100%)';
-    } else if(type === 'friend') {
-      label.style.background = 'linear-gradient(to top, rgba(30, 144, 255, 0.8) 0%, transparent 100%)';
-    } else {
-      label.style.background = 'linear-gradient(to top, rgba(169, 169, 169, 0.8) 0%, transparent 100%)';
-    }
-  });
-
-  // 点击卡片事件
-  cards.forEach(card => {
-    card.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;
-      modalImage.src = imgSrc;
-      modalImage.alt = card.querySelector('h3').textContent;
-      modalTitle.textContent = card.querySelector('h3').textContent;
-      modalText.innerHTML = md.render(card.dataset.content);
-      modal.classList.add('active');
-    });
-  });
-
-  // 点击模态框外部关闭
-  modal.addEventListener('click', () => {
-    modal.classList.remove('active');
-  });
-
-  // 阻止点击内容区域时冒泡关闭
-  document.querySelector('.modal-content').addEventListener('click', (e) => {
-    e.stopPropagation();
-  });
-});
-</script>
-
 <style>
 .card-wall {
-  display: flex;
-  justify-content: center;
-  min-height: 80vh;
+  min-height: 100vh;
   padding: 2rem;
-  background-color: #f8f9fa00;
+  background: rgba(255, 255, 255, 0);
+  position: relative;
+}
+
+.card-wall::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.1;
 }
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
   max-width: 1200px;
-  width: 100%;
+  margin: 0 auto;
 }
 
 .e-card {
-  width: 100%;
-  height: 180px;
+  aspect-ratio: 3/4;
   perspective: 1000px;
   cursor: pointer;
-  transition: transform 0.3s ease;
 }
 
-.e-card:hover {
-  transform: translateY(-5px);
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card-front {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-radius: 4px;
-  overflow: hidden;
+  background: white;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  background: white;
+  transform: rotateY(180deg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .card-image {
@@ -158,21 +111,27 @@ const md = new markdownit();
   bottom: 0;
   left: 0;
   right: 0;
+  background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
   color: white;
   padding: 1rem;
-  border-radius: 0 0 4px 4px;
 }
 
-.card-label h3 {
-  font-family: 'Source Han Serif CN Heavy', serif;
-  font-weight: 900;
-  margin-bottom: 0.2rem;
+.card-desc {
+  font-family: "KaiTi", "楷体", serif;
+  line-height: 1.8;
+  color: #555;
 }
 
-.card-date {
-  font-size: 0.8rem;
-  opacity: 0.8;
-  display: block;
+.e-card:hover .card-front {
+  transform: rotateY(-15deg) translateY(-5px);
+}
+
+.e-card.active .card-front {
+  transform: rotateY(-180deg);
+}
+
+.e-card.active .card-back {
+  transform: rotateY(0deg);
 }
 
 .card-modal {
@@ -191,26 +150,21 @@ const md = new markdownit();
   transition: opacity 0.3s ease;
 }
 
-.card-modal.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
 .modal-content {
   width: 80%;
   max-width: 900px;
-  height: 70%;
+  height: 75%;  /* 增加高度比例 */
   background: white;
   border-radius: 12px;
   padding: 2rem;
   position: relative;
-  transform: scale(0.9);
+  transform: scale(0.9);  /* 从0.8增加到0.9 */
   transition: transform 0.3s ease;
   display: flex;
 }
 
 .card-modal.active .modal-content {
-  transform: scale(1.05);
+  transform: scale(1.05);  /* 从1增加到1.05 */
 }
 
 .modal-container {
@@ -239,6 +193,7 @@ const md = new markdownit();
   overflow-y: auto;
   padding-left: 2rem;
   border-left: 1px solid #eee;
+  /* 新增滚动条样式 */
   scrollbar-width: thin;
   scrollbar-color: #ed627e #f0f0f0;
 }
@@ -262,9 +217,38 @@ const md = new markdownit();
   background-color: #d4556b;
 }
 
-.modal-title {
+.card-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-image {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.card-label h3 {
   font-family: 'Source Han Serif CN Heavy', serif;
   font-weight: 900;
+  margin-bottom: 0.2rem;
+}
+
+.card-date {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  display: block;
 }
 
 .modal-text {
@@ -272,8 +256,14 @@ const md = new markdownit();
   line-height: 1.8;
   color: #555;
 }
+
+.modal-title {
+  font-family: 'Source Han Serif CN Heavy', serif;
+  font-weight: 900;
+}
 </style>
 
+<style>
 .tag-cloud {
   display: flex;
   justify-content: center;
@@ -310,7 +300,76 @@ const md = new markdownit();
   transform: scale(1.1);
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
-  <a href="#" class="tag active" data-type="all">全部</a>
-  <a href="#" class="tag" data-type="shmily">Shmily</a>
-  <a href="#" class="tag" data-type="friend">Friend</a>
-</div>
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tags = document.querySelectorAll('.tag');
+  const cards = document.querySelectorAll('.e-card');
+  
+  tags.forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // 更新标签状态
+      tags.forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      
+      // 筛选卡片
+      const type = tag.dataset.type;
+      cards.forEach(card => {
+        if(type === 'all' || card.dataset.type === type) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.e-card');
+  const modal = document.querySelector('.card-modal');
+  const modalImage = document.querySelector('.modal-image');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalText = document.querySelector('.modal-text');
+  const md = new markdownit();
+  
+  cards.forEach(card => {
+    // 根据类型设置颜色
+    const type = card.dataset.type;
+    if(type === 'shmily') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.8)');
+    } else if(type === 'friend') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.8)');
+    } else {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.8)');
+    }
+    
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;
+      modalImage.src = imgSrc;
+      modalImage.alt = card.querySelector('h3').textContent;
+      modalTitle.textContent = card.querySelector('h3').textContent;
+      modalText.innerHTML = md.render(card.dataset.content); 
+      modal.classList.add('active');
+    });
+  });
+
+  // 点击模态框外部关闭
+  modal.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+
+  // 阻止点击内容区域时冒泡关闭
+  document.querySelector('.modal-content').addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+});
+</script>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+</head>

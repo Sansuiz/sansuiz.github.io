@@ -2,13 +2,13 @@
 layout: default
 ---
 
-<div class="paper-container">
-  <div class="paper-stack">
+<div class="card-wall">
+  <div class="card-container">
     {% for card in site.data.cards %}
-    <div class="paper-card" style="--card-index: {{ forloop.index0 }}" data-content="{{ card.content | escape }}">
-      <div class="card-content">
+    <div class="e-card" data-content="{{ card.content | escape }}">
+      <div class="card-front">
         <img src="{{ card.image }}" alt="{{ card.title }}" class="card-image">
-        <div class="card-meta">
+        <div class="card-label">
           <h3>{{ card.title }}</h3>
         </div>
       </div>
@@ -17,69 +17,79 @@ layout: default
   </div>
 </div>
 
-<div class="card-detail-view">
-  <div class="detail-container">
-    <div class="detail-image"></div>
-    <div class="detail-content">
-      <h2 class="detail-title"></h2>
-      <p class="detail-text"></p>
+<div class="card-modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <div class="modal-container">
+      <div class="modal-image-container">
+        <img src="" alt="" class="modal-image">
+      </div>
+      <div class="modal-text-container">
+        <h2 class="modal-title"></h2>
+        <p class="modal-text"></p>
+      </div>
     </div>
   </div>
 </div>
 
 <style>
-.paper-container {
+.card-wall {
   min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f5f5f5;
-  perspective: 1000px;
-}
-
-.paper-stack {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0);
   position: relative;
-  width: 300px;
-  height: 400px;
 }
 
-.paper-card {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 16px rgba(255, 254, 254, 0);
-  transform-origin: center bottom;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), z-index 0.4s;
+.card-wall::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/images/liangyao.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.e-card {
+  aspect-ratio: 3/4;
+  perspective: 1000px;
   cursor: pointer;
 }
 
-.paper-card:nth-child(1) {
-  transform: translateY(0) rotateZ(0deg);
-  z-index: 3;
-}
-
-.paper-card:nth-child(2) {
-  transform: translateY(10px) rotateZ(-2deg);
-  z-index: 2;
-}
-
-.paper-card:nth-child(3) {
-  transform: translateY(20px) rotateZ(2deg);
-  z-index: 1;
-}
-
-.paper-card:hover {
-  transform: translateY(-20px) rotateZ(0deg) !important;
-}
-
-.card-content {
+.card-front, .card-back {
+  position: absolute;
   width: 100%;
   height: 100%;
-  position: relative;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 12px;
   overflow: hidden;
-  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-front {
+  background: white;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  background: white;
+  transform: rotateY(180deg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .card-image {
@@ -88,21 +98,35 @@ layout: default
   object-fit: cover;
 }
 
-.card-meta {
+.card-label {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1.5rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(237,98,126,0.8) 0%, transparent 100%);
   color: white;
+  padding: 1rem;
 }
 
-.paper-stack:hover .paper-card {
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), z-index 0.6s;
+.card-desc {
+  font-family: "KaiTi", "楷体", serif;
+  line-height: 1.8;
+  color: #555;
 }
 
-.card-detail-view {
+.e-card:hover .card-front {
+  transform: rotateY(-15deg) translateY(-5px);
+}
+
+.e-card.active .card-front {
+  transform: rotateY(-180deg);
+}
+
+.e-card.active .card-back {
+  transform: rotateY(0deg);
+}
+
+.card-modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -112,104 +136,98 @@ layout: default
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 1000;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
+  transition: opacity 0.3s ease;
 }
 
-.card-detail-view.active {
+.modal-content {
+  width: 80%;
+  max-width: 900px;
+  height: 70%;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+  display: flex;
+}
+
+.modal-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-image-container {
+  flex: 1;
+  padding-right: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.modal-text-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-left: 2rem;
+  border-left: 1px solid #eee;
+}
+
+.card-modal.active {
   opacity: 1;
   pointer-events: all;
 }
 
-.detail-container {
-  width: 80%;
-  max-width: 800px;
-  height: 70vh;
-  background: white;
-  border-radius: 12px;
-  display: flex;
-  overflow: hidden;
-}
-
-.detail-image {
-  width: 50%;
-  height: 100%;
+.modal-image {
+  width: 100%;
+  height: 300px;
   background-size: cover;
   background-position: center;
+  margin-bottom: 1rem;
+  border-radius: 8px;
 }
 
-.detail-content {
-  width: 50%;
-  padding: 2rem;
-  overflow-y: auto;
-}
-
-.detail-text {
-  font-family: "KaiTi", "楷体", serif;
-  line-height: 1.8;
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const cards = document.querySelectorAll('.paper-card');
-  const detailView = document.querySelector('.card-detail-view');
-  const detailImage = document.querySelector('.detail-image');
-  const detailTitle = document.querySelector('.detail-title');
-  const detailText = document.querySelector('.detail-text');
-  
-  let currentIndex = 0;
-  let isDragging = false;
-  let startY = 0;
-  
-  // 鼠标滑动切换卡片
-  document.querySelector('.paper-stack').addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startY = e.clientY;
-  });
-  
-  document.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    
-    const deltaY = e.clientY - startY;
-    if (Math.abs(deltaY) > 10) {
-      updateCards(deltaY > 0 ? -1 : 1);
-      isDragging = false;
-    }
-  });
-  
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-  });
-  
-  function updateCards(direction) {
-    currentIndex = (currentIndex + direction + cards.length) % cards.length;
-    
-    cards.forEach((card, index) => {
-      const offset = (index - currentIndex) * 10;
-      const rotation = (index - currentIndex) * 2;
-      card.style.transform = `translateY(${offset}px) rotateZ(${rotation}deg)`;
-      card.style.zIndex = cards.length - Math.abs(index - currentIndex);
-    });
-  }
-  
-  // 点击卡片放大
+  const cards = document.querySelectorAll('.e-card');
+  const modal = document.querySelector('.card-modal');
+  const modalImage = document.querySelector('.modal-image');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalText = document.querySelector('.modal-text');
+  const closeModal = document.querySelector('.close-modal');
+
   cards.forEach(card => {
     card.addEventListener('click', () => {
-      detailImage.style.backgroundImage = `url(${card.querySelector('.card-image').src})`;
-      detailTitle.textContent = card.querySelector('h3').textContent;
-      detailText.textContent = card.dataset.content;
-      detailView.classList.add('active');
+      const imgSrc = card.querySelector('.card-image').src;
+      modalImage.src = imgSrc;
+      modalImage.alt = card.querySelector('h3').textContent;
+      modalTitle.textContent = card.querySelector('h3').textContent;
+      modalText.textContent = card.dataset.content;
+      modal.classList.add('active');
     });
   });
-  
-  // 关闭详情视图
-  detailView.addEventListener('click', (e) => {
-    if (e.target === detailView) {
-      detailView.classList.remove('active');
-    }
+
+  closeModal.addEventListener('click', () => {
+    modal.classList.remove('active');
   });
 });
 </script>

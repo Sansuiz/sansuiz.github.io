@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/shared.css">
+  <style>
+    .main-content {
+      min-height: calc(100vh - 120px);
+      padding: 2rem 0;
+    }
+    footer {
+      background: rgba(255,255,255,0.8);
+      padding: 1rem;
+      text-align: center;
+      border-top: 1px solid #eee;
+    }
+  </style>
+</head>
+<body>
+  <!-- 鼠标指针样式 -->
+  <script type="module" src="/js/shared.js"></script>
+
+  <div class="main-content">
+    {{ content }}
+  </div>
+
+  <footer>
+    <p>© {{ site.time | date: "%Y" }} {{ site.title }}. All rights reserved.</p>
+  </footer>
+</body>
+</html>

@@ -230,14 +230,17 @@ document.addEventListener('DOMContentLoaded', function() {
   const modalTitle = document.querySelector('.modal-title');
   const modalText = document.querySelector('.modal-text');
   const closeModal = document.querySelector('.close-modal');
-
+  // 添加Markdown解析器
+  const md = new markdownit();
+  
   cards.forEach(card => {
     card.addEventListener('click', () => {
       const imgSrc = card.querySelector('.card-image').src;
       modalImage.src = imgSrc;
       modalImage.alt = card.querySelector('h3').textContent;
       modalTitle.textContent = card.querySelector('h3').textContent;
-      modalText.textContent = card.dataset.content;
+      // 渲染Markdown内容
+      modalText.innerHTML = md.render(card.dataset.content); 
       modal.classList.add('active');
     });
   });
@@ -247,3 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+<head>
+  <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+</head>

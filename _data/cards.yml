@@ -1,6 +1,10 @@
 - title: "明信片1"
   image: "/images/tu/202505.jpg"
-  content: "这是第一张明信片的内容文字..."
+  content: |
+    ## 这是标题
+    - 列表项1
+    - 列表项2
+    [链接文字](https://example.com)
   
 - title: "明信片2" 
   image: "/images/tu/202404.jpg"

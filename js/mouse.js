@@ -123,8 +123,8 @@ class Cursor {
 
 const menuItems = [
     {text: '刷新页面', action: () => location.reload()},
-    {text: '乐天便签', action: () => location.href = '/blog/'},
-    {text: '三歳文集', action: () => location.href = '/wenji/'},
+    {text: '乐天便签', action: () => location.href = '/blog/', '_blank'},
+    {text: '三歳文集', action: () => location.href = '/wenji/', '_blank'},
     {text: '备注留言', action: () => window.open('https://f.wps.cn/g/hQQzfcZC/', '_blank')},
     {text: 'SANSUIZ', action: () => window.open('https://sansuiz.cn/')}
 ];

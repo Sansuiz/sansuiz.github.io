@@ -12,7 +12,10 @@ layout: default
     {% endfor %}
   </div>
   <div class="content-display">
-    <p>点击卡片查看内容</p>
+    <div class="content-card hidden">
+      <h2 class="content-title"></h2>
+      <p class="content-text"></p>
+    </div>
   </div>
 </div>
 
@@ -23,9 +26,11 @@ layout: default
 .cards-container {
   display: flex;
   height: 100vh;
+  background-color: #ffffff;
+  font-family: 'Source Han Serif CN', serif;
 }
 .cards-wrapper {
-  width: 60%;
+  width: 70%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,47 +38,77 @@ layout: default
 }
 .card {
   position: absolute;
-  transition: all 0.3s;
+  transition: all 0.3s ease-out;
   cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transform-origin: center;
 }
 .content-display {
-  width: 40%;
+  width: 30%;
   padding: 2rem;
-  border-left: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.content-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 2rem;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+.content-text {
+  font-family: "KaiTi", "楷体", serif;
+  line-height: 1.8;
 }
 .nav-btn {
   position: fixed;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0,0,0,0.5);
+  background: rgba(237, 98, 126, 0.7);
   color: white;
   border: none;
   padding: 1rem;
   cursor: pointer;
+  border-radius: 50%;
+  font-size: 1.2rem;
 }
 .prev { left: 1rem; }
 .next { right: 1rem; }
+.hidden {
+  opacity: 0;
+  transform: translateX(20px);
+}
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const cards = document.querySelectorAll('.card');
-  const contentDisplay = document.querySelector('.content-display');
+  const contentCard = document.querySelector('.content-card');
+  const contentTitle = document.querySelector('.content-title');
+  const contentText = document.querySelector('.content-text');
   const prevBtn = document.querySelector('.prev');
   const nextBtn = document.querySelector('.next');
   
   // 初始化卡片位置（层叠效果）
   cards.forEach((card, index) => {
-    card.style.transform = `translateX(${index * 20}px) rotate(${index * 2}deg)`;
+    card.style.transform = `translateX(${index * 30}px) rotate(${index * 3}deg)`;
     card.style.zIndex = index;
   });
   
-  // 点击卡片显示内容
+  // 点击卡片动画效果
   cards.forEach(card => {
     card.addEventListener('click', () => {
-      contentDisplay.innerHTML = `<h2>${card.querySelector('h3').textContent}</h2>
-                                 <p>${card.dataset.content}</p>`;
+      // 卡片缩小左移动画
+      card.style.transform = 'translateX(-100px) scale(0.8)';
+      card.style.zIndex = 100;
+      
+      // 显示内容卡片
+      contentTitle.textContent = card.querySelector('h3').textContent;
+      contentText.textContent = card.dataset.content;
+      contentCard.classList.remove('hidden');
+      contentCard.style.animation = 'fadeInRight 0.5s ease-out forwards';
     });
   });
   
@@ -82,10 +117,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
   function updateCards() {
     cards.forEach((card, index) => {
-      const offset = (index - currentIndex) * 20;
-      card.style.transform = `translateX(${offset}px) rotate(${(index - currentIndex) * 2}deg)`;
+      const offset = (index - currentIndex) * 30;
+      card.style.transform = `translateX(${offset}px) rotate(${(index - currentIndex) * 3}deg)`;
       card.style.zIndex = Math.abs(index - currentIndex);
     });
+    // 切换时隐藏内容卡片
+    contentCard.classList.add('hidden');
   }
   
   prevBtn.addEventListener('click', () => {

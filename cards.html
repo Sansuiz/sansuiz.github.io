@@ -2,6 +2,12 @@
 layout: default
 ---
 
+<div class="tag-cloud">
+  <a href="#" class="tag active" data-type="all">全部</a>
+  <a href="#" class="tag" data-type="shmily">Shmily</a>
+  <a href="#" class="tag" data-type="friend">朋友</a>
+</div>
+
 <div class="card-wall">
   <div class="card-container">
     {% for card in site.data.cards %}
@@ -255,6 +261,71 @@ layout: default
 }
 </style>
 
+<style>
+.tag-cloud {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  background: rgba(255,255,255,0.9);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tag {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tag[data-type="all"] {
+  background: #888;
+}
+
+.tag[data-type="shmily"] {
+  background: #ed627e;
+}
+
+.tag[data-type="friend"] {
+  background: #1e90ff;
+}
+
+.tag.active {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const tags = document.querySelectorAll('.tag');
+  const cards = document.querySelectorAll('.e-card');
+  
+  tags.forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // 更新标签状态
+      tags.forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      
+      // 筛选卡片
+      const type = tag.dataset.type;
+      cards.forEach(card => {
+        if(type === 'all' || card.dataset.type === type) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const cards = document.querySelectorAll('.e-card');

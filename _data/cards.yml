@@ -1,6 +1,7 @@
 - title: "From 深圳"
   image: "/images/tu/20250531-q.jpg"
   back_image: "/images/tu/20250531-q-back.jpg"
+  type: "friend"  # 新增类型字段
   content: |
     To 赵同学：
     
@@ -67,6 +68,7 @@
 - title: "From Shmily" 
   image: "/images/tu/20240229-w.jpg"
   back_image: "/images/tu/20240229-w-back.jpg"
+  type: "shmily"  # 新增类型字段
   content: |
     To
     
@@ -84,7 +86,7 @@
 
     最重要的是，以后多注意身体噢，晚上早点睡觉！精神才能倍儿棒！我最希望的，就是你的精神状态越来越好。反正，身体健康最重要，别太工作狂啦，再忙也要休息，以后有啥不开心的地方尽管来找我吐槽哈。
     
-    （写完的时候才发现写反了 facepalm）……
+    （写完的时候发现写反了 facepalm）……
 
     道阻且长，行则将至；
 

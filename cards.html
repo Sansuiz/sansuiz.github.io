@@ -5,7 +5,7 @@ layout: default
 <div class="card-wall">
   <div class="card-container">
     {% for card in site.data.cards %}
-    <div class="e-card" data-content="{{ card.content | escape }}" data-back-image="{{ card.back_image | escape }}">
+    <div class="e-card" data-content="{{ card.content | escape }}" data-back-image="{{ card.back_image | escape }}" data-type="{{ card.type | default: 'other' | escape }}">
       <div class="card-front">
         <img src="{{ card.image }}" alt="{{ card.title }}" class="card-image">
         <div class="card-label">
@@ -102,7 +102,7 @@ layout: default
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(237,98,126,0.8) 0%, transparent 100%);
+  background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
   color: white;
   padding: 1rem;
 }
@@ -257,6 +257,16 @@ document.addEventListener('DOMContentLoaded', function() {
   const md = new markdownit();
   
   cards.forEach(card => {
+    // 根据类型设置颜色
+    const type = card.dataset.type;
+    if(type === 'shmily') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.8)');
+    } else if(type === 'friend') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.8)');
+    } else {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.8)');
+    }
+    
     card.addEventListener('click', (e) => {
       e.stopPropagation();
       const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;

@@ -2,148 +2,127 @@
 layout: default
 ---
 
-<div class="postcards-container">
-  <div class="postcards-wrapper">
+<div class="card-wall">
+  <div class="card-container">
     {% for card in site.data.cards %}
-    <div class="postcard" data-content="{{ card.content | escape }}">
-      <div class="postcard-inner">
-        <img src="{{ card.image }}" alt="{{ card.title }}" class="postcard-image">
-        <div class="postcard-overlay">
+    <div class="e-card" data-content="{{ card.content | escape }}">
+      <div class="card-front">
+        <img src="{{ card.image }}" alt="{{ card.title }}" class="card-image">
+        <div class="card-label">
           <h3>{{ card.title }}</h3>
         </div>
+      </div>
+      <div class="card-back">
+        <p class="card-desc">{{ card.content }}</p>
       </div>
     </div>
     {% endfor %}
   </div>
 </div>
 
-<div class="postcard-modal">
-  <div class="modal-content">
-    <span class="close-modal">&times;</span>
-    <h2 class="modal-title"></h2>
-    <p class="modal-text"></p>
-  </div>
-</div>
-
 <style>
-.postcards-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 80vh;
+.card-wall {
+  min-height: 100vh;
   padding: 2rem;
-  background-color: #f8f9fa;
+  background: rgba(255,255,255,0.9);
+  position: relative;
 }
 
-.postcards-wrapper {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
+.card-wall::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/images/liangyao.png');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
   max-width: 1200px;
+  margin: 0 auto;
 }
 
-.postcard {
-  width: 280px;
-  height: 180px;
+.e-card {
+  aspect-ratio: 3/4;
   perspective: 1000px;
   cursor: pointer;
-  transition: transform 0.3s ease;
 }
 
-.postcard:hover {
-  transform: translateY(-5px);
-}
-
-.postcard-inner {
-  position: relative;
+.card-front, .card-back {
+  position: absolute;
   width: 100%;
   height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 12px;
+  overflow: hidden;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-radius: 4px;
 }
 
-.postcard-image {
+.card-front {
+  background: white;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  background: white;
+  transform: rotateY(180deg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 4px;
 }
 
-.postcard-overlay {
+.card-label {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  background: linear-gradient(to top, rgba(237,98,126,0.8) 0%, transparent 100%);
   color: white;
   padding: 1rem;
-  border-radius: 0 0 4px 4px;
 }
 
-.postcard-modal {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.8);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-
-.modal-content {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 8px;
-  max-width: 600px;
-  width: 90%;
-  position: relative;
-}
-
-.modal-text {
+.card-desc {
   font-family: "KaiTi", "楷体", serif;
   line-height: 1.8;
-  margin-top: 1rem;
+  color: #555;
 }
 
-.close-modal {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
-  cursor: pointer;
+.e-card:hover .card-front {
+  transform: rotateY(-15deg) translateY(-5px);
+}
+
+.e-card.active .card-front {
+  transform: rotateY(-180deg);
+}
+
+.e-card.active .card-back {
+  transform: rotateY(0deg);
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const postcards = document.querySelectorAll('.postcard');
-  const modal = document.querySelector('.postcard-modal');
-  const modalTitle = document.querySelector('.modal-title');
-  const modalText = document.querySelector('.modal-text');
-  const closeModal = document.querySelector('.close-modal');
-
-  postcards.forEach(postcard => {
-    postcard.addEventListener('click', () => {
-      modalTitle.textContent = postcard.querySelector('h3').textContent;
-      modalText.textContent = postcard.dataset.content;
-      modal.style.display = 'flex';
+  const cards = document.querySelectorAll('.e-card');
+  
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('active');
     });
-  });
-
-  closeModal.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
-
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
   });
 });
 </script>

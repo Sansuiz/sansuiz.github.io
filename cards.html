@@ -10,6 +10,7 @@ layout: default
         <img src="{{ card.image }}" alt="{{ card.title }}" class="card-image">
         <div class="card-label">
           <h3>{{ card.title }}</h3>
+          <span class="card-date">{{ card.date }}</span>
         </div>
       </div>
     </div>
@@ -233,6 +234,13 @@ layout: default
 .card-label h3 {
   font-family: 'Source Han Serif CN Heavy', serif;
   font-weight: 900;
+  margin-bottom: 0.2rem;
+}
+
+.card-date {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  display: block;
 }
 
 .modal-text {

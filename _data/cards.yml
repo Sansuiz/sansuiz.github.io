@@ -1,7 +1,8 @@
 - title: "From 深圳"
   image: "/images/tu/20250531-q.jpg"
   back_image: "/images/tu/20250531-q-back.jpg"
-  type: "friend"  # 新增类型字段
+  type: "friend"
+  date: "2025.05.31"  # 新增时间字段
   content: |
     To 赵同学：
     
@@ -19,6 +20,7 @@
   image: "/images/tu/20250518-w.jpg"
   back_image: "/images/tu/20250518-w-back.jpg"
   type: "shmily"
+  date: "2025.05.18"
   content: |
     越来越觉得，生活中完全不能没有你，无法想象没有你的日子。
 
@@ -42,6 +44,7 @@
   image: "/images/tu/20250112-w.jpg"
   back_image: "/images/tu/20250112-w-back.jpg"
   type: "shmily"
+  date: "2025.01.12"
   content: |
     你可以永远相信，我真的很爱你，和你在一起，无论干什么都很开心。
 
@@ -55,6 +58,7 @@
   image: "/images/tu/20240415-y.jpg"
   back_image: "/images/tu/20240415-y-back.jpg"
   type: "friend"
+  date: "2024.04.15"
   content: |
     To 赵三岁：
     
@@ -72,6 +76,7 @@
   image: "/images/tu/20240229-w.jpg"
   back_image: "/images/tu/20240229-w-back.jpg"
   type: "shmily"  # 新增类型字段
+  date: "2024.02.29"  # 新增时间字段
   content: |
     To
     

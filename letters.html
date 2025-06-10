@@ -175,18 +175,26 @@ title: letters-SANSUIZ
 }
 
 .modal-image-container {
-  flex: 1;
-  padding-right: 2rem;
-  display: flex;
-  align-items: center;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: 100px;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  z-index: 10;
+}
+
+.card-modal.active .modal-image-container {
+  opacity: 0.7;
 }
 
 .modal-image {
   width: 100%;
-  height: auto;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 8px;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 .modal-text-container {
@@ -339,24 +347,28 @@ document.addEventListener('DOMContentLoaded', function() {
   const md = new markdownit();
   
   cards.forEach(card => {
-    // 根据类型设置颜色
-    const type = card.dataset.type;
-    if(type === 'shmily') {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.8)');
-    } else if(type === 'friend') {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.8)');
-    } else {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.8)');
-    }
-    
-    card.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;
-      modalImage.src = imgSrc;
-      modalImage.alt = card.querySelector('h3').textContent;
-      modalTitle.textContent = card.querySelector('h3').textContent;
-      modalText.innerHTML = md.render(card.dataset.content); 
-      modal.classList.add('active');
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        const frontImgSrc = card.querySelector('.card-image').src;
+        const backImgSrc = card.dataset.backImage;
+        
+        // 设置背面图为主图
+        modalImage.src = backImgSrc;
+        modalImage.alt = card.querySelector('h3').textContent;
+        
+        // 设置封面图为右下角小图
+        const frontImg = document.createElement('img');
+        frontImg.src = frontImgSrc;
+        frontImg.className = 'modal-front-image';
+        
+        document.querySelector('.modal-image-container').innerHTML = '';
+        document.querySelector('.modal-image-container').appendChild(frontImg);
+        
+        // 显示模态框
+        modalTitle.textContent = card.querySelector('h3').textContent;
+        modalText.innerHTML = md.render(card.dataset.content);
+        modal.classList.add('active');
+      });
     });
   });
 

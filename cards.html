@@ -4,17 +4,15 @@ layout: default
 
 <div class="card-wall">
   <div class="card-container">
-    {% for post in site.posts %}
-    {% if post.layout == "postcard" %}
-    <div class="e-card" data-content="{{ post.content | strip_html | escape }}">
+    {% for card in site.data.cards %}
+    <div class="e-card" data-content="{{ card.content | escape }}">
       <div class="card-front">
-        <img src="{{ post.image }}" alt="{{ post.title }}" class="card-image">
+        <img src="{{ card.image }}" alt="{{ card.title }}" class="card-image">
         <div class="card-label">
-          <h3>{{ post.title }}</h3>
+          <h3>{{ card.title }}</h3>
         </div>
       </div>
     </div>
-    {% endif %}
     {% endfor %}
   </div>
 </div>

@@ -1,0 +1,23 @@
+---
+layout: default
+---
+
+<div class="card-wall">
+  <div class="card-container">
+    {% for letter in site.posts %}
+      {% if letter.path contains 'letters/' %}
+      <div class="e-card" data-content="{{ letter.content | markdownify | escape }}" data-back-image="{{ letter.back_image | escape }}" data-type="{{ letter.type | default: 'other' | escape }}">
+        <div class="card-front">
+          <img src="{{ letter.image }}" alt="{{ letter.title }}" class="card-image">
+          <div class="card-label">
+            <h3>{{ letter.title }}</h3>
+            <span class="card-date">{{ letter.date | date: "%Y.%m.%d" }}</span>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<!-- 复用cards.html的模态框和脚本 -->

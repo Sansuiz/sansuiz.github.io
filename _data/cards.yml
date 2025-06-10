@@ -18,6 +18,7 @@
 - title: "From Shmily"
   image: "/images/tu/20250518-w.jpg"
   back_image: "/images/tu/20250518-w-back.jpg"
+  type: "shmily"
   content: |
     越来越觉得，生活中完全不能没有你，无法想象没有你的日子。
 
@@ -40,6 +41,7 @@
 - title: "From Shmily"
   image: "/images/tu/20250112-w.jpg"
   back_image: "/images/tu/20250112-w-back.jpg"
+  type: "shmily"
   content: |
     你可以永远相信，我真的很爱你，和你在一起，无论干什么都很开心。
 
@@ -52,6 +54,7 @@
 - title: "From 福州" 
   image: "/images/tu/20240415-y.jpg"
   back_image: "/images/tu/20240415-y-back.jpg"
+  type: "friend"
   content: |
     To 赵三岁：
     

@@ -7,26 +7,26 @@ layout: default
     {% for card in site.data.cards %}
     <div class="card" data-content="{{ card.content | escape }}">
       <img src="{{ card.image }}" alt="{{ card.title }}">
-      <h3>{{ card.title }}</h3>
+      <div class="card-overlay">
+        <h3>{{ card.title }}</h3>
+      </div>
     </div>
     {% endfor %}
   </div>
   <div class="content-display">
-    <div class="content-card hidden">
+    <div class="content-card">
+      <div class="close-btn">×</div>
       <h2 class="content-title"></h2>
       <p class="content-text"></p>
     </div>
   </div>
 </div>
 
-<button class="nav-btn prev">←</button>
-<button class="nav-btn next">→</button>
-
 <style>
 .cards-container {
   display: flex;
   height: 100vh;
-  background-color: #ffffff;
+  background: #f8f9fa;
   font-family: 'Source Han Serif CN', serif;
 }
 .cards-wrapper {
@@ -35,50 +35,71 @@ layout: default
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 2rem;
 }
 .card {
   position: absolute;
-  transition: all 0.3s ease-out;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   cursor: pointer;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  border-radius: 8px;
+  overflow: hidden;
   transform-origin: center;
+}
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  color: white;
+  padding: 1.5rem;
 }
 .content-display {
   width: 30%;
-  padding: 2rem;
+  padding: 3rem;
+  background: white;
+  box-shadow: -5px 0 15px rgba(0,0,0,0.05);
   display: flex;
   align-items: center;
-  justify-content: center;
 }
 .content-card {
   width: 100%;
   max-width: 400px;
-  padding: 2rem;
-  background: white;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  border-radius: 8px;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+}
+.content-card.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 .content-text {
   font-family: "KaiTi", "楷体", serif;
   line-height: 1.8;
+  font-size: 1.1rem;
+  color: #555;
 }
-.nav-btn {
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(237, 98, 126, 0.7);
+.close-btn {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  background: #ed627e;
   color: white;
-  border: none;
-  padding: 1rem;
-  cursor: pointer;
   border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   font-size: 1.2rem;
-}
-.prev { left: 1rem; }
-.next { right: 1rem; }
-.hidden {
-  opacity: 0;
-  transform: translateX(20px);
 }
 </style>
 
@@ -88,12 +109,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const contentCard = document.querySelector('.content-card');
   const contentTitle = document.querySelector('.content-title');
   const contentText = document.querySelector('.content-text');
-  const prevBtn = document.querySelector('.prev');
-  const nextBtn = document.querySelector('.next');
+  const closeBtn = document.querySelector('.close-btn');
   
   // 初始化卡片位置（层叠效果）
   cards.forEach((card, index) => {
-    card.style.transform = `translateX(${index * 30}px) rotate(${index * 3}deg)`;
+    card.style.transform = `translateX(${index * 30}px) translateY(${index * -10}px)`;
     card.style.zIndex = index;
   });
   
@@ -101,38 +121,24 @@ document.addEventListener('DOMContentLoaded', function() {
   cards.forEach(card => {
     card.addEventListener('click', () => {
       // 卡片缩小左移动画
-      card.style.transform = 'translateX(-100px) scale(0.8)';
+      card.style.transform = 'translateX(-80px) scale(0.9)';
       card.style.zIndex = 100;
       
       // 显示内容卡片
       contentTitle.textContent = card.querySelector('h3').textContent;
       contentText.textContent = card.dataset.content;
-      contentCard.classList.remove('hidden');
-      contentCard.style.animation = 'fadeInRight 0.5s ease-out forwards';
+      contentCard.classList.add('active');
     });
   });
   
-  // 左右切换卡片
-  let currentIndex = 0;
-  
-  function updateCards() {
+  // 关闭内容卡片
+  closeBtn.addEventListener('click', () => {
+    contentCard.classList.remove('active');
+    // 重置卡片位置
     cards.forEach((card, index) => {
-      const offset = (index - currentIndex) * 30;
-      card.style.transform = `translateX(${offset}px) rotate(${(index - currentIndex) * 3}deg)`;
-      card.style.zIndex = Math.abs(index - currentIndex);
+      card.style.transform = `translateX(${index * 30}px) translateY(${index * -10}px)`;
+      card.style.zIndex = index;
     });
-    // 切换时隐藏内容卡片
-    contentCard.classList.add('hidden');
-  }
-  
-  prevBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
-    updateCards();
-  });
-  
-  nextBtn.addEventListener('click', () => {
-    currentIndex = (currentIndex + 1) % cards.length;
-    updateCards();
   });
 });
 </script>

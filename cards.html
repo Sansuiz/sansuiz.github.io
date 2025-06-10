@@ -3,27 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>来信 - SANSUIZ</title>
-  <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.svg">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <title>明信片 - 三岁</title>
+  <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.png">
+  <link rel="stylesheet" href="/css/style.css">
 </head>
-
 <body>
-<div class="card-wall">
-  <div class="card-container">
-    {% for card in site.data.cards %}
-    <div class="e-card" data-content="{{ card.content | escape }}">
-      <div class="card-front">
-        <img src="{{ card.image }}" alt="{{ card.title }}" class="card-image">
-        <div class="card-label">
-          <h3>{{ card.title }}</h3>
+  <div class="card-wall">
+    <div class="card-container">
+      {% for card in site.data.cards %}
+      <div class="e-card" data-content="{{ card.content | escape }}">
+        <div class="card-front">
+          <img src="{{ card.image }}" alt="{{ card.title }}" class="card-image">
+          <div class="card-label">
+            <h3>{{ card.title }}</h3>
+          </div>
         </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
-</div>
 
 <div class="card-modal">
   <div class="modal-content">
@@ -265,5 +263,5 @@ document.addEventListener('DOMContentLoaded', function() {
 <head>
   <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
 </head>
-
 </body>
+</html>

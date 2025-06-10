@@ -2,6 +2,9 @@
 layout: default
 ---
 
+<link rel="stylesheet" href="/css/shared.css">
+<link rel="stylesheet" href="/css/style.css">
+
 <div class="card-wall">
   <div class="card-container">
     {% for letter in site.posts %}
@@ -20,4 +23,232 @@ layout: default
   </div>
 </div>
 
-<!-- 复用cards.html的模态框和脚本 -->
+<div class="card-modal">
+  <div class="modal-content">
+    <div class="modal-container">
+      <div class="modal-image-container">
+        <img src="" alt="" class="modal-image">
+      </div>
+      <div class="modal-text-container">
+        <h2 class="modal-title"></h2>
+        <p class="modal-text"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
+<script src="/js/shared.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.e-card');
+  const modal = document.querySelector('.card-modal');
+  const modalImage = document.querySelector('.modal-image');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalText = document.querySelector('.modal-text');
+  const md = new markdownit();
+
+  // 根据类型设置卡片标签颜色
+  cards.forEach(card => {
+    const type = card.dataset.type;
+    if(type === 'shmily') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.8)');
+    } else if(type === 'friend') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.8)');
+    } else {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.8)');
+    }
+  });
+
+  // 点击卡片事件
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;
+      modalImage.src = imgSrc;
+      modalImage.alt = card.querySelector('h3').textContent;
+      modalTitle.textContent = card.querySelector('h3').textContent;
+      modalText.innerHTML = md.render(card.dataset.content);
+      modal.classList.add('active');
+    });
+  });
+
+  // 点击模态框外部关闭
+  modal.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+
+  // 阻止点击内容区域时冒泡关闭
+  document.querySelector('.modal-content').addEventListener('click', (e) => {
+    e.stopPropagation();
+  });
+});
+</script>
+
+<style>
+.card-wall {
+  display: flex;
+  justify-content: center;
+  min-height: 80vh;
+  padding: 2rem;
+  background-color: #f8f9fa;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  max-width: 1200px;
+}
+
+.e-card {
+  width: 280px;
+  height: 180px;
+  perspective: 1000px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.e-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-front {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 0 0 4px 4px;
+}
+
+.card-label h3 {
+  font-family: 'Source Han Serif CN Heavy', serif;
+  font-weight: 900;
+  margin-bottom: 0.2rem;
+}
+
+.card-date {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  display: block;
+}
+
+.card-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.card-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 900px;
+  height: 70%;
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  position: relative;
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+  display: flex;
+}
+
+.card-modal.active .modal-content {
+  transform: scale(1.05);
+}
+
+.modal-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-image-container {
+  flex: 1;
+  padding-right: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.modal-image {
+  width: 100%;
+  height: auto;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.modal-text-container {
+  flex: 1;
+  overflow-y: auto;
+  padding-left: 2rem;
+  border-left: 1px solid #eee;
+  scrollbar-width: thin;
+  scrollbar-color: #ed627e #f0f0f0;
+}
+
+.modal-text-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-text-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.modal-text-container::-webkit-scrollbar-thumb {
+  background-color: #ed627e;
+  border-radius: 4px;
+  border: 2px solid #f0f0f0;
+}
+
+.modal-text-container::-webkit-scrollbar-thumb:hover {
+  background-color: #d4556b;
+}
+
+.modal-title {
+  font-family: 'Source Han Serif CN Heavy', serif;
+  font-weight: 900;
+}
+
+.modal-text {
+  font-family: "KaiTi", "楷体", serif;
+  line-height: 1.8;
+  color: #555;
+}
+</style>

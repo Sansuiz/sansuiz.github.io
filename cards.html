@@ -2,147 +2,148 @@
 layout: default
 ---
 
-<div class="bookshelf">
-  <div class="book" data-content="{{ card.content | escape }}" style="--book-color: #ed627e">
-    <div class="book-cover">
-      <img src="{{ card.image }}" alt="{{ card.title }}">
-    </div>
-    <div class="pages">
-      {% for card in site.data.cards %}
-      <div class="page" data-content="{{ card.content | escape }}">
-        <div class="page-content">
+<div class="postcards-container">
+  <div class="postcards-wrapper">
+    {% for card in site.data.cards %}
+    <div class="postcard" data-content="{{ card.content | escape }}">
+      <div class="postcard-inner">
+        <img src="{{ card.image }}" alt="{{ card.title }}" class="postcard-image">
+        <div class="postcard-overlay">
           <h3>{{ card.title }}</h3>
         </div>
       </div>
-      {% endfor %}
     </div>
+    {% endfor %}
   </div>
 </div>
 
-<div class="card-display">
-  <div class="close-btn">×</div>
-  <h2 class="card-title"></h2>
-  <p class="card-content"></p>
+<div class="postcard-modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2 class="modal-title"></h2>
+    <p class="modal-text"></p>
+  </div>
 </div>
 
 <style>
-.bookshelf {
+.postcards-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 80vh;
-  perspective: 2000px;
+  min-height: 80vh;
+  padding: 2rem;
+  background-color: #f8f9fa;
 }
-.book {
+
+.postcards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  max-width: 1200px;
+}
+
+.postcard {
+  width: 280px;
+  height: 180px;
+  perspective: 1000px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.postcard:hover {
+  transform: translateY(-5px);
+}
+
+.postcard-inner {
   position: relative;
-  width: 200px;
-  height: 300px;
-  transform-style: preserve-3d;
-  transition: transform 0.5s ease;
-}
-.book-cover {
-  position: absolute;
   width: 100%;
   height: 100%;
-  background: var(--book-color);
-  transform: translateZ(20px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  border-radius: 2px 8px 8px 2px;
-  overflow: hidden;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-radius: 4px;
 }
-.book-cover img {
+
+.postcard-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  border-radius: 4px;
 }
-.pages {
+
+.postcard-overlay {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  color: white;
+  padding: 1rem;
+  border-radius: 0 0 4px 4px;
 }
-.page {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: #fff;
-  transform-origin: left center;
-  transition: transform 0.3s ease;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-  cursor: pointer;
-}
-.page:hover {
-  transform: rotateY(-30deg);
-}
-.card-display {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 400px;
-  padding: 2rem;
-  background: white;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  border-radius: 8px;
+
+.postcard-modal {
   display: none;
-  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.8);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
 }
-.card-content {
+
+.modal-content {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+}
+
+.modal-text {
   font-family: "KaiTi", "楷体", serif;
   line-height: 1.8;
+  margin-top: 1rem;
 }
-.close-btn {
+
+.close-modal {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
   cursor: pointer;
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const book = document.querySelector('.book');
-  const pages = document.querySelectorAll('.page');
-  const cardDisplay = document.querySelector('.card-display');
-  const cardTitle = document.querySelector('.card-title');
-  const cardContent = document.querySelector('.card-content');
-  const closeBtn = document.querySelector('.close-btn');
-  
-  // 初始化书页位置
-  pages.forEach((page, index) => {
-    page.style.transform = `rotateY(${index * -5}deg) translateZ(${index * 0.5}px)`;
-    page.style.zIndex = index;
-  });
-  
-  // 悬停书本效果
-  book.addEventListener('mouseenter', () => {
-    book.style.transform = 'rotateY(-10deg)';
-  });
-  
-  book.addEventListener('mouseleave', () => {
-    book.style.transform = 'none';
-  });
-  
-  // 点击书页效果
-  pages.forEach(page => {
-    page.addEventListener('click', () => {
-      // 抽出书页动画
-      page.style.transform = 'rotateY(-60deg) translateX(-50px)';
-      
-      // 显示卡片内容
-      cardTitle.textContent = page.querySelector('h3').textContent;
-      cardContent.textContent = page.dataset.content;
-      cardDisplay.style.display = 'block';
+  const postcards = document.querySelectorAll('.postcard');
+  const modal = document.querySelector('.postcard-modal');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalText = document.querySelector('.modal-text');
+  const closeModal = document.querySelector('.close-modal');
+
+  postcards.forEach(postcard => {
+    postcard.addEventListener('click', () => {
+      modalTitle.textContent = postcard.querySelector('h3').textContent;
+      modalText.textContent = postcard.dataset.content;
+      modal.style.display = 'flex';
     });
   });
-  
-  // 关闭卡片
-  closeBtn.addEventListener('click', () => {
-    cardDisplay.style.display = 'none';
-    // 重置书页位置
-    pages.forEach((page, index) => {
-      page.style.transform = `rotateY(${index * -5}deg) translateZ(${index * 0.5}px)`;
-    });
+
+  closeModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+    }
   });
 });
 </script>

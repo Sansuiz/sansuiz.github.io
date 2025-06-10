@@ -1,5 +1,6 @@
 - title: "明信片1"
   image: "/images/tu/202505.jpg"
+  back_image: "/images/tu/202505_back.jpg"
   content: |
     ## 这是标题
     - 列表项1
@@ -8,4 +9,5 @@
   
 - title: "明信片2" 
   image: "/images/tu/202404.jpg"
+  back_image: "/images/tu/202404_back.jpg"
   content: "这是第二张明信片的内容文字..."

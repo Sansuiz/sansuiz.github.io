@@ -170,6 +170,9 @@ layout: default
   padding-right: 2rem;
   display: flex;
   align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  cursor: grab;
 }
 
 .modal-image {
@@ -178,6 +181,8 @@ layout: default
   max-height: 100%;
   object-fit: contain;
   border-radius: 8px;
+  transition: transform 0.1s ease;
+  transform-origin: center center;
 }
 
 .modal-text-container {

@@ -123,10 +123,10 @@ class Cursor {
 
 const menuItems = [
     {text: '刷新页面', action: () => location.reload()},
-    {text: '乐天便签', action: () => window.open('https://blog.sansuiz.cn/', '_blank')},
-    {text: '三歳文集', action: () => window.open('https://wenji.sansuiz.cn/', '_blank')},
+    {text: '乐天便签', action: () => location.href = '/blog/'},
+    {text: '三歳文集', action: () => location.href = '/wenji/'},
     {text: '备注留言', action: () => window.open('https://f.wps.cn/g/hQQzfcZC/', '_blank')},
-    {text: 'SANSUIZ', action: () => window.open('https://sansuiz.cn/', '_blank')}
+    {text: 'SANSUIZ', action: () => window.open('https://sansuiz.cn/')}
 ];
 
 (() => {

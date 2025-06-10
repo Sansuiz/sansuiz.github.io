@@ -75,6 +75,28 @@
     2025.01.12
 
 - title: "From Shmily" 
+  image: "/images/tu/20241215-w.jpg"
+  back_image: "/images/tu/20241215-w-back.jpg"
+  type: "shmily"  # 新增类型字段
+  date: "2024.12.15"  # 新增时间字段
+  content: |
+    心是安定的，有你是极其正确且幸福的，你是温暖且明亮的，你是美好而善良的。
+
+    希望我最爱的宝贝，能觉得生活也是明亮而幸福的，你带给了我无线温暖和力量，希望我也如此带给你。
+
+    刚刚发生了一些不愉快，幸好有你带我解决，谢谢你宝贝。
+
+    以后我也不会不理你，无论发生什么。
+
+    我爱你，赵，一直。
+
+    2024.12.15
+
+    P.S.
+
+    我想就这样牵着你的手不放开。
+
+- title: "From Shmily" 
   image: "/images/tu/20241123-w.jpg"
   back_image: "/images/tu/20241123-w-back.jpg"
   type: "shmily"  # 新增类型字段
@@ -101,6 +123,24 @@
     愿时光赐予我们盗不走的爱人，你是我的太阳，是我的光。
 
     赵是琼的宝贝（老公……o(*￣▽￣*)ブ）
+
+- title: "From Shmily" 
+  image: "/images/tu/20241027-w.jpg"
+  back_image: "/images/tu/20241027-w-back.jpg"
+  type: "shmily"
+  date: "2024.10.27"
+  content: |
+    余生太长，只争朝夕。
+
+    祝福你，一切都好，你真的值得。
+
+    不管怎样，友谊的小船会一直在，你放心。
+
+    2024.10.27
+
+    P.S.
+
+    下次相见，希望你的状态更好。
   
 - title: "From 福州" 
   image: "/images/tu/20240415-y.jpg"

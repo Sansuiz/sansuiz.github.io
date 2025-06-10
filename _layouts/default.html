@@ -11,6 +11,9 @@
     .main-content {
       min-height: calc(100vh - 120px);
       padding: 2rem 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
     }
     footer {
       background: rgba(255,255,255,0.8);
@@ -25,7 +28,9 @@
   <script type="module" src="/js/shared.js"></script>
 
   <div class="main-content">
-    {{ content }}
+    <div class="content-wrapper">
+      {{ content }}
+    </div>
   </div>
 </body>
 </html>

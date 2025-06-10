@@ -17,6 +17,16 @@ layout: default
   </div>
 </div>
 
+<div class="card-detail-view">
+  <div class="detail-container">
+    <div class="detail-image"></div>
+    <div class="detail-content">
+      <h2 class="detail-title"></h2>
+      <p class="detail-text"></p>
+    </div>
+  </div>
+</div>
+
 <style>
 .paper-container {
   min-height: 100vh;
@@ -41,7 +51,7 @@ layout: default
   border-radius: 8px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.1);
   transform-origin: center bottom;
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), z-index 0.4s;
   cursor: pointer;
 }
 
@@ -87,28 +97,119 @@ layout: default
   background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
   color: white;
 }
+
+.paper-stack:hover .paper-card {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), z-index 0.6s;
+}
+
+.card-detail-view {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.card-detail-view.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.detail-container {
+  width: 80%;
+  max-width: 800px;
+  height: 70vh;
+  background: white;
+  border-radius: 12px;
+  display: flex;
+  overflow: hidden;
+}
+
+.detail-image {
+  width: 50%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.detail-content {
+  width: 50%;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.detail-text {
+  font-family: "KaiTi", "楷体", serif;
+  line-height: 1.8;
+}
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const cards = document.querySelectorAll('.paper-card');
+  const detailView = document.querySelector('.card-detail-view');
+  const detailImage = document.querySelector('.detail-image');
+  const detailTitle = document.querySelector('.detail-title');
+  const detailText = document.querySelector('.detail-text');
   
-  cards.forEach(card => {
-    card.addEventListener('click', function() {
-      // 卡片飞入动画
-      card.style.transition = 'transform 0.8s cubic-bezier(0.22, 1, 0.36, 1)';
-      card.style.transform = 'translateY(-100px) scale(1.1)';
-      card.style.zIndex = '10';
-      
-      // 显示内容
-      setTimeout(() => {
-        alert(card.dataset.content);
-        // 恢复卡片位置
-        card.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
-        card.style.transform = '';
-        card.style.zIndex = '';
-      }, 800);
+  let currentIndex = 0;
+  let isDragging = false;
+  let startY = 0;
+  
+  // 鼠标滑动切换卡片
+  document.querySelector('.paper-stack').addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startY = e.clientY;
+  });
+  
+  document.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    
+    const deltaY = e.clientY - startY;
+    if (Math.abs(deltaY) > 10) {
+      updateCards(deltaY > 0 ? -1 : 1);
+      isDragging = false;
+    }
+  });
+  
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+  
+  function updateCards(direction) {
+    currentIndex = (currentIndex + direction + cards.length) % cards.length;
+    
+    cards.forEach((card, index) => {
+      const offset = (index - currentIndex) * 10;
+      const rotation = (index - currentIndex) * 2;
+      card.style.transform = `translateY(${offset}px) rotateZ(${rotation}deg)`;
+      card.style.zIndex = cards.length - Math.abs(index - currentIndex);
     });
+  }
+  
+  // 点击卡片放大
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      detailImage.style.backgroundImage = `url(${card.querySelector('.card-image').src})`;
+      detailTitle.textContent = card.querySelector('h3').textContent;
+      detailText.textContent = card.dataset.content;
+      detailView.classList.add('active');
+    });
+  });
+  
+  // 关闭详情视图
+  detailView.addEventListener('click', (e) => {
+    if (e.target === detailView) {
+      detailView.classList.remove('active');
+    }
   });
 });
 </script>

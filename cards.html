@@ -170,9 +170,6 @@ layout: default
   padding-right: 2rem;
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  cursor: grab;
 }
 
 .modal-image {
@@ -181,8 +178,6 @@ layout: default
   max-height: 100%;
   object-fit: contain;
   border-radius: 8px;
-  transition: transform 0.1s ease;
-  transform-origin: center center;
 }
 
 .modal-text-container {
@@ -276,39 +271,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   closeModal.addEventListener('click', () => {
     modal.classList.remove('active');
-  });
-
-  let scale = 1;
-  let isDragging = false;
-  let startPos = { x: 0, y: 0 };
-  let translate = { x: 0, y: 0 };
-
-  modalImageContainer.addEventListener('wheel', function(e) {
-    e.preventDefault();
-    const delta = -e.deltaY;
-    scale += delta * 0.001;
-    scale = Math.min(Math.max(0.5, scale), 3);
-    modalImage.style.transform = `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`;
-  });
-
-  modalImageContainer.addEventListener('mousedown', function(e) {
-    if (scale > 1) {
-      isDragging = true;
-      startPos = { x: e.clientX - translate.x, y: e.clientY - translate.y };
-      modalImage.style.cursor = 'grabbing';
-    }
-  });
-
-  document.addEventListener('mousemove', function(e) {
-    if (!isDragging) return;
-    translate.x = e.clientX - startPos.x;
-    translate.y = e.clientY - startPos.y;
-    modalImage.style.transform = `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`;
-  });
-
-  document.addEventListener('mouseup', function() {
-    isDragging = false;
-    modalImage.style.cursor = 'grab';
   });
 });
 </script>

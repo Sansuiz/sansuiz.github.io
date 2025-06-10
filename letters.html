@@ -197,128 +197,21 @@ title: letters-SANSUIZ
   position: relative;
 }
 
+// 在CSS部分添加新样式（不影响原有样式）
 .modal-cover-image {
   position: absolute;
-  right: 0;
-  bottom: 0;
-  width: 150px;
-  height: 100px;
+  right: 20px;
+  bottom: 20px;
+  width: 120px;
+  height: 80px;
   background-size: cover;
   background-position: center;
   opacity: 0.3;
   mask-image: linear-gradient(to right, transparent, black 50%);
+  z-index: 1;
 }
 
-/* 新增滚动条样式 */
-  scrollbar-width: thin;
-  scrollbar-color: #ed627e #f0f0f0;
-}
-
-.modal-text-container::-webkit-scrollbar {
-  width: 8px;
-}
-
-.modal-text-container::-webkit-scrollbar-track {
-  background: #f0f0f0;
-  border-radius: 4px;
-}
-
-.modal-text-container::-webkit-scrollbar-thumb {
-  background-color: #ed627e;
-  border-radius: 4px;
-  border: 2px solid #f0f0f0;
-}
-
-.modal-text-container::-webkit-scrollbar-thumb:hover {
-  background-color: #d4556b;
-}
-
-.card-modal.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal-image {
-  width: 100%;
-  height: 300px;
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-}
-
-.close-modal {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
-  cursor: pointer;
-}
-
-.card-label h3 {
-  font-family: 'Source Han Serif CN Heavy', serif;
-  font-weight: 900;
-  margin-bottom: 0.2rem;
-}
-
-.card-date {
-  font-size: 0.8rem;
-  opacity: 0.8;
-  display: block;
-}
-
-.modal-text {
-  font-family: "KaiTi", "楷体", serif;
-  line-height: 1.8;
-  color: #555;
-}
-
-.modal-title {
-  font-family: 'Source Han Serif CN Heavy', serif;
-  font-weight: 900;
-}
-</style>
-
-<style>
-.tag-cloud {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1.5rem 0;
-  background: rgba(255,255,255,0.9);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.tag {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  text-decoration: none;
-  color: white;
-  font-weight: 500;
-  transition: all 0.3s ease;
-}
-
-.tag[data-type="all"] {
-  background: #888;
-}
-
-.tag[data-type="shmily"] {
-  background: #ed627e;
-}
-
-.tag[data-type="friend"] {
-  background: #1e90ff;
-}
-
-.tag.active {
-  transform: scale(1.1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-}
-</style>
-
-<script>
+// 在JavaScript部分添加新功能（不影响原有逻辑）
 document.addEventListener('DOMContentLoaded', function() {
   const tags = document.querySelectorAll('.tag');
   const cards = document.querySelectorAll('.e-card');
@@ -373,21 +266,22 @@ document.addEventListener('DOMContentLoaded', function() {
       modalText.innerHTML = md.render(card.dataset.content); 
       modal.classList.add('active');
       
-      // 添加封面图
+      // 新增：添加封面图
+      const modalTextContainer = document.querySelector('.modal-text-container');
       const coverImage = document.createElement('div');
       coverImage.className = 'modal-cover-image';
       coverImage.style.backgroundImage = `url(${card.querySelector('.card-image').src})`;
-      document.querySelector('.modal-text-container').appendChild(coverImage);
+      modalTextContainer.appendChild(coverImage);
     });
   });
 
-  // 关闭时移除封面图
-  closeModal.addEventListener('click', () => {
+  // 新增：关闭时移除封面图
+  const originalCloseHandler = closeModal.onclick;
+  closeModal.onclick = function() {
     const coverImage = document.querySelector('.modal-cover-image');
-    if(coverImage) {
-      coverImage.remove();
-    }
-  });
+    if(coverImage) coverImage.remove();
+    originalCloseHandler.call(this);
+  };
 });
 </script>
 <head>

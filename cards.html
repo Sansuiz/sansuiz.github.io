@@ -19,7 +19,6 @@ layout: default
 
 <div class="card-modal">
   <div class="modal-content">
-    <span class="close-modal">&times;</span>
     <div class="modal-container">
       <div class="modal-image-container">
         <img src="" alt="" class="modal-image">
@@ -255,11 +254,11 @@ document.addEventListener('DOMContentLoaded', function() {
   const modalImage = document.querySelector('.modal-image');
   const modalTitle = document.querySelector('.modal-title');
   const modalText = document.querySelector('.modal-text');
-  const closeModal = document.querySelector('.close-modal');
   const md = new markdownit();
   
   cards.forEach(card => {
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
       const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;
       modalImage.src = imgSrc;
       modalImage.alt = card.querySelector('h3').textContent;
@@ -269,8 +268,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  closeModal.addEventListener('click', () => {
+  // 点击模态框外部关闭
+  modal.addEventListener('click', () => {
     modal.classList.remove('active');
+  });
+
+  // 阻止点击内容区域时冒泡关闭
+  document.querySelector('.modal-content').addEventListener('click', (e) => {
+    e.stopPropagation();
   });
 });
 </script>

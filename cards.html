@@ -2,121 +2,147 @@
 layout: default
 ---
 
-<div class="container">
-  <header>
-    <h1>明信片</h1>
-    <small>时光的印记</small>
-  </header>
-
-  <div class="cards-content">
-    {% for card in site.data.cards %}
-    <div class="card-item" data-content="{{ card.content | escape }}">
-      <img src="{{ card.image }}" alt="{{ card.title }}" class="card-image">
-      <div class="card-overlay">
-        <h3>{{ card.title }}</h3>
-      </div>
+<div class="bookshelf">
+  <div class="book" data-content="{{ card.content | escape }}" style="--book-color: #ed627e">
+    <div class="book-cover">
+      <img src="{{ card.image }}" alt="{{ card.title }}">
     </div>
-    {% endfor %}
-  </div>
-
-  <div class="content-panel">
-    <div class="close-btn">×</div>
-    <h2 class="content-title"></h2>
-    <p class="content-text"></p>
-  </div>
-
-  <div class="logo-container">
-    <a href="/">
-      <img src="/images/sansuiz-zimu-26.gif" alt="返回主页" class="logo">
-    </a>
+    <div class="pages">
+      {% for card in site.data.cards %}
+      <div class="page" data-content="{{ card.content | escape }}">
+        <div class="page-content">
+          <h3>{{ card.title }}</h3>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </div>
 
+<div class="card-display">
+  <div class="close-btn">×</div>
+  <h2 class="card-title"></h2>
+  <p class="card-content"></p>
+</div>
+
 <style>
-.container {
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 2rem;
+.bookshelf {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  perspective: 2000px;
 }
-header {
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.cards-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-.card-item {
+.book {
   position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  width: 200px;
+  height: 300px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
 }
-.card-item:hover {
-  transform: translateY(-5px);
-}
-.card-image {
+.book-cover {
+  position: absolute;
   width: 100%;
-  height: 200px;
+  height: 100%;
+  background: var(--book-color);
+  transform: translateZ(20px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  border-radius: 2px 8px 8px 2px;
+  overflow: hidden;
+}
+.book-cover img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
-.card-overlay {
+.pages {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
-  color: white;
-  padding: 1rem;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
 }
-.content-panel {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: #f8f9fa;
+.page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+.page:hover {
+  transform: rotateY(-30deg);
+}
+.card-display {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  padding: 2rem;
+  background: white;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   border-radius: 8px;
   display: none;
+  z-index: 100;
 }
-.content-text {
+.card-content {
   font-family: "KaiTi", "楷体", serif;
   line-height: 1.8;
-  color: #555;
 }
 .close-btn {
-  float: right;
+  position: absolute;
+  top: 10px;
+  right: 10px;
   cursor: pointer;
-  font-size: 1.2rem;
-}
-.logo-container {
-  text-align: center;
-  margin-top: 2rem;
-}
-.logo {
-  width: 50px;
-  height: 50px;
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const cards = document.querySelectorAll('.card-item');
-  const contentPanel = document.querySelector('.content-panel');
-  const contentTitle = document.querySelector('.content-title');
-  const contentText = document.querySelector('.content-text');
+  const book = document.querySelector('.book');
+  const pages = document.querySelectorAll('.page');
+  const cardDisplay = document.querySelector('.card-display');
+  const cardTitle = document.querySelector('.card-title');
+  const cardContent = document.querySelector('.card-content');
   const closeBtn = document.querySelector('.close-btn');
   
-  cards.forEach(card => {
-    card.addEventListener('click', () => {
-      contentTitle.textContent = card.querySelector('h3').textContent;
-      contentText.textContent = card.dataset.content;
-      contentPanel.style.display = 'block';
+  // 初始化书页位置
+  pages.forEach((page, index) => {
+    page.style.transform = `rotateY(${index * -5}deg) translateZ(${index * 0.5}px)`;
+    page.style.zIndex = index;
+  });
+  
+  // 悬停书本效果
+  book.addEventListener('mouseenter', () => {
+    book.style.transform = 'rotateY(-10deg)';
+  });
+  
+  book.addEventListener('mouseleave', () => {
+    book.style.transform = 'none';
+  });
+  
+  // 点击书页效果
+  pages.forEach(page => {
+    page.addEventListener('click', () => {
+      // 抽出书页动画
+      page.style.transform = 'rotateY(-60deg) translateX(-50px)';
+      
+      // 显示卡片内容
+      cardTitle.textContent = page.querySelector('h3').textContent;
+      cardContent.textContent = page.dataset.content;
+      cardDisplay.style.display = 'block';
     });
   });
   
+  // 关闭卡片
   closeBtn.addEventListener('click', () => {
-    contentPanel.style.display = 'none';
+    cardDisplay.style.display = 'none';
+    // 重置书页位置
+    pages.forEach((page, index) => {
+      page.style.transform = `rotateY(${index * -5}deg) translateZ(${index * 0.5}px)`;
+    });
   });
 });
 </script>

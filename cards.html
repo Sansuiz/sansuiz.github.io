@@ -53,61 +53,13 @@ layout: default
   opacity: 0.1;
 }
 
-<style>
-    /* 响应式卡片布局 */
-    .card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 1.5rem;
-        max-width: 1200px;
-        margin: 0 auto;
-    }
-
-    @media (max-width: 768px) {
-        .card-container {
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 1rem;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .card-container {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    /* 响应式模态框 */
-    .modal-content {
-        width: 90%;
-        height: 80%;
-        flex-direction: column;
-    }
-
-    @media (max-width: 768px) {
-        .modal-content {
-            width: 95%;
-            height: 85%;
-            padding: 1rem;
-        }
-        
-        .modal-container {
-            flex-direction: column;
-        }
-        
-        .modal-image-container,
-        .modal-text-container {
-            padding: 0;
-            width: 100%;
-        }
-        
-        .modal-text-container {
-            border-left: none;
-            border-top: 1px solid #eee;
-            margin-top: 1rem;
-            padding-top: 1rem;
-        }
-    }
-</style>
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
 .e-card {
   aspect-ratio: 3/4;

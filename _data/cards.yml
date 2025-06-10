@@ -1,0 +1,11 @@
+- title: "明信片1"
+  image: "/images/card1.jpg"
+  content: "这是第一张明信片的内容文字..."
+  
+- title: "明信片2" 
+  image: "/images/card2.jpg"
+  content: "这是第二张明信片的内容文字..."
+
+- title: "明信片3"
+  image: "/images/card3.jpg"
+  content: "这是第三张明信片的内容文字..."

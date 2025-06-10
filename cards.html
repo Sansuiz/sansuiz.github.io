@@ -1,0 +1,101 @@
+---
+layout: default
+---
+
+<div class="cards-container">
+  <div class="cards-wrapper">
+    {% for card in site.data.cards %}
+    <div class="card" data-content="{{ card.content | escape }}">
+      <img src="{{ card.image }}" alt="{{ card.title }}">
+      <h3>{{ card.title }}</h3>
+    </div>
+    {% endfor %}
+  </div>
+  <div class="content-display">
+    <p>点击卡片查看内容</p>
+  </div>
+</div>
+
+<button class="nav-btn prev">←</button>
+<button class="nav-btn next">→</button>
+
+<style>
+.cards-container {
+  display: flex;
+  height: 100vh;
+}
+.cards-wrapper {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.card {
+  position: absolute;
+  transition: all 0.3s;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+.content-display {
+  width: 40%;
+  padding: 2rem;
+  border-left: 1px solid #eee;
+}
+.nav-btn {
+  position: fixed;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.5);
+  color: white;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+}
+.prev { left: 1rem; }
+.next { right: 1rem; }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.card');
+  const contentDisplay = document.querySelector('.content-display');
+  const prevBtn = document.querySelector('.prev');
+  const nextBtn = document.querySelector('.next');
+  
+  // 初始化卡片位置（层叠效果）
+  cards.forEach((card, index) => {
+    card.style.transform = `translateX(${index * 20}px) rotate(${index * 2}deg)`;
+    card.style.zIndex = index;
+  });
+  
+  // 点击卡片显示内容
+  cards.forEach(card => {
+    card.addEventListener('click', () => {
+      contentDisplay.innerHTML = `<h2>${card.querySelector('h3').textContent}</h2>
+                                 <p>${card.dataset.content}</p>`;
+    });
+  });
+  
+  // 左右切换卡片
+  let currentIndex = 0;
+  
+  function updateCards() {
+    cards.forEach((card, index) => {
+      const offset = (index - currentIndex) * 20;
+      card.style.transform = `translateX(${offset}px) rotate(${(index - currentIndex) * 2}deg)`;
+      card.style.zIndex = Math.abs(index - currentIndex);
+    });
+  }
+  
+  prevBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+    updateCards();
+  });
+  
+  nextBtn.addEventListener('click', () => {
+    currentIndex = (currentIndex + 1) % cards.length;
+    updateCards();
+  });
+});
+</script>

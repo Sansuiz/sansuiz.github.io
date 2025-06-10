@@ -1,11 +1,14 @@
-- title: "明信片1"
+- title: "From 深圳"
   image: "/images/tu/202505.jpg"
   back_image: "/images/tu/202505_back.jpg"
   content: |
-    ## 这是标题
-    - 列表项1
-    - 列表项2
-    [链接文字](https://example.com)
+    To 赵同学：
+    &emsp;&emsp;好久不见~ 在过去一年，你在为工作发愁，也存在些焦虑。但想告诉你的是，工作不是唯一，家庭也不是，快乐生活才是更重要的事。
+    &emsp;&emsp;希望以后的你，去做自己想做的事，看自己想看的风景，做自己的主人，多开心快乐一些！
+    <p align="right">From 倩</p>
+    <p align="right">2025.05.31</p>
+
+    P.S. 希望你能收到吧。
   
 - title: "明信片2" 
   image: "/images/tu/202404.jpg"

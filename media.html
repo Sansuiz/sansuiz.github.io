@@ -13,6 +13,7 @@ title: Media-SANSUIZ
   <div class="card-container">
     {% for item in site.data.media %}
     <div class="e-card" data-content="{{ item.content | escape }}" data-back-image="{{ item.back_image | escape }}" data-type="{{ item.type | default: 'other' | escape }}">
+      <div class="status-indicator {% if item.status == '已阅' %}status-read{% else %}status-progress{% endif %}"></div>
       <div class="card-front">
         <img src="{{ item.image }}" alt="{{ item.title }}" class="card-image">
         <div class="card-label">
@@ -21,9 +22,6 @@ title: Media-SANSUIZ
           <span class="card-rating">{{ item.rating }}</span>
         </div>
       </div>
-      {% if item.status == "已阅" %}
-        <div class="stamp"></div>
-      {% endif %}
     </div>
     {% endfor %}
   </div>
@@ -323,31 +321,33 @@ title: Media-SANSUIZ
 </style>
 
 <style>
-  /* 复古图章样式 */
-  .stamp {
+  /* 状态指示器样式 */
+  .status-indicator {
     position: absolute;
-    right: 15px;
-    bottom: 15px;
-    width: 60px;
-    height: 60px;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="none" stroke="rgba(200,50,50,0.7)" stroke-width="3"/><text x="50" y="55" font-family="KaiTi" font-size="30" text-anchor="middle" fill="rgba(200,50,50,0.7)">阅</text></svg>');
-    background-size: contain;
-    background-repeat: no-repeat;
-    opacity: 0.7;
-    filter: drop-shadow(0 0 5px rgba(200,50,50,0.5));
+    top: 10px;
+    right: 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    z-index: 2;
     transition: all 0.3s ease;
-    transform: rotate(-15deg);
   }
 
-  /* 鼠标悬停效果 */
-  .e-card:hover .stamp {
-    transform: rotate(-15deg) scale(1.1);
-    filter: drop-shadow(0 0 8px rgba(200,50,50,0.8));
+  .status-read {
+    background: #4CAF50;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #4CAF50;
   }
 
-  /* 卡片翻转时的效果 */
-  .e-card.active .stamp {
-    opacity: 0;
+  .status-progress {
+    background: #FF9800;
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #FF9800;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
   }
 </style>
 

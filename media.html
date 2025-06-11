@@ -393,10 +393,16 @@ document.addEventListener('DOMContentLoaded', function() {
 </head>
 
 <style>
-  /* 添加底部横条样式 */
+  /* 调整卡片容器样式 */
+  .card-container {
+    position: relative;
+    margin-bottom: 20px; /* 为横条留出空间 */
+  }
+
+  /* 横条样式调整 */
   .status-indicator {
     position: absolute;
-    bottom: 10px;
+    bottom: -15px; /* 位于卡片下方 */
     left: 50%;
     transform: translateX(-50%);
     width: 60%;
@@ -406,17 +412,15 @@ document.addEventListener('DOMContentLoaded', function() {
     overflow: hidden;
   }
 
-  /* 已阅状态横条样式 */
+  /* 其他样式保持不变 */
   .status-indicator.read {
     background: linear-gradient(90deg, transparent, rgba(76, 217, 100, 0.8), transparent);
   }
 
-  /* 进行状态横条样式 */
   .status-indicator.in-progress {
     background: linear-gradient(90deg, transparent, rgba(255, 149, 0, 0.8), transparent);
   }
 
-  /* 光影波纹效果 */
   .status-indicator::after {
     content: '';
     position: absolute;
@@ -435,7 +439,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   /* 卡片悬停时横条也跟随移动 */
-  .e-card:hover .status-indicator {
+  .e-card:hover ~ .status-indicator {
     transform: translateX(-50%) translateY(-5px);
   }
 </style>

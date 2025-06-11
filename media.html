@@ -342,9 +342,9 @@ document.addEventListener('DOMContentLoaded', function() {
   cards.forEach(card => {
     // 根据类型设置颜色
     const type = card.dataset.type;
-    if(type === 'shmily') {
+    if(type === 'movie') {
       card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.8)');
-    } else if(type === 'friend') {
+    } else if(type === 'movie') {
       card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.8)');
     } else {
       card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.8)');

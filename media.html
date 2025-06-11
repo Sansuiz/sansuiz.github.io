@@ -16,9 +16,14 @@ title: Media-SANSUIZ
       <div class="card-front">
         <img src="{{ item.image }}" alt="{{ item.title }}" class="card-image">
         <div class="card-label">
-          <h3>{{ item.title }}</h3>
-          <span class="card-date">{{ item.date }}</span>
-          <span class="card-rating">{{ item.rating }}</span>
+          <div class="card-label">
+            <h3>{{ item.title }}</h3>
+            <span class="card-date">{{ item.date }}</span>
+            <span class="card-rating">{{ item.rating }}</span>
+            <div class="card-preview">
+              {{ item.content | strip_html | truncate: 10, "..." }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -302,7 +307,7 @@ title: Media-SANSUIZ
 }
 
 .tag {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1rem 1rem 1rem; /* 调整内边距 */
   border-radius: 20px;
   text-decoration: none;
   color: white;

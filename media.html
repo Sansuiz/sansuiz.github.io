@@ -319,6 +319,48 @@ title: Media-SANSUIZ
 }
 </style>
 
+<style>
+  /* 状态徽章动画 */
+  .status-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    z-index: 2;
+    animation: pulse 2s infinite;
+  }
+
+  .status-read {
+    background: linear-gradient(135deg, #4CAF50, #8BC34A);
+    color: white;
+  }
+
+  .status-progress {
+    background: linear-gradient(135deg, #FF9800, #FFC107);
+    color: white;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  /* 卡片悬停效果 */
+  .e-card[data-status="已阅"]:hover {
+    transform: translateY(-5px) rotate(-2deg);
+    box-shadow: 0 10px 20px rgba(76, 175, 80, 0.2);
+  }
+
+  .e-card[data-status="进行"]:hover {
+    transform: translateY(-5px) rotate(2deg);
+    box-shadow: 0 10px 20px rgba(255, 152, 0, 0.2);
+  }
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const tags = document.querySelectorAll('.tag');

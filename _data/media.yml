@@ -1,12 +1,22 @@
-- title: "电影名称"
-  image: "/images/tu/cards/20250531-q.jpg"
-  back_image: "/images/tu/cards/20250531-q.jpg"
+- title: "最后的假期"
+  image: "https://cdnv2.ruguoapp.com/Fqi4giMYcs_Skw3EZCEqEMeQwnbnv3.png?imageMogr2/auto-orient/thumbnail/1500000@"
+  back_image: "https://cdnv2.ruguoapp.com/FuwvQ0NE65tlC0L9CO26jSUKARE4v3.png?imageMogr2/auto-orient/thumbnail/1780920@"
   type: "movie"
-  date: "2024.05.20"
+  date: "2025.06.12"
   rating: "★★★★☆"
   content: |
-    这是一部关于...的电影。
-    我的评价：...
+    还不错的电影，借用弹幕的一句话表达：
+    **我喜欢这样俗套快乐又美好的东西。**
+
+    《最后的假期》
+
+    > 你低下头，不停的忙。
+
+    > 有一天抬起头，你会想：“我是怎么活到这步田地？”
+
+    > 有些我们很在乎的事，一点价值都没有。
+
+    > “I Have Feelings for You”。
 
 - title: "书籍名称"
   image: "/images/tu/cards/20250531-q.jpg"

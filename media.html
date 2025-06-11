@@ -19,6 +19,9 @@ title: Media-SANSUIZ
           <h3>{{ item.title }}</h3>
           <span class="card-date">{{ item.date }}</span>
           <span class="card-rating">{{ item.rating }}</span>
+          {% if item.content %}
+            <p class="card-excerpt">{{ item.content | strip_html | truncate: 10 }}</p>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -423,5 +426,16 @@ document.addEventListener('DOMContentLoaded', function() {
   .e-card:hover .card-front {
     transform: rotateY(-15deg) translateY(-5px) scale(1.03);
     transition: all 0.3s ease;
+  }
+</style>
+
+<style>
+  .card-excerpt {
+    font-size: 0.9em;
+    margin-top: 0.3em;
+    opacity: 0.8;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 </style>

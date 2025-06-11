@@ -20,7 +20,7 @@ title: Media-SANSUIZ
           <span class="card-date">{{ item.date }}</span>
           <span class="card-rating">{{ item.rating }}</span>
           <p class="card-preview">
-            {{ item.content | strip_html | truncate: 10, "..." }}
+            {{ item.content | strip_html | truncate: 20, "..." }}
           </p>
         </div>
       </div>
@@ -124,7 +124,7 @@ title: Media-SANSUIZ
   padding-left: 1rem;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(3px);
   margin: 0 0 -1px 0; /* 确保与卡片边缘对齐 */
 }
 
@@ -338,7 +338,7 @@ title: Media-SANSUIZ
   /* 新增预览文本样式 */
   .card-preview {
     margin: 0.3rem 0 0 0;
-    font-size: 0.9em;
+    font-size: 0.8em;
     opacity: 0.9;
     white-space: nowrap;
     overflow: hidden;

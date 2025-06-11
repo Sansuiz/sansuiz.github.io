@@ -16,14 +16,12 @@ title: Media-SANSUIZ
       <div class="card-front">
         <img src="{{ item.image }}" alt="{{ item.title }}" class="card-image">
         <div class="card-label">
-          <div class="card-label">
-            <h3>{{ item.title }}</h3>
-            <span class="card-date">{{ item.date }}</span>
-            <span class="card-rating">{{ item.rating }}</span>
-            <div class="card-preview">
-              {{ item.content | strip_html | truncate: 10, "..." }}
-            </div>
-          </div>
+          <h3 style="margin-top: 0.5rem;">{{ item.title }}</h3>
+          <span class="card-date">{{ item.date }}</span>
+          <span class="card-rating">{{ item.rating }}</span>
+          <p class="card-preview">
+            {{ item.content | strip_html | truncate: 10, "..." }}
+          </p>
         </div>
       </div>
     </div>
@@ -120,19 +118,15 @@ title: Media-SANSUIZ
   right: 0;
   background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
   color: white;
-  padding: 0.5rem 1rem 1rem 1rem;
+  padding: 1rem;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  backdrop-filter: blur(5px); /* 重新添加毛玻璃效果 */
-  -webkit-backdrop-filter: blur(5px); /* 兼容Safari */
-  margin: 0 0 -1px 0;
+  backdrop-filter: blur(5px);
+  margin: 0 0 -1px 0; /* 确保与卡片边缘对齐 */
 }
 
-/* 悬停时增强毛玻璃效果 */
+/* 悬停时增强效果 */
 .e-card:hover .card-label {
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
   background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.9)) 0%, transparent 100%);
   transition: all 0.3s ease;
 }
@@ -311,7 +305,7 @@ title: Media-SANSUIZ
 }
 
 .tag {
-  padding: 0.5rem 1rem 1rem 1rem; /* 调整内边距 */
+  padding: 0.5rem 1rem;
   border-radius: 20px;
   text-decoration: none;
   color: white;
@@ -335,6 +329,24 @@ title: Media-SANSUIZ
   transform: scale(1.1);
   box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
+</style>
+
+<style>
+  /* 新增预览文本样式 */
+  .card-preview {
+    margin: 0.3rem 0 0 0;
+    font-size: 0.9em;
+    opacity: 0.9;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* 调整原有h3上边距 */
+  .card-label h3 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.3rem;
+  }
 </style>
 
 <script>

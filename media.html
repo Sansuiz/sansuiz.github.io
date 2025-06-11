@@ -20,6 +20,7 @@ title: Media-SANSUIZ
           <span class="card-date">{{ item.date }}</span>
           <span class="card-rating">{{ item.rating }}</span>
         </div>
+        <div class="status-indicator {% if item.status == '已阅' %}read{% else %}in-progress{% endif %}"></div>
       </div>
     </div>
     {% endfor %}
@@ -390,3 +391,51 @@ document.addEventListener('DOMContentLoaded', function() {
 <head>
   <script src="https://cdn.jsdelivr.net/npm/markdown-it@13.0.1/dist/markdown-it.min.js"></script>
 </head>
+
+<style>
+  /* 添加底部横条样式 */
+  .status-indicator {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  /* 已阅状态横条样式 */
+  .status-indicator.read {
+    background: linear-gradient(90deg, transparent, rgba(76, 217, 100, 0.8), transparent);
+  }
+
+  /* 进行状态横条样式 */
+  .status-indicator.in-progress {
+    background: linear-gradient(90deg, transparent, rgba(255, 149, 0, 0.8), transparent);
+  }
+
+  /* 光影波纹效果 */
+  .status-indicator::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: shine 2s infinite;
+  }
+
+  @keyframes shine {
+    100% {
+      left: 100%;
+    }
+  }
+
+  /* 卡片悬停时横条也跟随移动 */
+  .e-card:hover .status-indicator {
+    transform: translateX(-50%) translateY(-5px);
+  }
+</style>

@@ -113,14 +113,20 @@ title: Media-SANSUIZ
   bottom: 0;
   left: 0;
   right: 0;
-  background: white;
-  border-radius: 0 0 12px 12px; /* 与卡片相同的圆角 */
-  padding: 1rem;
   background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
   color: white;
   padding: 1rem;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  backdrop-filter: blur(5px);
+  margin: 0 0 -1px 0; /* 确保与卡片边缘对齐 */
 }
 
+/* 悬停时增强效果 */
+.e-card:hover .card-label {
+  background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.9)) 0%, transparent 100%);
+  transition: all 0.3s ease;
+}
 .card-desc {
   font-family: "KaiTi", "楷体", serif;
   line-height: 1.8;

@@ -9,10 +9,10 @@ title: Media-SANSUIZ
   <a href="#" class="tag" data-type="book">书籍</a>
 </div>
 
-<div class="card-wall">
-  <div class="card-container">
+<div class="media-wall">
+  <div class="media-container">
     {% for item in site.data.media %}
-    <div class="e-card" data-content="{{ item.content | escape }}" data-back-image="{{ item.back_image | escape }}" data-type="{{ item.type | default: 'other' | escape }}">
+    <div class="media-card" data-content="{{ item.content | escape }}" data-type="{{ item.type | default: 'other' | escape }}">
       <div class="card-front">
         <img src="{{ item.image }}" alt="{{ item.title }}" class="card-image">
         <div class="card-label">
@@ -26,14 +26,9 @@ title: Media-SANSUIZ
   </div>
 </div>
 
-<!-- 保留原有的modal和样式 -->
-
-<div class="card-modal">
+<div class="media-modal">
   <div class="modal-content">
     <div class="modal-container">
-      <div class="modal-image-container">
-        <img src="" alt="" class="modal-image">
-      </div>
       <div class="modal-text-container">
         <h2 class="modal-title"></h2>
         <p class="modal-text"></p>
@@ -43,130 +38,130 @@ title: Media-SANSUIZ
 </div>
 
 <style>
-.card-wall {
+.media-wall {
   min-height: 100vh;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0);
   position: relative;
 }
 
-.card-wall::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url('');
-  background-size: cover;
-  background-position: center;
-  z-index: -1;
-  opacity: 0.1;
-}
-
-.card-container {
+.media-container {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
   perspective: 1000px;
-  transform-style: preserve-3d;
 }
 
-.e-card {
+.media-card {
   width: 200px;
   height: 300px;
-  margin: 0 -40px;
+  position: relative;
   transform: rotateY(15deg) translateX(0);
   transition: all 0.3s ease;
-  position: relative;
   z-index: 1;
+  margin: 0 -20px;
 }
 
-.e-card:hover {
-  transform: rotateY(15deg) translateY(-20px) scale(1.05);
+.media-card:hover {
+  transform: rotateY(15deg) translateY(-10px) scale(1.05);
   z-index: 2;
 }
 
-/* 波浪效果 */
-.card-container:hover .e-card {
-  transform: rotateY(15deg) translateX(var(--tx)) translateY(var(--ty));
-}
-
-/* 点击后的效果 */
-.e-card.active {
+.media-card.active {
   transform: rotateY(0deg) translateX(0) !important;
   z-index: 3;
 }
 
-.e-card.active ~ .e-card {
-  transform: translateX(100px) rotateY(15deg) !important;
+.media-card.active ~ .media-card {
+  transform: translateX(80px) rotateY(15deg) !important;
 }
 
-.e-card.active ~ .e-card:nth-child(odd) {
-  transform: translateX(-100px) rotateY(15deg) !important;
+.media-card.active ~ .media-card:nth-child(odd) {
+  transform: translateX(-80px) rotateY(15deg) !important;
+}
+
+.card-front {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  color: white;
+}
+
+.media-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  width: 80%;
+  max-width: 600px;
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
 }
 </style>
 
 <script>
-// 波浪效果
-const cards = document.querySelectorAll('.e-card');
-cards.forEach((card, index) => {
-  card.style.setProperty('--tx', `${index * 5}px`);
-  card.style.setProperty('--ty', `${Math.sin(index) * 10}px`);
-});
-
-// 点击交互
-cards.forEach(card => {
-  card.addEventListener('click', function() {
-    if(this.classList.contains('active')) {
-      // 显示模态框
-      showModal(this);
-    } else {
-      // 激活卡片
-      cards.forEach(c => c.classList.remove('active'));
-      this.classList.add('active');
-    }
-  });
-});
-
-function showModal(card) {
-  // 显示模态框逻辑
-  const modal = document.querySelector('.card-modal');
-  const modalImage = document.querySelector('.modal-image');
-  const modalTitle = document.querySelector('.modal-title');
-  const modalText = document.querySelector('.modal-text');
-  const md = new markdownit();
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.media-card');
+  const modal = document.querySelector('.media-modal');
   
+  // 初始化卡片位置
+  cards.forEach((card, index) => {
+    card.style.transform = `rotateY(15deg) translateX(${index * 5}px)`;
+  });
+  
+  // 点击交互
   cards.forEach(card => {
-    // 根据类型设置颜色
-    const type = card.dataset.type;
-    if(type === 'movie') {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.8)');
-    } else if(type === 'movie') {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.8)');
-    } else {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.8)');
-    }
-    
-    card.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;
-      modalImage.src = imgSrc;
-      modalImage.alt = card.querySelector('h3').textContent;
-      modalTitle.textContent = card.querySelector('h3').textContent;
-      modalText.innerHTML = md.render(card.dataset.content); 
-      modal.classList.add('active');
+    card.addEventListener('click', function() {
+      if(this.classList.contains('active')) {
+        // 显示模态框
+        const modalTitle = document.querySelector('.modal-title');
+        const modalText = document.querySelector('.modal-text');
+        modalTitle.textContent = this.querySelector('h3').textContent;
+        modalText.textContent = this.dataset.content;
+        modal.style.display = 'flex';
+      } else {
+        // 激活卡片
+        cards.forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+      }
     });
   });
-
-  // 点击模态框外部关闭
-  modal.addEventListener('click', () => {
-    modal.classList.remove('active');
-  });
-
-  // 阻止点击内容区域时冒泡关闭
-  document.querySelector('.modal-content').addEventListener('click', (e) => {
-    e.stopPropagation();
+  
+  // 关闭模态框
+  modal.addEventListener('click', function(e) {
+    if(e.target === this) {
+      this.style.display = 'none';
+    }
   });
 });
 </script>

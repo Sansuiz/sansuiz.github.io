@@ -116,12 +116,29 @@ title: Media-SANSUIZ
   bottom: 0;
   left: 0;
   right: 0;
+  height: 25%; /* 减少高度比例 */
   background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
   color: white;
-  padding: 1rem;
+  padding: 0.8rem 1rem; /* 减少内边距 */
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   backdrop-filter: blur(5px);
+}
+
+/* 调整文本大小和间距 */
+.card-label h3 {
+  font-size: 1.1em;
+  margin-bottom: 0.2em;
+}
+
+.card-excerpt {
+  font-size: 0.8em;
+  margin-top: 0.2em;
+}
+
+.card-date, .card-rating {
+  font-size: 0.85em;
+}
   margin: 0 0 -1px 0; /* 确保与卡片边缘对齐 */
 }
 

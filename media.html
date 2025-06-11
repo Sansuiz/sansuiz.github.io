@@ -9,10 +9,10 @@ title: Media-SANSUIZ
   <a href="#" class="tag" data-type="book">书籍</a>
 </div>
 
-<div class="media-wall">
-  <div class="media-container">
+<div class="card-wall">
+  <div class="card-container">
     {% for item in site.data.media %}
-    <div class="media-card" data-content="{{ item.content | escape }}" data-type="{{ item.type | default: 'other' | escape }}">
+    <div class="e-card" data-content="{{ item.content | escape }}" data-back-image="{{ item.back_image | escape }}" data-type="{{ item.type | default: 'other' | escape }}">
       <div class="card-front">
         <img src="{{ item.image }}" alt="{{ item.title }}" class="card-image">
         <div class="card-label">
@@ -26,9 +26,14 @@ title: Media-SANSUIZ
   </div>
 </div>
 
-<div class="media-modal">
+<!-- 保留原有的modal和样式 -->
+
+<div class="card-modal">
   <div class="modal-content">
     <div class="modal-container">
+      <div class="modal-image-container">
+        <img src="" alt="" class="modal-image">
+      </div>
       <div class="modal-text-container">
         <h2 class="modal-title"></h2>
         <p class="modal-text"></p>
@@ -38,57 +43,63 @@ title: Media-SANSUIZ
 </div>
 
 <style>
-.media-wall {
+.card-wall {
   min-height: 100vh;
   padding: 2rem;
+  background: rgba(255, 255, 255, 0);
   position: relative;
 }
 
-.media-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.card-wall::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('');
+  background-size: cover;
+  background-position: center;
+  z-index: -1;
+  opacity: 0.1;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+.e-card {
+  aspect-ratio: 3/4;
   perspective: 1000px;
+  cursor: pointer;
 }
 
-.media-card {
-  width: 200px;
-  height: 300px;
-  position: relative;
-  transform: rotateY(15deg) translateX(0);
-  transition: all 0.3s ease;
-  z-index: 1;
-  margin: 0 -20px;
-}
-
-.media-card:hover {
-  transform: rotateY(15deg) translateY(-10px) scale(1.05);
-  z-index: 2;
-}
-
-.media-card.active {
-  transform: rotateY(0deg) translateX(0) !important;
-  z-index: 3;
-}
-
-.media-card.active ~ .media-card {
-  transform: translateX(80px) rotateY(15deg) !important;
-}
-
-.media-card.active ~ .media-card:nth-child(odd) {
-  transform: translateX(-80px) rotateY(15deg) !important;
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card-front {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  background: white;
+  transform: rotateY(0deg);
+}
+
+.card-back {
+  background: white;
+  transform: rotateY(180deg);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
 }
 
 .card-image {
@@ -102,66 +113,268 @@ title: Media-SANSUIZ
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 1rem;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+  background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
   color: white;
+  padding: 1rem;
 }
 
-.media-modal {
+.card-desc {
+  font-family: "KaiTi", "楷体", serif;
+  line-height: 1.8;
+  color: #555;
+}
+
+.e-card:hover .card-front {
+  transform: rotateY(-15deg) translateY(-5px);
+}
+
+.e-card.active .card-front {
+  transform: rotateY(-180deg);
+}
+
+.e-card.active .card-back {
+  transform: rotateY(0deg);
+}
+
+.card-modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,0.8);
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
 
 .modal-content {
   width: 80%;
-  max-width: 600px;
+  max-width: 900px;
+  height: 75%;  /* 增加高度比例 */
   background: white;
-  border-radius: 8px;
+  border-radius: 12px;
   padding: 2rem;
+  position: relative;
+  transform: scale(0.9);  /* 从0.8增加到0.9 */
+  transition: transform 0.3s ease;
+  display: flex;
+}
+
+.card-modal.active .modal-content {
+  transform: scale(1.05);  /* 从1增加到1.05 */
+}
+
+.modal-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-image-container {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.modal-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.modal-image-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255,255,255,0), white);
+}
+
+.modal-text-container {
+  flex: 1;
+  padding-left: 2rem;
+  overflow-y: auto;
+}
+
+.modal-text-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modal-text-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+.modal-text-container::-webkit-scrollbar-thumb {
+  background-color: #ed627e;
+  border-radius: 4px;
+  border: 2px solid #f0f0f0;
+}
+
+.modal-text-container::-webkit-scrollbar-thumb:hover {
+  background-color: #d4556b;
+}
+
+.card-modal.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.modal-image {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+}
+
+.close-modal {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.card-label h3 {
+  font-family: 'Source Han Serif CN Heavy', serif;
+  font-weight: 900;
+  margin-bottom: 0.2rem;
+}
+
+.card-date {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  display: block;
+}
+
+.modal-text {
+  font-family: "KaiTi", "楷体", serif;
+  line-height: 1.8;
+  color: #555;
+}
+
+.modal-title {
+  font-family: 'Source Han Serif CN Heavy', serif;
+  font-weight: 900;
+}
+</style>
+
+<style>
+.tag-cloud {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1.5rem 0;
+  background: rgba(255,255,255,0.9);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.tag {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.tag[data-type="all"] {
+  background: #888;
+}
+
+.tag[data-type="movie"] {
+  background: #ed627e;
+}
+
+.tag[data-type="book"] {
+  background: #1e90ff;
+}
+
+.tag.active {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  const cards = document.querySelectorAll('.media-card');
-  const modal = document.querySelector('.media-modal');
+  const tags = document.querySelectorAll('.tag');
+  const cards = document.querySelectorAll('.e-card');
   
-  // 初始化卡片位置
-  cards.forEach((card, index) => {
-    card.style.transform = `rotateY(15deg) translateX(${index * 5}px)`;
-  });
-  
-  // 点击交互
-  cards.forEach(card => {
-    card.addEventListener('click', function() {
-      if(this.classList.contains('active')) {
-        // 显示模态框
-        const modalTitle = document.querySelector('.modal-title');
-        const modalText = document.querySelector('.modal-text');
-        modalTitle.textContent = this.querySelector('h3').textContent;
-        modalText.textContent = this.dataset.content;
-        modal.style.display = 'flex';
-      } else {
-        // 激活卡片
-        cards.forEach(c => c.classList.remove('active'));
-        this.classList.add('active');
-      }
+  tags.forEach(tag => {
+    tag.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // 更新标签状态
+      tags.forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      
+      // 筛选卡片
+      const type = tag.dataset.type;
+      cards.forEach(card => {
+        if(type === 'all' || card.dataset.type === type) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     });
   });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const cards = document.querySelectorAll('.e-card');
+  const modal = document.querySelector('.card-modal');
+  const modalImage = document.querySelector('.modal-image');
+  const modalTitle = document.querySelector('.modal-title');
+  const modalText = document.querySelector('.modal-text');
+  const md = new markdownit();
   
-  // 关闭模态框
-  modal.addEventListener('click', function(e) {
-    if(e.target === this) {
-      this.style.display = 'none';
+  cards.forEach(card => {
+    // 根据类型设置颜色
+    const type = card.dataset.type;
+    if(type === 'movie') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.8)');
+    } else if(type === 'movie') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.8)');
+    } else {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.8)');
     }
+    
+    card.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;
+      modalImage.src = imgSrc;
+      modalImage.alt = card.querySelector('h3').textContent;
+      modalTitle.textContent = card.querySelector('h3').textContent;
+      modalText.innerHTML = md.render(card.dataset.content); 
+      modal.classList.add('active');
+    });
+  });
+
+  // 点击模态框外部关闭
+  modal.addEventListener('click', () => {
+    modal.classList.remove('active');
+  });
+
+  // 阻止点击内容区域时冒泡关闭
+  document.querySelector('.modal-content').addEventListener('click', (e) => {
+    e.stopPropagation();
   });
 });
 </script>

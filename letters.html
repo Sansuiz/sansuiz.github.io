@@ -179,6 +179,7 @@ title: Letters-SANSUIZ
   padding-right: 2rem;
   display: flex;
   align-items: center;
+  position: relative;
 }
 
 .modal-image {
@@ -187,6 +188,22 @@ title: Letters-SANSUIZ
   max-height: 100%;
   object-fit: contain;
   border-radius: 8px;
+  mask-image: linear-gradient(
+    to right, 
+    transparent 0%, 
+    white 10%, 
+    white 90%, 
+    transparent 100%
+  ),
+  linear-gradient(
+    to bottom, 
+    transparent 0%, 
+    white 10%, 
+    white 90%, 
+    transparent 100%
+  );
+  mask-composite: intersect;
+  -webkit-mask-composite: source-in;
 }
 
 .modal-text-container {

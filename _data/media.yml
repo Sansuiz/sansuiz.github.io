@@ -1,6 +1,6 @@
 - title: "电影名称"
-  image: "/images/tu/media/movie1.jpg"
-  back_image: "/images/tu/media/movie1-back.jpg"
+  image: "/images/tu/cards/20250531-q.jpg"
+  back_image: "/images/tu/cards/20250531-q.jpg"
   type: "movie"
   date: "2024.05.20"
   rating: "★★★★☆"
@@ -9,8 +9,8 @@
     我的评价：...
 
 - title: "书籍名称"
-  image: "/images/tu/media/book1.jpg"
-  back_image: "/images/tu/media/book1-back.jpg"
+  image: "/images/tu/cards/20250531-q.jpg"
+  back_image: "/images/tu/cards/20250531-q.jpg"
   type: "book"
   date: "2024.05.15"
   rating: "★★★★★"

@@ -4,7 +4,7 @@
   type: "movie"
   date: "2025.06.12"
   rating: "★★★★☆"
-  status: "已阅"
+  status: "less"
   content: |
     还不错的电影，借用弹幕的一句话表达：
     **我喜欢这样俗套快乐又美好的东西。**
@@ -25,7 +25,7 @@
   type: "book"
   date: "2024.05.15"
   rating: "★★★★★"
-  status: "进行"
+  status: "more"
   content: |
     这本书讲述了...
     我的读后感：...

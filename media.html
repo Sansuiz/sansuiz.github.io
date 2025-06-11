@@ -12,7 +12,7 @@ title: Media-SANSUIZ
 <div class="card-wall">
   <div class="card-container">
     {% for item in site.data.media %}
-    <div class="e-card" data-content="{{ item.content | escape }}" data-back-image="{{ item.back_image | escape }}" data-type="{{ item.type | default: 'other' | escape }}" data-status="{{ item.status | default: '进行' | escape }}">
+    <div class="e-card" data-content="{{ item.content | escape }}" data-back-image="{{ item.back_image | escape }}" data-type="{{ item.type | default: 'other' | escape }}" data-status="{{ item.status | default: 'more' | escape }}">
       <div class="card-front">
         <img src="{{ item.image }}" alt="{{ item.title }}" class="card-image">
         <div class="card-label">
@@ -392,16 +392,16 @@ document.addEventListener('DOMContentLoaded', function() {
 </head>
 
 <style>
-  /* 已阅状态 - 绿色光晕效果 */
-  .e-card[data-status="已阅"] .card-front {
+  /* less状态 - 绿色光晕效果 */
+  .e-card[data-status="less"] .card-front {
     box-shadow: 0 0 15px rgba(232, 15, 15, 0.531);
   }
-  .e-card[data-status="已阅"]:hover .card-front {
+  .e-card[data-status="less"]:hover .card-front {
     box-shadow: 0 0 15px rgba(240, 37, 37, 0.627);
   }
 
-  /* 进行状态 - 橙色脉动效果 */
-  .e-card[data-status="进行"] .card-front {
+  /* more状态 - 橙色脉动效果 */
+  .e-card[data-status="more"] .card-front {
     animation: pulse-orange 2s infinite;
   }
   @keyframes pulse-orange {

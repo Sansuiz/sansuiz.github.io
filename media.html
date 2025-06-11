@@ -173,22 +173,24 @@ title: Media-SANSUIZ
   display: flex;
   width: 100%;
   height: 100%;
+  position: relative;
 }
 
 .modal-image-container {
   flex: 1;
-  position: relative;
-  padding: 0; /* 移除padding */
-  overflow: hidden; /* 隐藏溢出部分 */
+  min-height: 100%; /* 确保最小高度 */
+  display: flex; /* 使用flex布局 */
+  align-items: center; /* 垂直居中 */
+  justify-content: center; /* 水平居中 */
+  background-color: #f5f5f5; /* 添加背景色 */
 }
 
 .modal-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 
 .modal-image-container::after {
@@ -198,7 +200,7 @@ title: Media-SANSUIZ
   right: 0;
   width: 100px;
   height: 100%;
-  background: linear-gradient(to right, rgba(255,255,255,0), white);
+  background: linear-gradient(to right, rgba(245,245,245,0), #f5f5f5);
 }
 
 .modal-text-container {

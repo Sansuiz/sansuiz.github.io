@@ -178,25 +178,25 @@ title: Media-SANSUIZ
 .modal-image-container {
   flex: 1;
   position: relative;
-  overflow: hidden;
+  padding: 1rem; /* 与模拟框边缘保持相同间距 */
 }
 
 .modal-image {
+  width: calc(100% - 2rem); /* 减去左右padding */
+  height: calc(100% - 2rem); /* 减去上下padding */
+  object-fit: contain;
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  top: 1rem;
+  left: 1rem;
 }
 
 .modal-image-container::after {
   content: '';
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 1rem;
+  right: 1rem;
   width: 100px;
-  height: 100%;
+  height: calc(100% - 2rem);
   background: linear-gradient(to right, rgba(255,255,255,0), white);
 }
 

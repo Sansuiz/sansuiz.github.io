@@ -1,0 +1,19 @@
+- title: "电影名称"
+  image: "/images/tu/media/movie1.jpg"
+  back_image: "/images/tu/media/movie1-back.jpg"
+  type: "movie"
+  date: "2024.05.20"
+  rating: "★★★★☆"
+  content: |
+    这是一部关于...的电影。
+    我的评价：...
+
+- title: "书籍名称"
+  image: "/images/tu/media/book1.jpg"
+  back_image: "/images/tu/media/book1-back.jpg"
+  type: "book"
+  date: "2024.05.15"
+  rating: "★★★★★"
+  content: |
+    这本书讲述了...
+    我的读后感：...

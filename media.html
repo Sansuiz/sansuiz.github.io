@@ -394,10 +394,10 @@ document.addEventListener('DOMContentLoaded', function() {
 <style>
   /* 已阅状态 - 绿色光晕效果 */
   .e-card[data-status="已阅"] .card-front {
-    box-shadow: 0 0 15px rgba(76, 175, 80, 0.5);
+    box-shadow: 0 0 15px rgba(76, 102, 175, 0.5);
   }
   .e-card[data-status="已阅"]:hover .card-front {
-    box-shadow: 0 0 25px rgba(76, 175, 80, 0.8);
+    box-shadow: 0 0 25px rgba(76, 104, 175, 0.8);
   }
 
   /* 进行状态 - 橙色脉动效果 */
@@ -405,7 +405,7 @@ document.addEventListener('DOMContentLoaded', function() {
     animation: pulse-orange 2s infinite;
   }
   @keyframes pulse-orange {
-    0% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7); }
+    0% { box-shadow: 0 0 0 0 rgba(240, 37, 37, 0.7); }
     70% { box-shadow: 0 0 0 10px rgba(255, 152, 0, 0); }
     100% { box-shadow: 0 0 0 0 rgba(255, 152, 0, 0); }
   }

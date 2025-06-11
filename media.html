@@ -116,43 +116,22 @@ title: Media-SANSUIZ
   bottom: 0;
   left: 0;
   right: 0;
-  height: 30%; /* 适当增加高度 */
   background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
   color: white;
-  padding: 0.8rem 1rem;
+  padding: 0.6rem 1rem; /* 上下边距从1rem减少到0.6rem */
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   backdrop-filter: blur(5px);
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
+  margin: 0 0 -1px 0;
 }
 
 .card-label h3 {
-  font-size: 1.1em;
-  margin-bottom: 0.2em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-bottom: 0.2em; /* 标题下边距减小 */
 }
 
 .card-excerpt {
-  font-size: 0.8em;
-  margin-top: 0.2em;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-top: 0.2em; /* 摘要上边距减小 */
 }
-
-.card-date, .card-rating {
-  font-size: 0.85em;
-  margin-top: 0.2em;
-}
-  margin: 0 0 -1px 0; /* 确保与卡片边缘对齐 */
-}
-
 /* 悬停时增强效果 */
 .e-card:hover .card-label {
   background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.9)) 0%, transparent 100%);

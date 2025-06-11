@@ -19,9 +19,6 @@ title: Media-SANSUIZ
           <h3>{{ item.title }}</h3>
           <span class="card-date">{{ item.date }}</span>
           <span class="card-rating">{{ item.rating }}</span>
-          {% if item.content %}
-            <p class="card-excerpt">{{ item.content | strip_html | truncate: 10 }}</p>
-          {% endif %}
         </div>
       </div>
     </div>
@@ -118,20 +115,13 @@ title: Media-SANSUIZ
   right: 0;
   background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
   color: white;
-  padding: 0.6rem 1rem; /* 上下边距从1rem减少到0.6rem */
+  padding: 1rem;
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
   backdrop-filter: blur(5px);
-  margin: 0 0 -1px 0;
+  margin: 0 0 -1px 0; /* 确保与卡片边缘对齐 */
 }
 
-.card-label h3 {
-  margin-bottom: 0.2em; /* 标题下边距减小 */
-}
-
-.card-excerpt {
-  margin-top: 0.2em; /* 摘要上边距减小 */
-}
 /* 悬停时增强效果 */
 .e-card:hover .card-label {
   background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.9)) 0%, transparent 100%);
@@ -433,16 +423,5 @@ document.addEventListener('DOMContentLoaded', function() {
   .e-card:hover .card-front {
     transform: rotateY(-15deg) translateY(-5px) scale(1.03);
     transition: all 0.3s ease;
-  }
-</style>
-
-<style>
-  .card-excerpt {
-    font-size: 0.9em;
-    margin-top: 0.3em;
-    opacity: 0.8;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 </style>

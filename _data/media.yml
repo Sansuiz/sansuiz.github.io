@@ -4,6 +4,7 @@
   type: "movie"
   date: "2025.06.12"
   rating: "★★★★☆"
+  status: "已阅"  # 新增字段，可选值为"进行"或"已阅"
   content: |
     还不错的电影，借用弹幕的一句话表达：
     **我喜欢这样俗套快乐又美好的东西。**
@@ -19,11 +20,12 @@
     > “I Have Feelings for You”。
 
 - title: "书籍名称"
-  image: "/images/tu/cards/20250531-q.jpg"
-  back_image: "https://img1.doubanio.com/view/photo/s_ratio_poster/public/p2921605940.webp"
+  image: "https://cdnv2.ruguoapp.com/Fqi4giMYcs_Skw3EZCEqEMeQwnbnv3.png?imageMogr2/auto-orient/thumbnail/1500000@"
+  back_image: "https://cdnv2.ruguoapp.com/FuwvQ0NE65tlC0L9CO26jSUKARE4v3.png?imageMogr2/auto-orient/thumbnail/1780920@"
   type: "book"
   date: "2024.05.15"
   rating: "★★★★★"
+  status: "进行"  # 新增字段，可选值为"进行"或"已阅"
   content: |
     这本书讲述了...
     我的读后感：...

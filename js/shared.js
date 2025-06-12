@@ -63,14 +63,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
-
-window.addEventListener('scroll', function() {
-  const thirdPage = document.querySelector('.tags-page');
-  const rect = thirdPage.getBoundingClientRect();
-  
-  if (rect.bottom <= 0) {
-    document.body.classList.add('finale-active');
-  } else {
-    document.body.classList.remove('finale-active');
-  }
-});

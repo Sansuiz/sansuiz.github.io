@@ -22,3 +22,8 @@
 #ending ~ #navigation .nav-dot[data-section="ending"] {
   visibility: hidden;
 }
+
+html, body {
+  touch-action: pan-y;
+  overscroll-behavior-y: contain;
+}

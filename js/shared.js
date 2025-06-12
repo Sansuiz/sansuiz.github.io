@@ -62,4 +62,40 @@ window.addEventListener('DOMContentLoaded', () => {
       isAnimating = false;
     }, 500);
   }
+  
+  // 添加触摸事件处理
+  let startY = 0;
+  let endY = 0;
+  
+  document.addEventListener('touchstart', (e) => {
+    startY = e.touches[0].clientY;
+  }, {passive: true});
+  
+  document.addEventListener('touchend', (e) => {
+    endY = e.changedTouches[0].clientY;
+    const diffY = startY - endY;
+    
+    // 滑动距离阈值，可根据需要调整
+    const threshold = 50;
+    
+    if (Math.abs(diffY) > threshold) {
+      if (diffY > 0) {
+        // 向上滑动，切换到下一个页面
+        navigateToNextSection();
+      } else {
+        // 向下滑动，切换到上一个页面
+        navigateToPrevSection();
+      }
+    }
+  }, {passive: true});
+  
+  function navigateToNextSection() {
+    // 实现切换到下一个页面的逻辑
+    // ... existing navigation code ...
+  }
+  
+  function navigateToPrevSection() {
+    // 实现切换到上一个页面的逻辑
+    // ... existing navigation code ...
+  }
 });

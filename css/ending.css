@@ -1,0 +1,48 @@
+@font-face {
+  font-family: 'SourceHanSerif';
+  src: url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&display=swap');
+}
+
+#ending {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background: radial-gradient(circle, #000000 0%, #1a1a2e 100%);
+  color: white;
+  perspective: 1000px;
+  overflow: hidden;
+}
+
+.ending-content {
+  width: 100%;
+  text-align: center;
+  font-family: 'SourceHanSerif', 'Noto Serif SC', serif;
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 1.5;
+  transform-style: preserve-3d;
+}
+
+.ending-content p {
+  margin: 1.5rem 0;
+  opacity: 0;
+  animation: textAppear 3s forwards;
+}
+
+.line1 { animation-delay: 0.5s; }
+.line2 { animation-delay: 1.5s; }
+.line3 { animation-delay: 2.5s; }
+.line4 { animation-delay: 3.5s; }
+
+@keyframes textAppear {
+  0% {
+    opacity: 0;
+    transform: translateZ(100px) rotateX(90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateZ(0) rotateX(0);
+  }
+}

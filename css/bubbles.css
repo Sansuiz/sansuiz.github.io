@@ -1,0 +1,66 @@
+.bubbles-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #e0f7fa, #b2ebf2);
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  animation: float 15s linear infinite;
+  opacity: 0.8;
+  transition: all 0.3s ease;
+}
+
+.bubble:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+@keyframes float {
+  0% {
+    transform: translateX(-100px) translateY(100vh);
+  }
+  100% {
+    transform: translateX(calc(100vw + 100px)) translateY(-100px);
+  }
+}
+
+/* 不同情绪的气泡样式 */
+.bubble-happy {
+  background: rgba(255, 235, 59, 0.7);
+  width: 80px;
+  height: 80px;
+}
+
+.bubble-sad {
+  background: rgba(66, 165, 245, 0.7);
+  width: 60px;
+  height: 60px;
+}
+
+.bubble-angry {
+  background: rgba(244, 67, 54, 0.7);
+  width: 70px;
+  height: 70px;
+}
+
+.bubble-love {
+  background: rgba(233, 30, 99, 0.7);
+  width: 90px;
+  height: 90px;
+}
+
+.bubble-calm {
+  background: rgba(76, 175, 80, 0.7);
+  width: 50px;
+  height: 50px;
+}

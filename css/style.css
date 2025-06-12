@@ -240,23 +240,24 @@ header small {
   object-fit: cover;
 }
 
-/* 分页样式 - 整页切换 */
+/* 分页样式 */
 .page-section {
-  height: 100vh;
   width: 100%;
-  position: relative;
-  overflow: hidden;
-  scroll-snap-align: start;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  padding: 2rem;
+  box-sizing: border-box;
 }
 
-html {
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
-
-/* 隐藏非活动页面内容 */
-.page-section:not(.active) {
-  display: none;
+.page-section.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .nav {

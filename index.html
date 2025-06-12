@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mouse.css">
   <link rel="stylesheet" href="css/photo.css">
+  <link rel="stylesheet" href="css/friend.css">
 </head>
 
 <body>
@@ -89,10 +90,39 @@
     </main>
   </div>
 
+  <div class="page-section" id="friends">
+    <main class="container friend-section">
+      <h2>友情链接</h2>
+      <div class="friend-grid">
+        <div class="friend-card">
+          <div class="friend-header">
+            <img src="images/liangyao.png" alt="好友头像" class="friend-avatar">
+            <div class="friend-info">
+              <div class="friend-name">好友名称</div>
+              <div class="friend-desc">好友描述信息</div>
+            </div>
+          </div>
+          <div class="friend-links">
+            <a href="#" class="friend-link">
+              <img src="images/China.svg" alt="网站" class="friend-link-icon">
+              个人网站
+            </a>
+            <a href="#" class="friend-link">
+              <img src="images/wechat_2025-06-11_195451_836.png" alt="微信" class="friend-link-icon">
+              微信
+            </a>
+          </div>
+        </div>
+        <!-- 可以添加更多好友卡片 -->
+      </div>
+    </main>
+  </div>
+
   <section id="navigation">
     <ul class="nav">
       <li class="nav-dot active" data-section="home"></li>
       <li class="nav-dot" data-section="about"></li>
+      <li class="nav-dot" data-section="friends"></li>
     </ul>
   </section>
 </body>

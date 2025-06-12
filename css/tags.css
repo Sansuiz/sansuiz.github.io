@@ -28,15 +28,15 @@
 }
 
 .tag-button[data-image="letters"]::before {
-  background-image: url('/images/tu/letters/letter1.jpg');
+  background-image: url('/images/tu/cards/20250531-q.jpg');
 }
 
 .tag-button[data-image="cards"]::before {
-  background-image: url('/images/tu/cards/card1.jpg');
+  background-image: url('/images/tu/cards/20250531-q.jpg');
 }
 
 .tag-button[data-image="media"]::before {
-  background-image: url('/images/wechat_2025-06-11_195451_836.png');
+  background-image: url('/images/tu/cards/20250531-q.jpg');
 }
 
 .tag-text {

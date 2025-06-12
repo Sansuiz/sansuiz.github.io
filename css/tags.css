@@ -97,3 +97,16 @@
 .tag:nth-child(10) { --y:0.15; animation-delay: 9s; }
 .tag:nth-child(11) { --y:0.35; animation-delay: 10s; }
 .tag:nth-child(12) { --y:0.65; animation-delay: 11s; }
+/* 为每个标签分配独特颜色 */
+.tag:nth-child(1) { background: linear-gradient(45deg, #FF9A8B, #FF6B95); }
+.tag:nth-child(2) { background: linear-gradient(45deg, #4FACFE, #00F2FE); }
+.tag:nth-child(3) { background: linear-gradient(45deg, #A6C1EE, #FBC2EB); }
+.tag:nth-child(4) { background: linear-gradient(45deg, #84FAB0, #8FD3F4); }
+.tag:nth-child(5) { background: linear-gradient(45deg, #F6D365, #FDA085); }
+.tag:nth-child(6) { background: linear-gradient(45deg, #A18CD1, #FBC2EB); }
+.tag:nth-child(7) { background: linear-gradient(45deg, #5FFBF1, #86A8E7); }
+.tag:nth-child(8) { background: linear-gradient(45deg, #D8B5FF, #1EAE98); }
+.tag:nth-child(9) { background: linear-gradient(45deg, #FFECD2, #FCB69F); }
+.tag:nth-child(10) { background: linear-gradient(45deg, #FF9A9E, #FAD0C4); }
+.tag:nth-child(11) { background: linear-gradient(45deg, #30CFD0, #330867); }
+.tag:nth-child(12) { background: linear-gradient(45deg, #FDCBF1, #E6DEE9); }

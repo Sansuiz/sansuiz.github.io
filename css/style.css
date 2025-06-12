@@ -12,7 +12,19 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
-.container {
+/* 分页基础样式 */
+#fullpage {
+  position: relative;
+}
+
+.section {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+/* 保持第二页容器与第一页一致 */
+.section:nth-child(2) .container {
   max-width: 520px;
   width: 85%;
   padding: 1.5rem;
@@ -20,7 +32,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .container {
+  .section:nth-child(2) .container {
     margin-left: 0.5rem;
     padding: 0.5rem 1rem;
     width: 95%;

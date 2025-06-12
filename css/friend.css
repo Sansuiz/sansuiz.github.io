@@ -128,3 +128,39 @@
   height: 24px;
   margin-right: 10px;
 }
+
+.link-section {
+  padding: 40px 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.link-list {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.link-item {
+  text-decoration: none;
+  color: inherit;
+}
+
+.link-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #0066cc;
+  margin-bottom: 8px;
+  transition: color 0.3s ease;
+}
+
+.link-item:hover .link-title {
+  color: #004499;
+  text-decoration: underline;
+}
+
+.link-summary {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+}

@@ -39,15 +39,13 @@ title: Media-SANSUIZ
 
 <div class="card-modal">
   <div class="modal-content">
-    <div class="modal-container" style="{% unless item.back_image %}justify-content: center;{% endunless %}">
-      {% if item.back_image %}
+    <div class="modal-container">
       <div class="modal-image-container">
-        <img src="{{ item.back_image }}" alt="" class="modal-image">
+        <img src="" alt="" class="modal-image">
       </div>
-      {% endif %}
-      <div class="modal-text-container" style="{% unless item.back_image %}width: 80%;{% endunless %}">
-        <h2 class="modal-title">{{ item.title }}</h2>
-        <p class="modal-text">{{ item.content }}</p>
+      <div class="modal-text-container">
+        <h2 class="modal-title"></h2>
+        <p class="modal-text"></p>
       </div>
     </div>
   </div>
@@ -482,14 +480,5 @@ document.addEventListener('DOMContentLoaded', function() {
   .douban-text {
     font-size: 0.7em;
     opacity: 0.8;
-  }
-</style>
-
-<style>
-  /* 调整无图片时的文本容器样式 */
-  .modal-container:not(:has(.modal-image-container)) .modal-text-container {
-    padding: 2rem;
-    width: 80%;
-    margin: 0 auto;
   }
 </style>

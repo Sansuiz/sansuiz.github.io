@@ -63,30 +63,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
-
-
-function loadFragments() {
-  const fragments = [
-    { date: "2023-05-01", content: "公园野餐", emoji: "🌳" },
-    { date: "2023-06-15", content: "新书入手", emoji: "📚" }
-  ];
-  
-  const container = document.querySelector('.fragments-container');
-  if(container) {
-    fragments.forEach(item => {
-      const card = document.createElement('div');
-      card.className = 'fragment-card';
-      card.innerHTML = `
-        <div class="fragment-emoji">${item.emoji}</div>
-        <div class="fragment-date">${item.date}</div>
-        <div class="fragment-content">${item.content}</div>
-      `;
-      container.appendChild(card);
-    });
-  }
-}
-
-// 确保只在about页面加载碎片
-if(window.location.pathname.includes('about')) {
-  window.addEventListener('DOMContentLoaded', loadFragments);
-}

@@ -8,71 +8,81 @@
   <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="https://unpkg.com/fullpage.js/dist/fullpage.min.css">
 </head>
 
 <body>
-    <!-- 鼠标指针样式 -->
-  <script type="module" src="js/shared.js"></script>
-
-  <main class="container">
-    <header>
-      <!-- 百度统计 -->
-      <script>
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?eab227629076a3068adabbd009c5b599";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-        })();
-        </script>
-        
-      <h1>Hi，</h1>
-      <small>花有重开日，人无再少年</small>
-    </header>
-
-    <section class="bio">
-      <div class="bio" id="markdown-content"></div>
-
-      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-      <script>
-        fetch('intro.md')
-          .then(response => response.text())
-          .then(text => {
-            document.getElementById('markdown-content').innerHTML = marked.parse(text);
-          })
-          .catch(err => console.error('加载MD文件失败:', err));
-      </script>
-    </section>
-
-    <div class="logo-container">
-      <a href="/">
-        <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
-      </a>
+  <div id="fullpage">
+    <!-- 第一页 - 现有内容 -->
+    <div class="section">
+      <main class="container">
+        <header>
+          <!-- 百度统计 -->
+          <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?eab227629076a3068adabbd009c5b599";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+            </script>
+            
+          <h1>Hi，</h1>
+          <small>花有重开日，人无再少年</small>
+        </header>
+    
+        <section class="bio">
+          <div class="bio" id="markdown-content"></div>
+    
+          <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+          <script>
+            fetch('intro.md')
+              .then(response => response.text())
+              .then(text => {
+                document.getElementById('markdown-content').innerHTML = marked.parse(text);
+              })
+              .catch(err => console.error('加载MD文件失败:', err));
+          </script>
+        </section>
+    
+        <div class="logo-container">
+          <a href="/">
+            <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
+          </a>
+        </div>
+    
+        <br>
+    
+        <nav class="social-links">
+          <ul>
+            <li>
+            </li>
+          </ul>
+        </nav>
+      </main>
     </div>
+    
+    <!-- 第二页 - 相册画廊 -->
+    <div class="section">
+      <div class="gallery-container">
+        {% for image in site.data.gallery %}
+          <div class="gallery-item">
+            <img src="{{ image.url }}" alt="{{ image.title }}">
+            <p>{{ image.description }}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
 
-    <br>
-
-    <nav class="social-links">
-      <ul>
-        <li>
-        </li>
-      </ul>
-    </nav>
-  </main>
+  <script src="https://unpkg.com/fullpage.js/dist/fullpage.min.js"></script>
+  <script>
+    new fullpage('#fullpage', {
+      scrollingSpeed: 800,
+      navigation: true,
+      navigationPosition: 'right'
+    });
+  </script>
 </body>
 </html>
-
-<div class="fullpage-container">
-  <section class="fullpage-section">
-    {{ content }}
-  </section>
-  <section class="fullpage-section gallery">
-    {% for photo in site.data.gallery %}
-      <div class="gallery-item">
-        <img src="{{ photo.image }}" alt="{{ photo.title }}">
-        <h3>{{ photo.title }}</h3>
-      </div>
-    {% endfor %}
-  </section>
-</div>

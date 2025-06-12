@@ -9,8 +9,3 @@ window.addEventListener('DOMContentLoaded', () => {
   cursor.className = 'custom-cursor';
   document.body.appendChild(cursor);
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.querySelector('.fullpage-container');
-  container.style.scrollSnapType = 'y mandatory';
-});

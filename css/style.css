@@ -444,15 +444,15 @@ header small {
 }
 
 .card-date {
-  position: static;
-  display: block;
-  font-size: 0.8em;
-  color: #666;
-  margin-top: -15px;
-  margin-bottom: 10px;
-  transform: none;
-  background: transparent;
-  padding: 0;
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-weight: bold;
 }
 
 .card-content {

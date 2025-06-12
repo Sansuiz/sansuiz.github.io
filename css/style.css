@@ -239,3 +239,27 @@ header small {
   height: auto;
   object-fit: cover;
 }
+
+/* 在文件底部添加以下样式 */
+#fullpage {
+  overflow: hidden;
+}
+
+.section {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+}
+
+/* 导航点样式 */
+#fp-nav ul li a span {
+  background: #666;
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+}
+
+#fp-nav ul li a.active span {
+  background: #ed627e;
+  transform: scale(1.5);
+}

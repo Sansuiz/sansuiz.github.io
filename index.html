@@ -32,17 +32,15 @@
     </header>
 
     <section class="bio">
-      <div class="bio" id="markdown-content"></div>
-
-      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-      <script>
-        fetch('intro.md')
-          .then(response => response.text())
-          .then(text => {
-            document.getElementById('markdown-content').innerHTML = marked.parse(text);
-          })
-          .catch(err => console.error('加载MD文件失败:', err));
-      </script>
+      <div class="page" id="page1">
+        <!-- 现有intro.md内容 -->
+        <div class="bio" id="markdown-content"></div>
+      </div>
+      
+      <div class="page" id="page2">
+        <!-- 相册画廊内容 -->
+        <div class="gallery" id="gallery-content"></div>
+      </div>
     </section>
 
     <div class="logo-container">

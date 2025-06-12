@@ -226,3 +226,14 @@ header small {
     height: 100px;
   }
 }
+
+.page {
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start;
+}
+
+body {
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+}

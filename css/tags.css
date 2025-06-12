@@ -60,12 +60,12 @@
 .tag:nth-child(4) { --delay: 3s; --x-offset: 25vw; }
 .tag:nth-child(5) { --delay: 4s; --x-offset: 5vw; }
 .tag:nth-child(6) { --delay: 5s; --x-offset: 30vw; }
-.tag:nth-child(7) { --delay: 6s; --x-offset: 40vw; }
-.tag:nth-child(8) { --delay: 7s; --x-offset: 45vw; }
-.tag:nth-child(9) { --delay: 8s; --x-offset: 10vw; }
-.tag:nth-child(10) { --delay: 9s; --x-offset: 30vw; }
-.tag:nth-child(11) { --delay: 10s; --x-offset: 25vw; }
-.tag:nth-child(12) { --delay: 11s; --x-offset: 5vw; }
+.tag:nth-child(7) { --delay: 6s; --x-offset: 10vw; }
+.tag:nth-child(8) { --delay: 7s; --x-offset: 20vw; }
+.tag:nth-child(9) { --delay: 8s; --x-offset: 15vw; }
+.tag:nth-child(10) { --delay: 9s; --x-offset: 25vw; }
+.tag:nth-child(11) { --delay: 10s; --x-offset: 5vw; }
+.tag:nth-child(12) { --delay: 11s; --x-offset: 30vw; }
 /* 彩虹色标签 */
 .tag:nth-child(4n+1) { background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
 .tag:nth-child(4n+2) { background: linear-gradient(45deg, #a18cd1, #fbc2eb); }

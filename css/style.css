@@ -328,6 +328,36 @@ header small {
   margin-bottom: 0.5rem;
 }
 
+/* 为第二页卡片添加样式 */
+.page-section#about .rss-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  max-width: 800px;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Markdown内容样式 */
+.page-section#about .rss-content {
+  font-family: inherit;
+  line-height: 1.6;
+}
+
+.page-section#about .rss-content p {
+  margin-bottom: 1rem;
+}
+
+.page-section#about .rss-content a {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .rss-content {
   color: #666;
   line-height: 1.6;

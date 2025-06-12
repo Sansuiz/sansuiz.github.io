@@ -15,6 +15,9 @@
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   transition: transform 0.3s ease;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .photo-frame:hover {
@@ -22,7 +25,7 @@
 }
 
 .photo-frame img {
-  width: 50%;
+  width: 80%;
   height: auto;
   display: block;
   margin: 0 auto;

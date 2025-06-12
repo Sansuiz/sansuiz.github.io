@@ -239,3 +239,31 @@ header small {
   height: auto;
   object-fit: cover;
 }
+
+/* 恢复第一页容器原始样式 */
+.section:first-child .container {
+  max-width: 520px;
+  width: 85%;
+  padding: 1.5rem;
+  margin-left: 12rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* 恢复移动端样式 */
+@media (max-width: 480px) {
+  .section:first-child .container {
+    margin-left: 0.5rem;
+    padding: 0.5rem 1rem;
+    width: 95%;
+  }
+}
+
+/* 确保背景覆盖整个页面 */
+.section:first-child {
+  background-image: url('/images/liangyao.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #ffffff;
+}

@@ -239,24 +239,3 @@ header small {
   height: auto;
   object-fit: cover;
 }
-
-/* 分页样式 */
-.section {
-  width: 100%;
-  height: 100vh;
-}
-
-/* 导航点样式 */
-#fp-nav ul li a span {
-  background: rgba(0,0,0,0.3);
-  width: 8px;
-  height: 8px;
-  margin: -4px 0 0 -4px;
-}
-
-#fp-nav ul li a.active span {
-  background: #ed627e;
-  width: 12px;
-  height: 12px;
-  margin: -6px 0 0 -6px;
-}

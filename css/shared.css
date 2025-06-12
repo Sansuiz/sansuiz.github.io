@@ -18,3 +18,25 @@
   vertical-align: middle;
   margin: 0 0.3em;
 }
+
+.page {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+#page2 {
+  display: none;
+}
+
+.gallery-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+
+.gallery-item {
+  scroll-snap-align: start;
+  min-width: 100%;
+  padding: 20px;
+}

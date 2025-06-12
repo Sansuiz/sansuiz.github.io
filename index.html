@@ -51,20 +51,6 @@
       </a>
     </div>
 
-    <div class="gallery-container">
-      {% for gallery in site.data.gallery.galleries %}
-        <div class="gallery">
-          <h3>{{ gallery.title }}</h3>
-          <div class="gallery-slider">
-            {% for image in gallery.images %}
-              <div class="slide">
-                <img src="{{ image.src }}" alt="{{ image.alt }}">
-              </div>
-            {% endfor %}
-          </div>
-        </div>
-      {% endfor %}
-    </div>
     <br>
 
     <nav class="social-links">
@@ -73,6 +59,21 @@
         </li>
       </ul>
     </nav>
+    
+    <div class="page" id="page1">
+      <!-- 现有首页内容保持不变 -->
+    </div>
+    
+    <div class="page" id="page2">
+      <div class="gallery-container">
+        {% for item in site.data.gallery %}
+        <div class="gallery-item">
+          <img src="{{ item.image }}" alt="{{ item.title }}">
+          <p>{{ item.description }}</p>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
   </main>
 </body>
 </html>

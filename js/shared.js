@@ -63,17 +63,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
-
-
-function initLyricsCarousel() {
-  const lyrics = document.querySelectorAll('.lyrics-text');
-  let current = 0;
-  
-  setInterval(() => {
-    lyrics[current].classList.remove('active');
-    current = (current + 1) % lyrics.length;
-    lyrics[current].classList.add('active');
-  }, 4000);
-}
-
-document.addEventListener('DOMContentLoaded', initLyricsCarousel);

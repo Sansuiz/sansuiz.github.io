@@ -1,4 +1,5 @@
 .site-footer {
+  display: none;
   position: fixed;
   left: 20px;
   bottom: 20px;
@@ -8,6 +9,11 @@
   font-family: 'Noto Sans SC', sans-serif;
 }
 
+#ending .site-footer {
+  display: block;
+}
+
+/* 保留其他样式不变 */
 .footer-nav {
   display: flex;
   gap: 15px;

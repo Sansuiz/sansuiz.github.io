@@ -21,14 +21,11 @@
     opacity: 1;
   }
   100% {
-    transform: translateX(calc(10% + var(--x-offset) + var(--x-drift))) translateY(100vh) rotate(var(--rotation));
+    transform: translateX(calc(10% + var(--x-offset) + var(--x-drift))) translateY(100vh) rotate(360deg);
     opacity: 0;
   }
 }
 
-/* 为不同标签设置不同旋转方向 */
-.tag:nth-child(odd) { --rotation: 360deg; }
-.tag:nth-child(even) { --rotation: -360deg; }
 /* 为不同标签设置不同参数 */
 .tag:nth-child(1) { --x-start: 0; --x-offset: 5vw; --x-drift: 2vw; }
 .tag:nth-child(2) { --x-start: 5vw; --x-offset: 10vw; --x-drift: -3vw; }

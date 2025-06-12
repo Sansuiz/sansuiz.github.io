@@ -9,10 +9,43 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: radial-gradient(circle, #000000 0%, #1a1a2e 100%);
+  background: 
+    linear-gradient(rgba(26, 26, 46, 0.9), rgba(26, 26, 46, 0.9)),
+    url('../images/sansuiz.png') center/cover no-repeat;
   color: white;
   perspective: 1000px;
   overflow: hidden;
+}
+
+#ending::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, 
+    rgba(58, 97, 134, 0.3) 0%, 
+    rgba(137, 37, 62, 0.3) 50%, 
+    rgba(229, 149, 0, 0.3) 100%);
+  filter: blur(10px);
+  z-index: -1;
+  animation: liquidEffect 15s infinite alternate;
+}
+
+@keyframes liquidEffect {
+  0% {
+    transform: scale(1) rotate(0deg);
+    background-position: 0% 0%;
+  }
+  50% {
+    transform: scale(1.05) rotate(2deg);
+    background-position: 50% 50%;
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+    background-position: 100% 100%;
+  }
 }
 
 .ending-content {

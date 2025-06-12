@@ -74,12 +74,9 @@ header h1:hover {
   transition: transform 0.2s;
 }
 
-header small {
-  font-family: "KaiTi", "楷体", STKaiti, serif;
-  font-size: 1.2rem;
-  display: block;
-  margin-top: 0.5rem;
-}
+body {
+  font-family: 'Noto Serif SC', serif;
+  font-weight: normal; /* 移除heavy权重 */
   color: #666;
   font-size: 1.1rem;
   text-align: left;
@@ -90,7 +87,8 @@ header small {
   margin: 2rem 0;
   line-height: 1.6;
   text-align: justify;
-  font-family: 'Source Han Serif CN', serif;
+  font-family: 'Noto Serif SC', serif;
+  font-weight: normal; /* 移除600权重 */
   font-weight: 600;
 }
 
@@ -424,4 +422,13 @@ body {
   .container {
     padding: 1rem;
   }
+}
+
+/* 修复语法错误 */
+header small {
+  font-family: "KaiTi", "楷体", STKaiti, serif;
+  font-size: 1.2rem;
+  display: block;
+  margin-top: 0.5rem;
+  color: #666;
 }

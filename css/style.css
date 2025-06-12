@@ -226,29 +226,3 @@ header small {
     height: 100px;
   }
 }
-
-.content-wrapper {
-  position: relative;
-  transition: all 0.5s ease;
-}
-
-.gallery-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-}
-
-.gallery {
-  display: flex;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-}
-
-.slide {
-  scroll-snap-align: start;
-  min-width: 100vw;
-  height: 100vh;
-}

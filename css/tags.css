@@ -1,7 +1,38 @@
 .tags-container {
-  columns: 4;
-  column-gap: 15px;
-  padding: 20px;
+  position: relative;
+  height: 500px;
+  margin-left: 20%;
+}
+
+.tag-button {
+  position: absolute;
+  transform-origin: left center;
+  transition: all 0.5s ease;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+}
+
+.tag-button:nth-child(1) {
+  left: 10%;
+  top: 10%;
+  transform: rotate(-5deg);
+}
+
+.tag-button:nth-child(2) {
+  left: 15%;
+  top: 30%;
+  transform: rotate(3deg);
+}
+
+.tag-button:nth-child(3) {
+  left: 5%;
+  top: 50%;
+  transform: rotate(-8deg);
+}
+
+.tag-button:hover {
+  transform: rotate(0deg) scale(1.1);
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+  z-index: 10;
 }
 
 .tag-button {

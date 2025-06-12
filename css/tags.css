@@ -1,80 +1,23 @@
 .tags-container {
-  position: relative;
-  height: 500px;
-  margin-left: 20%;
+  columns: 4;
+  column-gap: 15px;
+  padding: 20px;
 }
 
 .tag-button {
-  position: absolute;
-  transform-origin: left center;
-  transition: all 0.5s ease;
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-}
-
-.tag-button:nth-child(1) {
-  left: 10%;
-  top: 10%;
-  transform: rotate(-5deg);
-}
-
-.tag-button:nth-child(2) {
-  left: 15%;
-  top: 30%;
-  transform: rotate(3deg);
-}
-
-.tag-button:nth-child(3) {
-  left: 5%;
-  top: 50%;
-  transform: rotate(-8deg);
-}
-
-.tag-button:hover {
-  transform: rotate(0deg) scale(1.1);
-  box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-  z-index: 10;
-}
-
-.tag-button {
-  position: relative;
-  overflow: hidden;
-  padding-left: 0;
+  display: inline-block;
+  width: 100%;
   background: white;
   border: 1px solid #e1e1e1;
   border-radius: 8px;
-  height: 60px;
-}
-
-.tag-button::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 60px;
-  background-size: cover;
-  background-position: center;
-  mask-image: linear-gradient(to right, black, transparent);
-  -webkit-mask-image: linear-gradient(to right, black, transparent);
-}
-
-.tag-button[data-image="letters"]::before {
-  background-image: url('/images/tu/cards/20250531-q.jpg');
-}
-
-.tag-button[data-image="cards"]::before {
-  background-image: url('/images/tu/cards/20250531-q.jpg');
-}
-
-.tag-button[data-image="media"]::before {
-  background-image: url('/images/tu/cards/20250531-q.jpg');
-}
-
-.tag-text {
+  padding: 8px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+  break-inside: avoid;
   position: relative;
-  padding: 0 15px;
-  line-height: 60px;
-  z-index: 1;
 }
 
 .tag-button::after {

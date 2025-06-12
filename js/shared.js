@@ -213,7 +213,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     cardsContainer.className = 'cards-container';
     aboutSection.appendChild(cardsContainer);
     
-    const feedItems = await fetchRSSFeed('https://example.com/rss'); // 替换为你的RSS源
+    const feedItems = await fetchRSSFeed('https://blog.sansuiz.cn/notes.xml'); // 替换为你的RSS源
     feedItems.forEach((item, index) => {
       cardsContainer.appendChild(createCard(item, index));
     });

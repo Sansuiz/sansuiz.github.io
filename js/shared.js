@@ -89,16 +89,3 @@ async function fetchLatestRSS() {
 
 // 页面加载时获取数据
 window.addEventListener('DOMContentLoaded', fetchLatestRSS);
-
-// 在RSS内容加载后添加Markdown渲染
-function loadRSSContent(data) {
-  const rssContainer = document.querySelector('.page-section#about .rss-card');
-  if (data.items && data.items.length > 0) {
-    const latestItem = data.items[0];
-    rssContainer.innerHTML = `
-      <div class="rss-content">
-        ${marked.parse(latestItem.description)}
-      </div>
-    `;
-  }
-}

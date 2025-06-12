@@ -262,7 +262,7 @@ header small {
 
 .nav {
   position: fixed;
-  right: 2rem;
+  left: 2rem;  /* 从right改为left */
   top: 50%;
   transform: translateY(-50%);
   list-style: none;

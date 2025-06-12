@@ -15,16 +15,18 @@ window.addEventListener('DOMContentLoaded', () => {
   let isScrolling = false;
   
   // 滚动时更新导航点状态
+  // 更新后的滚动检测
   window.addEventListener('scroll', () => {
     if (isScrolling) return;
     
-    const currentPos = window.scrollY + window.innerHeight/2;
+    const scrollPosition = window.scrollY;
+    const windowHeight = window.innerHeight;
     
     sections.forEach((section, index) => {
       const sectionTop = section.offsetTop;
-      const sectionBottom = sectionTop + section.offsetHeight;
+      const sectionBottom = sectionTop + windowHeight;
       
-      if (currentPos >= sectionTop && currentPos <= sectionBottom) {
+      if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
         navDots.forEach(dot => dot.classList.remove('active'));
         navDots[index].classList.add('active');
       }

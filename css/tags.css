@@ -26,7 +26,19 @@
   }
 }
 
-/* 为不同标签设置不同参数 */
+/* 调整动画延迟时间 */
+.tag:nth-child(1) { --delay: 0s; }
+.tag:nth-child(2) { --delay: 1s; }
+.tag:nth-child(3) { --delay: 2s; }
+.tag:nth-child(4) { --delay: 3s; }
+.tag:nth-child(5) { --delay: 4s; }
+.tag:nth-child(6) { --delay: 5s; }
+.tag:nth-child(7) { --delay: 6s; }
+.tag:nth-child(8) { --delay: 7s; }
+.tag:nth-child(9) { --delay: 8s; }
+.tag:nth-child(10) { --delay: 9s; }
+.tag:nth-child(11) { --delay: 10s; }
+.tag:nth-child(12) { --delay: 11s; }
 .tag:nth-child(1) { --x-start: 0; --x-offset: 5vw; --x-drift: 2vw; }
 .tag:nth-child(2) { --x-start: 5vw; --x-offset: 10vw; --x-drift: -3vw; }
 .tag:nth-child(3) { --x-start: -5vw; --x-offset: 15vw; --x-drift: 4vw; }

@@ -29,20 +29,17 @@
 }
 
 .ending-content {
-  background: rgba(255, 255, 255, 0.7);
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1);
-}
-
-.ending-content {
-  width: 100%;
   text-align: center;
   font-family: 'SourceHanSerif', 'Noto Serif SC', serif;
   font-weight: 900;
   font-size: 3rem;
   line-height: 1.5;
   transform-style: preserve-3d;
+  /* 移除以下属性 */
+  /* background: rgba(255, 255, 255, 0.7); */
+  /* padding: 2rem; */
+  /* border-radius: 1rem; */
+  /* box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1); */
 }
 
 .ending-content p {

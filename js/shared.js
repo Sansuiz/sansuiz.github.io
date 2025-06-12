@@ -63,3 +63,29 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
+
+
+// 配置您的RSS订阅源链接
+const RSS_FEED_URL = 'https://blog.sansuiz.cn/notes.xml';
+
+// 获取并显示最新RSS内容
+async function fetchLatestRSS() {
+  try {
+    // 使用RSS解析服务（示例使用rss2json.com）
+    const response = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_FEED_URL)}`);
+    const data = await response.json();
+    
+    if(data.items && data.items.length > 0) {
+      const latestItem = data.items[0];
+      document.querySelector('.rss-title').textContent = latestItem.title;
+      document.querySelector('.rss-content').textContent = latestItem.description;
+      document.querySelector('.rss-date').textContent = new Date(latestItem.pubDate).toLocaleDateString();
+    }
+  } catch (error) {
+    console.error('获取RSS内容失败:', error);
+    document.querySelector('.rss-content').textContent = '无法加载最新内容';
+  }
+}
+
+// 页面加载时获取数据
+window.addEventListener('DOMContentLoaded', fetchLatestRSS);

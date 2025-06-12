@@ -309,3 +309,32 @@ header small {
   70% { transform: scale(1.3); opacity: 0; }
   100% { transform: scale(0.8); opacity: 0; }
 }
+
+.rss-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.rss-item {
+  background: rgba(255,255,255,0.9);
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.rss-title {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+}
+
+.rss-content {
+  color: #666;
+  line-height: 1.6;
+}
+
+.rss-date {
+  color: #ed627e;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}

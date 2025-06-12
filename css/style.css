@@ -239,3 +239,61 @@ header small {
   height: auto;
   object-fit: cover;
 }
+
+/* 分页容器样式 */
+.page-container {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+.page {
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.page.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* 导航样式 */
+.nav {
+  position: fixed;
+  right: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav li {
+  margin: 1rem 0;
+}
+
+.nav a {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+  text-align: center;
+  line-height: 1.5rem;
+  color: #2c3e50;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav a.active,
+.nav a:hover {
+  background: #ed627e;
+  color: white;
+  transform: scale(1.2);
+}

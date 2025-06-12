@@ -12,42 +12,58 @@
   <script type="module" src="js/shared.js"></script>
   <script type="module" src="js/mouse.js"></script>
   
-  <main class="container">
-    <header>
-      <script>
-        var _hmt = _hmt || [];
-        (function() {
-          var hm = document.createElement("script");
-          hm.src = "https://hm.baidu.com/hm.js?eab227629076a3068adabbd009c5b599";
-          var s = document.getElementsByTagName("script")[0]; 
-          s.parentNode.insertBefore(hm, s);
-        })();
-      </script>
-      
-      <h1>Hi,</h1>
-      <small>花有重开日，人无再少年</small>
-    </header>
+  <div class="page-container">
+    <section id="page1" class="page active">
+      <main class="container">
+        <header>
+          <script>
+            var _hmt = _hmt || [];
+            (function() {
+              var hm = document.createElement("script");
+              hm.src = "https://hm.baidu.com/hm.js?eab227629076a3068adabbd009c5b599";
+              var s = document.getElementsByTagName("script")[0]; 
+              s.parentNode.insertBefore(hm, s);
+            })();
+          </script>
+          
+          <h1>Hi,</h1>
+          <small>花有重开日，人无再少年</small>
+        </header>
 
-    <section class="bio">
-      <div class="bio" id="markdown-content"></div>
+        <section class="bio">
+          <div class="bio" id="markdown-content"></div>
 
-      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-      <script>
-        fetch('intro.md')
-          .then(response => response.text())
-          .then(text => {
-            document.getElementById('markdown-content').innerHTML = marked.parse(text);
-          })
-          .catch(err => console.error('加载MD文件失败:', err));
-      </script>
+          <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+          <script>
+            fetch('intro.md')
+              .then(response => response.text())
+              .then(text => {
+                document.getElementById('markdown-content').innerHTML = marked.parse(text);
+              })
+              .catch(err => console.error('加载MD文件失败:', err));
+          </script>
+        </section>
+
+        <div class="logo-container">
+          <a href="/">
+            <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
+          </a>
+        </div>
+      </main>
     </section>
+    
+    <section id="page2" class="page">
+      <!-- 第二页内容 -->
+      <div class="container">
+        <h2>第二页</h2>
+        <!-- 后续可添加内容 -->
+      </div>
+    </section>
+  </div>
 
-    <div class="logo-container">
-      <a href="/">
-        <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
-      </a>
-    </div>
-
-  </main>
+  <ul class="nav">
+    <li><a href="#page1" class="active">1</a></li>
+    <li><a href="#page2">2</a></li>
+  </ul>
 </body>
 </html>

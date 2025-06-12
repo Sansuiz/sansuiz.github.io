@@ -72,14 +72,11 @@
     <div class="section">
       <div class="gallery-container">
         {% for image in site.data.gallery %}
-          <div class="gallery-item">
+          <div class="gallery-item" style="grid-row-end: span {{ image.height | default: 30 }}">
             <img src="{{ image.url }}" alt="{{ image.title }}">
-            <div class="gallery-scroll-container">
-              {% for thumb in site.data.gallery %}
-                <div class="gallery-scroll-item">
-                  <img src="{{ thumb.url }}" alt="{{ thumb.title }}">
-                </div>
-              {% endfor %}
+            <div class="gallery-caption">
+              <h3>{{ image.title }}</h3>
+              <p>{{ image.description }}</p>
             </div>
           </div>
         {% endfor %}

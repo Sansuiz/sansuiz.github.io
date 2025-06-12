@@ -63,22 +63,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
-
-// 加载卡片数据
-fetch('/_data/homecards.yml')
-  .then(response => response.text())
-  .then(text => {
-    const cards = jsyaml.load(text).cards;
-    const container = document.querySelector('.cards-container');
-    
-    cards.forEach(card => {
-      const cardElement = document.createElement('div');
-      cardElement.className = 'card';
-      cardElement.innerHTML = `
-        <h3>${card.title}</h3>
-        <p>${card.content}</p>
-        ${card.image ? `<img src="${card.image}" alt="${card.title}">` : ''}
-      `;
-      container.appendChild(cardElement);
-    });
-  });

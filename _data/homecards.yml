@@ -1,7 +1,0 @@
-cards:
-  - title: "卡片1"
-    content: "这是第一张卡片的内容"
-    image: "/images/sansuiz.png"
-  - title: "卡片2"
-    content: "这是第二张卡片的内容"
-    image: "/images/liangyao.png"

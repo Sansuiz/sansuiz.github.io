@@ -1,16 +1,7 @@
-albums:
-  - title: "相册1"
+gallery:
+  - title: "图片1"
+    image: "/images/tu/cards/1.jpg"
     description: "描述1"
-    images:
-      - path: "/images/tu/cards/image1.jpg"
-        caption: "图片1"
-      - path: "/images/tu/cards/image2.jpg"
-        caption: "图片2"
-
-  - title: "相册2"
+  - title: "图片2"
+    image: "/images/tu/cards/2.jpg"
     description: "描述2"
-    images:
-      - path: "/images/tu/letters/image3.jpg"
-        caption: "图片3"
-      - path: "/images/tu/letters/image4.jpg"
-        caption: "图片4"

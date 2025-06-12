@@ -9,3 +9,17 @@ window.addEventListener('DOMContentLoaded', () => {
   cursor.className = 'custom-cursor';
   document.body.appendChild(cursor);
 });
+
+window.addEventListener('scroll', function() {
+  const mainContent = document.querySelector('.container');
+  const gallery = document.getElementById('gallery-container');
+  
+  if (window.scrollY > 100) {
+    mainContent.style.opacity = 1 - (window.scrollY - 100) / 200;
+    gallery.style.display = 'block';
+    gallery.style.opacity = (window.scrollY - 100) / 200;
+  } else {
+    mainContent.style.opacity = 1;
+    gallery.style.display = 'none';
+  }
+});

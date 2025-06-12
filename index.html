@@ -8,12 +8,20 @@
   <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/shared.css">
-  <link rel="stylesheet" href="css/gallery.css">
 </head>
 
 <body>
     <!-- 鼠标指针样式 -->
   <script type="module" src="js/shared.js"></script>
+
+  <div id="gallery-container" style="display:none;">
+    {% for item in site.data.gallery.gallery %}
+      <div class="gallery-item">
+        <img src="{{ item.image }}" alt="{{ item.title }}">
+        <p>{{ item.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
 
   <main class="container">
     <header>
@@ -61,11 +69,5 @@
       </ul>
     </nav>
   </main>
-  
-  <div class="gallery-container" id="gallery">
-    <!-- 相册画廊内容将通过JS动态加载 -->
-  </div>
-
-  <script src="js/gallery.js"></script>
 </body>
 </html>

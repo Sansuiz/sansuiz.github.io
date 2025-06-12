@@ -4,115 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SANSUIZ</title>
-  <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.png">
-  <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.svg">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/shared.css">
-  <link rel="stylesheet" href="css/gallery.css">
+  <link rel="stylesheet" href="css/feed.css">
   <link rel="stylesheet" href="https://unpkg.com/fullpage.js/dist/fullpage.min.css">
 </head>
 
 <body>
-  <!-- 恢复鼠标指针样式 -->
-  <script type="module" src="js/shared.js"></script>
-  <script type="module" src="js/mouse.js"></script>
-
   <div id="fullpage">
-    <!-- 第一页 - 现有内容 -->
+    <!-- 第一页 - 现有内容保持不变 -->
     <div class="section">
-      <main class="container">
-        <header>
-          <!-- 百度统计 -->
-          <script>
-            var _hmt = _hmt || [];
-            (function() {
-              var hm = document.createElement("script");
-              hm.src = "https://hm.baidu.com/hm.js?eab227629076a3068adabbd009c5b599";
-              var s = document.getElementsByTagName("script")[0]; 
-              s.parentNode.insertBefore(hm, s);
-            })();
-            </script>
-            
-          <h1>Hi，</h1>
-          <small>花有重开日，人无再少年</small>
-        </header>
-    
-        <section class="bio">
-          <div class="bio" id="markdown-content"></div>
-    
-          <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-          <script>
-            fetch('intro.md')
-              .then(response => response.text())
-              .then(text => {
-                document.getElementById('markdown-content').innerHTML = marked.parse(text);
-              })
-              .catch(err => console.error('加载MD文件失败:', err));
-          </script>
-        </section>
-    
-        <div class="logo-container">
-          <a href="/">
-            <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
-          </a>
-        </div>
-    
-        <br>
-    
-        <nav class="social-links">
-          <ul>
-            <li>
-            </li>
-          </ul>
-        </nav>
-      </main>
+      <!-- ... 原有第一页内容 ... -->
     </div>
     
-    <!-- 第二页 - 相册画廊 -->
+    <!-- 第二页 - 留空 -->
     <div class="section">
-      <div class="feed-container">
-        <!-- 小红书风格的内容将放在这里 -->
-      </div>
+      <!-- 第二页暂时空着 -->
     </div>
-    <!-- 第二页 - 相册展示 -->
-    <!-- 相册部分 -->
-    <section class="album-section">
-      <div class="album-header">
-        <h2>我的相册</h2>
-        <div class="album-filter">
-          <button class="filter-btn active" data-filter="all">全部</button>
-          <button class="filter-btn" data-filter="自然">自然</button>
-          <button class="filter-btn" data-filter="城市">城市</button>
-        </div>
-      </div>
-      
-      <div class="album-grid">
-        {% for image in site.data.gallery %}
-        <div class="album-item" data-tags="{{ image.tags }}">
-          <a href="#" class="album-link" data-src="{{ image.url }}" data-title="{{ image.title }}" data-desc="{{ image.description }}" data-date="{{ image.date }}">
-            <img src="{{ image.thumb }}" alt="{{ image.title }}" loading="lazy">
-            <div class="album-overlay">
-              <h3>{{ image.title }}</h3>
-              <p>{{ image.date | date: "%Y-%m-%d" }}</p>
-            </div>
-          </a>
-        </div>
-        {% endfor %}
-      </div>
-      
-      <!-- 图片查看器 -->
-      <div class="album-viewer">
-        <div class="viewer-content">
-          <img src="" alt="" class="viewer-image">
-          <div class="viewer-info">
-            <h3 class="viewer-title"></h3>
-            <p class="viewer-desc"></p>
-            <p class="viewer-date"></p>
-          </div>
-          <button class="viewer-close">&times;</button>
-        </div>
-      </div>
-    </section>
   </div>
 
   <script src="https://unpkg.com/fullpage.js/dist/fullpage.min.js"></script>
@@ -123,7 +30,7 @@
       navigationPosition: 'right'
     });
   </script>
-  <!-- 在body结束前添加 -->
+  <!-- 删除这行 -->
   <script src="/js/album.js"></script>
 </body>
 </html>

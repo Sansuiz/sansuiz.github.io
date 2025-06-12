@@ -388,3 +388,8 @@ header small {
   font-size: 2rem;
   cursor: pointer;
 }
+body {
+  font-family: "Noto Serif SC", serif;
+  font-weight: 900; /* heavy字重 */
+  line-height: 1.8;
+}

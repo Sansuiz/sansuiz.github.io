@@ -6,75 +6,57 @@
   <title>SANSUIZ</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/mouse.css">
-  <link rel="stylesheet" href="https://unpkg.com/fullpage.js/dist/fullpage.min.css">
 </head>
 
 <body>
   <script type="module" src="js/shared.js"></script>
   <script type="module" src="js/mouse.js"></script>
-  <div id="fullpage">
-    <div class="section">
-      <main class="container">
-        <header>
-          <script>
-            var _hmt = _hmt || [];
-            (function() {
-              var hm = document.createElement("script");
-              hm.src = "https://hm.baidu.com/hm.js?eab227629076a3068adabbd009c5b599";
-              var s = document.getElementsByTagName("script")[0]; 
-              s.parentNode.insertBefore(hm, s);
-            })();
-          </script>
-          
-          <h1>Hi，</h1>
-          <small>花有重开日，人无再少年</small>
-        </header>
-    
-        <section class="bio">
-          <div class="bio" id="markdown-content"></div>
-    
-          <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-          <script>
-            fetch('intro.md')
-              .then(response => response.text())
-              .then(text => {
-                document.getElementById('markdown-content').innerHTML = marked.parse(text);
-              })
-              .catch(err => console.error('加载MD文件失败:', err));
-          </script>
-        </section>
-    
-        <div class="logo-container">
-          <a href="/">
-            <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
-          </a>
-        </div>
-    
-        <br>
-    
-        <nav class="social-links">
-          <ul>
-            <li>
-              <!-- 社交链接内容 -->
-            </li>
-          </ul>
-        </nav>
-      </main>
-    </div>
-    
-    <div class="section">
-      <!-- 第二页暂时空着 -->
-    </div>
-  </div>
+  
+  <main class="container">
+    <header>
+      <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?eab227629076a3068adabbd009c5b599";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+      </script>
+      
+      <h1>Hi，</h1>
+      <small>花有重开日，人无再少年</small>
+    </header>
 
-  <script src="https://unpkg.com/fullpage.js/dist/fullpage.min.js"></script>
-  <script>
-    new fullpage('#fullpage', {
-      scrollingSpeed: 800,
-      navigation: true,
-      navigationPosition: 'right',
-      credits: {enabled: false}  // 添加这行来禁用底部链接
-    });
-  </script>
+    <section class="bio">
+      <div class="bio" id="markdown-content"></div>
+
+      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      <script>
+        fetch('intro.md')
+          .then(response => response.text())
+          .then(text => {
+            document.getElementById('markdown-content').innerHTML = marked.parse(text);
+          })
+          .catch(err => console.error('加载MD文件失败:', err));
+      </script>
+    </section>
+
+    <div class="logo-container">
+      <a href="/">
+        <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
+      </a>
+    </div>
+
+    <br>
+
+    <nav class="social-links">
+      <ul>
+        <li>
+          <!-- 社交链接内容 -->
+        </li>
+      </ul>
+    </nav>
+  </main>
 </body>
 </html>

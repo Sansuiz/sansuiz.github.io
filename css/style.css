@@ -9,7 +9,7 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: 'Source Han Serif CN', serif;
 }
 
 .container {
@@ -17,6 +17,15 @@ body {
   width: 85%;
   padding: 1.5rem;
   margin-left: 12rem;
+}
+
+/* 合并后的.bio样式 */
+.bio {
+  margin: 2rem 0;
+  line-height: 1.6;
+  text-align: justify;
+  font-family: 'Source Han Serif CN', serif;
+  font-weight: 600;
 }
 
 @media (max-width: 480px) {
@@ -388,8 +397,31 @@ header small {
   font-size: 2rem;
   cursor: pointer;
 }
+:root {
+  --font-primary: "Noto Serif SC", serif;
+  --font-weight-heavy: 900;
+  --color-text: #333;
+  --color-bg: #fff;
+}
+
 body {
-  font-family: "Noto Serif SC", serif;
-  font-weight: 900; /* heavy字重 */
-  line-height: 1.8;
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-heavy);
+  color: var(--color-text);
+  background: var(--color-bg);
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
 }

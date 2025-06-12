@@ -89,7 +89,6 @@ body {
   text-align: justify;
   font-family: 'Noto Serif SC', serif;
   font-weight: normal; /* 移除600权重 */
-  font-weight: 600;
 }
 
 .social-links ul {

@@ -11,7 +11,7 @@
 
 @keyframes snowFall {
   0% {
-    transform: translateX(-10%) translateY(-20%) rotate(0deg);
+    transform: translateX(calc(-10% + var(--x-start))) translateY(-20%) rotate(0deg);
     opacity: 0;
   }
   10% {
@@ -21,11 +21,24 @@
     opacity: 1;
   }
   100% {
-    transform: translateX(calc(10% + var(--x-offset))) translateY(100vh) rotate(360deg);
+    transform: translateX(calc(10% + var(--x-offset) + var(--x-drift))) translateY(100vh) rotate(360deg);
     opacity: 0;
   }
 }
 
+/* 为不同标签设置不同参数 */
+.tag:nth-child(1) { --x-start: 0; --x-offset: 5vw; --x-drift: 2vw; }
+.tag:nth-child(2) { --x-start: 5vw; --x-offset: 10vw; --x-drift: -3vw; }
+.tag:nth-child(3) { --x-start: -5vw; --x-offset: 15vw; --x-drift: 4vw; }
+.tag:nth-child(4) { --x-start: 10vw; --x-offset: 20vw; --x-drift: -2vw; }
+.tag:nth-child(5) { --x-start: -10vw; --x-offset: 25vw; --x-drift: 3vw; }
+.tag:nth-child(6) { --x-start: 15vw; --x-offset: 30vw; --x-drift: -4vw; }
+.tag:nth-child(7) { --x-start: -15vw; --x-offset: 35vw; --x-drift: 2vw; }
+.tag:nth-child(8) { --x-start: 20vw; --x-offset: 40vw; --x-drift: -3vw; }
+.tag:nth-child(9) { --x-start: -20vw; --x-offset: 45vw; --x-drift: 4vw; }
+.tag:nth-child(10) { --x-start: 25vw; --x-offset: 50vw; --x-drift: -2vw; }
+.tag:nth-child(11) { --x-start: -25vw; --x-offset: 55vw; --x-drift: 3vw; }
+.tag:nth-child(12) { --x-start: 30vw; --x-offset: 60vw; --x-drift: -4vw; }
 .tag {
   position: absolute;
   font-size: 1rem;

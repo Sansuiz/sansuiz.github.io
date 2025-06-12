@@ -22,3 +22,14 @@
 #ending ~ #navigation .nav-dot[data-section="ending"] {
   visibility: hidden;
 }
+
+html, body {
+  touch-action: pan-y;
+  overflow: hidden;
+  height: 100%;
+}
+
+.page-section {
+  height: 100vh;
+  overflow-y: auto;
+}

@@ -63,3 +63,37 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
+
+// 在文件适当位置添加
+let startY = 0;
+let endY = 0;
+
+document.addEventListener('touchstart', (e) => {
+  startY = e.touches[0].clientY;
+}, {passive: true});
+
+document.addEventListener('touchend', (e) => {
+  endY = e.changedTouches[0].clientY;
+  const diffY = startY - endY;
+  
+  // 滑动距离阈值
+  if (Math.abs(diffY) > 50) {
+    if (diffY > 0) {
+      // 向上滑动，切换到下一页
+      navigateToNextSection();
+    } else {
+      // 向下滑动，切换到上一页
+      navigateToPrevSection();
+    }
+  }
+}, {passive: true});
+
+function navigateToNextSection() {
+  // 实现切换到下一页的逻辑
+  // ...
+}
+
+function navigateToPrevSection() {
+  // 实现切换到上一页的逻辑
+  // ...
+}

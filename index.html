@@ -89,53 +89,11 @@
     </main>
   </div>
 
-  <div class="page-section" id="bubbles">
-    <div class="bubbles-container">
-      <!-- 情绪气泡将通过JS动态生成 -->
-    </div>
-  </div>
-
   <section id="navigation">
     <ul class="nav">
       <li class="nav-dot active" data-section="home"></li>
       <li class="nav-dot" data-section="about"></li>
-      <li class="nav-dot" data-section="bubbles"></li>
     </ul>
   </section>
-
-  // 在head中添加CSS引用
-  <link rel="stylesheet" href="css/bubbles.css">
-  
-  // 在body底部添加JS脚本
-  <script>
-    const emotions = ['happy', 'sad', 'angry', 'love', 'calm'];
-    const container = document.querySelector('.bubbles-container');
-    
-    function createBubble() {
-      const bubble = document.createElement('div');
-      const emotion = emotions[Math.floor(Math.random() * emotions.length)];
-      
-      bubble.className = `bubble bubble-${emotion}`;
-      bubble.textContent = emotion;
-      
-      // 随机位置和动画延迟
-      const left = Math.random() * 100;
-      const delay = Math.random() * 15;
-      
-      bubble.style.left = `${left}%`;
-      bubble.style.top = `${Math.random() * 100}%`;
-      bubble.style.animationDelay = `${delay}s`;
-      
-      container.appendChild(bubble);
-      
-      // 气泡移出屏幕后移除
-      setTimeout(() => {
-        bubble.remove();
-      }, 15000);
-    }
-    
-    // 每0.5秒创建一个新气泡
-    setInterval(createBubble, 500);
-  </script>
 </body>
 </html>

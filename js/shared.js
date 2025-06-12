@@ -63,3 +63,23 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
+
+
+function loadFragments() {
+  const fragments = [
+    { date: "2023-05-01", content: "公园野餐" },
+    { date: "2023-06-15", content: "新书入手" }
+  ];
+  
+  const grid = document.querySelector('.fragments-grid');
+  if(grid) {
+    fragments.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'fragment-card';
+      card.innerHTML = `<p>${item.date}</p><p>${item.content}</p>`;
+      grid.appendChild(card);
+    });
+  }
+}
+
+window.addEventListener('DOMContentLoaded', loadFragments);

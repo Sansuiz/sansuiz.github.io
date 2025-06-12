@@ -12,7 +12,6 @@
   background: 
     url('../images/sansuiz.png') center/cover no-repeat;
   color: #333;
-  perspective: 1000px;
   overflow: hidden;
 }
 
@@ -28,13 +27,52 @@
   z-index: -1;
 }
 
+/* 水波纹效果 */
+#ending::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    circle at var(--x) var(--y),
+    transparent 10%,
+    rgba(255, 255, 255, 0.2) 20%,
+    transparent 30%
+  );
+  animation: ripple 15s infinite linear;
+  z-index: -1;
+}
+
+@keyframes ripple {
+  0% {
+    --x: 0%;
+    --y: 0%;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.5;
+  }
+  100% {
+    --x: 100%;
+    --y: 100%;
+    opacity: 0;
+  }
+}
+
 .ending-content {
   text-align: center;
   font-family: 'SourceHanSerif', 'Noto Serif SC', serif;
   font-weight: 900;
   font-size: 3rem;
-  line-height: 1.2; /* 缩小行间距 */
-  transform-style: preserve-3d;
+  line-height: 1.2;
+}
+
+/* 移除动画效果 */
+.ending-content p {
+  margin: 1rem 0;
+  opacity: 1; /* 移除动画设置的opacity:0 */
 }
 
 .line1 { opacity: 0.3; }

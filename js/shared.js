@@ -14,14 +14,14 @@ window.addEventListener('DOMContentLoaded', () => {
   const sections = document.querySelectorAll('.page-section');
   const navDots = document.querySelectorAll('.nav-dot');
   let currentIndex = 0;
-  let isAnimating = false;
+  let isScrolling = false;
   
   // 初始化显示第一页
   showSection(0);
   
   // 鼠标滚轮事件
   window.addEventListener('wheel', (e) => {
-    if (isAnimating) return;
+    if (isScrolling) return;
     
     if (e.deltaY > 0) {
       // 向下滚动，切换到下一页
@@ -34,32 +34,52 @@ window.addEventListener('DOMContentLoaded', () => {
         showSection(currentIndex - 1);
       }
     }
-  });
+  }, { passive: false });
   
   // 点击导航点跳转
   navDots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
-      if (!isAnimating && index !== currentIndex) {
+      if (!isScrolling && index !== currentIndex) {
         showSection(index);
       }
     });
   });
   
   function showSection(index) {
-    isAnimating = true;
+    isScrolling = true;
     
-    // 隐藏当前页
-    sections[currentIndex].classList.remove('active');
+    // 更新导航点状态
     navDots[currentIndex].classList.remove('active');
-    
-    // 显示目标页
-    sections[index].classList.add('active');
     navDots[index].classList.add('active');
+    
+    // 平滑滚动到目标页
+    window.scrollTo({
+      top: sections[index].offsetTop,
+      behavior: 'smooth'
+    });
     
     currentIndex = index;
     
     setTimeout(() => {
-      isAnimating = false;
-    }, 500);
+      isScrolling = false;
+    }, 1000);
   }
+  
+  // 监听滚动结束
+  window.addEventListener('scroll', () => {
+    if (!isScrolling) {
+      const scrollPosition = window.scrollY + window.innerHeight/2;
+      
+      sections.forEach((section, index) => {
+        if (scrollPosition >= section.offsetTop && 
+            scrollPosition < section.offsetTop + section.offsetHeight) {
+          if (index !== currentIndex) {
+            navDots[currentIndex].classList.remove('active');
+            navDots[index].classList.add('active');
+            currentIndex = index;
+          }
+        }
+      });
+    }
+  });
 });

@@ -262,24 +262,51 @@ header small {
 
 .nav {
   position: fixed;
-  right: 2rem;
+  left: 2rem;
   top: 50%;
   transform: translateY(-50%);
   list-style: none;
   padding: 0;
   margin: 0;
   z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .nav-dot {
   width: 12px;
   height: 12px;
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   border-radius: 50%;
   background: rgba(237, 98, 126, 0.3);
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
+}
+
+.nav-dot::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: -14px;
+  width: 2px;
+  height: 0;
+  background: #ed627e;
+  transition: height 0.3s ease;
+}
+
+.nav-dot.active {
+  background: #ed627e;
+  transform: scale(1.3);
+}
+
+.nav-dot.active::before {
+  height: 14px;
+}
+
+.nav-dot.active + .nav-dot::before {
+  height: 14px;
 }
 
 .nav-dot::after {

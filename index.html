@@ -73,23 +73,42 @@
       <div class="gallery-container"></div>
       <script src="/js/gallery.js"></script>
     </div>
-    <section class="page-section">
-      <div class="photo-grid">
-        <section class="horizontal-gallery">
-          <div class="gallery-track">
-            {% for image in site.data.gallery %}
-            <div class="gallery-slide">
-              <img src="{{ image.url }}" alt="{{ image.title }}">
-              <div class="slide-caption">
-                <h3>{{ image.title }}</h3>
-                <p>{{ image.description }}</p>
-              </div>
+    <!-- 第二页 - 相册展示 -->
+    <section class="album-section">
+      <div class="album-header">
+        <h2>我的相册</h2>
+        <div class="album-filter">
+          <button class="filter-btn active" data-filter="all">全部</button>
+          <button class="filter-btn" data-filter="自然">自然</button>
+          <button class="filter-btn" data-filter="城市">城市</button>
+        </div>
+      </div>
+      
+      <div class="album-grid">
+        {% for image in site.data.gallery %}
+        <div class="album-item" data-tags="{{ image.tags | join: ',' }}">
+          <a href="#" class="album-link" data-src="{{ image.url }}">
+            <img src="{{ image.thumb }}" alt="{{ image.title }}" loading="lazy">
+            <div class="album-overlay">
+              <h3>{{ image.title }}</h3>
+              <p>{{ image.date | date: "%Y-%m-%d" }}</p>
             </div>
-            {% endfor %}
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+      
+      <!-- 图片查看器 -->
+      <div class="album-viewer">
+        <div class="viewer-content">
+          <img src="" alt="" class="viewer-image">
+          <div class="viewer-info">
+            <h3 class="viewer-title"></h3>
+            <p class="viewer-desc"></p>
+            <p class="viewer-date"></p>
           </div>
-          <button class="nav-btn prev">❮</button>
-          <button class="nav-btn next">❯</button>
-        </section>
+          <button class="viewer-close">&times;</button>
+        </div>
       </div>
     </section>
   </div>

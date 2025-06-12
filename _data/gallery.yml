@@ -1,14 +1,15 @@
-- title: "图片1"
+- 
+  title: "自然风光"
   url: "https://cdnv2.ruguoapp.com/FgVmWPNODhqKUObeF3re4nuLmu74v3.png?imageMogr2/auto-orient/thumbnail/1627200@"
-  description: "第一张图片描述"
-  date: 2025-06-01
+  thumb: "/images/tu/cards/nature-thumb.jpg"
+  description: "美丽的自然景观"
+  date: "2025-06-15"
+  tags: ["自然", "风景"]
 
-- title: "图片2"
+- 
+  title: "城市建筑"
   url: "https://cdnv2.ruguoapp.com/Fs3_uSUdWmN4VG-tktFI7phrtxomv3.png?imageMogr2/auto-orient/thumbnail/729948@"
-  description: "第二张图片描述"
-  date: 2025-06-02
-
-- title: "图片3"
-  url: "/images/tu/cards/3.jpg"
-  description: "第三张图片描述"
-  date: 2025-06-03
+  thumb: "/images/tu/cards/city-thumb.jpg"
+  description: "现代城市建筑"
+  date: "2025-06-10"
+  tags: ["城市", "建筑"]

@@ -1,13 +1,14 @@
 .masonry-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
+  columns: 2;
+  column-gap: 20px;
   padding: 20px;
 }
 
 .masonry-item {
   break-inside: avoid;
   margin-bottom: 20px;
+  display: inline-block;
+  width: 100%;
 }
 
 .photo-frame {

@@ -82,6 +82,12 @@
   --end-x: 25vw;
   --random-offset: 8vw;
 }
+.tag:nth-child(7) { 
+    --delay: 6s; 
+    --start-x: -15vw; 
+    --end-x: 5vw;
+    --random-offset: 10vw;
+  }
 /* 彩虹色标签 */
 .tag:nth-child(4n+1) { background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
 .tag:nth-child(4n+2) { background: linear-gradient(45deg, #a18cd1, #fbc2eb); }
@@ -120,9 +126,3 @@
 .tag:nth-child(4) { --y:0.7; animation-delay: 3s; }
 .tag:nth-child(5) { --y:0.9; animation-delay: 4s; }
 .tag:nth-child(6) { --y:0.2; animation-delay: 5s; }
-.tag:nth-child(7) { --y:0.4; animation-delay: 6s; }
-.tag:nth-child(8) { --y:0.6; animation-delay: 7s; }
-.tag:nth-child(9) { --y:0.8; animation-delay: 8s; }
-.tag:nth-child(10) { --y:0.15; animation-delay: 9s; }
-.tag:nth-child(11) { --y:0.35; animation-delay: 10s; }
-.tag:nth-child(12) { --y:0.65; animation-delay: 11s; }

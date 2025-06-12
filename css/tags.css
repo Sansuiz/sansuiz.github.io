@@ -40,109 +40,48 @@
   will-change: transform;
 }
 
-/* 12种独特颜色 */
-.tag:nth-child(1) { background: linear-gradient(45deg, #FF9A8B, #FF6B6B); }
-.tag:nth-child(2) { background: linear-gradient(45deg, #84FAB0, #8FD3F4); }
-.tag:nth-child(3) { background: linear-gradient(45deg, #A18CD1, #FBC2EB); }
-.tag:nth-child(4) { background: linear-gradient(45deg, #F6D365, #FDA085); }
-.tag:nth-child(5) { background: linear-gradient(45deg, #FFC3A0, #FFAFBD); }
-.tag:nth-child(6) { background: linear-gradient(45deg, #A1C4FD, #C2E9FB); }
-.tag:nth-child(7) { background: linear-gradient(45deg, #FFDEE9, #B5FFFC); }
-.tag:nth-child(8) { background: linear-gradient(45deg, #D4FC79, #96E6A1); }
-.tag:nth-child(9) { background: linear-gradient(45deg, #F093FB, #F5576C); }
-.tag:nth-child(10) { background: linear-gradient(45deg, #4FACFE, #00F2FE); }
-.tag:nth-child(11) { background: linear-gradient(45deg, #FDCBF1, #E6DEE9); }
-.tag:nth-child(12) { background: linear-gradient(45deg, #A6C1EE, #FBC2EB); }
+/* 为不同标签设置不同参数 */
+.tag:nth-child(1) { --delay: 0s; --x-offset: 10vw; }
+.tag:nth-child(2) { --delay: 1s; --x-offset: 20vw; }
+.tag:nth-child(3) { --delay: 2s; --x-offset: 15vw; }
+.tag:nth-child(4) { --delay: 3s; --x-offset: 25vw; }
+.tag:nth-child(5) { --delay: 4s; --x-offset: 5vw; }
+.tag:nth-child(6) { --delay: 5s; --x-offset: 30vw; }
+.tag:nth-child(7) { --delay: 6s; --x-offset: 10vw; }
+.tag:nth-child(8) { --delay: 7s; --x-offset: 20vw; }
+.tag:nth-child(9) { --delay: 8s; --x-offset: 15vw; }
+.tag:nth-child(10) { --delay: 9s; --x-offset: 25vw; }
+.tag:nth-child(11) { --delay: 10s; --x-offset: 5vw; }
+.tag:nth-child(12) { --delay: 11s; --x-offset: 30vw; }
+/* 彩虹色标签 */
+.tag:nth-child(4n+1) { background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
+.tag:nth-child(4n+2) { background: linear-gradient(45deg, #a18cd1, #fbc2eb); }
+.tag:nth-child(4n+3) { background: linear-gradient(45deg, #84fab0, #8fd3f4); }
+.tag:nth-child(4n+4) { background: linear-gradient(45deg, #f6d365, #fda085); }
 
-/* 12种独特飘落路径 */
-.tag:nth-child(1) { 
-  --delay: 0s; 
-  --x-offset: 5vw; 
-  --rotate: 360deg;
-  animation-timing-function: ease-in-out;
-}
-.tag:nth-child(2) { 
-  --delay: 1s; 
-  --x-offset: 15vw; 
-  --rotate: -360deg;
-  animation-timing-function: ease-in;
-}
-.tag:nth-child(3) { 
-  --delay: 2s; 
-  --x-offset: 25vw; 
-  --rotate: 180deg;
-  animation-timing-function: ease-out;
-}
-.tag:nth-child(4) { 
-  --delay: 3s; 
-  --x-offset: 10vw; 
-  --rotate: -180deg;
-  animation-timing-function: linear;
-}
-.tag:nth-child(5) { 
-  --delay: 4s; 
-  --x-offset: 20vw; 
-  --rotate: 270deg;
-  animation-timing-function: cubic-bezier(0.1,0.7,1.0,0.1);
-}
-.tag:nth-child(6) { 
-  --delay: 5s; 
-  --x-offset: 30vw; 
-  --rotate: -270deg;
-  animation-timing-function: steps(4);
-}
-.tag:nth-child(7) { 
-  --delay: 6s; 
-  --x-offset: 8vw; 
-  --rotate: 90deg;
-  animation-timing-function: ease-in-out;
-}
-.tag:nth-child(8) { 
-  --delay: 7s; 
-  --x-offset: 18vw; 
-  --rotate: -90deg;
-  animation-timing-function: ease-in;
-}
-.tag:nth-child(9) { 
-  --delay: 8s; 
-  --x-offset: 28vw; 
-  --rotate: 450deg;
-  animation-timing-function: ease-out;
-}
-.tag:nth-child(10) { 
-  --delay: 9s; 
-  --x-offset: 12vw; 
-  --rotate: -450deg;
-  animation-timing-function: linear;
-}
-.tag:nth-child(11) { 
-  --delay: 10s; 
-  --x-offset: 22vw; 
-  --rotate: 135deg;
-  animation-timing-function: cubic-bezier(0.5,0.2,0.3,0.8);
-}
-.tag:nth-child(12) { 
-  --delay: 11s; 
-  --x-offset: 32vw; 
-  --rotate: -135deg;
-  animation-timing-function: steps(3);
-}
-
-@keyframes snowFall {
+@keyframes fly {
   0% {
-    transform: translateX(calc(var(--x-start) * 1vw)) translateY(-20%) rotate(0deg);
+    transform: translateX(-100%) translateY(calc(var(--y) * 100vh));
     opacity: 0;
   }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
+  10% { 
+    opacity: 1;
+    transform: translateX(-10%) translateY(calc(var(--y) * 100vh + var(--offset)));
+  }
+  50% {
+    transform: translateX(50%) translateY(calc(var(--y) * 100vh - var(--offset)));
+  }
+  90% { 
+    opacity: 1;
+    transform: translateX(110%) translateY(calc(var(--y) * 100vh + var(--offset)));
+  }
   100% {
-    transform: translateX(calc(var(--x-start) * 1vw + var(--x-offset))) 
-                translateY(100vh) 
-                rotate(var(--rotate));
+    transform: translateX(120vw) translateY(calc(var(--y) * 100vh));
     opacity: 0;
   }
 }
 
+/* 为不同标签设置不同位置和动画延迟 */
 .tag:nth-child(odd) { --offset: 50px; }
 .tag:nth-child(even) { --offset: -50px; }
 

@@ -33,7 +33,7 @@
   font-family: 'SourceHanSerif', 'Noto Serif SC', serif;
   font-weight: 900;
   font-size: 2rem;
-  line-height: 0.7; /* 缩小行间距 */
+  line-height: 1.0; /* 缩小行间距 */
 }
 
 .line1 { opacity: 0.3; }

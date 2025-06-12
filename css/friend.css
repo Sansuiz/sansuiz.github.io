@@ -4,6 +4,61 @@
   margin: 0 auto;
 }
 
+.friend-orbits {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  perspective: 1000px;
+}
+
+.friend-planet {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #ffffff, #e6e6e6);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.friend-planet:hover {
+  transform: translateY(-10px) rotateY(20deg);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+}
+
+.friend-planet::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.friend-planet:hover::before {
+  opacity: 1;
+}
+
+.friend-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.friend-planet:hover .friend-avatar {
+  transform: scale(1.1);
+}
+
 .friend-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

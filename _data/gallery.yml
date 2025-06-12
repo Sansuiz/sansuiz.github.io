@@ -1,7 +1,7 @@
 gallery:
-  - title: "图片1"
-    image: "/images/tu/cards/1.jpg"
-    description: "描述1"
-  - title: "图片2"
-    image: "/images/tu/cards/2.jpg"
-    description: "描述2"
+  - title: "示例图片1"
+    image: "https://cdnv2.ruguoapp.com/FgVmWPNODhqKUObeF3re4nuLmu74v3.png?imageMogr2/auto-orient/thumbnail/1627200@"
+    description: "示例描述1"
+  - title: "示例图片2"
+    image: "https://cdnv2.ruguoapp.com/Fs3_uSUdWmN4VG-tktFI7phrtxomv3.png?imageMogr2/auto-orient/thumbnail/729948@"
+    description: "示例描述2"

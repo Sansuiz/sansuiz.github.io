@@ -228,6 +228,23 @@ header small {
 }
 
 #gallery-container {
+  display: none;
+  padding: 2rem;
+  overflow-y: auto;
+}
+
+.gallery-item {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f8f8;
+  border-radius: 8px;
+}
+
+.gallery-item img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
   position: fixed;
   top: 0;
   left: 0;

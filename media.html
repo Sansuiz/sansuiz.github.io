@@ -16,12 +16,18 @@ title: Media-SANSUIZ
       <div class="card-front">
         <img src="{{ item.image }}" alt="{{ item.title }}" class="card-image">
         <div class="card-label">
-          <h3 style="margin-top: 0.5rem;">{{ item.title }}</h3>
-          <span class="card-date">{{ item.date }}</span>
-          <span class="card-rating">{{ item.rating }}</span>
-          <p class="card-preview">
-            {{ item.content | strip_html | truncate: 20, "..." }}
-          </p>
+          <div class="label-left">
+            <h3>{{ item.title }}</h3>
+            <span class="card-date">{{ item.date }}</span>
+            <span class="card-rating">{{ item.rating }}</span>
+            <p class="card-preview">
+              {{ item.content | strip_html | truncate: 10, "..." }}
+            </p>
+          </div>
+          <div class="douban-rating">
+            <span class="douban-score">{{ item.douban_rating }}</span>
+            <span class="douban-text">豆瓣</span>
+          </div>
         </div>
       </div>
     </div>
@@ -447,5 +453,32 @@ document.addEventListener('DOMContentLoaded', function() {
   .e-card:hover .card-front {
     transform: rotateY(-15deg) translateY(-5px) scale(1.03);
     transition: all 0.3s ease;
+  }
+</style>
+
+<style>
+  /* 新增豆瓣评分样式 */
+  .card-label {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .douban-rating {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.5rem;
+  }
+  
+  .douban-score {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #ffcc00;
+  }
+  
+  .douban-text {
+    font-size: 0.7em;
+    opacity: 0.8;
   }
 </style>

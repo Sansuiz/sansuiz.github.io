@@ -4,6 +4,7 @@
   type: "movie"
   date: "2025.06.12"
   rating: "★★★★☆"
+  douban_rating: "8.5"
   status: "more"
   content: |
     还不错的电影，借用弹幕的一句话表达：

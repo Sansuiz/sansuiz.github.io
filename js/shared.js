@@ -33,20 +33,55 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
   
-  // 点击导航点跳转到对应页面
-  navDots.forEach(dot => {
+  // 整页滚动切换
+  let currentPage = 0;
+  let isScrolling = false;
+  
+  window.addEventListener('wheel', (e) => {
+    if (isScrolling) return;
+    
+    isScrolling = true;
+    
+    // 判断滚动方向
+    if (e.deltaY > 0 && currentPage < sections.length - 1) {
+      currentPage++;
+    } else if (e.deltaY < 0 && currentPage > 0) {
+      currentPage--;
+    }
+    
+    // 隐藏所有页面
+    sections.forEach(section => section.classList.remove('active'));
+    
+    // 显示当前页面
+    sections[currentPage].classList.add('active');
+    
+    // 更新导航点状态
+    navDots.forEach(dot => dot.classList.remove('active'));
+    navDots[currentPage].classList.add('active');
+    
+    // 滚动到当前页面
+    window.scrollTo({
+      top: sections[currentPage].offsetTop,
+      behavior: 'smooth'
+    });
+    
+    setTimeout(() => {
+      isScrolling = false;
+    }, 1000);
+  });
+  
+  // 点击导航点跳转
+  navDots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
-      const targetSection = document.getElementById(dot.dataset.section);
-      isScrolling = true;
+      currentPage = index;
+      
+      sections.forEach(section => section.classList.remove('active'));
+      sections[currentPage].classList.add('active');
       
       window.scrollTo({
-        top: targetSection.offsetTop,
+        top: sections[currentPage].offsetTop,
         behavior: 'smooth'
       });
-      
-      setTimeout(() => {
-        isScrolling = false;
-      }, 1000);
     });
   });
 });

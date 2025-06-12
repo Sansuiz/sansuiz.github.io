@@ -240,10 +240,23 @@ header small {
   object-fit: cover;
 }
 
-/* 分页样式 */
+/* 分页样式 - 整页切换 */
 .page-section {
-  min-height: 100vh;
-  padding: 2rem 0;
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  scroll-snap-align: start;
+}
+
+html {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+
+/* 隐藏非活动页面内容 */
+.page-section:not(.active) {
+  display: none;
 }
 
 .nav {

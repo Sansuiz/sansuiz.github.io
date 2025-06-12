@@ -73,6 +73,19 @@
       <div class="gallery-container"></div>
       <script src="/js/gallery.js"></script>
     </div>
+    <section class="page-section">
+      <div class="photo-grid">
+        {% for image in site.data.gallery %}
+        <div class="photo-item">
+          <img src="{{ image.url }}" alt="{{ image.title }}">
+          <div class="photo-caption">
+            <h3>{{ image.title }}</h3>
+            <p>{{ image.description }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
   </div>
 
   <script src="https://unpkg.com/fullpage.js/dist/fullpage.min.js"></script>

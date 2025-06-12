@@ -8,20 +8,6 @@
   <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/shared.css">
-  <style>
-    .page {
-      height: 100vh;
-      width: 100%;
-      position: relative;
-      overflow: hidden;
-    }
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-  </style>
 </head>
 
 <body>
@@ -74,85 +60,5 @@
       </ul>
     </nav>
   </main>
-
-  <div class="pages-container">
-    <div class="page" id="page1">
-      <main class="container">
-        <header>
-          <!-- 百度统计 -->
-          <script>
-            var _hmt = _hmt || [];
-            (function() {
-              var hm = document.createElement("script");
-              hm.src = "https://hm.baidu.com/hm.js?eab227629076a3068adabbd009c5b599";
-              var s = document.getElementsByTagName("script")[0]; 
-              s.parentNode.insertBefore(hm, s);
-            })();
-            </script>
-            
-          <h1>Hi，</h1>
-          <small>花有重开日，人无再少年</small>
-        </header>
-
-        <section class="bio">
-          <div class="bio" id="markdown-content"></div>
-
-          <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-          <script>
-            fetch('intro.md')
-              .then(response => response.text())
-              .then(text => {
-                document.getElementById('markdown-content').innerHTML = marked.parse(text);
-              })
-              .catch(err => console.error('加载MD文件失败:', err));
-          </script>
-        </section>
-
-        <div class="logo-container">
-          <a href="/">
-            <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
-          </a>
-        </div>
-
-        <br>
-
-        <nav class="social-links">
-          <ul>
-            <li>
-            </li>
-          </ul>
-        </nav>
-      </main>
-    </div>
-    
-    <div class="page" id="page2">
-      <div class="gallery">
-        {% for photo in site.data.gallery %}
-          <div class="gallery-item">
-            <img src="{{ photo.image }}" alt="{{ photo.title }}">
-            <h3>{{ photo.title }}</h3>
-            <p>{{ photo.description }}</p>
-          </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // 分页滚动逻辑
-    let currentPage = 1;
-    document.addEventListener('wheel', (e) => {
-      if(e.deltaY > 0) {
-        // 向下滚动
-        if(currentPage < 2) currentPage++;
-      } else {
-        // 向上滚动
-        if(currentPage > 1) currentPage--;
-      }
-      document.getElementById(`page${currentPage}`).scrollIntoView({
-        behavior: 'smooth'
-      });
-    });
-  </script>
 </body>
 </html>

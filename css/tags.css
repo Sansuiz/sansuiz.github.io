@@ -1,0 +1,41 @@
+.tags-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 30px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tag-button {
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+  padding: 12px;
+  text-decoration: none;
+  color: #333;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.tag-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  border-color: #ccc;
+}
+
+.tag-image {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 15px;
+}
+
+.tag-text {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+}

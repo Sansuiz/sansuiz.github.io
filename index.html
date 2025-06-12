@@ -74,7 +74,13 @@
         {% for image in site.data.gallery %}
           <div class="gallery-item">
             <img src="{{ image.url }}" alt="{{ image.title }}">
-            <p>{{ image.description }}</p>
+            <div class="gallery-scroll-container">
+              {% for thumb in site.data.gallery %}
+                <div class="gallery-scroll-item">
+                  <img src="{{ thumb.url }}" alt="{{ thumb.title }}">
+                </div>
+              {% endfor %}
+            </div>
           </div>
         {% endfor %}
       </div>

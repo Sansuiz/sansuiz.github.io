@@ -32,15 +32,17 @@
     </header>
 
     <section class="bio">
-      <div class="page" id="page1">
-        <!-- 现有intro.md内容 -->
-        <div class="bio" id="markdown-content"></div>
-      </div>
-      
-      <div class="page" id="page2">
-        <!-- 相册画廊内容 -->
-        <div class="gallery" id="gallery-content"></div>
-      </div>
+      <div class="bio" id="markdown-content"></div>
+
+      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      <script>
+        fetch('intro.md')
+          .then(response => response.text())
+          .then(text => {
+            document.getElementById('markdown-content').innerHTML = marked.parse(text);
+          })
+          .catch(err => console.error('加载MD文件失败:', err));
+      </script>
     </section>
 
     <div class="logo-container">
@@ -60,3 +62,17 @@
   </main>
 </body>
 </html>
+
+<div class="fullpage-container">
+  <section class="fullpage-section">
+    {{ content }}
+  </section>
+  <section class="fullpage-section gallery">
+    {% for photo in site.data.gallery %}
+      <div class="gallery-item">
+        <img src="{{ photo.image }}" alt="{{ photo.title }}">
+        <h3>{{ photo.title }}</h3>
+      </div>
+    {% endfor %}
+  </section>
+</div>

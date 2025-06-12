@@ -1,7 +1,4 @@
-- image: /images/liangyao.png
-  title: 示例图片1
-  desc: 图片描述
-
-- image: /images/sansuiz-di.png
-  title: 示例图片2
-  desc: 图片描述
+- title: "照片1"
+  image: "/images/photo1.jpg"
+- title: "照片2"
+  image: "/images/photo2.jpg"

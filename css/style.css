@@ -227,13 +227,17 @@ header small {
   }
 }
 
-.page {
+.fullpage-container {
   height: 100vh;
-  width: 100%;
+  overflow: hidden;
+}
+.fullpage-section {
+  height: 100vh;
   scroll-snap-align: start;
 }
-
-body {
-  scroll-snap-type: y mandatory;
-  overflow-y: scroll;
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
 }

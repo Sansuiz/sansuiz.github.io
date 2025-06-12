@@ -1,0 +1,41 @@
+/* 3D旋转标签云效果 */
+.tag-cloud {
+  perspective: 1000px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tag {
+  position: absolute;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transform-style: preserve-3d;
+  animation: float 6s ease-in-out infinite;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tag:hover {
+  transform: scale(1.2) rotateY(180deg);
+  background: linear-gradient(45deg, #a18cd1, #fbc2eb);
+  z-index: 10;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotateY(0); }
+  50% { transform: translateY(-20px) rotateY(180deg); }
+}
+
+/* 为不同标签设置不同位置和动画延迟 */
+.tag:nth-child(1) { top: 20%; left: 20%; animation-delay: 0s; }
+.tag:nth-child(2) { top: 30%; left: 70%; animation-delay: 0.5s; }
+.tag:nth-child(3) { top: 60%; left: 25%; animation-delay: 1s; }
+.tag:nth-child(4) { top: 70%; left: 65%; animation-delay: 1.5s; }
+.tag:nth-child(5) { top: 40%; left: 50%; animation-delay: 2s; }

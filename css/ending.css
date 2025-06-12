@@ -33,17 +33,18 @@
   font-family: 'SourceHanSerif', 'Noto Serif SC', serif;
   font-weight: 900;
   font-size: 3rem;
-  line-height: 1.5;
+  line-height: 1.2; /* 缩小行间距 */
   transform-style: preserve-3d;
-  /* 移除以下属性 */
-  /* background: rgba(255, 255, 255, 0.7); */
-  /* padding: 2rem; */
-  /* border-radius: 1rem; */
-  /* box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1); */
 }
 
+.line1 { opacity: 0.3; }
+.line2 { opacity: 0.6; }
+.line3 { opacity: 0.9; }
+.line4 { opacity: 0.6; }
+
+/* 保留原有的动画效果 */
 .ending-content p {
-  margin: 1.5rem 0;
+  margin: 1rem 0; /* 调整段落间距 */
   opacity: 0;
   animation: textAppear 3s forwards;
 }

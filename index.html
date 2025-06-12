@@ -11,7 +11,7 @@
 </head>
 
 <body>
-  <div class="content-view">
+  <div class="content-wrapper">
     <main class="container">
       <header>
         <!-- 百度统计 -->
@@ -28,18 +28,53 @@
         <h1>Hi，</h1>
         <small>花有重开日，人无再少年</small>
       </header>
-  </div>
-
-  <div class="gallery-view">
-    {% for item in site.data.gallery.gallery %}
-      <div class="gallery-item">
-        <img src="{{ item.image }}" alt="{{ item.title }}">
-        <h3>{{ item.title }}</h3>
+    
+      <section class="bio">
+        <div class="bio" id="markdown-content"></div>
+    
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+        <script>
+          fetch('intro.md')
+            .then(response => response.text())
+            .then(text => {
+              document.getElementById('markdown-content').innerHTML = marked.parse(text);
+            })
+            .catch(err => console.error('加载MD文件失败:', err));
+        </script>
+      </section>
+    
+      <div class="logo-container">
+        <a href="/">
+          <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">
+        </a>
       </div>
-    {% endfor %}
-    <button class="back-button">返回</button>
+    
+      <br>
+    
+      <nav class="social-links">
+        <ul>
+          <li>
+          </li>
+        </ul>
+      </nav>
+    </main>
+    
+    <div class="gallery-container" style="display:none;">
+      {% for album in site.data.gallery %}
+      <div class="album">
+        <h2>{{ album.title }}</h2>
+        <div class="gallery">
+          {% for image in album.images %}
+          <div class="slide">
+            <img src="{{ image.src }}" alt="{{ image.alt }}">
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
-
+  
   <script src="js/gallery.js"></script>
 </body>
 </html>

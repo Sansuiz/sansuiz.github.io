@@ -1,7 +1,13 @@
-gallery:
-  - title: "示例图片1"
-    image: "https://cdnv2.ruguoapp.com/FgVmWPNODhqKUObeF3re4nuLmu74v3.png?imageMogr2/auto-orient/thumbnail/1627200@"
-    description: "示例描述1"
-  - title: "示例图片2"
-    image: "https://cdnv2.ruguoapp.com/Fs3_uSUdWmN4VG-tktFI7phrtxomv3.png?imageMogr2/auto-orient/thumbnail/729948@"
-    description: "示例描述2"
+- title: "相册1"
+  images:
+    - src: "/images/tu/cards/1.jpg"
+      alt: "图片1"
+    - src: "/images/tu/cards/2.jpg"
+      alt: "图片2"
+
+- title: "相册2"
+  images:
+    - src: "/images/tu/letters/1.jpg"
+      alt: "信件1"
+    - src: "/images/tu/letters/2.jpg"
+      alt: "信件2"

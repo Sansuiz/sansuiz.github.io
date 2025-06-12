@@ -33,48 +33,19 @@
   font-family: 'SourceHanSerif', 'Noto Serif SC', serif;
   font-weight: 900;
   font-size: 3rem;
-  line-height: 1.2; /* 缩小行间距 */
+  line-height: 1.5;
   transform-style: preserve-3d;
-  position: relative;
-  height: 4.8rem; /* 根据行高和行数计算 */
-  overflow: hidden;
+  /* 移除以下属性 */
+  /* background: rgba(255, 255, 255, 0.7); */
+  /* padding: 2rem; */
+  /* border-radius: 1rem; */
+  /* box-shadow: 0 4px 30px rgba(255, 255, 255, 0.1); */
 }
 
 .ending-content p {
-  position: absolute;
-  width: 100%;
-  margin: 0;
+  margin: 1.5rem 0;
   opacity: 0;
-  transform: translateY(100%);
-  animation: lyricScroll 12s infinite;
-}
-
-.line1 { animation-delay: 0s; }
-.line2 { animation-delay: 3s; }
-.line3 { animation-delay: 6s; }
-.line4 { animation-delay: 9s; }
-
-@keyframes lyricScroll {
-  0% {
-    opacity: 0;
-    transform: translateY(100%);
-  }
-  10% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  80% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  90% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
+  animation: textAppear 3s forwards;
 }
 
 .line1 { animation-delay: 0.5s; }

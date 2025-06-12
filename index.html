@@ -75,15 +75,21 @@
     </div>
     <section class="page-section">
       <div class="photo-grid">
-        {% for image in site.data.gallery %}
-        <div class="photo-item">
-          <img src="{{ image.url }}" alt="{{ image.title }}">
-          <div class="photo-caption">
-            <h3>{{ image.title }}</h3>
-            <p>{{ image.description }}</p>
+        <section class="horizontal-gallery">
+          <div class="gallery-track">
+            {% for image in site.data.gallery %}
+            <div class="gallery-slide">
+              <img src="{{ image.url }}" alt="{{ image.title }}">
+              <div class="slide-caption">
+                <h3>{{ image.title }}</h3>
+                <p>{{ image.description }}</p>
+              </div>
+            </div>
+            {% endfor %}
           </div>
-        </div>
-        {% endfor %}
+          <button class="nav-btn prev">❮</button>
+          <button class="nav-btn next">❯</button>
+        </section>
       </div>
     </section>
   </div>

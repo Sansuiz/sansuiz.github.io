@@ -1,0 +1,13 @@
+galleries:
+  - title: "相册1"
+    images:
+      - src: "/images/tu/cards/1.jpg"
+        alt: "图片1"
+      - src: "/images/tu/cards/2.jpg"
+        alt: "图片2"
+  - title: "相册2"
+    images:
+      - src: "/images/tu/letters/1.jpg"
+        alt: "信件1"
+      - src: "/images/tu/letters/2.jpg"
+        alt: "信件2"

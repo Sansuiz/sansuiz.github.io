@@ -522,34 +522,19 @@ header small {
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 15px;
   padding: 15px;
-  align-items: start; /* 新增：确保卡片顶部对齐 */
 }
 
 .masonry-item {
   break-inside: avoid;
   margin-bottom: 15px;
-  height: auto; /* 确保高度自适应 */
 }
 
-.photo-frame img {
-  width: 100%;
-  height: auto;
-  max-height: none; /* 移除固定高度限制 */
-  object-fit: contain; /* 改为contain保持比例 */
-  border-radius: 3px;
+.masonry-item:nth-child(odd) {
+  transform: rotate(2deg);
 }
 
-/* 新增不规则旋转效果 */
-.masonry-item:nth-child(3n+1) {
-  transform: rotate(3deg);
-}
-
-.masonry-item:nth-child(3n+2) {
-  transform: rotate(-2deg);
-}
-
-.masonry-item:nth-child(3n+3) {
-  transform: rotate(1deg);
+.masonry-item:nth-child(even) {
+  transform: rotate(-1deg);
 }
 
 .photo-frame {

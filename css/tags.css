@@ -5,19 +5,45 @@
 }
 
 .tag-button {
-  display: inline-block;
-  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding-left: 0;
   background: white;
   border: 1px solid #e1e1e1;
   border-radius: 8px;
-  padding: 8px;
-  text-decoration: none;
-  color: #333;
-  transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-  margin-bottom: 15px;
-  break-inside: avoid;
+  height: 60px;
+}
+
+.tag-button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 60px;
+  background-size: cover;
+  background-position: center;
+  mask-image: linear-gradient(to right, black, transparent);
+  -webkit-mask-image: linear-gradient(to right, black, transparent);
+}
+
+.tag-button[data-image="letters"]::before {
+  background-image: url('/images/tu/letters/letter1.jpg');
+}
+
+.tag-button[data-image="cards"]::before {
+  background-image: url('/images/tu/cards/card1.jpg');
+}
+
+.tag-button[data-image="media"]::before {
+  background-image: url('/images/wechat_2025-06-11_195451_836.png');
+}
+
+.tag-text {
   position: relative;
+  padding: 0 15px;
+  line-height: 60px;
+  z-index: 1;
 }
 
 .tag-button::after {

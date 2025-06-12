@@ -74,6 +74,7 @@
       <script src="/js/gallery.js"></script>
     </div>
     <!-- 第二页 - 相册展示 -->
+    <!-- 相册部分 -->
     <section class="album-section">
       <div class="album-header">
         <h2>我的相册</h2>
@@ -86,8 +87,8 @@
       
       <div class="album-grid">
         {% for image in site.data.gallery %}
-        <div class="album-item" data-tags="{{ image.tags | join: ',' }}">
-          <a href="#" class="album-link" data-src="{{ image.url }}">
+        <div class="album-item" data-tags="{{ image.tags }}">
+          <a href="#" class="album-link" data-src="{{ image.url }}" data-title="{{ image.title }}" data-desc="{{ image.description }}" data-date="{{ image.date }}">
             <img src="{{ image.thumb }}" alt="{{ image.title }}" loading="lazy">
             <div class="album-overlay">
               <h3>{{ image.title }}</h3>
@@ -121,5 +122,7 @@
       navigationPosition: 'right'
     });
   </script>
+  <!-- 在body结束前添加 -->
+  <script src="/js/album.js"></script>
 </body>
 </html>

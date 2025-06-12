@@ -66,6 +66,11 @@ header h1:hover {
 }
 
 header small {
+  font-family: "KaiTi", "楷体", STKaiti, serif;
+  font-size: 1.2rem;
+  display: block;
+  margin-top: 0.5rem;
+}
   color: #666;
   font-size: 1.1rem;
   text-align: left;

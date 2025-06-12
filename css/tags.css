@@ -11,7 +11,7 @@
 
 @keyframes snowFall {
   0% {
-    transform: translateX(calc(40% + var(--x-start))) translateY(-20%) rotate(0deg);
+    transform: translateX(-10%) translateY(-20%) rotate(0deg);
     opacity: 0;
   }
   10% {
@@ -21,24 +21,38 @@
     opacity: 1;
   }
   100% {
-    transform: translateX(calc(40% + var(--x-start) + var(--x-offset))) translateY(100vh) rotate(360deg);
+    transform: translateX(calc(10% + var(--x-offset))) translateY(100vh) rotate(360deg);
     opacity: 0;
   }
 }
 
+.tag {
+  position: absolute;
+  font-size: 1rem;
+  padding: 0.3rem 0.8rem;
+  border-radius: 50px;
+  color: white;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  white-space: nowrap;
+  animation: snowFall 8s linear infinite;
+  animation-delay: var(--delay);
+  opacity: 0;
+  will-change: transform;
+}
+
 /* 为不同标签设置不同参数 */
-.tag:nth-child(1) { --delay: 0s; --x-start: -5vw; --x-offset: 10vw; }
-.tag:nth-child(2) { --delay: 1s; --x-start: 5vw; --x-offset: -10vw; }
-.tag:nth-child(3) { --delay: 2s; --x-start: -10vw; --x-offset: 15vw; }
-.tag:nth-child(4) { --delay: 3s; --x-start: 10vw; --x-offset: -15vw; }
-.tag:nth-child(5) { --delay: 4s; --x-start: -15vw; --x-offset: 20vw; }
-.tag:nth-child(6) { --delay: 5s; --x-start: 15vw; --x-offset: -20vw; }
-.tag:nth-child(7) { --delay: 6s; --x-start: -5vw; --x-offset: 10vw; }
-.tag:nth-child(8) { --delay: 7s; --x-start: 5vw; --x-offset: -10vw; }
-.tag:nth-child(9) { --delay: 8s; --x-start: -10vw; --x-offset: 15vw; }
-.tag:nth-child(10) { --delay: 9s; --x-start: 10vw; --x-offset: -15vw; }
-.tag:nth-child(11) { --delay: 10s; --x-start: -15vw; --x-offset: 20vw; }
-.tag:nth-child(12) { --delay: 11s; --x-start: 15vw; --x-offset: -20vw; }
+.tag:nth-child(1) { --delay: 0s; --x-offset: 10vw; }
+.tag:nth-child(2) { --delay: 1s; --x-offset: 20vw; }
+.tag:nth-child(3) { --delay: 2s; --x-offset: 15vw; }
+.tag:nth-child(4) { --delay: 3s; --x-offset: 25vw; }
+.tag:nth-child(5) { --delay: 4s; --x-offset: 5vw; }
+.tag:nth-child(6) { --delay: 5s; --x-offset: 30vw; }
+.tag:nth-child(7) { --delay: 6s; --x-offset: 10vw; }
+.tag:nth-child(8) { --delay: 7s; --x-offset: 20vw; }
+.tag:nth-child(9) { --delay: 8s; --x-offset: 15vw; }
+.tag:nth-child(10) { --delay: 9s; --x-offset: 25vw; }
+.tag:nth-child(11) { --delay: 10s; --x-offset: 5vw; }
+.tag:nth-child(12) { --delay: 11s; --x-offset: 30vw; }
 /* 彩虹色标签 */
 .tag:nth-child(4n+1) { background: linear-gradient(45deg, #ff9a9e, #fad0c4); }
 .tag:nth-child(4n+2) { background: linear-gradient(45deg, #a18cd1, #fbc2eb); }

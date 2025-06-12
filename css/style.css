@@ -309,3 +309,57 @@ header small {
   70% { transform: scale(1.3); opacity: 0; }
   100% { transform: scale(0.8); opacity: 0; }
 }
+
+/* 页面切换样式 */
+.page-section {
+  display: none;
+}
+.page-section.active {
+  display: block;
+}
+
+/* 卡片容器样式 */
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* 毛玻璃卡片样式 */
+.home-card {
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.home-card:hover {
+  transform: translateY(-5px);
+}
+
+.home-card img {
+  max-width: 100%;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.card-container {
+  column-count: 3;
+  column-gap: 20px;
+  padding: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-container {
+    column-count: 2;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-container {
+    column-count: 1;
+  }
+}

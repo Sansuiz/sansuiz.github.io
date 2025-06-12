@@ -1,0 +1,10 @@
+- title: "卡片标题1"
+  content: "卡片内容文本"
+  image: "/images/path/to/image.jpg"  # 可选
+  type: "home"
+  date: "2025.06.01"
+
+- title: "卡片标题2"
+  content: "卡片内容文本"
+  type: "home"
+  date: "2025.06.02"

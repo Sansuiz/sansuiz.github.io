@@ -323,7 +323,49 @@ header small {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.rss-title {
+.rss-card {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 0 1rem;
+  width: 280px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.rss-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.rss-date {
+  color: #666;
+  font-size: 0.85rem;
+  margin-bottom: 0.8rem;
+}
+
+.rss-content {
+  color: #333;
+  line-height: 1.6;
+  font-family: 'Source Han Serif CN', serif;
+}
+
+.rss-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 1rem 0;
+  scroll-snap-type: x mandatory;
+}
+
+.rss-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.rss-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
   color: #2c3e50;
   margin-bottom: 0.5rem;
 }

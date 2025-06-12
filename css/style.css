@@ -239,24 +239,3 @@ header small {
   height: auto;
   object-fit: cover;
 }
-
-/* 分页切换动画效果 */
-.section {
-  transition: all 1s ease;
-}
-
-/* 导航点样式 */
-#fp-nav ul li a span {
-  background: rgba(0,0,0,0.3);
-  width: 8px;
-  height: 8px;
-  margin: -4px 0 0 -4px;
-  transition: all 0.3s ease;
-}
-
-#fp-nav ul li a.active span {
-  background: #ed627e;
-  width: 12px;
-  height: 12px;
-  margin: -6px 0 0 -6px;
-}

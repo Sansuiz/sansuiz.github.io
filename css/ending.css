@@ -9,43 +9,10 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: url('../images/your-image.jpg') center/cover no-repeat;
+  background: radial-gradient(circle, #000000 0%, #1a1a2e 100%);
+  color: white;
+  perspective: 1000px;
   overflow: hidden;
-}
-
-#ending::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 15px;
-  box-shadow: 
-    inset 0 0 200px rgba(255, 255, 255, 0.3),
-    inset 0 0 30px rgba(255, 255, 255, 0.5);
-}
-
-.ending-content {
-  position: relative;
-  z-index: 1;
-  width: 80%;
-  margin: 0 auto;
-  padding: 2rem;
-  background: rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: 15px;
-  box-shadow: 
-    0 8px 32px rgba(0, 0, 0, 0.1),
-    inset 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-.ending-content p {
-  text-shadow: 0 0 5px rgba(255,255,255,0.5);
 }
 
 .ending-content {

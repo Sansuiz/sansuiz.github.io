@@ -1,41 +1,53 @@
 .tags-container {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 30px;
-  max-width: 800px;
-  margin: 0 auto;
+  columns: 4;
+  column-gap: 15px;
+  padding: 20px;
 }
 
 .tag-button {
-  display: flex;
-  align-items: center;
+  display: inline-block;
+  width: 100%;
   background: white;
   border: 1px solid #e1e1e1;
   border-radius: 8px;
-  padding: 12px;
+  padding: 8px;
   text-decoration: none;
   color: #333;
   transition: all 0.3s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+  break-inside: avoid;
+  position: relative;
+}
+
+.tag-button::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 1px dashed #ccc;
+  border-radius: 12px;
+  pointer-events: none;
 }
 
 .tag-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  border-color: #ccc;
+  transform: rotate(-2deg) scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.15);
 }
 
 .tag-image {
-  width: 60px;
-  height: 60px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
-  border-radius: 6px;
-  margin-right: 15px;
+  border-radius: 4px;
+  margin-right: 8px;
 }
 
 .tag-text {
-  flex: 1;
-  font-size: 16px;
+  font-size: 12px;
   font-weight: 500;
+  display: inline-block;
+  vertical-align: middle;
 }

@@ -63,3 +63,44 @@ window.addEventListener('DOMContentLoaded', () => {
     }, 500);
   }
 });
+
+
+// 随机初始化标签参数
+function initTags() {
+  const tags = document.querySelectorAll('.tag');
+  tags.forEach(tag => {
+    // 随机参数
+    tag.style.setProperty('--duration', 8 + Math.random() * 4); // 8-12秒
+    tag.style.setProperty('--delay', Math.random() * 12); // 0-12秒延迟
+    tag.style.setProperty('--start-x', Math.random() * 100 + 'vw'); // 随机起始位置
+    tag.style.setProperty('--x-offset', (Math.random() - 0.5) * 20 + 'vw'); // 随机水平偏移
+  });
+}
+
+// 鼠标避让效果
+document.addEventListener('mousemove', (e) => {
+  const tags = document.querySelectorAll('.tag');
+  const mouseX = e.clientX;
+  const mouseY = e.clientY;
+  
+  tags.forEach(tag => {
+    const rect = tag.getBoundingClientRect();
+    const tagX = rect.left + rect.width / 2;
+    const tagY = rect.top + rect.height / 2;
+    
+    // 计算与鼠标的距离
+    const distance = Math.sqrt(Math.pow(mouseX - tagX, 2) + Math.pow(mouseY - tagY, 2));
+    
+    if (distance < 150) { // 避让半径150px
+      const angle = Math.atan2(tagY - mouseY, tagX - mouseX);
+      const force = (150 - distance) / 3;
+      
+      tag.style.transform = `translateX(calc(var(--start-x) + var(--x-offset) + ${Math.cos(angle) * force}px)) 
+                           translateY(calc(var(--current-y) + ${Math.sin(angle) * force}px)) 
+                           rotate(var(--rotation))`;
+    }
+  });
+});
+
+// 初始化
+window.addEventListener('load', initTags);

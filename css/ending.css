@@ -9,12 +9,39 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(to bottom, #ffffff 0%, #f0f0ff 20%, #1a1a2e 100%), 
-              url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 800 800"><rect width="100%" height="100%" fill="none"/><circle cx="100" cy="150" r="1" fill="white"/><circle cx="200" cy="300" r="1.5" fill="white"/><circle cx="300" cy="100" r="1" fill="white"/><circle cx="400" cy="250" r="2" fill="white"/><circle cx="500" cy="400" r="1" fill="white"/><circle cx="600" cy="200" r="1.5" fill="white"/><circle cx="700" cy="350" r="1" fill="white"/></svg>');
-  background-blend-mode: overlay;
-  color: #333;
-  perspective: 1000px;
+  background: url('../images/your-image.jpg') center/cover no-repeat;
   overflow: hidden;
+}
+
+#ending::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 15px;
+  box-shadow: 
+    inset 0 0 200px rgba(255, 255, 255, 0.3),
+    inset 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+.ending-content {
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  margin: 0 auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 15px;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.1),
+    inset 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .ending-content p {

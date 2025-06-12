@@ -1,9 +1,0 @@
-- title: "照片1"
-  image: "/images/tu/cards/1.jpg"
-  description: "照片描述1"
-
-- title: "照片2"
-  image: "/images/tu/cards/2.jpg"
-  description: "照片描述2"
-
-# 可以继续添加更多照片

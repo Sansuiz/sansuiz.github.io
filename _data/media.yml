@@ -4,7 +4,7 @@
   type: "movie"
   date: "2025.06.12"
   rating: "★★★★☆"
-  douban_rating: "8.5"
+  douban_rating: "8.4"
   status: "more"
   content: |
     还不错的电影，借用弹幕的一句话表达：
@@ -22,10 +22,11 @@
 
 - title: "书籍名称"
   image: "https://cdnv2.ruguoapp.com/Fqi4giMYcs_Skw3EZCEqEMeQwnbnv3.png?imageMogr2/auto-orient/thumbnail/1500000@"
-  back_image: "https://cdnv2.ruguoapp.com/FuwvQ0NE65tlC0L9CO26jSUKARE4v3.png?imageMogr2/auto-orient/thumbnail/1780920@"
+  back_image: ""
   type: "book"
   date: "2024.05.15"
   rating: "★★★★★"
+  douban_rating: "8.4"
   status: "more"
   content: |
     这本书讲述了...

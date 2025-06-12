@@ -70,22 +70,8 @@
     
     <!-- 第二页 - 相册画廊 -->
     <div class="section">
-      <div class="gallery-container">
-        {% for image in site.data.gallery %}
-          <div class="gallery-item">
-            <img 
-              src="{{ image.url }}" 
-              alt="{{ image.title }}"
-              loading="lazy"
-            >
-            <div class="gallery-caption">
-              <h3>{{ image.title }}</h3>
-              <p>{{ image.description }}</p>
-              <small>{{ image.date | date: "%Y-%m-%d" }}</small>
-            </div>
-          </div>
-        {% endfor %}
-      </div>
+      <div class="gallery-container"></div>
+      <script src="/js/gallery.js"></script>
     </div>
   </div>
 

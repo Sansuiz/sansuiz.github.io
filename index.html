@@ -51,31 +51,16 @@
   
     </main>
   </div>
-
-  <!-- 添加第二页 -->
-  <div class="page-section" id="page2">
-    <div class="card-container">
-      {% for card in site.data.homecards %}
-        <div class="home-card">
-          <h3>{{ card.title }}</h3>
-          {% if card.image %}
-            <img src="{{ card.image }}" alt="{{ card.title }}">
-          {% endif %}
-          <p>{{ card.content | markdownify }}</p>
-          <small>{{ card.date }}</small>
-        </div>
-      {% endfor %}
-    </div>
+  
+  <div class="page-section" id="about">
+    <!-- 第二页内容暂空 -->
   </div>
 
-  <script>
-    // 页面切换逻辑
-    function showPage(pageId) {
-      document.querySelectorAll('.page-section').forEach(page => {
-        page.classList.remove('active');
-      });
-      document.getElementById(pageId).classList.add('active');
-    }
-  </script>
+  <section id="navigation">
+    <ul class="nav">
+      <li class="nav-dot active" data-section="home"></li>
+      <li class="nav-dot" data-section="about"></li>
+    </ul>
+  </section>
 </body>
 </html>

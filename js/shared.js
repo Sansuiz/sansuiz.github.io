@@ -99,26 +99,3 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
 });
-
-function addMusicSquare(coverUrl, lyrics, songInfo, musicId) {
-  const grid = document.querySelector('.music-grid');
-  const square = document.createElement('div');
-  square.className = 'music-square';
-  square.innerHTML = `
-    <div class="music-cover" style="background-image: url('${coverUrl}')"></div>
-    <div class="music-glass">
-      <button class="play-btn" data-music-id="${musicId}"></button>
-      <div class="lyrics-scroll">${lyrics}</div>
-      <div class="song-info">${songInfo}</div>
-    </div>
-  `;
-  grid.appendChild(square);
-  
-  square.querySelector('.play-btn').addEventListener('click', function() {
-    const musicId = this.getAttribute('data-music-id');
-    const iframe = document.createElement('iframe');
-    iframe.src = `https://music.163.com/outchain/player?type=2&id=${musicId}&auto=1&height=66`;
-    iframe.style.display = 'none';
-    document.body.appendChild(iframe);
-  });
-}

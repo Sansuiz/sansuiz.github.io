@@ -99,15 +99,15 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
   
-  function addMusicTile(coverUrl, songName, artist, musicId) {
+  function addMusicTile(coverUrl, lyrics, artist, musicId) {
     const grid = document.querySelector('.music-grid');
     const tile = document.createElement('div');
     tile.className = 'music-tile';
-    tile.setAttribute('data-music-id', musicId);
     tile.style.backgroundImage = `url('${coverUrl}')`;
+    tile.setAttribute('data-music-id', musicId);
     tile.innerHTML = `
       <div class="song-info">
-        <div class="song-name">${songName}</div>
+        <div class="lyrics-scroll">${lyrics}</div>
         <div class="artist">${artist}</div>
       </div>
     `;

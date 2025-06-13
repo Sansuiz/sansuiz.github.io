@@ -70,6 +70,26 @@
   text-overflow: ellipsis;
 }
 
+.lyrics-scroll {
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  width: 100%;
+  animation: scrollLyrics 8s linear infinite;
+  margin-bottom: 4px;
+}
+
+@keyframes scrollLyrics {
+  0% { 
+    transform: translateX(100%); 
+  }
+  100% { 
+    transform: translateX(-100%); 
+  }
+}
+
 .artist {
   font-size: 12px;
   opacity: 0.8;

@@ -27,26 +27,27 @@
   box-shadow: 
     0 4px 15px rgba(0, 0, 0, 0.1),
     inset 0 0 10px rgba(255, 255, 255, 0.2);
-}
-
-/* 确保背景图片覆盖整个元素 */
-.music-tile::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: inherit;
-  background-size: cover;
-  z-index: -1;
+  transition: all 0.3s ease;
 }
 
 .music-tile:hover {
-  transform: scale(1.05);
+  transform: scale(1.05) rotate(1deg);
   box-shadow: 
     0 8px 25px rgba(0, 0, 0, 0.2),
     inset 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+/* 添加鼠标跟随倾斜效果 */
+.music-tile {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.music-tile:hover {
+  transform: 
+    scale(1.05) 
+    rotateX(var(--mouse-y)) 
+    rotateY(var(--mouse-x));
 }
 
 .song-info {

@@ -117,3 +117,28 @@ window.addEventListener('DOMContentLoaded', () => {
   // 示例：添加新音乐方块
   // addMusicTile('图片路径', '歌名', '歌手', '网易云音乐ID');
 });
+
+// 添加在文件末尾
+const tiles = document.querySelectorAll('.music-tile');
+
+tiles.forEach(tile => {
+  tile.addEventListener('mousemove', (e) => {
+    const rect = tile.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    
+    const angleX = (y - centerY) / 20;
+    const angleY = (centerX - x) / 20;
+    
+    tile.style.setProperty('--mouse-x', `${angleY}deg`);
+    tile.style.setProperty('--mouse-y', `${angleX}deg`);
+  });
+  
+  tile.addEventListener('mouseleave', () => {
+    tile.style.removeProperty('--mouse-x');
+    tile.style.removeProperty('--mouse-y');
+  });
+});

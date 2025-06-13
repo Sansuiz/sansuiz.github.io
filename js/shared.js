@@ -116,4 +116,4 @@ window.addEventListener('DOMContentLoaded', () => {
   
   // 示例：添加新音乐方块
   // addMusicTile('图片路径', '歌名', '歌手', '网易云音乐ID');
-}
+});

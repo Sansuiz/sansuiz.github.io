@@ -155,3 +155,11 @@ tiles.forEach(tile => {
     tile.style.removeProperty('--mouse-y');
   });
 });
+
+// 在事件监听后添加调试输出
+tiles.forEach((tile, index) => {
+  console.log(`方块${index}事件绑定状态:`, 
+    tile.hasEventListener('mousemove'), 
+    tile.hasEventListener('mouseleave')
+  );
+});

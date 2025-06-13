@@ -46,8 +46,8 @@
 .music-tile:hover {
   transform: 
     scale(1.05) 
-    rotateX(var(--mouse-y)) 
-    rotateY(var(--mouse-x));
+    rotateX(5deg) 
+    rotateY(5deg) !important;
 }
 
 .song-info {

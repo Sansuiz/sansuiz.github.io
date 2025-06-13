@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
   
-  function addMusicTile(coverUrl, lyrics, artist, musicId) {
+  function addMusicTile(imagePath, songName, artist, musicId) {
     const grid = document.querySelector('.music-grid');
     const tile = document.createElement('div');
     tile.className = 'music-tile';
@@ -112,6 +112,18 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     grid.appendChild(tile);
+    
+    // 添加播放按钮点击事件
+    const playBtn = tile.querySelector('.play-btn');
+    const player = tile.querySelector('.music-player');
+    
+    playBtn.addEventListener('click', () => {
+      tile.classList.toggle('flipped');
+      
+      if(tile.classList.contains('flipped')) {
+        player.src = `//music.163.com/outchain/player?type=2&id=${musicId}&auto=1&height=66`;
+      }
+    });
   }
   
   // 添加一个周杰伦的音乐方块

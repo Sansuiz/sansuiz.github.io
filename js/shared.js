@@ -98,4 +98,22 @@ window.addEventListener('DOMContentLoaded', () => {
     // 实现切换到上一个页面的逻辑
     // ... existing navigation code ...
   }
-});
+  
+  function addMusicTile(coverUrl, songName, artist, musicId) {
+    const grid = document.querySelector('.music-grid');
+    const tile = document.createElement('div');
+    tile.className = 'music-tile';
+    tile.setAttribute('data-music-id', musicId);
+    tile.style.backgroundImage = `url('${coverUrl}')`;
+    tile.innerHTML = `
+      <div class="song-info">
+        <div class="song-name">${songName}</div>
+        <div class="artist">${artist}</div>
+      </div>
+    `;
+    grid.appendChild(tile);
+  }
+  
+  // 示例：添加新音乐方块
+  // addMusicTile('图片路径', '歌名', '歌手', '网易云音乐ID');
+}

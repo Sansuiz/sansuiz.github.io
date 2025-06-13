@@ -99,3 +99,15 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
 });
+document.addEventListener('mousemove', (e) => {
+  const albums = document.querySelectorAll('.album');
+  const x = e.clientX / window.innerWidth;
+  const y = e.clientY / window.innerHeight;
+  
+  albums.forEach((album, i) => {
+    const offset = i * 50;
+    const rotateY = (x * 30) - 15 + (i * 5);
+    const translateZ = (y * 100) + (i * 50);
+    album.style.transform = `rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
+  });
+});

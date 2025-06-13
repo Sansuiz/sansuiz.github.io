@@ -12,20 +12,34 @@
 
 .music-tile {
   position: relative;
-  width: 150px; /* 更小的尺寸 */
+  width: 150px;
   height: 150px;
   border-radius: 8px;
+  overflow: hidden;
+  /* 修复图片显示 */
+  background-color: transparent;
+  background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  overflow: hidden;
-  /* 强化玻璃效果 */
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
+  /* 玻璃效果 */
+  backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.3);
   box-shadow: 
     0 4px 15px rgba(0, 0, 0, 0.1),
     inset 0 0 10px rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
+}
+
+/* 确保背景图片覆盖整个元素 */
+.music-tile::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  background-size: cover;
+  z-index: -1;
 }
 
 .music-tile:hover {

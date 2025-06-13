@@ -110,56 +110,83 @@ window.addEventListener('DOMContentLoaded', () => {
         <div class="lyrics-scroll">${lyrics}</div>
         <div class="artist">${artist}</div>
       </div>
+      <div class="play-btn">▶</div>
     `;
+    
+    // 添加播放按钮事件
+    const playBtn = tile.querySelector('.play-btn');
+    playBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      
+      // 如果已经有播放器，先移除
+      const existingPlayer = document.querySelector('.music-player');
+      if (existingPlayer) {
+        document.body.removeChild(existingPlayer);
+      }
+      
+      // 创建新的播放器
+      const player = document.createElement('iframe');
+      player.className = 'music-player';
+      player.style.display = 'none';
+      player.src = `https://music.163.com/outchain/player?type=2&id=${musicId}&auto=1&height=66`;
+      document.body.appendChild(player);
+      
+      // 切换播放按钮状态
+      this.innerHTML = this.innerHTML === '▶' ? '❚❚' : '▶';
+    });
+    
     grid.appendChild(tile);
+    return tile;
   }
   
-  // 添加一个周杰伦的音乐方块
-  addMusicTile(
-    'images/liangyao.png',  // 封面图片路径
-    '七里香',              // 歌曲名称
-    '周杰伦',              // 歌手名称
-    '386538'               // 网易云音乐ID
-  );
+  // 更新鼠标动效绑定方式
+  function bindMouseEffects() {
+    const tiles = document.querySelectorAll('.music-tile:not(.bound)');
+    
+    tiles.forEach(tile => {
+      tile.classList.add('bound');
+      
+      tile.addEventListener('mousemove', (e) => {
+        const rect = tile.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const angleX = (y - centerY) / 20;
+        const angleY = (centerX - x) / 20;
+        
+        tile.style.setProperty('--mouse-x', `${angleY}deg`);
+        tile.style.setProperty('--mouse-y', `${angleX}deg`);
+      });
+      
+      tile.addEventListener('mouseleave', () => {
+        tile.style.removeProperty('--mouse-x');
+        tile.style.removeProperty('--mouse-y');
+      });
+    });
+  }
   
-  // 添加一个林俊杰的音乐方块
-  addMusicTile(
-    'images/sansuiz.png',  
-    '她说',                
-    '林俊杰',              
-    '386976'               
-  );
-});
-
-// 添加在文件末尾
-const tiles = document.querySelectorAll('.music-tile');
-
-tiles.forEach(tile => {
-  tile.addEventListener('mousemove', (e) => {
-    const rect = tile.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+  // 在DOM加载完成后调用
+  window.addEventListener('DOMContentLoaded', () => {
+    // 添加一个周杰伦的音乐方块
+    addMusicTile(
+      'images/liangyao.png',  // 封面图片路径
+      '七里香',              // 歌曲名称
+      '周杰伦',              // 歌手名称
+      '386538'               // 网易云音乐ID
+    );
     
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
+    // 添加一个林俊杰的音乐方块
+    addMusicTile(
+      'images/sansuiz.png',  
+      '她说',                
+      '林俊杰',              
+      '386976'               
+    );
     
-    const angleX = (y - centerY) / 20;
-    const angleY = (centerX - x) / 20;
-    
-    tile.style.setProperty('--mouse-x', `${angleY}deg`);
-    tile.style.setProperty('--mouse-y', `${angleX}deg`);
+    // 添加音乐方块后绑定动效
+    bindMouseEffects();
   });
-  
-  tile.addEventListener('mouseleave', () => {
-    tile.style.removeProperty('--mouse-x');
-    tile.style.removeProperty('--mouse-y');
-  });
-});
-
-// 在事件监听后添加调试输出
-tiles.forEach((tile, index) => {
-  console.log(`方块${index}事件绑定状态:`, 
-    tile.hasEventListener('mousemove'), 
-    tile.hasEventListener('mouseleave')
-  );
 });

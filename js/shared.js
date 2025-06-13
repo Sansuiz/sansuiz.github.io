@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
   
-  function addMusicTile(coverUrl, lyrics, artist, musicId) {
+  function addMusicTile(imagePath, songName, artist, musicId) {
     const grid = document.querySelector('.music-grid');
     const tile = document.createElement('div');
     tile.className = 'music-tile';
@@ -109,6 +109,11 @@ window.addEventListener('DOMContentLoaded', () => {
       <div class="song-info">
         <div class="lyrics-scroll">${lyrics}</div>
         <div class="artist">${artist}</div>
+      </div>
+      <div class="play-btn" data-music-id="${musicId}">
+        <svg viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
       </div>
     `;
     grid.appendChild(tile);
@@ -162,4 +167,27 @@ tiles.forEach((tile, index) => {
     tile.hasEventListener('mousemove'), 
     tile.hasEventListener('mouseleave')
   );
+});
+
+// 播放器容器
+const playerContainer = document.createElement('div');
+playerContainer.id = 'music-player';
+document.body.appendChild(playerContainer);
+
+// 为所有播放按钮添加点击事件
+document.querySelectorAll('.play-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const musicId = this.getAttribute('data-music-id');
+    playerContainer.innerHTML = `
+      <iframe 
+        frameborder="no" 
+        border="0" 
+        marginwidth="0" 
+        marginheight="0" 
+        width="330" 
+        height="86" 
+        src="https://music.163.com/outchain/player?type=2&id=${musicId}&auto=1&height=66">
+      </iframe>
+    `;
+  });
 });

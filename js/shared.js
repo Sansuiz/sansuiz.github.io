@@ -90,13 +90,13 @@ window.addEventListener('DOMContentLoaded', () => {
   }, {passive: true});
   
   function navigateToNextSection() {
-    // 实现切换到下一个页面的逻辑
-    // ... existing navigation code ...
+    if (isAnimating || currentIndex >= sections.length - 1) return;
+    showSection(currentIndex + 1);
   }
   
   function navigateToPrevSection() {
-    // 实现切换到上一个页面的逻辑
-    // ... existing navigation code ...
+    if (isAnimating || currentIndex <= 0) return;
+    showSection(currentIndex - 1);
   }
   
   function addMusicTile(coverUrl, songName, artist, musicId) {

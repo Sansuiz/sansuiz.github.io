@@ -99,3 +99,76 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
 });
+
+// 音乐数据数组
+const musicList = [
+  {
+    id: '歌曲ID1',
+    cover: '/images/sansuiz-di.png',
+    title: '歌曲名称1',
+    artist: '歌手1'
+  },
+  {
+    id: '歌曲ID2',
+    cover: '/images/liangyao.png',
+    title: '歌曲名称2',
+    artist: '歌手2'
+  }
+  // 可以继续添加更多音乐
+];
+
+// 初始化音乐方块
+function initMusicGrid() {
+  const grid = document.querySelector('.music-grid');
+  if (!grid) return;
+
+  musicList.forEach(music => {
+    grid.appendChild(createMusicSquare(music));
+  });
+}
+
+// 创建音乐方块
+function createMusicSquare(music) {
+  const square = document.createElement('div');
+  square.className = 'music-square';
+  square.dataset.songId = music.id;
+  
+  square.innerHTML = `
+    <div class="music-cover" style="background-image: url('${music.cover}')">
+      <button class="play-btn">▶</button>
+    </div>
+    <div class="music-info">
+      <h3>${music.title}</h3>
+      <p>${music.artist}</p>
+    </div>
+  `;
+  
+  return square;
+}
+
+// 播放音乐
+function playMusic(songId) {
+  const iframe = document.createElement('iframe');
+  iframe.style.display = 'none';
+  iframe.src = `https://music.163.com/outchain/player?type=2&id=${songId}&auto=1&height=66`;
+  document.body.appendChild(iframe);
+}
+
+// 事件委托处理播放按钮点击
+document.addEventListener('click', function(e) {
+  if (e.target.classList.contains('play-btn')) {
+    e.stopPropagation();
+    const songId = e.target.closest('.music-square').dataset.songId;
+    playMusic(songId);
+  } else if (e.target.classList.contains('music-square')) {
+    const songId = e.target.dataset.songId;
+    playMusic(songId);
+  }
+});
+
+// 页面加载完成后初始化
+if (document.readyState !== 'loading') {
+  initMusicGrid();
+} else {
+  document.addEventListener('DOMContentLoaded', initMusicGrid);
+}

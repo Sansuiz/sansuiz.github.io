@@ -114,8 +114,21 @@ window.addEventListener('DOMContentLoaded', () => {
     grid.appendChild(tile);
   }
   
-  // 示例：添加新音乐方块
-  // addMusicTile('图片路径', '歌名', '歌手', '网易云音乐ID');
+  // 添加一个周杰伦的音乐方块
+  addMusicTile(
+    'images/liangyao.png',  // 封面图片路径
+    '七里香',              // 歌曲名称
+    '周杰伦',              // 歌手名称
+    '386538'               // 网易云音乐ID
+  );
+  
+  // 添加一个林俊杰的音乐方块
+  addMusicTile(
+    'images/sansuiz.png',  
+    '她说',                
+    '林俊杰',              
+    '386976'               
+  );
 });
 
 // 添加在文件末尾

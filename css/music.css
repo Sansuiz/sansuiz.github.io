@@ -42,13 +42,13 @@
 }
 
 .song-name {
-  display: block;
-  color: white;
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 14px;
+  font-weight: bold;
   white-space: nowrap;
-  overflow: visible;
-  text-overflow: clip;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  width: 100%;
 }
 
 .music-tile:hover .song-name {

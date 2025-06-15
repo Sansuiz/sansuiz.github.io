@@ -129,6 +129,15 @@ window.addEventListener('DOMContentLoaded', () => {
     '386538',
     'https://music.163.com/song?id=386538' // 新增的链接参数
 );
+
+  // 添加一个周杰伦的音乐方块
+  addMusicTile(
+    'http://p1.music.126.net/_Fa9afIWxcymSqF3IP4I-w==/109951169701073804.jpg?param=130y130',
+    '海上花',
+    '蔡琴',
+    '209873',
+    'https://music.163.com/#/song?id=209873' // 新增的链接参数
+);
   
   // 添加一个林俊杰的音乐方块
   addMusicTile(

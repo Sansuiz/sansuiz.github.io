@@ -100,13 +100,37 @@ window.addEventListener('DOMContentLoaded', () => {
   }
   
 
-  function addMusicTile(imageUrl, songName, artist, linkUrl) {
+  // 全局音频播放器
+  const audioPlayer = new Audio();
+  let currentPlayingTile = null;
+  
+  function addMusicTile(imageUrl, songName, artist, audioPath) {
     const tile = document.createElement('div');
     tile.className = 'music-tile';
     tile.style.backgroundImage = `url(${imageUrl})`;
     
+    // 添加播放/暂停功能
     tile.addEventListener('click', () => {
-      window.open(linkUrl, '_blank');
+      if (currentPlayingTile === tile) {
+        // 点击正在播放的方块：暂停
+        if (!audioPlayer.paused) {
+          audioPlayer.pause();
+          tile.classList.remove('playing');
+        } else {
+          audioPlayer.play();
+          tile.classList.add('playing');
+        }
+      } else {
+        // 点击新方块：停止当前播放，开始新播放
+        if (currentPlayingTile) {
+          currentPlayingTile.classList.remove('playing');
+        }
+        
+        audioPlayer.src = audioPath;
+        audioPlayer.play();
+        tile.classList.add('playing');
+        currentPlayingTile = tile;
+      }
     });
   
     const songInfo = document.createElement('div');
@@ -127,15 +151,15 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.music-grid').appendChild(tile);
   }
   
-  // 添加一个周杰伦的音乐方块
+  // 添加一个思念的音乐方块
   addMusicTile(
-    'images/liangyao.png',  // 封面图片路径
-    '七里香',              // 歌曲名称
-    '周杰伦',              // 歌手名称
-    'https://music.163.com/song?id=386538' // 网易云音乐链接
+    'images/tu/music/sinian.png', 
+    '萧瑟的风雨中你走在我身旁', 
+    '思念-罗大佑', 
+    'audio/sinian.mp3' // 音频文件路径
   );
   
-  // 添加一个林俊杰的音乐方块
+  // 添加一个海上花的音乐方块
   addMusicTile(
     'images/tu/music/haishanghua.png',  
     '是这般柔情的你',                

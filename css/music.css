@@ -95,14 +95,3 @@
   font-size: 12px;
   opacity: 0.8;
 }
-
-
-.music-tile {
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.music-tile:active {
-  transform: scale(0.98);
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}

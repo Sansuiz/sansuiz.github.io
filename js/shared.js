@@ -105,13 +105,24 @@ window.addEventListener('DOMContentLoaded', () => {
     tile.className = 'music-tile';
     tile.style.backgroundImage = `url(${imageUrl})`;
     
-    // 添加点击跳转
     tile.addEventListener('click', () => {
       window.open(linkUrl, '_blank');
     });
   
     const songInfo = document.createElement('div');
     songInfo.className = 'song-info';
+    
+    const nameEl = document.createElement('div');
+    nameEl.className = 'song-name';
+    nameEl.textContent = songName;
+    
+    const artistEl = document.createElement('div');
+    artistEl.className = 'artist';
+    artistEl.textContent = artist;
+    
+    songInfo.appendChild(nameEl);
+    songInfo.appendChild(artistEl);
+    tile.appendChild(songInfo);
     
     document.querySelector('.music-grid').appendChild(tile);
   }

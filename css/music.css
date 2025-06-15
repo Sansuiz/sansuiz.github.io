@@ -20,25 +20,13 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  cursor: pointer;
   transition: all 0.3s ease;
 }
 
 .music-tile:hover {
-  transform: scale(1.05) rotate(1deg);
+  transform: scale(1.05);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-}
-
-/* 添加鼠标跟随倾斜效果 */
-.music-tile {
-  transform-style: preserve-3d;
-  perspective: 1000px;
-}
-
-.music-tile:hover {
-  transform: 
-    scale(1.05) 
-    rotateX(5deg) 
-    rotateY(5deg) !important;
 }
 
 .song-info {
@@ -50,6 +38,7 @@
   background: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
   backdrop-filter: blur(8px);
   color: #333;
+  font-family: 'Source Han Serif', serif;
 }
 
 .song-name {
@@ -58,26 +47,6 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.lyrics-scroll {
-  font-size: 14px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: clip;
-  width: 100%;
-  animation: scrollLyrics 8s linear infinite;
-  margin-bottom: 4px;
-}
-
-@keyframes scrollLyrics {
-  0% { 
-    transform: translateX(100%); 
-  }
-  100% { 
-    transform: translateX(-100%); 
-  }
 }
 
 .artist {

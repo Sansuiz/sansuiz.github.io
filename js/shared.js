@@ -101,9 +101,15 @@ window.addEventListener('DOMContentLoaded', () => {
   
   function addMusicTile(coverUrl, lyrics, artist, musicId) {
     const grid = document.querySelector('.music-grid');
-    const tile = document.createElement('div');
-    tile.className = 'music-tile';
-    tile.style.backgroundImage = `url('${coverUrl}')`;
+    function addMusicTile(imagePath, songName, artist, musicId) {
+      const tile = document.createElement('div');
+      tile.className = 'music-tile';
+      tile.style.backgroundImage = `url('${imagePath}')`;
+      
+      // 添加点击跳转功能
+      tile.addEventListener('click', () => {
+        window.open(`https://music.163.com/song?id=${musicId}`, '_blank');
+      });
     tile.setAttribute('data-music-id', musicId);
     tile.innerHTML = `
       <div class="song-info">

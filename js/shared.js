@@ -99,19 +99,21 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
   
-  function addMusicTile(coverUrl, lyrics, artist, musicId) {
-    const grid = document.querySelector('.music-grid');
+
+  function addMusicTile(imageUrl, songName, artist, linkUrl) {
     const tile = document.createElement('div');
     tile.className = 'music-tile';
-    tile.style.backgroundImage = `url('${coverUrl}')`;
-    tile.setAttribute('data-music-id', musicId);
-    tile.innerHTML = `
-      <div class="song-info">
-        <div class="lyrics-scroll">${lyrics}</div>
-        <div class="artist">${artist}</div>
-      </div>
-    `;
-    grid.appendChild(tile);
+    tile.style.backgroundImage = `url(${imageUrl})`;
+    
+    // 添加点击跳转
+    tile.addEventListener('click', () => {
+      window.open(linkUrl, '_blank');
+    });
+  
+    const songInfo = document.createElement('div');
+    songInfo.className = 'song-info';
+    
+    document.querySelector('.music-grid').appendChild(tile);
   }
   
   // 添加一个周杰伦的音乐方块
@@ -119,15 +121,15 @@ window.addEventListener('DOMContentLoaded', () => {
     'images/liangyao.png',  // 封面图片路径
     '七里香',              // 歌曲名称
     '周杰伦',              // 歌手名称
-    '386538'               // 网易云音乐ID
+    'https://music.163.com/song?id=386538' // 网易云音乐链接
   );
   
   // 添加一个林俊杰的音乐方块
   addMusicTile(
     'http://p1.music.126.net/_Fa9afIWxcymSqF3IP4I-w==/109951169701073804.jpg?param=130y130',  
-    '仿佛像水面泡沫的短暂光亮 是我的一生',                
+    '是这般柔情的你',                
     '海上花-蔡琴',              
-    '209873'               
+    'https://music.163.com/#/song?id=209873'               
   );
 });
 

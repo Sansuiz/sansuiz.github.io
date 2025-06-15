@@ -16,25 +16,16 @@
   height: 150px;
   border-radius: 8px;
   overflow: hidden;
-  /* 修复图片显示 */
   background-color: transparent;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  /* 玻璃效果 */
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 
-    0 4px 15px rgba(0, 0, 0, 0.1),
-    inset 0 0 10px rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 }
 
 .music-tile:hover {
   transform: scale(1.05) rotate(1deg);
-  box-shadow: 
-    0 8px 25px rgba(0, 0, 0, 0.2),
-    inset 0 0 15px rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
 
 /* 添加鼠标跟随倾斜效果 */
@@ -56,11 +47,9 @@
   bottom: 0;
   width: 100%;
   padding: 8px;
-  /* 更明显的毛玻璃效果 */
   background: linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
   backdrop-filter: blur(8px);
   color: #333;
-  font-family: 'Source Han Serif', serif;
 }
 
 .song-name {
@@ -94,4 +83,14 @@
 .artist {
   font-size: 12px;
   opacity: 0.8;
+}
+
+
+.music-tile {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.music-tile:active {
+  transform: scale(0.98);
 }

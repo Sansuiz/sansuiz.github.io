@@ -295,7 +295,7 @@ header small {
   left: -6px;
   right: -6px;
   bottom: -6px;
-  border: 1px solid rgba(237, 98, 126, 0.2);
+  border: 1px solid rgba(237, 98, 126, 0);
   border-radius: 50%;
   animation: pulse 2s infinite;
   opacity: 0;

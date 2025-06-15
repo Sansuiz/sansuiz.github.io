@@ -220,3 +220,27 @@ tiles.forEach((tile, index) => {
 document.addEventListener('touchmove', function(e) {
   // 你的滑动处理逻辑
 }, { passive: true });
+
+// 添加触摸滑动事件监听
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.querySelector('.nav-dots').addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+}, {passive: true});
+
+document.querySelector('.nav-dots').addEventListener('touchend', (e) => {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+}, {passive: true});
+
+function handleSwipe() {
+  const threshold = 50;
+  if (touchEndX < touchStartX - threshold) {
+    // 向左滑动，切换到下一个导航点
+    switchToNextDot();
+  } else if (touchEndX > touchStartX + threshold) {
+    // 向右滑动，切换到上一个导航点
+    switchToPrevDot();
+  }
+}

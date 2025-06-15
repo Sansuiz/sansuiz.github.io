@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
   
-  function addMusicTile(coverUrl, lyrics, artist, musicId) {
+  function addMusicTile(imageUrl, songName, artist, musicId, linkUrl = '#') {
     const grid = document.querySelector('.music-grid');
     const tile = document.createElement('div');
     tile.className = 'music-tile';
@@ -112,15 +112,23 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     grid.appendChild(tile);
+    tile.dataset.link = linkUrl;
+    tile.style.cursor = 'pointer';
+    tile.addEventListener('click', (e) => {
+      if (!e.target.closest('.play-button')) { // 避免与播放按钮冲突
+        window.open(tile.dataset.link, '_blank');
+      }
+    });
   }
   
   // 添加一个周杰伦的音乐方块
   addMusicTile(
-    'images/liangyao.png',  // 封面图片路径
-    '七里香',              // 歌曲名称
-    '周杰伦',              // 歌手名称
-    '386538'               // 网易云音乐ID
-  );
+    'images/liangyao.png',
+    '七里香',
+    '周杰伦',
+    '386538',
+    'https://music.163.com/song?id=386538' // 新增的链接参数
+);
   
   // 添加一个林俊杰的音乐方块
   addMusicTile(

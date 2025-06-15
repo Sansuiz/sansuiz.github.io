@@ -49,8 +49,6 @@
   position: relative;
   display: inline-block;
   width: 100%;
-  animation: scrollText 10s linear infinite;
-  animation-play-state: paused;
 }
 
 .music-tile:hover .song-name {

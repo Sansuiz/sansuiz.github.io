@@ -151,7 +151,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.querySelector('.music-grid').appendChild(tile);
   }
   
-  // 添加一个思念的音乐方块
+  // 添加一个罗大佑的音乐方块
   addMusicTile(
     'images/tu/music/sinian.png', 
     '萧瑟的风雨中你走在我身旁', 
@@ -159,12 +159,20 @@ window.addEventListener('DOMContentLoaded', () => {
     'audio/sinian.mp3' // 音频文件路径
   );
   
-  // 添加一个海上花的音乐方块
+  // 添加一个蔡琴的音乐方块
   addMusicTile(
     'images/tu/music/haishanghua.png',  
     '是这般柔情的你',                
     '海上花-蔡琴',              
-    'https://music.163.com/#/song?id=209873'               
+    'audio/haishanghua.mp3'               
+  );
+
+  // 添加一个罗大佑的音乐方块
+  addMusicTile(
+    'images/tu/music/yaxiya.png',  
+    '多少人在追寻那解不开的问题',                
+    '亚细亚的孤儿-罗大佑',              
+    'audio/yaxiya.mp3'               
   );
 });
 

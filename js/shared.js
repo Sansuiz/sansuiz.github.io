@@ -217,4 +217,6 @@ tiles.forEach((tile, index) => {
   );
 });
 
-window.addEventListener('touchmove', () => {}, { passive: true });
+document.addEventListener('touchmove', function(e) {
+  // 你的滑动处理逻辑
+}, { passive: true });

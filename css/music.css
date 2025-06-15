@@ -66,6 +66,17 @@
 .artist {
   font-size: 12px;
   opacity: 0.8;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  animation: scrollText 8s linear infinite;
+  mask-image: linear-gradient(90deg, transparent 0%, white 15%, white 85%, transparent 100%);
+}
+
+.music-tile:hover .artist {
+  animation-play-state: running;
 }
 
 

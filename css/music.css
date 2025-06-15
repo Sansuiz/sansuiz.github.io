@@ -46,7 +46,13 @@
   font-weight: bold;
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis;
+  position: relative;
+  animation: scrollText 10s linear infinite;
+}
+
+@keyframes scrollText {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
 .artist {

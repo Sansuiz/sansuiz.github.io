@@ -292,7 +292,7 @@ header small {
 
 .nav-dot:active {
   transform: scale(0.9);
-  background-color: rgba(255,255,255,0.8);
+  transition: transform 0.1s ease;
 }
 
 @keyframes slideIn {

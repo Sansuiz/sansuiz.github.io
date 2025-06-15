@@ -126,7 +126,7 @@ window.addEventListener('DOMContentLoaded', () => {
   
   // 添加一个林俊杰的音乐方块
   addMusicTile(
-    'http://p1.music.126.net/_Fa9afIWxcymSqF3IP4I-w==/109951169701073804.jpg?param=130y130',  
+    'images/tu/music/haishanghua.png',  
     '是这般柔情的你',                
     '海上花-蔡琴',              
     'https://music.163.com/#/song?id=209873'               

@@ -154,7 +154,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // 添加一个罗大佑的音乐方块
   addMusicTile(
     'images/tu/music/sinian.png', 
-    '思念-罗大佑', 
+    '《思念》', 
     '萧瑟的风雨中你走在我身旁', 
     'audio/sinian.mp3' // 音频文件路径
   );
@@ -162,7 +162,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // 添加一个蔡琴的音乐方块
   addMusicTile(
     'images/tu/music/haishanghua.png',  
-    '海上花-蔡琴',                
+    '《海上花》',                
     '是这般柔情的你',              
     'audio/haishanghua.mp3'               
   );
@@ -170,7 +170,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // 添加一个罗大佑的音乐方块
   addMusicTile(
     'images/tu/music/yaxiya.png',  
-    '亚细亚的孤儿-罗大佑',                
+    '《亚细亚的孤儿》',                
     '多少人在追寻那解不开的问题',              
     'audio/yaxiya.mp3'               
   );
@@ -178,7 +178,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // 添加一个周华健的音乐方块
   addMusicTile(
     'images/tu/music/anxin.png',  
-    '安心-周华健',                
+    '《安心》',                
     '光阴倒退但这决定都照样不变',              
     'audio/anxin.mp3'               
   );

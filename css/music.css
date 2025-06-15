@@ -47,12 +47,19 @@
   white-space: nowrap;
   overflow: hidden;
   position: relative;
+  display: inline-block;
+  width: 100%;
   animation: scrollText 10s linear infinite;
+  animation-play-state: paused;
+}
+
+.music-tile:hover .song-name {
+  animation-play-state: running;
 }
 
 @keyframes scrollText {
-  0% { transform: translateX(100%); }
-  100% { transform: translateX(-100%); }
+  0% { transform: translateX(0); }
+  100% { transform: translateX(calc(-100% + 150px)); }
 }
 
 .artist {

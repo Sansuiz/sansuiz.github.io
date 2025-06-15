@@ -268,7 +268,7 @@ header small {
 
 .nav {
   position: fixed;
-  left: 2rem;  /* 从right改为left */
+  left: 1.5rem;  /* 向左移动0.5rem */
   top: 50%;
   transform: translateY(-50%);
   list-style: none;
@@ -278,8 +278,8 @@ header small {
 }
 
 .nav-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   margin: 1rem 0;
   border-radius: 50%;
   background: rgba(237, 98, 126, 0.3);
@@ -288,26 +288,21 @@ header small {
   position: relative;
 }
 
-.nav-dot::after {
-  content: '';
-  position: absolute;
-  top: -6px;
-  left: -6px;
-  right: -6px;
-  bottom: -6px;
-  border: 1px solid rgba(237, 98, 126, 0);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-  opacity: 0;
-}
-
 .nav-dot.active {
   background: #ed627e;
   transform: scale(1.3);
 }
 
 .nav-dot.active::after {
-  opacity: 1;
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: -6px;
+  right: -6px;
+  bottom: -6px;
+  border: 1px solid rgba(237, 98, 126, 0.3);
+  border-radius: 50%;
+  animation: pulse 2s infinite;
 }
 
 @keyframes pulse {

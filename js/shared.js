@@ -163,3 +163,5 @@ tiles.forEach((tile, index) => {
     tile.hasEventListener('mouseleave')
   );
 });
+
+window.addEventListener('touchmove', () => {}, { passive: true });

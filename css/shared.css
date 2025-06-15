@@ -27,3 +27,8 @@ html, body {
   touch-action: pan-y;
   overscroll-behavior-y: contain;
 }
+
+html, body {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}

@@ -165,12 +165,3 @@ const css = `
 }`;
 
 document.head.appendChild(document.createElement('style')).textContent = css;
-
-// 修改触摸事件监听器
-window.addEventListener('touchstart', handleTouch, { passive: true });
-window.addEventListener('touchmove', handleTouch, { passive: true });
-window.addEventListener('touchend', handleTouch, { passive: true });
-
-// 确保没有阻止默认行为的代码
-// 移除或注释掉类似这样的代码
-// e.preventDefault();

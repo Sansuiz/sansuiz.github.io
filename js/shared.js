@@ -174,6 +174,14 @@ window.addEventListener('DOMContentLoaded', () => {
     '亚细亚的孤儿-罗大佑',              
     'audio/yaxiya.mp3'               
   );
+
+  // 添加一个周华健的音乐方块
+  addMusicTile(
+    'images/tu/music/anxin.png',  
+    '光阴倒退但这决定都照样不变',                
+    '安心-周华健',              
+    'audio/anxin.mp3'               
+  );
 });
 
 // 添加在文件末尾

@@ -99,7 +99,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // ... existing navigation code ...
   }
   
-  function addMusicTile(imageUrl, songName, artist, musicId, linkUrl = '#') {
+  function addMusicTile(coverUrl, lyrics, artist, musicId) {
     const grid = document.querySelector('.music-grid');
     const tile = document.createElement('div');
     tile.className = 'music-tile';
@@ -112,39 +112,22 @@ window.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
     grid.appendChild(tile);
-    tile.dataset.link = linkUrl;
-    tile.style.cursor = 'pointer';
-    tile.addEventListener('click', (e) => {
-      if (!e.target.closest('.play-button')) { // 避免与播放按钮冲突
-        window.open(tile.dataset.link, '_blank');
-      }
-    });
   }
   
   // 添加一个周杰伦的音乐方块
   addMusicTile(
-    'images/liangyao.png',
-    '七里香',
-    '周杰伦',
-    '386538',
-    'https://music.163.com/song?id=386538' // 新增的链接参数
-);
-
-  // 添加一个周杰伦的音乐方块
-  addMusicTile(
-    'http://p1.music.126.net/_Fa9afIWxcymSqF3IP4I-w==/109951169701073804.jpg?param=130y130',
-    '海上花',
-    '蔡琴',
-    '209873',
-    'https://music.163.com/#/song?id=209873' // 新增的链接参数
-);
+    'images/liangyao.png',  // 封面图片路径
+    '七里香',              // 歌曲名称
+    '周杰伦',              // 歌手名称
+    '386538'               // 网易云音乐ID
+  );
   
   // 添加一个林俊杰的音乐方块
   addMusicTile(
-    'images/sansuiz.png',  
-    '她说',                
-    '林俊杰',              
-    '386976'               
+    'http://p1.music.126.net/_Fa9afIWxcymSqF3IP4I-w==/109951169701073804.jpg?param=130y130',  
+    '仿佛像水面泡沫的短暂光亮 是我的一生',                
+    '海上花-蔡琴',              
+    '209873'               
   );
 });
 

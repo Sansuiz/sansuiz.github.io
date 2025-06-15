@@ -310,3 +310,8 @@ header small {
   70% { transform: scale(1.3); opacity: 0; }
   100% { transform: scale(0.8); opacity: 0; }
 }
+
+body {
+  overscroll-behavior-y: none;
+  -webkit-overflow-scrolling: touch !important;
+}

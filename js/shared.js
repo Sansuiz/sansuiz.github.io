@@ -220,29 +220,3 @@ tiles.forEach((tile, index) => {
 document.addEventListener('touchmove', function(e) {
   // 你的滑动处理逻辑
 }, { passive: true });
-
-function updateCoverFlow() {
-  const tiles = document.querySelectorAll('#music .music-tile');
-  tiles.forEach((tile, index) => {
-    tile.classList.remove('active', 'prev', 'next');
-    if(index === currentIndex) {
-      tile.classList.add('active');
-    } else if(index === currentIndex - 1) {
-      tile.classList.add('prev');
-    } else if(index === currentIndex + 1) {
-      tile.classList.add('next');
-    }
-  });
-}
-
-// 添加滑动事件监听
-let currentIndex = 0;
-document.getElementById('music').addEventListener('swipeleft', () => {
-  currentIndex = Math.min(currentIndex + 1, document.querySelectorAll('#music .music-tile').length - 1);
-  updateCoverFlow();
-});
-
-document.getElementById('music').addEventListener('swiperight', () => {
-  currentIndex = Math.max(currentIndex - 1, 0);
-  updateCoverFlow();
-});

@@ -1,7 +1,3 @@
-a, [href], [onclick], button {
-  cursor: none !important;
-}
-
 #cursor {
     position: fixed;
     width: 16px;

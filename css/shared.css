@@ -25,5 +25,12 @@ html, body {
 }
 
 .card-container {
-  margin-top: 40px; /* 调整这个值直到间距合适 */
+  margin-top: 60px; /* 增加与标签云的间距 */
+  padding: 20px;
+  overflow: visible;
+}
+
+.grid-layout {
+  grid-gap: 20px;
+  margin-top: 20px;
 }

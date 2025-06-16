@@ -332,16 +332,3 @@ body {
   filter: blur(1px); /* 轻微模糊使平铺更自然 */
   pointer-events: none;
 }
-
-#about {
-  min-height: 100vh;
-  height: auto;
-  overflow: hidden;
-}
-
-#about .photo-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding-bottom: 100vh; /* 预留空间 */
-}

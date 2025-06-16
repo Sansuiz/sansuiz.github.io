@@ -192,3 +192,32 @@ document.querySelectorAll('.photo-frame').forEach(frame => {
     document.querySelector('.hover-background').style.opacity = '0';
   });
 });
+
+let isScrolling = false;
+let scrollTimeout;
+
+const aboutSection = document.getElementById('about');
+if(aboutSection) {
+  aboutSection.addEventListener('scroll', function(e) {
+    if(isScrolling) return;
+    
+    isScrolling = true;
+    clearTimeout(scrollTimeout);
+    
+    // 计算当前滚动位置
+    const scrollTop = aboutSection.scrollTop;
+    const scrollHeight = aboutSection.scrollHeight;
+    const clientHeight = aboutSection.clientHeight;
+    
+    // 检查是否滚动到底部
+    if(scrollTop + clientHeight >= scrollHeight - 50) {
+      // 允许滚动到下一页
+      isScrolling = false;
+    } else {
+      // 延迟重置滚动标志
+      scrollTimeout = setTimeout(() => {
+        isScrolling = false;
+      }, 1000);
+    }
+  });
+}

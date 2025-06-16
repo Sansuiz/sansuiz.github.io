@@ -43,10 +43,9 @@ title: Cards-SANSUIZ
 .card-wall {
   min-height: 100vh;
   padding: 1rem 2rem;
-  padding-top: 1600px;
   background: rgba(255, 255, 255, 0);
   position: relative;
-  overflow-y: auto; /* 添加滚动条 */
+  top: 0;
 }
 
 .card-wall::before {
@@ -68,7 +67,8 @@ title: Cards-SANSUIZ
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 1.5rem;
   max-width: 1200px;
-  margin-top: 2rem; /* 调整这个值以匹配导航栏高度 */
+  margin-top: 0; /* 调整这个值以匹配导航栏高度 */
+  padding-top: 80px;
   position: relative;
   z-index: 1;
 }
@@ -386,6 +386,11 @@ document.addEventListener('DOMContentLoaded', function() {
   document.querySelector('.modal-content').addEventListener('click', (e) => {
     e.stopPropagation();
   });
+});
+</script>
+<script>
+window.addEventListener('load', function() {
+  window.scrollTo(0, 0);
 });
 </script>
 <head>

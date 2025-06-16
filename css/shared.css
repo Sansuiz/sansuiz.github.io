@@ -6,13 +6,6 @@
   --primary-font: 'Segoe UI', system-ui, sans-serif;
 }
 
-/* 鼠标指针基础样式 */
-.custom-cursor {
-  pointer-events: none;
-  position: fixed;
-  z-index: 9999;
-}
-
 /* 第三方库样式覆写 */
 .fa-icon {
   vertical-align: middle;
@@ -24,6 +17,9 @@
 }
 
 html, body {
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
   touch-action: pan-y;
   overscroll-behavior-y: contain;
+  height: 100%;
 }

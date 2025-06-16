@@ -98,6 +98,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // 实现切换到上一个页面的逻辑
     // ... existing navigation code ...
   }
+  
 
   // 全局音频播放器
   const audioPlayer = new Audio();

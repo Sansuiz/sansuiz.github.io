@@ -10,22 +10,18 @@
   padding: 15px;
 }
 
-.music-container {
-  display: flex;
-  perspective: 1000px;
-  transform-style: preserve-3d;
-  justify-content: center;
-  align-items: center;
-  height: 300px;
-}
-
 .music-tile {
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  transition: all 0.5s ease;
-  transform-origin: center center;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .music-tile:hover {

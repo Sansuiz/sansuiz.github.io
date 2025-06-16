@@ -23,3 +23,7 @@ html, body {
   overscroll-behavior-y: contain;
   height: 100%;
 }
+
+.card-container {
+  margin-top: 40px; /* 调整这个值直到间距合适 */
+}

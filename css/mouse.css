@@ -1,3 +1,14 @@
+a, [href], [onclick] {
+  cursor: none !important;
+}
+
+/* 为自定义指针元素添加样式 */
+.custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  z-index: 9999;
+}
+
 #cursor {
     position: fixed;
     width: 16px;

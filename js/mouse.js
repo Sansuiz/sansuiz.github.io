@@ -192,3 +192,44 @@ document.querySelectorAll('.photo-frame').forEach(frame => {
     document.querySelector('.hover-background').style.opacity = '0';
   });
 });
+
+
+// 添加针对about页面的滚动控制
+function initAboutScroll() {
+  const aboutSection = document.getElementById('about');
+  if (!aboutSection) return;
+
+  let isScrolling = false;
+  let lastScrollTop = 0;
+  
+  // 检测所有图片是否已显示
+  const images = aboutSection.querySelectorAll('img');
+  const observer = new IntersectionObserver((entries) => {
+    const allVisible = Array.from(images).every(img => {
+      const rect = img.getBoundingClientRect();
+      return rect.top >= 0 && rect.bottom <= window.innerHeight;
+    });
+    
+    if (allVisible && isScrolling) {
+      isScrolling = false;
+    }
+  }, {threshold: 1.0});
+
+  images.forEach(img => observer.observe(img));
+
+  // 监听滚动事件
+  window.addEventListener('scroll', (e) => {
+    if (!isScrolling) return;
+    
+    const st = window.pageYOffset || document.documentElement.scrollTop;
+    if (st > lastScrollTop) {
+      // 向下滚动时阻止默认行为
+      e.preventDefault();
+      window.scrollTo(0, aboutSection.offsetTop + aboutSection.offsetHeight);
+    }
+    lastScrollTop = st <= 0 ? 0 : st;
+  }, {passive: false});
+}
+
+// 页面加载后初始化
+window.addEventListener('DOMContentLoaded', initAboutScroll);

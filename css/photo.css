@@ -35,3 +35,13 @@
   background: #f9f9f9;
   font-size: 14px;
 }
+
+#about {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+#about.scroll-lock {
+  overflow-y: auto;
+}

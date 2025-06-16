@@ -192,3 +192,33 @@ document.querySelectorAll('.photo-frame').forEach(frame => {
     document.querySelector('.hover-background').style.opacity = '0';
   });
 });
+
+// 添加关于页面的滚动控制
+const aboutSection = document.getElementById('about');
+const aboutImages = document.querySelectorAll('#about img');
+
+if (aboutImages.length > 0) {
+  let lastVisibleImage = null;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        lastVisibleImage = entry.target;
+      }
+    });
+    
+    // 检查是否所有图片都已显示
+    const allShown = Array.from(aboutImages).every(img => {
+      const rect = img.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    });
+    
+    if (allShown) {
+      aboutSection.classList.add('scroll-lock');
+    } else {
+      aboutSection.classList.remove('scroll-lock');
+    }
+  }, {threshold: 0.1});
+  
+  aboutImages.forEach(img => observer.observe(img));
+}

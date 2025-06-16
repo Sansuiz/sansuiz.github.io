@@ -332,14 +332,3 @@ body {
   filter: blur(1px); /* 轻微模糊使平铺更自然 */
   pointer-events: none;
 }
-
-#about {
-  scroll-snap-type: y mandatory;
-  height: 100vh;
-  overflow-y: auto;
-}
-
-.masonry-item {
-  scroll-snap-align: start;
-  min-height: 100vh;
-}

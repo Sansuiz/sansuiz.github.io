@@ -4,7 +4,13 @@
 /* 公共字体定义 */
 :root {
   --primary-font: 'Segoe UI', system-ui, sans-serif;
-  --card-gap: 20px; /* 卡片行间距 */
+}
+
+/* 鼠标指针基础样式 */
+.custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  z-index: 9999;
 }
 
 /* 第三方库样式覆写 */
@@ -23,14 +29,4 @@ html, body {
   touch-action: pan-y;
   overscroll-behavior-y: contain;
   height: 100%;
-}
-
-.card-container {
-  margin-top: 60px; /* 增加与标签云的间距 */
-  padding: 20px;
-  overflow: visible;
-}
-
-.grid-layout {
-  grid-gap: var(--card-gap);
 }

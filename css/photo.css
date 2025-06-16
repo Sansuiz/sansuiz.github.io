@@ -1,12 +1,3 @@
-.page-section#about {
-  min-height: 100vh;
-  overflow: hidden;
-}
-
-.masonry {
-  min-height: calc(100vh - 100px); /* 留出顶部空间 */
-}
-
 .masonry-grid {
   columns: 2;
   column-gap: 20px;

@@ -170,3 +170,18 @@ document.head.appendChild(document.createElement('style')).textContent = css;
 window.addEventListener('touchmove', function(e) {
 // 不要调用e.preventDefault()
 }, { passive: true });
+
+let startX = 0;
+let currentX = 0;
+const container = document.querySelector('.music-container');
+
+container.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+}, { passive: true });
+
+container.addEventListener('touchmove', (e) => {
+  currentX = e.touches[0].clientX;
+  const diff = startX - currentX;
+  // 根据滑动距离旋转容器
+  container.style.transform = `rotateY(${diff/10}deg)`;
+}, { passive: true });

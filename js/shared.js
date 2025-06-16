@@ -185,7 +185,23 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // 添加在文件末尾
-const tiles = document.querySelectorAll('.music-tile');
+function arrangeCoverFlow() {
+  const tiles = document.querySelectorAll('.music-tile');
+  const center = Math.floor(tiles.length / 2);
+  
+  tiles.forEach((tile, index) => {
+    const offset = index - center;
+    const angle = offset * 30;
+    const z = Math.abs(offset) * -100;
+    const scale = 1 - Math.abs(offset) * 0.2;
+    
+    tile.style.transform = `rotateY(${angle}deg) translateZ(${z}px) scale(${scale})`;
+    tile.style.zIndex = tiles.length - Math.abs(offset);
+  });
+}
+
+// 在初始化音乐方块后调用
+arrangeCoverFlow();
 
 tiles.forEach(tile => {
   tile.addEventListener('mousemove', (e) => {

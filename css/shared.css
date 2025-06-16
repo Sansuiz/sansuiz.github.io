@@ -4,6 +4,7 @@
 /* 公共字体定义 */
 :root {
   --primary-font: 'Segoe UI', system-ui, sans-serif;
+  --card-gap: 20px; /* 卡片行间距 */
 }
 
 /* 第三方库样式覆写 */
@@ -31,6 +32,5 @@ html, body {
 }
 
 .grid-layout {
-  grid-gap: 20px;
-  margin-top: 20px;
+  grid-gap: var(--card-gap);
 }

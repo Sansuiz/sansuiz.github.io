@@ -11,13 +11,6 @@ const getStyle = (el, attr) => {
     return "";
 };
 
-document.addEventListener('DOMContentLoaded', function() {
-  // 移除所有元素的默认鼠标样式
-  document.querySelectorAll('a, [href], button').forEach(el => {
-    el.style.cursor = 'none';
-  });
-});
-
 class Cursor {
     constructor() {
         this.pos = {curr: null, prev: null};

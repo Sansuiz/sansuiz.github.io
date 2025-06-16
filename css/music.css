@@ -47,7 +47,6 @@
   overflow: hidden;
   position: relative;
   display: inline-block;
-  cursor: pointer;
   width: 100%;
   mask-image: linear-gradient(90deg, transparent 0%, #fff 10%, #fff 90%, transparent 100%);
 }

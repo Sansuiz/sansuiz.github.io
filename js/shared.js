@@ -220,3 +220,34 @@ tiles.forEach((tile, index) => {
 document.addEventListener('touchmove', function(e) {
   // 你的滑动处理逻辑
 }, { passive: true });
+
+let isScrolling = false;
+let aboutSection = document.getElementById('about');
+
+window.addEventListener('wheel', function(e) {
+  if (!aboutSection) return;
+  
+  const rect = aboutSection.getBoundingClientRect();
+  const isInAboutSection = rect.top <= 0 && rect.bottom >= 0;
+  
+  if (isInAboutSection && !isScrolling) {
+    e.preventDefault();
+    
+    // 计算当前滚动位置
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const aboutBottom = aboutSection.offsetTop + aboutSection.offsetHeight;
+    
+    // 判断是否滚动到about区域底部
+    if (e.deltaY > 0 && scrollTop < aboutBottom - window.innerHeight) {
+      isScrolling = true;
+      window.scrollTo({
+        top: scrollTop + window.innerHeight * 0.8,
+        behavior: 'smooth'
+      });
+      
+      setTimeout(() => {
+        isScrolling = false;
+      }, 1000);
+    }
+  }
+}, { passive: false });

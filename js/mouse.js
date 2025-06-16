@@ -170,3 +170,15 @@ document.head.appendChild(document.createElement('style')).textContent = css;
 window.addEventListener('touchmove', function(e) {
 // 不要调用e.preventDefault()
 }, { passive: true });
+
+document.querySelectorAll('.photo-frame').forEach(frame => {
+  frame.addEventListener('mouseenter', function() {
+    const imgSrc = this.querySelector('img').src;
+    document.querySelector('.hover-background').style.backgroundImage = `url(${imgSrc})`;
+    document.querySelector('.hover-background').style.opacity = '0.1';
+  });
+  
+  frame.addEventListener('mouseleave', function() {
+    document.querySelector('.hover-background').style.opacity = '0';
+  });
+});

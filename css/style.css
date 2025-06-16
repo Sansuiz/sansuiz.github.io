@@ -324,7 +324,11 @@ body {
   z-index: -1;
   opacity: 0;
   transition: opacity 0.3s ease;
-  background-size: 300px 300px;
+  background-size: contain;
   background-repeat: repeat;
+  background-position: center;
+  background-attachment: fixed;
+  opacity: 0.08; /* 更低的透明度 */
+  filter: blur(1px); /* 轻微模糊使平铺更自然 */
   pointer-events: none;
 }

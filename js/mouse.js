@@ -173,9 +173,19 @@ window.addEventListener('touchmove', function(e) {
 
 document.querySelectorAll('.photo-frame').forEach(frame => {
   frame.addEventListener('mouseenter', function() {
-    const imgSrc = this.querySelector('img').src;
-    document.querySelector('.hover-background').style.backgroundImage = `url(${imgSrc})`;
-    document.querySelector('.hover-background').style.opacity = '0.1';
+    const img = this.querySelector('img');
+    const hoverBg = document.querySelector('.hover-background');
+    
+    // 预加载图片获取实际尺寸
+    const tempImg = new Image();
+    tempImg.src = img.src;
+    tempImg.onload = function() {
+      const ratio = tempImg.width / tempImg.height;
+      const bgSize = ratio > 1 ? `${Math.round(100*ratio)}% auto` : `auto ${Math.round(100/ratio)}%`;
+      hoverBg.style.backgroundImage = `url(${img.src})`;
+      hoverBg.style.backgroundSize = bgSize;
+      hoverBg.style.opacity = '0.08';
+    };
   });
   
   frame.addEventListener('mouseleave', function() {

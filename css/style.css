@@ -332,39 +332,3 @@ body {
   filter: blur(1px); /* 轻微模糊使平铺更自然 */
   pointer-events: none;
 }
-
-/* 自定义滚动条容器 */
-.page-section {
-  position: relative;
-  padding-right: 30px; /* 为滚动条留出空间 */
-}
-
-/* 自定义滚动条 */
-.page-section::-webkit-scrollbar {
-  width: 12px;
-  background: transparent;
-}
-
-.page-section::-webkit-scrollbar-thumb {
-  background: linear-gradient(to bottom, #ed627e, #108adc);
-  border-radius: 10px;
-  border: 3px solid white;
-}
-
-.page-section::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.3);
-  border-radius: 10px;
-  margin: 10px 0;
-}
-
-/* 添加装饰性元素 */
-.page-section::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 15px;
-  background: linear-gradient(to bottom, transparent, rgba(237,98,126,0.1), transparent);
-  pointer-events: none;
-}

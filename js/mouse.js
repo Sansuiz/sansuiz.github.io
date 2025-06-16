@@ -152,7 +152,6 @@ const css = `
 
 .context-menu-item {
     padding: 10px 24px;
-    cursor: pointer;
     transition: all 0.2s ease;
     color: #444;
     font-size: 14px;

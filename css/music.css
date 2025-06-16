@@ -20,7 +20,6 @@
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
-  cursor: pointer;
   transition: all 0.3s ease;
 }
 
@@ -87,7 +86,6 @@
 
 
 .music-tile {
-  cursor: pointer;
   transition: all 0.2s ease;
 }
 

@@ -6,9 +6,9 @@ body {
   background-color: #ffffff;
   min-height: 100vh;
   margin: 0;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  display: block;
+  justify-content: normal;
+  align-items: normal;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 

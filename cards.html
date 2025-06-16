@@ -41,7 +41,9 @@ title: Cards-SANSUIZ
 
 <style>
 .card-wall {
-  min-height: 100vh;
+  min-height: auto;
+  height: auto; /* 确保高度自适应 */
+  overflow: visible; /* 确保内容不会被裁剪 */
   padding: 2rem;
   display: flex;
   justify-content: flex-start; /* 改为从顶部开始对齐 */
@@ -71,7 +73,7 @@ title: Cards-SANSUIZ
   gap: 1.5rem;
   max-width: 1200px;
   margin-top: 80px;
-  position: relative;
+  position: static; /* 改为静态定位 */
   top: 0;
   transform: translateY(0);
   z-index: 1;
@@ -190,6 +192,9 @@ title: Cards-SANSUIZ
 .modal-image {
   width: 100%;
   height: auto;
+  max-height: auto; /* 移除固定高度 */
+  height: auto; /* 确保高度自适应 */
+  overflow: visible; /* 确保内容不会被裁剪 */
   max-height: 100%;
   object-fit: contain;
   border-radius: 8px;

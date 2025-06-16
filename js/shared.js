@@ -220,3 +220,9 @@ tiles.forEach((tile, index) => {
 document.addEventListener('touchmove', function(e) {
   // 你的滑动处理逻辑
 }, { passive: true });
+
+
+// 检测是否在about页
+function isAboutPage() {
+  return window.location.hash === '#about';
+}

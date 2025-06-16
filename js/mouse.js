@@ -165,8 +165,3 @@ const css = `
 }`;
 
 document.head.appendChild(document.createElement('style')).textContent = css;
-
-// 确保所有touchmove事件监听器都设置为passive
-window.addEventListener('touchmove', function(e) {
-// 不要调用e.preventDefault()
-}, { passive: true });

@@ -117,3 +117,38 @@
   50% { transform: scale(1.3); opacity: 0.7; }
   100% { transform: scale(1); opacity: 1; }
 }
+
+
+#music .music-container {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  overflow: visible;
+}
+
+#music .music-tile {
+  position: absolute;
+  width: 250px;
+  height: 350px;
+  transition: all 0.5s ease;
+  transform-style: preserve-3d;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  border-radius: 10px;
+}
+
+#music .music-tile.active {
+  transform: translateZ(100px) rotateY(0deg);
+  z-index: 10;
+}
+
+#music .music-tile.prev {
+  transform: translateX(-150px) translateZ(-50px) rotateY(30deg);
+  opacity: 0.8;
+}
+
+#music .music-tile.next {
+  transform: translateX(150px) translateZ(-50px) rotateY(-30deg);
+  opacity: 0.8;
+}

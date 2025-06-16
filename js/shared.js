@@ -220,16 +220,3 @@ tiles.forEach((tile, index) => {
 document.addEventListener('touchmove', function(e) {
   // 你的滑动处理逻辑
 }, { passive: true });
-
-document.querySelectorAll('a, [href], [onclick]').forEach(el => {
-  el.style.cursor = 'none';
-});
-
-// 确保自定义指针跟随鼠标移动
-document.addEventListener('mousemove', e => {
-  const cursor = document.querySelector('.custom-cursor');
-  if(cursor) {
-    cursor.style.left = e.pageX + 'px';
-    cursor.style.top = e.pageY + 'px';
-  }
-});

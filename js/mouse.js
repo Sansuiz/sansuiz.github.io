@@ -192,23 +192,3 @@ document.querySelectorAll('.photo-frame').forEach(frame => {
     document.querySelector('.hover-background').style.opacity = '0';
   });
 });
-
-// 添加about页滚动控制
-const aboutSection = document.getElementById('about');
-if(aboutSection) {
-  let isScrolling = false;
-  
-  window.addEventListener('scroll', function() {
-    if(isScrolling) return;
-    
-    const rect = aboutSection.getBoundingClientRect();
-    const viewportHeight = window.innerHeight;
-    
-    // 如果在about区域内且未滚动到底部
-    if(rect.top < viewportHeight && rect.bottom > viewportHeight) {
-      isScrolling = true;
-      window.scrollBy(0, rect.bottom - viewportHeight);
-      setTimeout(() => isScrolling = false, 1000);
-    }
-  });
-}

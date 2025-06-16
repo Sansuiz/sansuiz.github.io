@@ -217,6 +217,33 @@ tiles.forEach((tile, index) => {
   );
 });
 
+function handleScroll(e) {
+  const aboutSection = document.getElementById('about');
+  if (aboutSection && isElementInViewport(aboutSection)) {
+    const masonry = aboutSection.querySelector('.masonry');
+    const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight;
+    
+    // 如果在about区域且未滚动到底部，阻止默认滚动
+    if (!isAtBottom && masonry && (window.innerHeight + window.scrollY) < (masonry.offsetTop + masonry.offsetHeight)) {
+      e.preventDefault();
+      window.scrollBy(0, 100); // 自定义滚动步长
+      return false;
+    }
+  }
+}
+
+function isElementInViewport(el) {
+  const rect = el.getBoundingClientRect();
+  return (
+    rect.top >= 0 &&
+    rect.left >= 0 &&
+    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+  );
+}
+
+// 添加平滑滚动
+document.addEventListener('wheel', handleScroll, { passive: false });
 document.addEventListener('touchmove', function(e) {
   // 你的滑动处理逻辑
 }, { passive: true });

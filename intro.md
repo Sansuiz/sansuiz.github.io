@@ -7,3 +7,5 @@
 即便作为一个工科生，难免也会有想要写下一些文字的冲动，[**<ruby>便签<rp>(</rp><rt>notes</rt><rp>)</rp></ruby>**](https://blog.sansuiz.cn/)记录着我的生活和心情，[**<ruby>文集<rp>(</rp><rt>wenji</rt><rp>)</rp></ruby>**](https://wenji.sansuiz.cn/)留着些我胡乱写下的东西。<br>
 
 博客就像是漂流着的一叶扁舟，很感激能相遇相识，致[**<ruby>友人<rp>(</rp><rt>friends</rt><rp>)</rp></ruby>**](https://sansuiz.cn/friend)。
+
+送给自己的一句话：别轻易自己原本的纯粹，能和光同尘，能坚定某些笨拙。

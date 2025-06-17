@@ -192,3 +192,5 @@ document.querySelectorAll('.photo-frame').forEach(frame => {
     document.querySelector('.hover-background').style.opacity = '0';
   });
 });
+// 在动态加载内容的回调函数中添加
+if(window.CURSOR) CURSOR.refresh();

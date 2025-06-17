@@ -23,27 +23,3 @@ html, body {
   overscroll-behavior-y: contain;
   height: 100%;
 }
-
-/* 胶囊按钮样式 */
-.capsule-button {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 15px 6px 6px;
-  border-radius: 30px;
-  background-color: rgba(255,255,255,0.1);
-  color: #2c3e50;
-  text-decoration: none;
-  transition: all 0.3s ease;
-  margin: 0 5px;
-}
-
-.capsule-button:hover {
-  background-color: rgba(30, 144, 255, 0.2);
-}
-
-.capsule-button img {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  margin-right: 8px;
-}

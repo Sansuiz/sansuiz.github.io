@@ -1,15 +1,25 @@
 .masonry-grid {
   columns: 3;
-  column-gap: 20px;
+  column-gap: 30px;
   padding: 20px;
   max-height: 80vh;
-  overflow-y: auto;
+  overflow-y: hidden;
   scrollbar-width: thin;
   scrollbar-color: #ff7b89 rgba(255, 255, 255, 0.1);
 }
 
+.masonry-grid:hover {
+  overflow-y: auto;
+}
+
 .masonry-grid::-webkit-scrollbar {
   width: 8px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.masonry-grid:hover::-webkit-scrollbar {
+  opacity: 1;
 }
 
 .masonry-grid::-webkit-scrollbar-track {

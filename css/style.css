@@ -261,12 +261,6 @@ header small {
   box-sizing: border-box;
 }
 
-/* 确保只有about页面的photo-container有横向滚动 */
-.page-section:not(#about) .photo-container {
-  display: grid;
-  overflow: visible;
-}
-
 .page-section.active {
   opacity: 1;
   pointer-events: auto;

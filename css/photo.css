@@ -4,22 +4,21 @@
   padding: 20px;
   max-height: 80vh;
   overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: #ff7b89 rgba(255, 255, 255, 0.1);
+  scrollbar-width: none; /* 隐藏标准滚动条 */
 }
 
 .masonry-grid:hover {
   overflow-y: auto;
+  scrollbar-width: thin; /* 显示标准滚动条 */
 }
 
 .masonry-grid::-webkit-scrollbar {
-  width: 8px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  width: 0; /* 初始隐藏WebKit滚动条 */
+  height: 8px;
 }
 
 .masonry-grid:hover::-webkit-scrollbar {
-  opacity: 1;
+  width: 8px; /* 悬停时显示WebKit滚动条 */
 }
 
 .masonry-grid::-webkit-scrollbar-track {

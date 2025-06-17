@@ -1,6 +1,6 @@
 这里是[<ruby>SANSUIZ<rp>(</rp><rt>三歳</rt><rp>)</rp></ruby>](https://sansuiz.cn/)。
 
-并非前端开发者，只是喜欢折腾体验软件和数码产品，偶尔写下一些文字，记录一些心情。<br>
+并非开发者，只是喜欢折腾体验软件和数码产品，偶尔写下一些文字，记录一些心情。<br>
 
 即便作为一个工科生，难免也会有想要写下一些文字的冲动，[**<ruby>便签<rp>(</rp><rt>notes</rt><rp>)</rp></ruby>**](https://blog.sansuiz.cn/)记录着我的生活和心情，[**<ruby>文集<rp>(</rp><rt>wenji</rt><rp>)</rp></ruby>**](https://wenji.sansuiz.cn/)留着些我胡乱写下的东西。<br>
 

@@ -1,4 +1,19 @@
-.masonry-grid {
+/* 横向滚动容器 */
+.masonry-scroll-container {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* 隐藏滚动条 */
+}
+
+.masonry-scroll-container .masonry-grid {
+  display: inline-block;
+  white-space: normal;
+  vertical-align: top;
+  width: auto;
+  padding: 0 20px; /* 添加左右内边距 */
   columns: 2;
   column-gap: 20px;
   padding: 20px;
@@ -11,7 +26,10 @@
   width: 100%;
 }
 
-.photo-frame {
+/* 保持原有photo-frame样式 */
+.masonry-scroll-container .photo-frame {
+  display: inline-block;
+  margin: 10px;
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;

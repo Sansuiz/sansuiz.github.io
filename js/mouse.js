@@ -192,13 +192,3 @@ document.querySelectorAll('.photo-frame').forEach(frame => {
     document.querySelector('.hover-background').style.opacity = '0';
   });
 });
-
-// 为about页面的图片容器添加惯性滚动效果
-document.querySelector('#about .container').addEventListener('wheel', function(e) {
-    if (e.deltaY > 0) {
-      this.scrollLeft += 100;
-    } else {
-      this.scrollLeft -= 100;
-    }
-    e.preventDefault();
-  }, { passive: false });

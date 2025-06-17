@@ -11,24 +11,7 @@
   width: 100%;
 }
 
-/* 横向滚动容器 */
-.photo-scroll-container {
-  width: 100%;
-  overflow-x: auto;
-  padding: 20px 0;
-  -webkit-overflow-scrolling: touch; /* 平滑滚动 */
-}
-
-.photo-scroll-wrapper {
-  display: inline-flex;
-  gap: 20px;
-  padding: 0 20px;
-}
-
-/* 保持原有卡片样式不变 */
-.photo-scroll-wrapper .photo-frame {
-  flex: 0 0 auto;
-  /* 保留原有的photo-frame样式 */
+.photo-frame {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;

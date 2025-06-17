@@ -220,3 +220,34 @@ tiles.forEach((tile, index) => {
 document.addEventListener('touchmove', function(e) {
   // 你的滑动处理逻辑
 }, { passive: true });
+
+// 在wheel事件监听器后面添加触摸事件处理
+window.addEventListener('touchstart', handleTouchStart, {passive: true});
+window.addEventListener('touchmove', handleTouchMove, {passive: true});
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+function handleTouchStart(e) {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}
+
+function handleTouchMove(e) {
+  if (isAnimating) return;
+  
+  const touchX = e.touches[0].clientX;
+  const touchY = e.touches[0].clientY;
+  
+  const diffX = touchX - touchStartX;
+  const diffY = touchY - touchStartY;
+  
+  // 水平滑动阈值
+  if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+    if (diffX > 0) {
+      navigateToPrevSection();
+    } else {
+      navigateToNextSection();
+    }
+  }
+}

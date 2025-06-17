@@ -192,3 +192,33 @@ document.querySelectorAll('.photo-frame').forEach(frame => {
     document.querySelector('.hover-background').style.opacity = '0';
   });
 });
+
+// 全局变量记录当前滚动区域
+let currentScrollArea = null;
+
+// 监听鼠标进入masonry-grid区域
+document.querySelectorAll('.masonry-grid').forEach(grid => {
+  grid.addEventListener('mouseenter', function() {
+    currentScrollArea = this;
+    // 临时禁用页面滚动
+    document.body.style.overflow = 'hidden';
+    this.style.overflowY = 'auto';
+    this.style.maxHeight = '80vh';
+  });
+
+  grid.addEventListener('mouseleave', function() {
+    currentScrollArea = null;
+    // 恢复页面滚动
+    document.body.style.overflow = '';
+    this.style.overflowY = '';
+  });
+});
+
+// 拦截滚动事件
+window.addEventListener('wheel', function(e) {
+  if (currentScrollArea) {
+    // 如果在masonry-grid区域内，只滚动该区域
+    e.preventDefault();
+    currentScrollArea.scrollTop += e.deltaY;
+  }
+}, { passive: false });

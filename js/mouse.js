@@ -192,3 +192,14 @@ document.querySelectorAll('.photo-frame').forEach(frame => {
     document.querySelector('.hover-background').style.opacity = '0';
   });
 });
+
+// 仅针对about页面的图片容器
+const aboutContainer = document.querySelector('#about .photo-container');
+if(aboutContainer) {
+  aboutContainer.addEventListener('wheel', (e) => {
+    if(e.deltaY !== 0) {
+      e.preventDefault();
+      aboutContainer.scrollLeft += e.deltaY;
+    }
+  });
+}

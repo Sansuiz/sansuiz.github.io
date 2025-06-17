@@ -35,3 +35,17 @@
   background: #f9f9f9;
   font-size: 14px;
 }
+
+/* 仅针对about页面的图片容器 */
+#about .container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding: 20px 0;
+  scrollbar-width: none; /* 隐藏滚动条 */
+}
+
+#about .container::-webkit-scrollbar {
+  display: none; /* 隐藏Webkit浏览器的滚动条 */
+}

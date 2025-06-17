@@ -9,3 +9,5 @@
 别轻易自己原本的纯粹，能和光同尘，能坚定某些笨拙，致**自己**。
 
 幸福这条路，我想就这样一起走，致**Shmily**。
+
+这是一段文本，中间有一个<a href="https://example.com" class="capsule-button"><img src="/images/sansuiz.png"/>点击我</a>胶囊按钮。

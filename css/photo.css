@@ -2,7 +2,24 @@
   columns: 3;
   column-gap: 20px;
   padding: 20px;
-  perspective: 1000px;
+  max-height: 80vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #ff7b89 rgba(255, 255, 255, 0.1);
+}
+
+.masonry-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.masonry-grid::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.masonry-grid::-webkit-scrollbar-thumb {
+  background-color: #ff7b89;
+  border-radius: 4px;
 }
 
 .masonry-item {
@@ -10,11 +27,12 @@
   margin-bottom: 20px;
   display: inline-block;
   width: 100%;
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: all 0.3s ease;
 }
 
 .masonry-item:hover {
-  transform: rotateY(-15deg) translateY(-5px);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
 
 .photo-frame {

@@ -23,3 +23,45 @@ html, body {
   overscroll-behavior-y: contain;
   height: 100%;
 }
+
+/* 胶囊按钮样式 */
+.capsule-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 20px;
+  border-radius: 30px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.capsule-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 0;
+  height: 100%;
+  background-color: rgba(30, 144, 255, 0.2);
+  transition: all 0.3s ease;
+  z-index: -1;
+}
+
+.capsule-btn:hover::before {
+  left: 0;
+  width: 100%;
+}
+
+.capsule-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.capsule-text {
+  font-family: var(--primary-font);
+  font-size: 14px;
+}

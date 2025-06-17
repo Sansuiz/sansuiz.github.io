@@ -9,3 +9,8 @@
 别轻易自己原本的纯粹，能和光同尘，能坚定某些笨拙，致**自己**。
 
 幸福这条路，我想就这样一起走，致**Shmily**。
+
+<a href="#" class="capsule-btn">
+  <img src="path/to/icon.png" class="capsule-icon">
+  <span class="capsule-text">按钮文字</span>
+</a>

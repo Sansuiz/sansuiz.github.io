@@ -1,4 +1,4 @@
-这里是[<ruby>SANSUIZ<rp>(</rp><rt>三歳</rt><rp>)</rp></ruby>](https://sansuiz.cn/){:class="capsule-link yuan" data-text="是一个笨拙的人"}。
+这里是[<ruby>SANSUIZ<rp>(</rp><rt>三歳</rt><rp>)</rp></ruby>](https://sansuiz.cn/)，一个笨拙的人。
 
 并非开发者，只是喜欢折腾体验软件和数码产品，偶尔写下一些文字，记录一些心情。<br>
 

@@ -6,7 +6,7 @@ Just another ordinary personal blog.
 
 一个来自河南宝丰的无产阶级青年，正在攻读博士学位。
 
-### [于长野](https://rabithua.club/)
+### [于长野](https://zzfw.cc/)
 
 常联系，正在使用长野他们团队做的Bonjour数字名片。
 

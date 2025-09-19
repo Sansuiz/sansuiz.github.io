@@ -10,7 +10,7 @@
   display: flex;
   align-items: center;
   background: 
-    url('../images/back.jpg') center/cover no-repeat;
+    url('../images/back.png') center/cover no-repeat;
   color: #ffffff;
   perspective: 1000px;
   overflow: hidden;

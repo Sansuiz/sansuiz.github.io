@@ -26,9 +26,6 @@ export async function fetchLatestNote() {
       description = description.substring(0, 100) + '...';
     }
     
-    // 获取链接
-    const link = firstItem.querySelector('link')?.textContent || '#';
-    
     // 创建笔记内容HTML，链接固定指向便签主页
     const noteHTML = `
       <a href="https://blog.sansuiz.cn/notes/" target="_blank" rel="noopener noreferrer">

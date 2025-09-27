@@ -29,9 +29,9 @@ export async function fetchLatestNote() {
     // 获取链接
     const link = firstItem.querySelector('link')?.textContent || '#';
     
-    // 创建笔记内容HTML
+    // 创建笔记内容HTML，链接固定指向便签主页
     const noteHTML = `
-      <a href="${link}" target="_blank" rel="noopener noreferrer">
+      <a href="https://blog.sansuiz.cn/notes/" target="_blank" rel="noopener noreferrer">
         <div class="note-title">${title}</div>
         <div class="note-description">${description}</div>
       </a>

@@ -241,7 +241,7 @@ header small {
 
 .note-title {
   font-weight: 600;
-  font-size: 0.9rem; /* 小尺寸文本 */
+  font-size: 0.8rem; /* 小尺寸文本 */
   line-height: 1.6;
   text-align: left;
   margin-bottom: 0.5rem;
@@ -249,13 +249,13 @@ header small {
 }
 
 .blur-card a:hover .note-title {
-  font-size: 1rem; /* 鼠标悬停时稍微放大 */
+  font-size: 0.85rem; /* 鼠标悬停时稍微放大 */
 }
 
 .note-description {
-  font-size: 0.8rem; /* 小尺寸文本 */
+  font-size: 0.75rem; /* 小尺寸文本 */
   line-height: 1.5;
-  color: #999; /* 默认灰色文本 */
+  color: #aaa; /* 默认灰色文本 */
   text-align: left;
   margin-bottom: 0.5rem;
   display: -webkit-box;
@@ -267,7 +267,7 @@ header small {
 }
 
 .blur-card a:hover .note-description {
-  font-size: 0.85rem; /* 鼠标悬停时稍微放大 */
+  font-size: 0.8rem; /* 鼠标悬停时稍微放大 */
   color: #666; /* 鼠标悬停时稍微加深颜色 */
 }
 

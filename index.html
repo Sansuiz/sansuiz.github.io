@@ -18,6 +18,53 @@
   <script type="module" src="js/shared.js"></script>
   <script type="module" src="js/mouse.js"></script>
   
+  <!-- 获取并显示最新笔记的脚本 -->
+  <script>
+    function fetchLatestNote() {
+      fetch('https://blog.sansuiz.cn/notes.xml')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.text();
+        })
+        .then(xmlText => {
+          const parser = new DOMParser();
+          const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+          
+          // 获取所有笔记条目
+          const items = xmlDoc.querySelectorAll('item');
+          if (items.length > 0) {
+            // 获取最新的一条笔记
+            const latestItem = items[0];
+            const title = latestItem.querySelector('title').textContent;
+            const link = latestItem.querySelector('link').textContent;
+            
+            // 创建模糊卡片
+            const noteContainer = document.getElementById('latestNoteContainer');
+            
+            const noteCard = document.createElement('div');
+            noteCard.className = 'blur-card';
+            
+            const noteLink = document.createElement('a');
+            noteLink.href = link;
+            noteLink.target = '_blank';
+            noteLink.textContent = title;
+            noteLink.className = 'note-link';
+            
+            noteCard.appendChild(noteLink);
+            noteContainer.appendChild(noteCard);
+          }
+        })
+        .catch(err => {
+          console.error('获取最新笔记失败:', err);
+          // 在出错时显示提示信息
+          const noteContainer = document.getElementById('latestNoteContainer');
+          noteContainer.innerHTML = '<div class="blur-card error-message">无法加载最新笔记</div>';
+        });
+    }
+  </script>
+  
   <div class="page-section active" id="home">
     <main class="container">
       <header>
@@ -33,9 +80,14 @@
             .then(response => response.text())
             .then(text => {
               document.getElementById('markdown-content').innerHTML = marked.parse(text);
+              // 加载完成后获取并显示最新笔记
+              fetchLatestNote();
             })
             .catch(err => console.error('加载MD文件失败:', err));
         </script>
+
+        <!-- 最新笔记模糊卡片容器 -->
+        <div class="latest-note-container" id="latestNoteContainer"></div>
       </section>
   
       <div class="logo-container">

@@ -332,3 +332,76 @@ body {
   filter: blur(1px); /* 轻微模糊使平铺更自然 */
   pointer-events: none;
 }
+
+/* 最新笔记模糊卡片样式 */
+.latest-note-container {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.blur-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  max-width: 100%;
+}
+
+.blur-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.note-link {
+  color: #2c3e50;
+  text-decoration: none;
+  font-family: 'Source Han Serif CN', serif;
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.6;
+  display: block;
+  transition: color 0.3s ease;
+  text-align: center;
+}
+
+.note-link:hover {
+  color: #ed627e;
+}
+
+.error-message {
+  color: #7f8c8d;
+  font-family: 'Source Han Serif CN', serif;
+  text-align: center;
+  font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .blur-card {
+    padding: 1.2rem;
+  }
+  
+  .note-link {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .latest-note-container {
+    margin: 1.5rem 0;
+  }
+  
+  .blur-card {
+    padding: 1rem;
+  }
+  
+  .note-link {
+    font-size: 0.85rem;
+  }
+}

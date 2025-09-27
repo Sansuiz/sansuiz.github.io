@@ -40,6 +40,25 @@
             const title = latestItem.querySelector('title').textContent;
             const link = latestItem.querySelector('link').textContent;
             
+            // 尝试获取笔记内容，根据常见的RSS格式尝试不同标签
+            let content = '';
+            const description = latestItem.querySelector('description');
+            const contentEncoded = latestItem.querySelector('content\:encoded, encoded');
+            const summary = latestItem.querySelector('summary');
+            
+            if (contentEncoded && contentEncoded.textContent) {
+              content = contentEncoded.textContent;
+            } else if (description && description.textContent) {
+              content = description.textContent;
+            } else if (summary && summary.textContent) {
+              content = summary.textContent;
+            }
+            
+            // 如果没有内容，就使用标题
+            if (!content) {
+              content = title;
+            }
+            
             // 创建模糊卡片
             const noteContainer = document.getElementById('latestNoteContainer');
             
@@ -49,9 +68,21 @@
             const noteLink = document.createElement('a');
             noteLink.href = link;
             noteLink.target = '_blank';
-            noteLink.textContent = title;
             noteLink.className = 'note-link';
             
+            // 创建卡片标题
+            const noteTitle = document.createElement('h4');
+            noteTitle.textContent = title;
+            noteTitle.className = 'note-title';
+            
+            // 创建卡片内容
+            const noteContent = document.createElement('div');
+            noteContent.className = 'note-content';
+            // 处理HTML内容
+            noteContent.innerHTML = content.replace(/<[^>]*>/g, '').substring(0, 150) + '...';
+            
+            noteLink.appendChild(noteTitle);
+            noteLink.appendChild(noteContent);
             noteCard.appendChild(noteLink);
             noteContainer.appendChild(noteCard);
           }

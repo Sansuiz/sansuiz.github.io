@@ -186,6 +186,106 @@ header small {
   margin: 2rem auto;
 }
 
+/* 最新笔记模糊卡片样式 */
+.latest-note-container {
+  margin: 2rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.blur-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  max-width: 100%;
+  width: 100%;
+}
+
+.blur-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.blur-card a {
+  color: #2c3e50;
+  text-decoration: none;
+  font-family: 'Source Han Serif CN', serif;
+  display: block;
+  transition: color 0.3s ease;
+}
+
+.blur-card a:hover {
+  color: #ed627e;
+}
+
+.note-title {
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+
+.note-description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #666;
+  text-align: center;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.error-message,
+.loading-message {
+  color: #7f8c8d;
+  font-family: 'Source Han Serif CN', serif;
+  text-align: center;
+  font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .blur-card {
+    padding: 1.2rem;
+  }
+  
+  .note-title {
+    font-size: 0.9rem;
+  }
+  
+  .note-description {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .latest-note-container {
+    margin: 1.5rem 0;
+  }
+  
+  .blur-card {
+    padding: 1rem;
+  }
+  
+  .note-title {
+    font-size: 0.85rem;
+  }
+  
+  .note-description {
+    font-size: 0.8rem;
+  }
+}
+
 .friend-content img {
   width: 120px;
   height: 120px;

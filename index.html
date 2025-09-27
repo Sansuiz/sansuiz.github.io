@@ -18,84 +18,6 @@
   <script type="module" src="js/shared.js"></script>
   <script type="module" src="js/mouse.js"></script>
   
-  <!-- 获取并显示最新笔记的脚本 -->
-  <script>
-    function fetchLatestNote() {
-      fetch('https://blog.sansuiz.cn/notes.xml')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.text();
-        })
-        .then(xmlText => {
-          const parser = new DOMParser();
-          const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
-          
-          // 获取所有笔记条目
-          const items = xmlDoc.querySelectorAll('item');
-          if (items.length > 0) {
-            // 获取最新的一条笔记
-            const latestItem = items[0];
-            const title = latestItem.querySelector('title').textContent;
-            const link = latestItem.querySelector('link').textContent;
-            
-            // 尝试获取笔记内容，根据常见的RSS格式尝试不同标签
-            let content = '';
-            const description = latestItem.querySelector('description');
-            const contentEncoded = latestItem.querySelector('content\:encoded, encoded');
-            const summary = latestItem.querySelector('summary');
-            
-            if (contentEncoded && contentEncoded.textContent) {
-              content = contentEncoded.textContent;
-            } else if (description && description.textContent) {
-              content = description.textContent;
-            } else if (summary && summary.textContent) {
-              content = summary.textContent;
-            }
-            
-            // 如果没有内容，就使用标题
-            if (!content) {
-              content = title;
-            }
-            
-            // 创建模糊卡片
-            const noteContainer = document.getElementById('latestNoteContainer');
-            
-            const noteCard = document.createElement('div');
-            noteCard.className = 'blur-card';
-            
-            const noteLink = document.createElement('a');
-            noteLink.href = link;
-            noteLink.target = '_blank';
-            noteLink.className = 'note-link';
-            
-            // 创建卡片标题
-            const noteTitle = document.createElement('h4');
-            noteTitle.textContent = title;
-            noteTitle.className = 'note-title';
-            
-            // 创建卡片内容
-            const noteContent = document.createElement('div');
-            noteContent.className = 'note-content';
-            // 处理HTML内容
-            noteContent.innerHTML = content.replace(/<[^>]*>/g, '').substring(0, 150) + '...';
-            
-            noteLink.appendChild(noteTitle);
-            noteLink.appendChild(noteContent);
-            noteCard.appendChild(noteLink);
-            noteContainer.appendChild(noteCard);
-          }
-        })
-        .catch(err => {
-          console.error('获取最新笔记失败:', err);
-          // 在出错时显示提示信息
-          const noteContainer = document.getElementById('latestNoteContainer');
-          noteContainer.innerHTML = '<div class="blur-card error-message">无法加载最新笔记</div>';
-        });
-    }
-  </script>
-  
   <div class="page-section active" id="home">
     <main class="container">
       <header>
@@ -111,14 +33,9 @@
             .then(response => response.text())
             .then(text => {
               document.getElementById('markdown-content').innerHTML = marked.parse(text);
-              // 加载完成后获取并显示最新笔记
-              fetchLatestNote();
             })
             .catch(err => console.error('加载MD文件失败:', err));
         </script>
-
-        <!-- 最新笔记模糊卡片容器 -->
-        <div class="latest-note-container" id="latestNoteContainer"></div>
       </section>
   
       <div class="logo-container">

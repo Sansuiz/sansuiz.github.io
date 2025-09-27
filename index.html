@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="css/tags.css">
   <link rel="stylesheet" href="css/ending.css">
   <link rel="stylesheet" href="css/footer.css">
+  <!-- Markdown解析库 -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 
 <body>
@@ -33,11 +35,18 @@
             .then(response => response.text())
             .then(text => {
               document.getElementById('markdown-content').innerHTML = marked.parse(text);
+              // 加载完成后获取并显示最新笔记
+              import('./js/latestNote.js').then(module => {
+                module.fetchLatestNote();
+              }).catch(err => console.error('加载最新笔记模块失败:', err));
             })
             .catch(err => console.error('加载MD文件失败:', err));
         </script>
       </section>
-  
+
+      <!-- 最新笔记模糊卡片容器 -->
+      <div class="latest-note-container" id="latestNoteContainer"></div>
+
       <div class="logo-container">
         <a href="/">
           <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ" class="logo-img">

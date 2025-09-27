@@ -16,7 +16,6 @@
 <body>
   <div class="hover-background"></div>
   <script type="module" src="js/shared.js"></script>
-  <script type="module" src="js/mouse.js"></script>
   
   <div class="page-section active" id="home">
     <main class="container">
@@ -28,7 +27,6 @@
       <section class="bio">
         <div class="bio" id="markdown-content"></div>
   
-        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
         <script>
           fetch('intro.md')
             .then(response => response.text())

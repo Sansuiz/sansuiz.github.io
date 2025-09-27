@@ -91,12 +91,16 @@ window.addEventListener('DOMContentLoaded', () => {
   
   function navigateToNextSection() {
     // 实现切换到下一个页面的逻辑
-    // ... existing navigation code ...
+    if (!isAnimating && currentIndex < sections.length - 1) {
+      showSection(currentIndex + 1);
+    }
   }
   
   function navigateToPrevSection() {
     // 实现切换到上一个页面的逻辑
-    // ... existing navigation code ...
+    if (!isAnimating && currentIndex > 0) {
+      showSection(currentIndex - 1);
+    }
   }
   
 
@@ -164,7 +168,7 @@ window.addEventListener('DOMContentLoaded', () => {
     'images/tu/music/haishanghua.png',  
     '《海上花》',                
     '是这般柔情的你',              
-    'audio/haishanghua.mp3'               
+    'audio/haishanghua.mp3'                
   );
 
   // 添加一个罗大佑的音乐方块
@@ -172,7 +176,7 @@ window.addEventListener('DOMContentLoaded', () => {
     'images/tu/music/yaxiya.png',  
     '《亚细亚的孤儿》',                
     '多少人在追寻那解不开的问题',              
-    'audio/yaxiya.mp3'               
+    'audio/yaxiya.mp3'                
   );
 
   // 添加一个周华健的音乐方块
@@ -180,7 +184,7 @@ window.addEventListener('DOMContentLoaded', () => {
     'images/tu/music/anxin.png',  
     '《安心》',                
     '光阴倒退但这决定都照样不变',              
-    'audio/anxin.mp3'               
+    'audio/anxin.mp3'                
   );
 });
 
@@ -209,13 +213,8 @@ tiles.forEach(tile => {
   });
 });
 
-// 在事件监听后添加调试输出
-tiles.forEach((tile, index) => {
-  console.log(`方块${index}事件绑定状态:`, 
-    tile.hasEventListener('mousemove'), 
-    tile.hasEventListener('mouseleave')
-  );
-});
+// 移除不存在的hasEventListener方法调用
+// 原有的调试代码已被移除，因为hasEventListener不是标准方法
 
 document.addEventListener('touchmove', function(e) {
   // 你的滑动处理逻辑

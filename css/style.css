@@ -213,29 +213,36 @@ header small {
 }
 
 .blur-card a {
-  color: #2c3e50;
+  color: #999; /* 默认灰色文本 */
   text-decoration: none;
   font-family: 'Source Han Serif CN', serif;
   display: block;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.7; /* 默认半透明 */
 }
 
 .blur-card a:hover {
-  color: #ed627e;
+  color: #000; /* 鼠标悬停时显示黑色文本 */
+  opacity: 1; /* 鼠标悬停时完全不透明 */
 }
 
 .note-title {
   font-weight: 600;
-  font-size: 1rem;
+  font-size: 0.9rem; /* 小尺寸文本 */
   line-height: 1.6;
   text-align: center;
   margin-bottom: 0.5rem;
+  transition: font-size 0.3s ease;
+}
+
+.blur-card a:hover .note-title {
+  font-size: 1rem; /* 鼠标悬停时稍微放大 */
 }
 
 .note-description {
-  font-size: 0.9rem;
+  font-size: 0.8rem; /* 小尺寸文本 */
   line-height: 1.5;
-  color: #666;
+  color: #999; /* 默认灰色文本 */
   text-align: center;
   margin-bottom: 0.5rem;
   display: -webkit-box;
@@ -243,6 +250,12 @@ header small {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  transition: font-size 0.3s ease, color 0.3s ease;
+}
+
+.blur-card a:hover .note-description {
+  font-size: 0.85rem; /* 鼠标悬停时稍微放大 */
+  color: #666; /* 鼠标悬停时稍微加深颜色 */
 }
 
 .error-message,

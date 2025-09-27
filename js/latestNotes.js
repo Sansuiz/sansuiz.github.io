@@ -38,7 +38,6 @@ export function fetchLatestNote() {
           // 获取最新的一条笔记
           const latestItem = items[0];
           const title = latestItem.querySelector('title')?.textContent || '无标题笔记';
-          const link = latestItem.querySelector('link')?.textContent || '#';
           const description = latestItem.querySelector('description')?.textContent || '';
           
           // 清理描述文本中的HTML标签
@@ -51,7 +50,7 @@ export function fetchLatestNote() {
           noteCard.className = 'blur-card';
           
           const noteLink = document.createElement('a');
-          noteLink.href = link;
+          noteLink.href = 'https://blog.sansuiz.cn/notes/'; // 固定链接地址
           noteLink.target = '_blank';
           noteLink.rel = 'noopener noreferrer';
           

@@ -29,18 +29,58 @@
   
       <section class="bio">
         <div class="bio" id="markdown-content"></div>
-  
+
         <script>
-          fetch('intro.md')
-            .then(response => response.text())
+          // 显示加载状态
+          document.getElementById('markdown-content').innerHTML = '<div class="loading-message">加载中...</div>';
+          
+          // 设置fetch超时
+          function fetchWithTimeout(resource, options = {}) {
+            const { timeout = 8000 } = options;
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), timeout);
+            
+            const fetchPromise = fetch(resource, {
+              ...options,
+              signal: controller.signal
+            });
+            
+            return fetchPromise.finally(() => clearTimeout(timeoutId));
+          }
+          
+          // 加载markdown内容
+          fetchWithTimeout('intro.md')
+            .then(response => {
+              if (!response.ok) throw new Error('Network response was not ok');
+              return response.text();
+            })
             .then(text => {
               document.getElementById('markdown-content').innerHTML = marked.parse(text);
-              // 加载完成后获取并显示最新笔记
-              import('./js/latestNote.js').then(module => {
-                module.fetchLatestNote();
-              }).catch(err => console.error('加载最新笔记模块失败:', err));
+              
+              // 单独加载最新笔记，不影响主要内容显示
+              try {
+                // 使用Promise.race添加超时处理
+                Promise.race([
+                  new Promise((resolve, reject) => {
+                    import('./js/latestNote.js').then(module => {
+                      module.fetchLatestNote();
+                      resolve();
+                    }).catch(err => reject(err));
+                  }),
+                  new Promise((_, reject) => setTimeout(() => reject(new Error('加载最新笔记超时')), 10000))
+                ]).catch(err => {
+                  console.error('获取最新笔记失败:', err);
+                  // 只在控制台显示错误，不影响用户体验
+                });
+              } catch (error) {
+                console.error('加载笔记模块失败:', error);
+              }
             })
-            .catch(err => console.error('加载MD文件失败:', err));
+            .catch(err => {
+              console.error('加载MD文件失败:', err);
+              document.getElementById('markdown-content').innerHTML = '<div class="error-message">内容加载失败，请刷新页面重试</div>';
+            });
         </script>
 
         <!-- 最新笔记模糊卡片容器 -->

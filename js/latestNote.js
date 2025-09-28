@@ -1,7 +1,43 @@
 // 从XML订阅源获取最新笔记
+// 带超时的fetch函数
+function fetchWithTimeout(resource, options = {}) {
+  const { timeout = 8000 } = options;
+  
+  return new Promise((resolve, reject) => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => {
+      controller.abort();
+      reject(new Error(`请求超时: ${timeout}ms`));
+    }, timeout);
+    
+    fetch(resource, {
+      ...options,
+      signal: controller.signal
+    })
+      .then(response => {
+        clearTimeout(timeoutId);
+        if (!response.ok) {
+          throw new Error(`网络响应错误: ${response.status}`);
+        }
+        resolve(response);
+      })
+      .catch(error => {
+        clearTimeout(timeoutId);
+        reject(error);
+      });
+  });
+}
+
 export async function fetchLatestNote() {
+  // 设置默认加载状态
+  const noteContainer = document.getElementById('latestNoteContainer');
+  if (noteContainer) {
+    noteContainer.innerHTML = '<div class="blur-card"><div class="loading-message">加载最新笔记...</div></div>';
+  }
+  
   try {
-    const response = await fetch('https://blog.sansuiz.cn/notes.xml');
+    // 使用带超时的fetch
+    const response = await fetchWithTimeout('https://blog.sansuiz.cn/notes.xml', { timeout: 8000 });
     const text = await response.text();
     const parser = new DOMParser();
     const xmlDoc = parser.parseFromString(text, 'text/xml');
@@ -35,16 +71,19 @@ export async function fetchLatestNote() {
     `;
     
     // 更新DOM
-    const noteContainer = document.getElementById('latestNoteContainer');
     if (noteContainer) {
       noteContainer.innerHTML = `<div class="blur-card">${noteHTML}</div>`;
     }
     
   } catch (error) {
     console.error('获取最新笔记失败:', error);
-    const noteContainer = document.getElementById('latestNoteContainer');
+    // 仅在控制台显示错误，不在页面上显示错误信息，避免影响用户体验
     if (noteContainer) {
-      noteContainer.innerHTML = '<div class="error-message">加载最新笔记失败</div>';
+      // 可以选择不显示任何内容，或者显示一个非常轻微的提示
+      // 这里选择不显示任何错误信息，保持页面整洁
+      noteContainer.innerHTML = '';
+      // 如果想要显示加载失败的提示，可以使用下面的代码
+      // noteContainer.innerHTML = '<div class="blur-card"><div class="error-message">最新笔记加载失败</div></div>';
     }
   }
 }

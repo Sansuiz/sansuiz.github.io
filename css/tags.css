@@ -22,7 +22,6 @@
 .sticker:active {
   cursor: grabbing;
   transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(219, 141, 141, 0.3);
 }
 
 .sticker-img {

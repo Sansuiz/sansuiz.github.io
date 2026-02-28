@@ -236,11 +236,34 @@
         let isDragging = false;
         let offsetX, offsetY;
         
+        // 生成随机位置
+        const container = document.querySelector('.sticker-container');
+        const containerRect = container.getBoundingClientRect();
+        const randomX = Math.random() * (containerRect.width - 100); // 100是贴纸宽度
+        const randomY = Math.random() * (containerRect.height - 100); // 100是贴纸高度
+        
+        sticker.style.left = randomX + 'px';
+        sticker.style.top = randomY + 'px';
+        
+        // 为贴纸添加随机旋转角度
+        const randomRotation = (Math.random() - 0.5) * 30; // -15到15度
+        sticker.style.transform = `rotate(${randomRotation}deg)`;
+        
         sticker.addEventListener('mousedown', function(e) {
           isDragging = true;
           offsetX = e.clientX - sticker.getBoundingClientRect().left;
           offsetY = e.clientY - sticker.getBoundingClientRect().top;
-          sticker.style.zIndex = '1000'; // 拖拽时置于顶层
+          
+          // 为当前拖拽的贴纸设置最高z-index
+          let maxZIndex = 0;
+          stickers.forEach(s => {
+            const zIndex = parseInt(s.style.zIndex) || 1;
+            if (zIndex > maxZIndex) {
+              maxZIndex = zIndex;
+            }
+          });
+          sticker.style.zIndex = maxZIndex + 1; // 拖拽时置于顶层
+          
           e.preventDefault(); // 防止默认行为
         });
         
@@ -251,7 +274,6 @@
           const y = e.clientY - offsetY;
           
           // 限制在容器内
-          const container = document.querySelector('.sticker-container');
           const containerRect = container.getBoundingClientRect();
           const stickerRect = sticker.getBoundingClientRect();
           
@@ -266,15 +288,8 @@
         });
         
         document.addEventListener('mouseup', function() {
-          if (isDragging) {
-            isDragging = false;
-            sticker.style.zIndex = '1'; // 结束拖拽后恢复层级
-          }
+          isDragging = false;
         });
-        
-        // 为贴纸添加随机旋转角度
-        const randomRotation = (Math.random() - 0.5) * 30; // -15到15度
-        sticker.style.transform = `rotate(${randomRotation}deg)`;
       });
     });
   </script>

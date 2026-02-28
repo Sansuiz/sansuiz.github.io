@@ -204,75 +204,22 @@
 
   <div class="page-section" id="tags">
     <main class="container">
-      <div class="badge-cloud">
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=INFJ personality type badge, minimalist design, white outline, transparent background&image_size=square" alt="INFJ"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Love Wang Jingbao badge, minimalist design, white outline, transparent background&image_size=square" alt="爱王京宝"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Clumsy person badge, minimalist design, white outline, transparent background&image_size=square" alt="笨拙的人"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pepsi Cola badge, minimalist design, white outline, transparent background&image_size=square" alt="百事可乐"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Procrastination badge, minimalist design, white outline, transparent background&image_size=square" alt="拖延症"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Daydreamer badge, minimalist design, white outline, transparent background&image_size=square" alt="白日梦想家"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Photographer badge, minimalist design, white outline, transparent background&image_size=square" alt="摄影师"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Engineer badge, minimalist design, white outline, transparent background&image_size=square" alt="工程师"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Stubbornness badge, minimalist design, white outline, transparent background&image_size=square" alt="执拗"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Realistic romantic badge, minimalist design, white outline, transparent background&image_size=square" alt="现实浪漫主义"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Let's go for a walk badge, minimalist design, white outline, transparent background&image_size=square" alt="去散步吧"></div>
-        <div class="badge" draggable="true"><img src="https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Bad personality badge, minimalist design, white outline, transparent background&image_size=square" alt="性格卑劣"></div>
+      <div class="tag-cloud">
+        <div class="tag" style="--y:0.1">INFJ</div>
+        <div class="tag" style="--y:0.3">爱王京宝</div>
+        <div class="tag" style="--y:0.8">笨拙的人</div>
+        <div class="tag" style="--y:0.5">百事可乐</div>
+        <div class="tag" style="--y:0.7">拖延症</div>
+        <div class="tag" style="--y:0.9">白日梦想家</div>
+        <div class="tag" style="--y:0.2">摄影师</div>
+        <div class="tag" style="--y:0.4">工程师</div>
+        <div class="tag" style="--y:0.6">执拗</div>
+        <div class="tag" style="--y:0.8">现实浪漫主义</div>
+        <div class="tag" style="--y:0.15">去散步吧</div>
+        <div class="tag" style="--y:0.35">性格卑劣</div>
       </div>
     </main>
   </div>
-  
-  <script>
-    // 拖拽功能实现
-    document.addEventListener('DOMContentLoaded', function() {
-      const badges = document.querySelectorAll('.badge');
-      
-      badges.forEach(badge => {
-        // 随机初始位置
-        const randomX = Math.random() * (window.innerWidth - 100);
-        const randomY = Math.random() * (window.innerHeight - 100);
-        badge.style.position = 'absolute';
-        badge.style.left = randomX + 'px';
-        badge.style.top = randomY + 'px';
-        badge.style.cursor = 'grab';
-        
-        let isDragging = false;
-        let offsetX, offsetY;
-        
-        badge.addEventListener('mousedown', function(e) {
-          isDragging = true;
-          offsetX = e.clientX - badge.getBoundingClientRect().left;
-          offsetY = e.clientY - badge.getBoundingClientRect().top;
-          badge.style.cursor = 'grabbing';
-          badge.style.zIndex = '1000';
-        });
-        
-        document.addEventListener('mousemove', function(e) {
-          if (isDragging) {
-            const x = e.clientX - offsetX;
-            const y = e.clientY - offsetY;
-            
-            // 限制在视窗内
-            const maxX = window.innerWidth - badge.offsetWidth;
-            const maxY = window.innerHeight - badge.offsetHeight;
-            
-            const clampedX = Math.max(0, Math.min(x, maxX));
-            const clampedY = Math.max(0, Math.min(y, maxY));
-            
-            badge.style.left = clampedX + 'px';
-            badge.style.top = clampedY + 'px';
-          }
-        });
-        
-        document.addEventListener('mouseup', function() {
-          if (isDragging) {
-            isDragging = false;
-            badge.style.cursor = 'grab';
-            badge.style.zIndex = '1';
-          }
-        });
-      });
-    });
-  </script>
     
   <div class="page-section" id="ending">
     <main class="container">

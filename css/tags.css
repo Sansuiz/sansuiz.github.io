@@ -22,7 +22,7 @@
 .sticker:active {
   cursor: grabbing;
   transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  box-shadow: 0 8px 25px rgba(219, 141, 141, 0.3);
 }
 
 .sticker-img {
@@ -30,12 +30,12 @@
   height: 80px;
   object-fit: contain;
   transition: all 0.2s ease;
-  filter: drop-shadow(0 0 3px white) drop-shadow(0 0 6px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 0 4px white) drop-shadow(0 0 4px rgba(219, 141, 141,0.15));
 }
 
 .sticker:hover .sticker-img {
   transform: scale(1.05);
-  filter: drop-shadow(0 0 4px white) drop-shadow(0 0 8px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 0 5px white) drop-shadow(0 0 6px rgba(219, 141, 141,0.2));
 }
 
 /* 响应式设计 */

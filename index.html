@@ -241,6 +241,7 @@
           offsetX = e.clientX - sticker.getBoundingClientRect().left;
           offsetY = e.clientY - sticker.getBoundingClientRect().top;
           sticker.style.zIndex = '1000'; // 拖拽时置于顶层
+          e.preventDefault(); // 防止默认行为
         });
         
         document.addEventListener('mousemove', function(e) {
@@ -270,6 +271,10 @@
             sticker.style.zIndex = '1'; // 结束拖拽后恢复层级
           }
         });
+        
+        // 为贴纸添加随机旋转角度
+        const randomRotation = (Math.random() - 0.5) * 30; // -15到15度
+        sticker.style.transform = `rotate(${randomRotation}deg)`;
       });
     });
   </script>

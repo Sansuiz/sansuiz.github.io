@@ -10,4 +10,4 @@
 
 幸福这条路，我想就这样一起走，致 **<ruby>Shmily<rp>(</rp><rt>王京宝</rt><rp>)</rp></ruby>** 。
 
-<font face="楷体" color="#ed556a" size="2">© 2019 - 2025</font>
+<font face="楷体" color="#ed556a" size="2">© 2019 - 2026</font>

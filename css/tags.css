@@ -24,21 +24,6 @@
   box-shadow: 0 8px 25px rgba(0,0,0,0.3);
 }
 
-.sticker {
-  position: absolute;
-  cursor: grab;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  z-index: 1;
-  user-select: none;
-  filter: drop-shadow(0 0 3px white);
-}
-
-.sticker:active {
-  cursor: grabbing;
-  transform: scale(1.05);
-  box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-}
-
 .sticker-img {
   width: 80px;
   height: 80px;
@@ -46,6 +31,7 @@
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   transition: all 0.2s ease;
+  filter: drop-shadow(0 0 3px white);
 }
 
 .sticker:hover .sticker-img {

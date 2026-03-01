@@ -13,7 +13,18 @@
   <link rel="stylesheet" href="css/ending.css">
   <link rel="stylesheet" href="css/footer.css">
   <!-- Markdown解析库 -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://unpkg.com/marked@4.3.0/marked.min.js"></script>
+  <script>
+    // 备用方案：如果CDN加载失败，使用简单的文本显示
+    if (typeof marked === 'undefined') {
+      console.warn('Marked library failed to load, using fallback.');
+      window.marked = {
+        parse: function(text) {
+          return text.replace(/\n/g, '<br>').replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+        }
+      };
+    }
+  </script>
 </head>
 
 <body>

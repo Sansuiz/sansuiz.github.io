@@ -1,8 +1,3 @@
-@font-face {
-  font-family: 'SourceHanSerif';
-  src: url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&display=swap');
-}
-
 #ending {
   position: relative;
   width: 100%;
@@ -30,8 +25,8 @@
 
 .ending-content {
   text-align: center;
-  font-family: 'SourceHanSerif', 'Noto Serif SC', serif;
-  font-weight: 900;
+  font-family: 'SimSun', 'STSong', serif;
+  font-weight: bold;
   font-size: 2.5rem;
   line-height: 1.0; /* 缩小行间距 */
 }

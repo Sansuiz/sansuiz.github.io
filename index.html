@@ -251,8 +251,19 @@
         // 生成随机位置
         const container = document.querySelector('.sticker-container');
         const containerRect = container.getBoundingClientRect();
-        const randomX = Math.random() * (containerRect.width - 100); // 100是贴纸宽度
-        const randomY = Math.random() * (containerRect.height - 100); // 100是贴纸高度
+        
+        // 随机生成三种大小尺寸
+        const sizes = [60, 80, 100]; // 三种尺寸：小、中、大
+        const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+        
+        // 设置贴纸大小
+        const img = sticker.querySelector('.sticker-img');
+        img.style.width = randomSize + 'px';
+        img.style.height = randomSize + 'px';
+        
+        // 根据随机大小计算位置
+        const randomX = Math.random() * (containerRect.width - randomSize);
+        const randomY = Math.random() * (containerRect.height - randomSize);
         
         sticker.style.left = randomX + 'px';
         sticker.style.top = randomY + 'px';

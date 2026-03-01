@@ -8,6 +8,40 @@
   scrollbar-color: #ff7b89 rgba(255, 255, 255, 0.1);
 }
 
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .masonry-grid {
+    columns: 1;
+    column-gap: 20px;
+    padding: 15px;
+  }
+  
+  .masonry-item {
+    margin-bottom: 15px;
+  }
+  
+  .photo-caption {
+    padding: 8px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .masonry-grid {
+    padding: 10px;
+    column-gap: 15px;
+  }
+  
+  .masonry-item {
+    margin-bottom: 12px;
+  }
+  
+  .photo-caption {
+    padding: 6px;
+    font-size: 11px;
+  }
+}
+
 .masonry-grid:hover {
   overflow-y: auto;
   scrollbar-width: thin; /* 显示标准滚动条 */

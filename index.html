@@ -261,10 +261,24 @@
         const randomRotation = (Math.random() - 0.5) * 30; // -15到15度
         sticker.style.transform = `rotate(${randomRotation}deg)`;
         
+        // 鼠标事件处理
         sticker.addEventListener('mousedown', function(e) {
+          startDrag(e.clientX, e.clientY);
+          e.preventDefault(); // 防止默认行为
+        });
+        
+        // 触摸事件处理（移动端）
+        sticker.addEventListener('touchstart', function(e) {
+          const touch = e.touches[0];
+          startDrag(touch.clientX, touch.clientY);
+          e.preventDefault(); // 防止默认行为
+        });
+        
+        function startDrag(x, y) {
           isDragging = true;
-          offsetX = e.clientX - sticker.getBoundingClientRect().left;
-          offsetY = e.clientY - sticker.getBoundingClientRect().top;
+          const rect = sticker.getBoundingClientRect();
+          offsetX = x - rect.left;
+          offsetY = y - rect.top;
           
           // 为当前拖拽的贴纸设置最高z-index
           let maxZIndex = 0;
@@ -275,31 +289,43 @@
             }
           });
           sticker.style.zIndex = maxZIndex + 1; // 拖拽时置于顶层
-          
-          e.preventDefault(); // 防止默认行为
-        });
+        }
         
+        // 鼠标移动事件
         document.addEventListener('mousemove', function(e) {
           if (!isDragging) return;
-          
-          const x = e.clientX - offsetX;
-          const y = e.clientY - offsetY;
-          
-          // 限制在容器内
+          moveDrag(e.clientX, e.clientY);
+        });
+        
+        // 触摸移动事件（移动端）
+        document.addEventListener('touchmove', function(e) {
+          if (!isDragging) return;
+          const touch = e.touches[0];
+          moveDrag(touch.clientX, touch.clientY);
+          e.preventDefault(); // 防止页面滚动
+        });
+        
+        function moveDrag(x, y) {
           const containerRect = container.getBoundingClientRect();
           const stickerRect = sticker.getBoundingClientRect();
           
           const maxX = containerRect.width - stickerRect.width;
           const maxY = containerRect.height - stickerRect.height;
           
-          const clampedX = Math.max(0, Math.min(maxX, x - containerRect.left));
-          const clampedY = Math.max(0, Math.min(maxY, y - containerRect.top));
+          const clampedX = Math.max(0, Math.min(maxX, x - offsetX - containerRect.left));
+          const clampedY = Math.max(0, Math.min(maxY, y - offsetY - containerRect.top));
           
           sticker.style.left = clampedX + 'px';
           sticker.style.top = clampedY + 'px';
+        }
+        
+        // 鼠标释放事件
+        document.addEventListener('mouseup', function() {
+          isDragging = false;
         });
         
-        document.addEventListener('mouseup', function() {
+        // 触摸结束事件（移动端）
+        document.addEventListener('touchend', function() {
           isDragging = false;
         });
       });

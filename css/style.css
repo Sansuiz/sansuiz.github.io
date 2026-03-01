@@ -390,6 +390,19 @@ header small {
   z-index: 100;
 }
 
+/* 移动端导航点调整 */
+@media (max-width: 768px) {
+  .nav {
+    left: 0.8rem;
+  }
+  
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    margin: 0.8rem 0;
+  }
+}
+
 .nav-dot {
   width: 10px;
   height: 10px;

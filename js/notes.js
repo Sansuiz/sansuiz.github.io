@@ -1,5 +1,4 @@
 let notesData = [];
-let notebooksData = [];
 let currentTag = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -15,25 +14,61 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const response = await fetch('_data/notes.yml');
       const yamlText = await response.text();
-      const result = jsyaml.load(yamlText);
-      notesData = result.notes || [];
-      notebooksData = result.notebooks || [];
+      notesData = parseYAML(yamlText);
       initNotebookCounts();
-      applyNotebookCovers();
     } catch (error) {
       console.error('加载YAML数据失败:', error);
     }
   }
 
-  function applyNotebookCovers() {
-    notebooks.forEach(notebook => {
-      const tag = notebook.dataset.tag;
-      const notebookConfig = notebooksData.find(n => n.tag === tag);
-      if (notebookConfig && notebookConfig.cover) {
-        const body = notebook.querySelector('.notebook-body');
-        body.style.backgroundImage = `url(${notebookConfig.cover})`;
+  function parseYAML(yamlText) {
+    const notes = [];
+    const lines = yamlText.split('\n');
+    let currentNote = null;
+    let inContent = false;
+    let contentBuffer = [];
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trimEnd();
+      
+      if (line.startsWith('- title:')) {
+        if (currentNote) {
+          if (contentBuffer.length > 0) {
+            currentNote.content = contentBuffer.join('\n').trim();
+            contentBuffer = [];
+          }
+          notes.push(currentNote);
+        }
+        currentNote = {
+          title: line.replace('- title:', '').trim().replace(/^["']|["']$/g, '')
+        };
+        inContent = false;
+      } else if (currentNote && line.startsWith('  date:')) {
+        currentNote.date = line.replace('date:', '').trim().replace(/^["']|["']$/g, '');
+      } else if (currentNote && line.startsWith('  tag:')) {
+        currentNote.tag = line.replace('tag:', '').trim().replace(/^["']|["']$/g, '');
+      } else if (currentNote && line.startsWith('  content:')) {
+        inContent = true;
+        const contentStart = line.replace('content:', '').trim();
+        if (contentStart.startsWith('|')) {
+        } else if (contentStart) {
+          contentBuffer.push(contentStart.replace(/^["']|["']$/g, ''));
+        }
+      } else if (inContent && (line.startsWith('    ') || line.startsWith('  '))) {
+        contentBuffer.push(line.trim());
+      } else if (inContent && line === '') {
+        contentBuffer.push('');
       }
-    });
+    }
+
+    if (currentNote) {
+      if (contentBuffer.length > 0) {
+        currentNote.content = contentBuffer.join('\n').trim();
+      }
+      notes.push(currentNote);
+    }
+
+    return notes;
   }
 
   function initNotebookCounts() {

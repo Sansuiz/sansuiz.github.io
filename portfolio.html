@@ -4,23 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>作品集 - 三穗</title>
-  <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/portfolio.css">
 </head>
 <body>
-  <!-- 导航栏 -->
-  <nav>
-    <ul>
-      <li><a href="index.html">首页</a></li>
-      <li><a href="cards.html">卡片</a></li>
-      <li><a href="letters.html">信件</a></li>
-      <li><a href="media.html">媒体</a></li>
-      <li><a href="shmily.html">Shmily</a></li>
-      <li><a href="portfolio.html">作品集</a></li>
-      <li><a href="about.html">关于</a></li>
-    </ul>
-  </nav>
-
   <!-- 作品集容器 -->
   <div class="portfolio-container">
     <h1 class="portfolio-title">我的作品集</h1>
@@ -31,19 +17,22 @@
     </div>
   </div>
 
-  <!-- 书籍模态框 -->
+  <!-- 书籍内容模态框 -->
   <div id="bookModal" class="modal">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">作品标题</h2>
+        <div class="modal-header-left">
+          <span class="page-count">0</span>
+          <span class="page-label">Page</span>
+        </div>
+        <div class="modal-header-right">
+          <span class="last-read">Last read</span>
+          <span class="date">2026.03.04</span>
+        </div>
         <button class="close-btn" onclick="closeModal()">&times;</button>
       </div>
-      <div class="book-page-container">
-        <!-- 书页将通过 JavaScript 动态生成 -->
-        <div class="page-controls">
-          <button class="page-btn prev-btn">←</button>
-          <button class="page-btn next-btn">→</button>
-        </div>
+      <div class="modal-body">
+        <!-- 内容将通过 JavaScript 动态生成 -->
       </div>
     </div>
   </div>

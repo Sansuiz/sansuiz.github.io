@@ -8,32 +8,25 @@ const portfolioData = {
       title: "卡片作品",
       description: "各种卡片设计作品",
       cover: "/images/tu/cards/20241215-w.jpg",
-      images: [
-        "/images/tu/cards/20141019-lx.jpg",
-        "/images/tu/cards/20141103-yxq.jpg",
-        "/images/tu/cards/20150308-lx.jpg",
-        "/images/tu/cards/20150627-wky.jpg",
-        "/images/tu/cards/20150628-wky.jpg",
-        "/images/tu/cards/20150629-wky.jpg",
-        "/images/tu/cards/20150927-wwl.jpg",
-        "/images/tu/cards/20160601-lml.jpg",
-        "/images/tu/cards/20160601-wy.jpg",
-        "/images/tu/cards/20160602-wj.jpg",
-        "/images/tu/cards/20160603-wj.jpg",
-        "/images/tu/cards/20160610-hkh-back.jpg",
-        "/images/tu/cards/20160610-ly-back.jpg",
-        "/images/tu/cards/20160610-mk.jpg",
-        "/images/tu/cards/20160610-yh.jpg",
-        "/images/tu/cards/20240229-w.jpg",
-        "/images/tu/cards/20240415-y.jpg",
-        "/images/tu/cards/202408-w.jpg",
-        "/images/tu/cards/20241027-w.jpg",
-        "/images/tu/cards/20241123-w.jpg",
-        "/images/tu/cards/20241215-w.jpg",
-        "/images/tu/cards/20250112-w.jpg",
-        "/images/tu/cards/20250119-w.jpg",
-        "/images/tu/cards/20250518-w.jpg",
-        "/images/tu/cards/20250531-q.jpg"
+      items: [
+        {
+          type: "image",
+          date: "2024.12.15",
+          content: "/images/tu/cards/20241215-w.jpg",
+          status: ["active", "", "", "", "", "active"]
+        },
+        {
+          type: "image",
+          date: "2024.11.23",
+          content: "/images/tu/cards/20241123-w.jpg",
+          status: ["active"]
+        },
+        {
+          type: "text",
+          date: "2024.10.27",
+          content: "这是一张卡片设计作品，展示了创意设计的魅力。",
+          status: ["active", "", "", "", "", "active"]
+        }
       ]
     },
     {
@@ -41,11 +34,19 @@ const portfolioData = {
       title: "信件作品",
       description: "信件设计作品",
       cover: "/images/tu/letters/letter.jpg",
-      images: [
-        "/images/tu/letters/20141019-lx.jpg",
-        "/images/tu/letters/20150308-lx.jpg",
-        "/images/tu/letters/20160602-why-back.jpg",
-        "/images/tu/letters/letter.jpg"
+      items: [
+        {
+          type: "image",
+          date: "2016.06.02",
+          content: "/images/tu/letters/20160602-why-back.jpg",
+          status: ["active"]
+        },
+        {
+          type: "text",
+          date: "2015.03.08",
+          content: "这是一封精心设计的信件，表达了真挚的情感。",
+          status: ["active", "", "", "", "", "active"]
+        }
       ]
     },
     {
@@ -53,11 +54,25 @@ const portfolioData = {
       title: "音乐作品",
       description: "音乐相关设计作品",
       cover: "/images/tu/music/anxin.png",
-      images: [
-        "/images/tu/music/anxin.png",
-        "/images/tu/music/haishanghua.png",
-        "/images/tu/music/sinian.png",
-        "/images/tu/music/yaxiya.png"
+      items: [
+        {
+          type: "image",
+          date: "2024.01.01",
+          content: "/images/tu/music/anxin.png",
+          status: ["active"]
+        },
+        {
+          type: "image",
+          date: "2024.01.01",
+          content: "/images/tu/music/haishanghua.png",
+          status: ["active", "", "", "", "", "active"]
+        },
+        {
+          type: "text",
+          date: "2024.01.01",
+          content: "音乐与设计的完美结合，创造出独特的视觉体验。",
+          status: ["active"]
+        }
       ]
     },
     {
@@ -65,20 +80,19 @@ const portfolioData = {
       title: "其他作品",
       description: "其他类型的设计作品",
       cover: "/images/tu/chuyi.png",
-      images: [
-        "/images/tu/chuyi.png",
-        "/images/tu/he.png",
-        "/images/tu/huanxi.png",
-        "/images/tu/jie.png",
-        "/images/tu/meihao.png",
-        "/images/tu/qianshou.gif",
-        "/images/tu/qieyi.gif",
-        "/images/tu/shiwu.png",
-        "/images/tu/shiwu2.png",
-        "/images/tu/wang.png",
-        "/images/tu/xi.png",
-        "/images/tu/yu.gif",
-        "/images/tu/zhao.png"
+      items: [
+        {
+          type: "image",
+          date: "2024.01.01",
+          content: "/images/tu/chuyi.png",
+          status: ["active", "", "", "", "", "active"]
+        },
+        {
+          type: "text",
+          date: "2024.01.01",
+          content: "这是其他类型的设计作品，展示了多样化的创作风格。",
+          status: ["active"]
+        }
       ]
     }
   ]
@@ -103,6 +117,7 @@ function renderBooks(categories) {
     bookItem.innerHTML = `
       <div class="book-cover">
         <img src="${category.cover}" alt="${category.title}">
+        <div class="book-count">${category.items.length}</div>
       </div>
       <div class="book-info">
         <h3 class="book-title">${category.title}</h3>
@@ -118,92 +133,52 @@ function renderBooks(categories) {
 // 打开书籍模态框
 function openBookModal(category) {
   const modal = document.getElementById('bookModal');
-  const modalTitle = document.querySelector('.modal-title');
-  const pageContainer = document.querySelector('.book-page-container');
+  const pageCount = document.querySelector('.page-count');
+  const modalBody = document.querySelector('.modal-body');
   
-  // 设置模态框标题
-  modalTitle.textContent = category.title;
+  // 设置页面数量
+  pageCount.textContent = category.items.length;
   
-  // 渲染书页
-  renderPages(pageContainer, category.images);
+  // 渲染内容
+  renderContent(modalBody, category.items);
   
   // 显示模态框
   modal.style.display = 'block';
-  
-  // 初始化翻页控制
-  initPageControls(category.images.length);
 }
 
-// 渲染书页
-function renderPages(container, images) {
+// 渲染内容
+function renderContent(container, items) {
   container.innerHTML = '';
   
-  images.forEach((image, index) => {
-    const page = document.createElement('div');
-    page.className = `page page-front ${index === 0 ? 'active' : ''}`;
-    page.setAttribute('data-page', index);
+  items.forEach(item => {
+    const contentItem = document.createElement('div');
+    contentItem.className = 'content-item';
     
-    page.innerHTML = `
-      <img src="${image}" alt="Page ${index + 1}">
-    `;
+    // 生成状态点
+    const statusDots = item.status.map(dot => 
+      `<div class="status-dot ${dot}"></div>`
+    ).join('');
     
-    container.appendChild(page);
-  });
-}
-
-// 初始化翻页控制
-function initPageControls(totalPages) {
-  let currentPage = 0;
-  const prevBtn = document.querySelector('.prev-btn');
-  const nextBtn = document.querySelector('.next-btn');
-  const pages = document.querySelectorAll('.page');
-  
-  // 更新按钮状态
-  updateButtonState();
-  
-  // 上一页按钮点击事件
-  prevBtn.addEventListener('click', () => {
-    if (currentPage > 0) {
-      flipPage(currentPage, currentPage - 1);
-      currentPage--;
-      updateButtonState();
+    if (item.type === 'text') {
+      contentItem.innerHTML = `
+        <div class="content-date">
+          <span>${item.date}</span>
+          <div class="status-dots">${statusDots}</div>
+        </div>
+        <div class="content-text">${item.content}</div>
+      `;
+    } else if (item.type === 'image') {
+      contentItem.innerHTML = `
+        <div class="content-date">
+          <span>${item.date}</span>
+          <div class="status-dots">${statusDots}</div>
+        </div>
+        <img src="${item.content}" alt="Content image" class="content-image">
+      `;
     }
+    
+    container.appendChild(contentItem);
   });
-  
-  // 下一页按钮点击事件
-  nextBtn.addEventListener('click', () => {
-    if (currentPage < totalPages - 1) {
-      flipPage(currentPage, currentPage + 1);
-      currentPage++;
-      updateButtonState();
-    }
-  });
-  
-  // 更新按钮状态
-  function updateButtonState() {
-    prevBtn.disabled = currentPage === 0;
-    nextBtn.disabled = currentPage === totalPages - 1;
-    
-    prevBtn.style.opacity = currentPage === 0 ? '0.5' : '1';
-    nextBtn.style.opacity = currentPage === totalPages - 1 ? '0.5' : '1';
-  }
-  
-  // 翻页动画
-  function flipPage(fromPage, toPage) {
-    const from = pages[fromPage];
-    const to = pages[toPage];
-    
-    from.classList.add('flipped');
-    to.classList.remove('flipped');
-    to.classList.add('active');
-    
-    // 移除其他页面的活动状态
-    pages.forEach((page, index) => {
-      if (index !== toPage) {
-        page.classList.remove('active');
-      }
-    });
-  }
 }
 
 // 关闭模态框

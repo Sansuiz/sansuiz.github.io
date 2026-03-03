@@ -19,6 +19,15 @@ body {
   overflow: hidden;
 }
 
+.notebooks-wrapper {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+
 body::before {
   content: '';
   position: fixed;
@@ -160,7 +169,6 @@ body::before {
 }
 
 .notes-header {
-  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%);
   border-radius: 24px;
   padding: 24px;
   margin-bottom: 20px;
@@ -171,6 +179,18 @@ body::before {
   top: 0;
   z-index: 100;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.notes-header.tag-生活 {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%);
+}
+
+.notes-header.tag-工作 {
+  background: linear-gradient(135deg, #3498db 0%, #2980b9 50%, #3498db 100%);
+}
+
+.notes-header.tag-心流 {
+  background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 50%, #9b59b6 100%);
 }
 
 .header-left {

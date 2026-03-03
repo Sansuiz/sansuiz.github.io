@@ -2,6 +2,7 @@ const notesData = [
   {
     title: "20260124 - 糟糕的我",
     date: "2026.1.24",
+    tag: "生活",
     content: `送完宝儿，就找了两家KFC，结果都没有可以给笔记本充电的地方，真是可惜。
 最终还是回到了招商局这边，选择了星巴克。
 坐下来再让自己的思绪缓一缓。`
@@ -9,29 +10,67 @@ const notesData = [
   {
     title: "20260123 - 生命诚可贵",
     date: "2026.1.23",
+    tag: "生活",
     content: `今天又是新的一天，要好好生活，好好爱自己。
 生命中的每一个时刻都值得珍惜。`
+  },
+  {
+    title: "20260122 - 项目总结",
+    date: "2026.1.22",
+    tag: "工作",
+    content: `今天完成了年度项目总结报告。
+回顾过去一年的工作，收获颇丰，也有很多需要改进的地方。`
+  },
+  {
+    title: "20260121 - 代码重构",
+    date: "2026.1.21",
+    tag: "工作",
+    content: `重构了核心模块的代码，提高了代码的可读性和可维护性。
+团队协作非常顺利。`
+  },
+  {
+    title: "20260120 - 阅读心得",
+    date: "2026.1.20",
+    tag: "心流",
+    content: `今天阅读了《心流》这本书，收获很大。
+心流状态是一种完全沉浸在当前活动中的体验，时间仿佛静止了。`
+  },
+  {
+    title: "20260119 - 冥想练习",
+    date: "2026.1.19",
+    tag: "心流",
+    content: `完成了30分钟的冥想练习。
+感受到了内心的平静与专注。`
   }
 ];
 
+let currentTag = null;
+
 document.addEventListener('DOMContentLoaded', () => {
-  const notebook = document.querySelector('.notebook');
+  const notebooks = document.querySelectorAll('.notebook');
   const notesPanel = document.querySelector('.notes-panel');
   const closeBtn = document.querySelector('.close-btn');
-  const notebookCount = document.querySelector('.notebook-count');
+  const notesHeader = document.querySelector('.notes-header');
   const pageCount = document.querySelector('.page-count');
   const lastReadDate = document.querySelector('.last-read-date');
   const notesList = document.querySelector('.notes-list');
 
-  notebookCount.textContent = notesData.length;
-  pageCount.textContent = `${notesData.length} Page`;
-  if (notesData.length > 0) {
-    lastReadDate.textContent = notesData[0].date;
+  function initNotebookCounts() {
+    notebooks.forEach(notebook => {
+      const tag = notebook.dataset.tag;
+      const count = notesData.filter(note => note.tag === tag).length;
+      const countEl = notebook.querySelector('.notebook-count');
+      countEl.textContent = count;
+    });
   }
 
-  function renderNotes() {
+  initNotebookCounts();
+
+  function renderNotes(tag) {
+    const filteredNotes = notesData.filter(note => note.tag === tag);
     notesList.innerHTML = '';
-    notesData.forEach(note => {
+    
+    filteredNotes.forEach(note => {
       const card = document.createElement('div');
       card.className = 'note-card';
       card.innerHTML = `
@@ -45,12 +84,24 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
       notesList.appendChild(card);
     });
+
+    pageCount.textContent = `${filteredNotes.length} Page`;
+    if (filteredNotes.length > 0) {
+      lastReadDate.textContent = filteredNotes[0].date;
+    } else {
+      lastReadDate.textContent = '-';
+    }
+
+    notesHeader.className = 'notes-header';
+    notesHeader.classList.add(`tag-${tag}`);
   }
 
-  renderNotes();
-
-  notebook.addEventListener('click', () => {
-    notesPanel.classList.add('active');
+  notebooks.forEach(notebook => {
+    notebook.addEventListener('click', () => {
+      currentTag = notebook.dataset.tag;
+      renderNotes(currentTag);
+      notesPanel.classList.add('active');
+    });
   });
 
   closeBtn.addEventListener('click', () => {

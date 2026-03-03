@@ -1,39 +1,13 @@
-let notesData = [];
-let notebooksData = [];
 let currentTag = null;
 
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   const notebooks = document.querySelectorAll('.notebook');
   const notesPanel = document.querySelector('.notes-panel');
   const closeBtn = document.querySelector('.close-btn');
   const notesHeader = document.querySelector('.notes-header');
-  const pageCount = document.querySelector('.page-count');
-  const lastReadDate = document.querySelector('.last-read-date');
-  const notesList = document.querySelector('.notes-list');
-
-  async function loadYAMLFile(filePath) {
-    const paths = [
-      filePath,
-      `./${filePath}`,
-      `/${filePath}`,
-      filePath.startsWith('/') ? filePath.substring(1) : filePath,
-      filePath.startsWith('./') ? filePath.substring(2) : filePath
-    ];
-    
-    for (const path of paths) {
-      try {
-        console.log('尝试加载:', path);
-        const response = await fetch(path);
-        if (response.ok) {
-          console.log('成功加载:', path);
-          return await response.text();
-        }
-      } catch (error) {
-        console.log('路径失败:', path);
-      }
-    }
-    throw new Error(`无法加载文件: ${filePath}`);
-  }
+  const pageCount = document.querySelector('#page-count-display');
+  const lastReadDate = document.querySelector('#last-read-display');
+  const notesList = document.querySelector('#notes-list-container');
 
   function applyNotebookCovers() {
     notebooks.forEach(notebook => {
@@ -87,14 +61,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    const notebooksYamlText = await loadYAMLFile('_data/notebooks.yml');
-    notebooksData = jsyaml.load(notebooksYamlText);
     applyNotebookCovers();
-    console.log('笔记本配置加载成功:', notebooksData);
-
-    const notesYamlText = await loadYAMLFile('_data/notes.yml');
-    notesData = jsyaml.load(notesYamlText);
     initNotebookCounts();
+    console.log('笔记本配置加载成功:', notebooksData);
     console.log('笔记数据加载成功:', notesData);
   } catch (error) {
     console.error('初始化失败:', error);

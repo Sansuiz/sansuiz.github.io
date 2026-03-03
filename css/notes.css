@@ -11,16 +11,7 @@ body {
   justify-content: center;
   align-items: center;
   font-family: 'Segoe UI', system-ui, sans-serif;
-  padding: 40px 20px;
-}
-
-.notebooks-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 40px;
-  max-width: 1400px;
-  width: 100%;
-  justify-items: center;
+  overflow: hidden;
 }
 
 .notebook-container {
@@ -31,6 +22,7 @@ body {
 .notebook {
   width: 300px;
   height: 400px;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%);
   border-radius: 12px;
   position: relative;
   cursor: pointer;
@@ -78,7 +70,6 @@ body {
   padding: 24px;
   position: relative;
   overflow: hidden;
-  border-radius: 0 0 12px 12px;
 }
 
 .notebook-body::before {
@@ -135,6 +126,7 @@ body {
 }
 
 .notes-header {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%);
   border-radius: 24px;
   padding: 24px;
   margin-bottom: 20px;
@@ -243,6 +235,7 @@ body {
 .note-dot {
   width: 20px;
   height: 20px;
+  background: #e74c3c;
   border-radius: 50%;
   box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
 }

@@ -8,27 +8,36 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-  <div class="notebooks-grid" id="notebooksGrid">
+  <div class="notebook-container">
+    <div class="notebook">
+      <div class="notebook-top">
+        <div class="notebook-title">/ Notebook</div>
+        <div class="notebook-count">0</div>
+      </div>
+      <div class="notebook-body">
+        <div class="notebook-vertical-title">Notebook</div>
+      </div>
+    </div>
   </div>
 
-  <div class="notes-panel" id="notesPanel">
-    <button class="close-btn" id="closeBtn">
+  <div class="notes-panel">
+    <button class="close-btn">
       <i class="fas fa-times"></i>
     </button>
     <div class="notes-content">
-      <div class="notes-header" id="notesHeader">
+      <div class="notes-header">
         <div class="header-left">
           <div class="page-icon">
             <i class="far fa-file-alt"></i>
           </div>
-          <div class="page-count" id="pageCount">0 Page</div>
+          <div class="page-count">0 Page</div>
         </div>
         <div class="header-right">
           <div class="last-read-label">LastRead</div>
-          <div class="last-read-date" id="lastReadDate">-</div>
+          <div class="last-read-date">-</div>
         </div>
       </div>
-      <div class="notes-list" id="notesList">
+      <div class="notes-list">
       </div>
     </div>
   </div>

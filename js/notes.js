@@ -1,4 +1,5 @@
 let notesData = [];
+let notebooksData = [];
 let currentTag = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -10,18 +11,44 @@ document.addEventListener('DOMContentLoaded', async () => {
   const lastReadDate = document.querySelector('.last-read-date');
   const notesList = document.querySelector('.notes-list');
 
-  async function loadYAMLData() {
+  async function loadYAMLFile(filePath) {
     try {
-      const response = await fetch('_data/notes.yml');
-      const yamlText = await response.text();
-      notesData = parseYAML(yamlText);
-      initNotebookCounts();
+      const response = await fetch(filePath);
+      return await response.text();
     } catch (error) {
-      console.error('加载YAML数据失败:', error);
+      console.error(`加载文件 ${filePath} 失败:`, error);
+      return null;
     }
   }
 
-  function parseYAML(yamlText) {
+  function parseNotebooksYAML(yamlText) {
+    const notebooks = [];
+    const lines = yamlText.split('\n');
+    let currentNotebook = null;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trimEnd();
+      
+      if (line.startsWith('- tag:')) {
+        if (currentNotebook) {
+          notebooks.push(currentNotebook);
+        }
+        currentNotebook = {
+          tag: line.replace('- tag:', '').trim().replace(/^["']|["']$/g, '')
+        };
+      } else if (currentNotebook && line.startsWith('  cover:')) {
+        currentNotebook.cover = line.replace('cover:', '').trim().replace(/^["']|["']$/g, '');
+      }
+    }
+
+    if (currentNotebook) {
+      notebooks.push(currentNotebook);
+    }
+
+    return notebooks;
+  }
+
+  function parseNotesYAML(yamlText) {
     const notes = [];
     const lines = yamlText.split('\n');
     let currentNote = null;
@@ -71,6 +98,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     return notes;
   }
 
+  function applyNotebookCovers() {
+    notebooks.forEach(notebook => {
+      const tag = notebook.dataset.tag;
+      const notebookConfig = notebooksData.find(nb => nb.tag === tag);
+      const body = notebook.querySelector('.notebook-body');
+      
+      if (notebookConfig && notebookConfig.cover) {
+        body.style.backgroundImage = `url(${notebookConfig.cover})`;
+      }
+    });
+  }
+
   function initNotebookCounts() {
     notebooks.forEach(notebook => {
       const tag = notebook.dataset.tag;
@@ -110,7 +149,17 @@ document.addEventListener('DOMContentLoaded', async () => {
     notesHeader.classList.add(`tag-${tag}`);
   }
 
-  await loadYAMLData();
+  const notebooksYamlText = await loadYAMLFile('_data/notebooks.yml');
+  if (notebooksYamlText) {
+    notebooksData = parseNotebooksYAML(notebooksYamlText);
+    applyNotebookCovers();
+  }
+
+  const notesYamlText = await loadYAMLFile('_data/notes.yml');
+  if (notesYamlText) {
+    notesData = parseNotesYAML(notesYamlText);
+    initNotebookCounts();
+  }
 
   notebooks.forEach(notebook => {
     notebook.addEventListener('click', () => {

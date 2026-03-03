@@ -110,9 +110,11 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
   position: relative;
   overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .notebook-body::before {
@@ -122,24 +124,14 @@ body::before {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 50%);
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 50%);
   animation: shimmer 3s ease-in-out infinite;
+  pointer-events: none;
 }
 
 @keyframes shimmer {
   0%, 100% { transform: translate(0, 0); }
   50% { transform: translate(10%, 10%); }
-}
-
-.notebook-vertical-title {
-  color: white;
-  font-size: 32px;
-  font-weight: 300;
-  letter-spacing: 8px;
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  position: relative;
-  z-index: 1;
 }
 
 .notes-panel {

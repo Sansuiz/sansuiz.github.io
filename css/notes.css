@@ -240,17 +240,18 @@ body::before {
 }
 
 .note-card {
-  background: linear-gradient(145deg, #2a2a2a 0%, #1f1f1f 100%);
+  background: linear-gradient(145deg, #ffffff 0%, #f8f8f8 100%);
   border-radius: 24px;
   padding: 32px;
   margin-bottom: 20px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .note-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .note-header {
@@ -261,7 +262,7 @@ body::before {
 }
 
 .note-date {
-  color: white;
+  color: #1a1a1a;
   font-size: 24px;
   font-weight: 600;
   letter-spacing: 2px;
@@ -272,24 +273,24 @@ body::before {
   height: 20px;
   background: #e74c3c;
   border-radius: 50%;
-  box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
 }
 
 .note-divider {
   border: none;
-  border-top: 2px dashed rgba(255, 255, 255, 0.2);
+  border-top: 2px dashed rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
 .note-title {
-  color: rgba(255, 255, 255, 0.8);
+  color: #333333;
   font-size: 24px;
   margin-bottom: 24px;
   font-weight: 400;
 }
 
 .note-content {
-  color: rgba(255, 255, 255, 0.7);
+  color: #4a4a4a;
   font-size: 20px;
   line-height: 1.8;
   white-space: pre-wrap;

@@ -1,48 +1,5 @@
-let notesData = [
-  {
-    title: "20260124 - 糟糕的我",
-    date: "2026.1.24",
-    tag: "生活",
-    content: "送完宝儿，就找了两家KFC，结果都没有可以给笔记本充电的地方，真是可惜。\n最终还是回到了招商局这边，选择了星巴克。\n坐下来再让自己的思绪缓一缓。"
-  },
-  {
-    title: "20260123 - 生命诚可贵",
-    date: "2026.1.23",
-    tag: "生活",
-    content: "今天又是新的一天，要好好生活，好好爱自己。\n生命中的每一个时刻都值得珍惜。"
-  },
-  {
-    title: "20260122 - 项目总结",
-    date: "2026.1.22",
-    tag: "工作",
-    content: "今天完成了年度项目总结报告。\n回顾过去一年的工作，收获颇丰，也有很多需要改进的地方。"
-  },
-  {
-    title: "20260121 - 代码重构",
-    date: "2026.1.21",
-    tag: "工作",
-    content: "重构了核心模块的代码，提高了代码的可读性和可维护性。\n团队协作非常顺利。"
-  },
-  {
-    title: "20260120 - 阅读心得",
-    date: "2026.1.20",
-    tag: "心流",
-    content: "今天阅读了《心流》这本书，收获很大。\n心流状态是一种完全沉浸在当前活动中的体验，时间仿佛静止了。"
-  },
-  {
-    title: "20260119 - 冥想练习",
-    date: "2026.1.19",
-    tag: "心流",
-    content: "完成了30分钟的冥想练习。\n感受到了内心的平静与专注。"
-  }
-];
-
-let notebooksData = [
-  { tag: "生活", cover: "" },
-  { tag: "工作", cover: "" },
-  { tag: "心流", cover: "" }
-];
-
+let notesData = [];
+let notebooksData = [];
 let currentTag = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -57,10 +14,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function loadYAMLFile(filePath) {
     try {
       const response = await fetch(filePath);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       return await response.text();
     } catch (error) {
-      console.log(`加载文件 ${filePath} 失败，使用默认数据:`, error);
-      return null;
+      console.error(`加载文件 ${filePath} 失败:`, error);
+      throw error;
     }
   }
 
@@ -188,33 +148,18 @@ document.addEventListener('DOMContentLoaded', async () => {
     notesHeader.classList.add(`tag-${tag}`);
   }
 
-  applyNotebookCovers();
-  initNotebookCounts();
-
   try {
     const notebooksYamlText = await loadYAMLFile('_data/notebooks.yml');
-    if (notebooksYamlText) {
-      const parsedNotebooks = parseNotebooksYAML(notebooksYamlText);
-      if (parsedNotebooks.length > 0) {
-        notebooksData = parsedNotebooks;
-        applyNotebookCovers();
-      }
-    }
-  } catch (e) {
-    console.log('使用默认笔记本配置');
-  }
+    notebooksData = parseNotebooksYAML(notebooksYamlText);
+    applyNotebookCovers();
+    console.log('笔记本配置加载成功:', notebooksData);
 
-  try {
     const notesYamlText = await loadYAMLFile('_data/notes.yml');
-    if (notesYamlText) {
-      const parsedNotes = parseNotesYAML(notesYamlText);
-      if (parsedNotes.length > 0) {
-        notesData = parsedNotes;
-        initNotebookCounts();
-      }
-    }
-  } catch (e) {
-    console.log('使用默认笔记数据');
+    notesData = parseNotesYAML(notesYamlText);
+    initNotebookCounts();
+    console.log('笔记数据加载成功:', notesData);
+  } catch (error) {
+    console.error('初始化失败:', error);
   }
 
   notebooks.forEach(notebook => {

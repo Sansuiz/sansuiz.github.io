@@ -47,6 +47,9 @@ title: Shmily-SANSUIZ
   padding: 2rem;
   background: rgba(255, 255, 255, 0);
   position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .card-wall::before {
@@ -65,9 +68,10 @@ title: Shmily-SANSUIZ
 
 .card-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
   max-width: 1200px;
+  width: 100%;
   position: relative;
   z-index: 1;
 }
@@ -76,36 +80,33 @@ title: Shmily-SANSUIZ
   aspect-ratio: 3/4;
   perspective: 1000px;
   cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.card-front, .card-back {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.e-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.1);
 }
 
 .card-front {
-  background: white;
-  transform: rotateY(0deg);
-}
-
-.card-back {
-  background: white;
-  transform: rotateY(180deg);
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .card-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.e-card:hover .card-image {
+  transform: scale(1.05);
 }
 
 .card-label {
@@ -113,27 +114,24 @@ title: Shmily-SANSUIZ
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.8)) 0%, transparent 100%);
+  background: linear-gradient(to top, var(--card-label-color, rgba(237,98,126,0.85)) 0%, transparent 100%);
   color: white;
-  padding: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
 }
 
-.card-desc {
-  font-family: "KaiTi", "楷体", serif;
-  line-height: 1.8;
-  color: #555;
+.card-label h3 {
+  font-family: 'Source Han Serif CN Heavy', serif;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
 }
 
-.e-card:hover .card-front {
-  transform: rotateY(-15deg) translateY(-5px);
-}
-
-.e-card.active .card-front {
-  transform: rotateY(-180deg);
-}
-
-.e-card.active .card-back {
-  transform: rotateY(0deg);
+.card-date {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  display: block;
+  font-weight: 400;
 }
 
 .card-modal {
@@ -142,28 +140,38 @@ title: Shmily-SANSUIZ
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.85);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
+}
+
+.card-modal.active {
+  opacity: 1;
+  pointer-events: all;
 }
 
 .modal-content {
-  width: 80%;
+  width: 90%;
   max-width: 900px;
-  max-height: 80vh;
+  max-height: 85vh;
   background: white;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 2rem;
   position: relative;
   transform: scale(0.9);
-  transition: transform 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   display: flex;
   flex-direction: column;
+}
+
+.card-modal.active .modal-content {
+  transform: scale(1);
 }
 
 .modal-container {
@@ -186,24 +194,10 @@ title: Shmily-SANSUIZ
   width: 100%;
   height: auto;
   max-height: 100%;
-  object-fit: contain;
-  border-radius: 8px;
-  mask-image: linear-gradient(
-    to right, 
-    transparent 0%, 
-    white 10%, 
-    white 90%, 
-    transparent 100%
-  ),
-  linear-gradient(
-    to bottom, 
-    transparent 0%, 
-    white 10%, 
-    white 90%, 
-    transparent 100%
-  );
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+  transition: transform 0.3s ease;
 }
 
 .modal-text-container {
@@ -228,55 +222,67 @@ title: Shmily-SANSUIZ
   background-color: #ed627e;
   border-radius: 4px;
   border: 2px solid #f0f0f0;
+  transition: background-color 0.3s ease;
 }
 
 .modal-text-container::-webkit-scrollbar-thumb:hover {
   background-color: #d4556b;
 }
 
-.card-modal.active {
-  opacity: 1;
-  pointer-events: all;
-}
-
-.modal-image {
-  width: 100%;
-  height: auto;
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-}
-
 .close-modal {
   position: absolute;
-  top: 1rem;
-  right: 1rem;
+  top: 1.5rem;
+  right: 1.5rem;
   font-size: 1.5rem;
   cursor: pointer;
+  color: #666;
+  transition: all 0.3s ease;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.05);
 }
 
-.card-label h3 {
+.close-modal:hover {
+  background: rgba(0,0,0,0.1);
+  transform: rotate(90deg);
+}
+
+.modal-title {
   font-family: 'Source Han Serif CN Heavy', serif;
   font-weight: 900;
-  margin-bottom: 0.2rem;
-}
-
-.card-date {
-  font-size: 0.8rem;
-  opacity: 0.8;
-  display: block;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  color: #333;
 }
 
 .modal-text {
   font-family: "KaiTi", "楷体", serif;
   line-height: 1.8;
   color: #555;
+  font-size: 1.1rem;
 }
 
-.modal-title {
-  font-family: 'Source Han Serif CN Heavy', serif;
-  font-weight: 900;
+.more-info-btn {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  background: var(--card-label-color, #ed627e);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.more-info-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(237, 98, 126, 0.4);
 }
 </style>
 
@@ -286,19 +292,23 @@ title: Shmily-SANSUIZ
   justify-content: center;
   gap: 1rem;
   padding: 1.5rem 0;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255,255,255,0.95);
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  backdrop-filter: blur(10px);
 }
 
 .tag {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
+  padding: 0.6rem 1.2rem;
+  border-radius: 25px;
   text-decoration: none;
   color: white;
-  font-weight: 500;
-  transition: all 0.3s ease;
+  font-weight: 600;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-size: 0.95rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .tag[data-type="all"] {
@@ -313,9 +323,14 @@ title: Shmily-SANSUIZ
   background: #1e90ff;
 }
 
+.tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
 .tag.active {
-  transform: scale(1.1);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 </style>
 
@@ -323,6 +338,18 @@ title: Shmily-SANSUIZ
 document.addEventListener('DOMContentLoaded', function() {
   const tags = document.querySelectorAll('.tag');
   const cards = document.querySelectorAll('.e-card');
+  
+  // 初始化卡片样式
+  cards.forEach(card => {
+    const type = card.dataset.type;
+    if(type === 'shmily') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.85)');
+    } else if(type === 'sansui') {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.85)');
+    } else {
+      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.85)');
+    }
+  });
   
   tags.forEach(tag => {
     tag.addEventListener('click', (e) => {
@@ -336,9 +363,25 @@ document.addEventListener('DOMContentLoaded', function() {
       const type = tag.dataset.type;
       cards.forEach(card => {
         if(type === 'all' || card.dataset.type === type) {
-          card.style.display = 'block';
+          card.style.opacity = '0';
+          card.style.transform = 'scale(0.8)';
+          setTimeout(() => {
+            card.style.display = 'block';
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'scale(1)';
+            }, 50);
+          }, 150);
         } else {
-          card.style.display = 'none';
+          card.style.opacity = '1';
+          card.style.transform = 'scale(1)';
+          setTimeout(() => {
+            card.style.opacity = '0';
+            card.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+              card.style.display = 'none';
+            }, 150);
+          }, 50);
         }
       });
     });
@@ -354,24 +397,38 @@ document.addEventListener('DOMContentLoaded', function() {
   const modalText = document.querySelector('.modal-text');
   const md = new markdownit();
   
+  // 添加关闭按钮
+  const closeBtn = document.createElement('div');
+  closeBtn.className = 'close-modal';
+  closeBtn.innerHTML = '&times;';
+  document.querySelector('.modal-content').appendChild(closeBtn);
+  
   cards.forEach(card => {
-    // 根据类型设置颜色
-    const type = card.dataset.type;
-    if(type === 'shmily') {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(237, 98, 126, 0.8)');
-    } else if(type === 'sansui') {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(30, 144, 255, 0.8)');
-    } else {
-      card.querySelector('.card-label').style.setProperty('--card-label-color', 'rgba(169, 169, 169, 0.8)');
-    }
-    
     card.addEventListener('click', (e) => {
       e.stopPropagation();
       const imgSrc = card.dataset.backImage || card.querySelector('.card-image').src;
       modalImage.src = imgSrc;
       modalImage.alt = card.querySelector('h3').textContent;
       modalTitle.textContent = card.querySelector('h3').textContent;
-      modalText.innerHTML = md.render(card.dataset.content); 
+      modalText.innerHTML = md.render(card.dataset.content);
+      
+      // 获取卡片类型对应的颜色
+      const type = card.dataset.type;
+      let btnColor = '#ed627e';
+      if(type === 'sansui') btnColor = '#1e90ff';
+      else if(type === 'all') btnColor = '#888';
+      
+      // 创建或更新更多信息按钮
+      let moreBtn = document.querySelector('.more-info-btn');
+      if(!moreBtn) {
+        moreBtn = document.createElement('a');
+        moreBtn.className = 'more-info-btn';
+        moreBtn.href = '#';
+        moreBtn.textContent = '+ More Info';
+        document.querySelector('.modal-text-container').appendChild(moreBtn);
+      }
+      moreBtn.style.setProperty('--card-label-color', btnColor);
+      
       modal.classList.add('active');
     });
   });
@@ -384,6 +441,11 @@ document.addEventListener('DOMContentLoaded', function() {
   // 阻止点击内容区域时冒泡关闭
   document.querySelector('.modal-content').addEventListener('click', (e) => {
     e.stopPropagation();
+  });
+
+  // 点击关闭按钮关闭
+  document.querySelector('.close-modal').addEventListener('click', () => {
+    modal.classList.remove('active');
   });
 });
 </script>

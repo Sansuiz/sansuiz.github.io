@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
       const response = await fetch('_data/notes.yml');
       const yamlText = await response.text();
-      const result = parseYAML(yamlText);
-      notesData = result.notes;
-      notebooksData = result.notebooks;
+      const result = jsyaml.load(yamlText);
+      notesData = result.notes || [];
+      notebooksData = result.notebooks || [];
       initNotebookCounts();
       applyNotebookCovers();
     } catch (error) {
@@ -34,91 +34,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         body.style.backgroundImage = `url(${notebookConfig.cover})`;
       }
     });
-  }
-
-  function parseYAML(yamlText) {
-    const result = { notebooks: [], notes: [] };
-    const lines = yamlText.split('\n');
-    let currentSection = null;
-    let currentNote = null;
-    let currentNotebook = null;
-    let inContent = false;
-    let contentBuffer = [];
-
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i].trimEnd();
-      
-      if (line.startsWith('notebooks:')) {
-        currentSection = 'notebooks';
-        continue;
-      } else if (line.startsWith('notes:')) {
-        if (currentNote) {
-          if (contentBuffer.length > 0) {
-            currentNote.content = contentBuffer.join('\n').trim();
-            contentBuffer = [];
-          }
-          result.notes.push(currentNote);
-        }
-        currentSection = 'notes';
-        currentNote = null;
-        continue;
-      }
-
-      if (currentSection === 'notebooks') {
-        if (line.startsWith('  - tag:')) {
-          if (currentNotebook) {
-            result.notebooks.push(currentNotebook);
-          }
-          currentNotebook = {
-            tag: line.replace('  - tag:', '').trim().replace(/^["']|["']$/g, ''),
-            cover: ''
-          };
-        } else if (currentNotebook && line.startsWith('    cover:')) {
-          currentNotebook.cover = line.replace('cover:', '').trim().replace(/^["']|["']$/g, '');
-        }
-      } else if (currentSection === 'notes') {
-        if (line.startsWith('  - title:')) {
-          if (currentNote) {
-            if (contentBuffer.length > 0) {
-              currentNote.content = contentBuffer.join('\n').trim();
-              contentBuffer = [];
-            }
-            result.notes.push(currentNote);
-          }
-          currentNote = {
-            title: line.replace('  - title:', '').trim().replace(/^["']|["']$/g, '')
-          };
-          inContent = false;
-        } else if (currentNote && line.startsWith('    date:')) {
-          currentNote.date = line.replace('date:', '').trim().replace(/^["']|["']$/g, '');
-        } else if (currentNote && line.startsWith('    tag:')) {
-          currentNote.tag = line.replace('tag:', '').trim().replace(/^["']|["']$/g, '');
-        } else if (currentNote && line.startsWith('    content:')) {
-          inContent = true;
-          const contentStart = line.replace('content:', '').trim();
-          if (contentStart.startsWith('|')) {
-          } else if (contentStart) {
-            contentBuffer.push(contentStart.replace(/^["']|["']$/g, ''));
-          }
-        } else if (inContent && (line.startsWith('      ') || line.startsWith('    '))) {
-          contentBuffer.push(line.trim());
-        } else if (inContent && line === '') {
-          contentBuffer.push('');
-        }
-      }
-    }
-
-    if (currentNotebook) {
-      result.notebooks.push(currentNotebook);
-    }
-    if (currentNote) {
-      if (contentBuffer.length > 0) {
-        currentNote.content = contentBuffer.join('\n').trim();
-      }
-      result.notes.push(currentNote);
-    }
-
-    return result;
   }
 
   function initNotebookCounts() {

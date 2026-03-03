@@ -12,16 +12,27 @@ document.addEventListener('DOMContentLoaded', async () => {
   const notesList = document.querySelector('.notes-list');
 
   async function loadYAMLFile(filePath) {
-    try {
-      const response = await fetch(filePath);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    const paths = [
+      filePath,
+      `./${filePath}`,
+      `/${filePath}`,
+      filePath.startsWith('/') ? filePath.substring(1) : filePath,
+      filePath.startsWith('./') ? filePath.substring(2) : filePath
+    ];
+    
+    for (const path of paths) {
+      try {
+        console.log('尝试加载:', path);
+        const response = await fetch(path);
+        if (response.ok) {
+          console.log('成功加载:', path);
+          return await response.text();
+        }
+      } catch (error) {
+        console.log('路径失败:', path);
       }
-      return await response.text();
-    } catch (error) {
-      console.error(`加载文件 ${filePath} 失败:`, error);
-      throw error;
     }
+    throw new Error(`无法加载文件: ${filePath}`);
   }
 
   function applyNotebookCovers() {

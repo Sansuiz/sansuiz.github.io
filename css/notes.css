@@ -19,6 +19,15 @@ body {
   overflow: hidden;
 }
 
+.notebooks-wrapper {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 40px;
+}
+
 body::before {
   content: '';
   position: fixed;
@@ -48,15 +57,6 @@ body::before {
   pointer-events: none;
 }
 
-.notebooks-wrapper {
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 40px;
-}
-
 .notebook-container {
   position: relative;
   perspective: 1000px;
@@ -65,6 +65,7 @@ body::before {
 .notebook {
   width: 300px;
   height: 400px;
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%);
   border-radius: 12px;
   position: relative;
   cursor: pointer;
@@ -123,7 +124,7 @@ body::before {
   left: -50%;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 50%);
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 50%);
   animation: shimmer 3s ease-in-out infinite;
   pointer-events: none;
 }
@@ -160,28 +161,16 @@ body::before {
 }
 
 .notes-header {
-  border-radius: 24px 24px 0 0;
+  border-radius: 24px;
   padding: 24px;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  position: relative;
+  position: sticky;
+  top: 0;
   z-index: 100;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-}
-
-.notes-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 85%;
-  height: 8px;
-  background: #1a1a1a;
-  border-radius: 0 0 4px 4px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(0, 0, 0, 0.6);
-  z-index: 200;
 }
 
 .notes-header.tag-生活 {
@@ -238,33 +227,12 @@ body::before {
   font-weight: 300;
 }
 
-.notes-list-wrapper {
-  flex: 1;
-  background: #f5f5f0;
-  border-radius: 0 0 24px 24px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-}
-
-.notes-list-wrapper::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.2) 50%, transparent 100%);
-  pointer-events: none;
-  z-index: 50;
-}
-
 .notes-list {
-  height: 100%;
+  flex: 1;
   overflow-y: auto;
+  padding-right: 10px;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  padding-top: 10px;
 }
 
 .notes-list::-webkit-scrollbar {
@@ -272,25 +240,18 @@ body::before {
 }
 
 .note-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 16px 20px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(145deg, #ffffff 0%, #f8f8f8 100%);
+  border-radius: 24px;
+  padding: 32px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
-  background-image: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 28px,
-    rgba(0, 0, 0, 0.03) 28px,
-    rgba(0, 0, 0, 0.03) 29px
-  );
+  border: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .note-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.08);
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .note-header {
@@ -308,11 +269,11 @@ body::before {
 }
 
 .note-dot {
-  width: 18px;
-  height: 18px;
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  width: 20px;
+  height: 20px;
+  background: #e74c3c;
   border-radius: 50%;
-  box-shadow: 0 0 12px rgba(231, 76, 60, 0.4);
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
 }
 
 .note-divider {
@@ -322,16 +283,15 @@ body::before {
 }
 
 .note-title {
-  color: #2c2c2c;
-  font-size: 22px;
-  margin-bottom: 20px;
-  font-weight: 500;
-  line-height: 1.4;
+  color: #333333;
+  font-size: 24px;
+  margin-bottom: 24px;
+  font-weight: 400;
 }
 
 .note-content {
   color: #4a4a4a;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.8;
   white-space: pre-wrap;
 }

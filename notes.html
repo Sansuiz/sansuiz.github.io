@@ -3,66 +3,74 @@ layout: default
 title: Personal Notes
 ---
 
-<link rel="stylesheet" href="css/notes.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<div class="hover-background"></div>
-<div class="notebooks-wrapper">
-  {% for notebook in site.data.notebooks %}
-  <div class="notebook-container">
-    <div class="notebook" data-tag="{{ notebook.tag }}" data-cover="{{ notebook.cover }}" style="background: {% if notebook.tag == '生活' %}linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%){% elsif notebook.tag == '工作' %}linear-gradient(135deg, #3498db 0%, #2980b9 50%, #3498db 100%){% else %}linear-gradient(135deg, #9b59b6 0%, #8e44ad 50%, #9b59b6 100%){% endif %};">
-      <div class="notebook-top">
-        <div class="notebook-title">/ {{ notebook.tag }}</div>
-        <div class="notebook-count" data-tag="{{ notebook.tag }}">0</div>
-      </div>
-      <div class="notebook-body" data-tag="{{ notebook.tag }}"></div>
-    </div>
-  </div>
-  {% endfor %}
-</div>
-
-<div class="notes-panel">
-  <button class="close-btn">
-    <i class="fas fa-times"></i>
-  </button>
-  <div class="notes-content">
-    <div class="notes-header">
-      <div class="header-left">
-        <div class="page-icon">
-          <i class="far fa-file-alt"></i>
-        </div>
-        <div class="page-count" id="page-count-display">0 Page</div>
-      </div>
-      <div class="header-right">
-        <div class="last-read-label">LastRead</div>
-        <div class="last-read-date" id="last-read-display">-</div>
-      </div>
-    </div>
-    <div class="printer-exit"></div>
-    <div class="notes-list" id="notes-list-container">
-    </div>
-  </div>
-</div>
-
-<script>
-  const notesData = [
-    {% for note in site.data.notes %}
-    {
-      title: "{{ note.title | escape }}",
-      date: "{{ note.date | escape }}",
-      tag: "{{ note.tag | escape }}",
-      content: {{ note.content | jsonify }}
-    }{% unless forloop.last %},{% endunless %}
-    {% endfor %}
-  ];
-
-  const notebooksData = [
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Notes</title>
+  <link rel="stylesheet" href="css/notes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+  <div class="hover-background"></div>
+  <div class="notebooks-wrapper">
     {% for notebook in site.data.notebooks %}
-    {
-      tag: "{{ notebook.tag | escape }}",
-      cover: "{{ notebook.cover | escape }}"
-    }{% unless forloop.last %},{% endunless %}
+    <div class="notebook-container">
+      <div class="notebook" data-tag="{{ notebook.tag }}" data-cover="{{ notebook.cover }}" style="background: {% if notebook.tag == '生活' %}linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%){% elsif notebook.tag == '工作' %}linear-gradient(135deg, #3498db 0%, #2980b9 50%, #3498db 100%){% else %}linear-gradient(135deg, #9b59b6 0%, #8e44ad 50%, #9b59b6 100%){% endif %};">
+        <div class="notebook-top">
+          <div class="notebook-title">/ {{ notebook.tag }}</div>
+          <div class="notebook-count" data-tag="{{ notebook.tag }}">0</div>
+        </div>
+        <div class="notebook-body" data-tag="{{ notebook.tag }}"></div>
+      </div>
+    </div>
     {% endfor %}
-  ];
-</script>
-<script src="js/notes.js"></script>
+  </div>
+
+  <div class="notes-panel">
+    <button class="close-btn">
+      <i class="fas fa-times"></i>
+    </button>
+    <div class="notes-content">
+      <div class="notes-header">
+        <div class="header-left">
+          <div class="page-icon">
+            <i class="far fa-file-alt"></i>
+          </div>
+          <div class="page-count" id="page-count-display">0 Page</div>
+        </div>
+        <div class="header-right">
+          <div class="last-read-label">LastRead</div>
+          <div class="last-read-date" id="last-read-display">-</div>
+        </div>
+      </div>
+      <div class="notes-list" id="notes-list-container">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const notesData = [
+      {% for note in site.data.notes %}
+      {
+        title: "{{ note.title | escape }}",
+        date: "{{ note.date | escape }}",
+        tag: "{{ note.tag | escape }}",
+        content: {{ note.content | jsonify }}
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+
+    const notebooksData = [
+      {% for notebook in site.data.notebooks %}
+      {
+        tag: "{{ notebook.tag | escape }}",
+        cover: "{{ notebook.cover | escape }}"
+      }{% unless forloop.last %},{% endunless %}
+      {% endfor %}
+    ];
+  </script>
+  <script src="js/notes.js"></script>
+</body>
+</html>

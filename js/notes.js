@@ -30,33 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  function updateCardEffects() {
-    const cards = document.querySelectorAll('.note-card');
-    const scrollTop = notesList.scrollTop;
-    const listHeight = notesList.clientHeight;
-
-    cards.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const listRect = notesList.getBoundingClientRect();
-      const cardTop = rect.top - listRect.top;
-      
-      if (cardTop < 60) {
-        const progress = Math.max(0, Math.min(1, cardTop / 60));
-        const scale = 0.95 + (progress * 0.05);
-        const opacity = 0.7 + (progress * 0.3);
-        const translateY = (1 - progress) * -5;
-        
-        card.style.transform = `translateY(${translateY}px) scale(${scale})`;
-        card.style.opacity = opacity;
-        card.style.zIndex = Math.floor(1000 - cardTop);
-      } else {
-        card.style.transform = 'translateY(0) scale(1)';
-        card.style.opacity = '1';
-        card.style.zIndex = '1';
-      }
-    });
-  }
-
   function renderNotes(tag) {
     const filteredNotes = notesData.filter(note => note.tag === tag);
     notesList.innerHTML = '';
@@ -85,12 +58,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     notesHeader.className = 'notes-header';
     notesHeader.classList.add(`tag-${tag}`);
-    
-    notesList.scrollTop = 0;
-    
-    setTimeout(() => {
-      updateCardEffects();
-    }, 50);
   }
 
   try {
@@ -123,17 +90,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && notesPanel.classList.contains('active')) {
       notesPanel.classList.remove('active');
-    }
-  });
-
-  let ticking = false;
-  notesList.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        updateCardEffects();
-        ticking = false;
-      });
-      ticking = true;
     }
   });
 });

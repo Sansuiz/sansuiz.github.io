@@ -227,12 +227,67 @@ body::before {
   font-weight: 300;
 }
 
+.notes-container {
+  position: relative;
+  padding-top: 40px;
+}
+
+.printer-head {
+  position: relative;
+  z-index: 10;
+  background: linear-gradient(180deg, #e8e0d0 0%, #d4c9b8 50%, #c9bfad 100%);
+  border-radius: 8px 8px 0 0;
+  padding: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: -5px;
+}
+
+.printer-slot {
+  width: 80%;
+  height: 4px;
+  background: #2c2c2c;
+  border-radius: 2px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 .notes-list {
   flex: 1;
   overflow-y: auto;
-  padding-right: 10px;
+  padding: 0 10px 10px 10px;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  background: repeating-linear-gradient(
+    0deg,
+    #ffffff,
+    #ffffff 24px,
+    #f0f0f0 25px
+  );
+  position: relative;
+}
+
+.notes-list::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #ff9999;
+  opacity: 0.5;
+}
+
+.notes-list::after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #ff9999;
+  opacity: 0.5;
 }
 
 .notes-list::-webkit-scrollbar {
@@ -240,18 +295,36 @@ body::before {
 }
 
 .note-card {
-  background: linear-gradient(145deg, #ffffff 0%, #f8f8f8 100%);
-  border-radius: 24px;
-  padding: 32px;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #ffffff;
+  border-radius: 0;
+  padding: 30px 40px;
+  margin: 0;
+  box-shadow: none;
+  transition: none;
+  border: none;
+  border-bottom: 1px dashed #ccc;
+  position: relative;
+  overflow: visible;
 }
 
-.note-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12), 0 4px 10px rgba(0, 0, 0, 0.08);
+.note-card::before,
+.note-card::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  background: #1a1a1a;
+  border-radius: 50%;
+}
+
+.note-card::before {
+  left: 12px;
+}
+
+.note-card::after {
+  right: 12px;
 }
 
 .note-header {

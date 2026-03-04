@@ -30,15 +30,40 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function updateCardEffects() {
+    const cards = document.querySelectorAll('.note-card');
+    const scrollTop = notesList.scrollTop;
+    const listHeight = notesList.clientHeight;
+
+    cards.forEach((card, index) => {
+      const rect = card.getBoundingClientRect();
+      const listRect = notesList.getBoundingClientRect();
+      const cardTop = rect.top - listRect.top;
+      
+      if (cardTop < 60) {
+        const progress = Math.max(0, Math.min(1, cardTop / 60));
+        const scale = 0.95 + (progress * 0.05);
+        const opacity = 0.7 + (progress * 0.3);
+        const translateY = (1 - progress) * -5;
+        
+        card.style.transform = `translateY(${translateY}px) scale(${scale})`;
+        card.style.opacity = opacity;
+        card.style.zIndex = Math.floor(1000 - cardTop);
+      } else {
+        card.style.transform = 'translateY(0) scale(1)';
+        card.style.opacity = '1';
+        card.style.zIndex = '1';
+      }
+    });
+  }
+
   function renderNotes(tag) {
     const filteredNotes = notesData.filter(note => note.tag === tag);
     notesList.innerHTML = '';
     
-    filteredNotes.forEach((note, index) => {
+    filteredNotes.forEach(note => {
       const card = document.createElement('div');
       card.className = 'note-card';
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(30px)';
       card.innerHTML = `
         <div class="note-header">
           <div class="note-date">${note.date}</div>
@@ -49,12 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="note-content">${note.content}</div>
       `;
       notesList.appendChild(card);
-      
-      setTimeout(() => {
-        card.style.transition = 'opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
-      }, index * 100);
     });
 
     pageCount.textContent = `${filteredNotes.length} Page`;
@@ -68,6 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
     notesHeader.classList.add(`tag-${tag}`);
     
     notesList.scrollTop = 0;
+    
+    setTimeout(() => {
+      updateCardEffects();
+    }, 50);
   }
 
   try {
@@ -100,6 +123,17 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && notesPanel.classList.contains('active')) {
       notesPanel.classList.remove('active');
+    }
+  });
+
+  let ticking = false;
+  notesList.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        updateCardEffects();
+        ticking = false;
+      });
+      ticking = true;
     }
   });
 });

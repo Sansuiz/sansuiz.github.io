@@ -34,9 +34,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const filteredNotes = notesData.filter(note => note.tag === tag);
     notesList.innerHTML = '';
     
-    filteredNotes.forEach(note => {
+    filteredNotes.forEach((note, index) => {
       const card = document.createElement('div');
       card.className = 'note-card';
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(30px)';
       card.innerHTML = `
         <div class="note-header">
           <div class="note-date">${note.date}</div>
@@ -47,6 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="note-content">${note.content}</div>
       `;
       notesList.appendChild(card);
+      
+      setTimeout(() => {
+        card.style.transition = 'opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        card.style.opacity = '1';
+        card.style.transform = 'translateY(0)';
+      }, index * 100);
     });
 
     pageCount.textContent = `${filteredNotes.length} Page`;
@@ -58,6 +66,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     notesHeader.className = 'notes-header';
     notesHeader.classList.add(`tag-${tag}`);
+    
+    notesList.scrollTop = 0;
   }
 
   try {

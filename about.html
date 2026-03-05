@@ -7,30 +7,94 @@
   <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/about-card.css">
 </head>
 
 <body>
   <script type="module" src="js/shared.js"></script>
 
-  <main class="container">
-    <header>
-      <h1>关于我</h1>
-      <small>知行合一，格物致知</small>
-    </header>
-
-    <section class="bio about-content">
-      <div id="about-markdown"></div>
-
-      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-      <script>
-        fetch('about.md')
-          .then(response => response.text())
-          .then(text => {
-            document.getElementById('about-markdown').innerHTML = marked.parse(text);
-          })
-          .catch(err => console.error('加载关于页面失败:', err));
-      </script>
-    </section>
+  <main class="about-page">
+    <div class="card-container">
+      <div class="card">
+        <div class="card-face card-front">
+          <div class="card-lines">
+            <div class="horizontal-line horizontal-line-1"></div>
+            <div class="horizontal-line horizontal-line-2"></div>
+            <div class="horizontal-line horizontal-line-3"></div>
+            <div class="horizontal-line horizontal-line-4"></div>
+            <div class="horizontal-line horizontal-line-5"></div>
+            <div class="vertical-line vertical-line-1"></div>
+            <div class="vertical-line vertical-line-2"></div>
+          </div>
+          
+          <div class="card-front-content">
+            <div class="personal-info">
+              <div class="personal-name">趙樂天</div>
+              <div class="personal-mbti">INFJ</div>
+              <div class="personal-location">CHINA SICHUAN</div>
+            </div>
+            
+            <div class="social-icons">
+              <a href="#" class="social-icon">
+                <i class="fab fa-facebook"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="social-icon">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+          
+          <div class="card-wave-bg">
+            <svg class="wave-svg wave-1" viewBox="0 0 1200 180" preserveAspectRatio="none">
+              <path d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,144C960,149,1056,139,1152,122.7C1248,107,1344,85,1392,74.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="#c0c0c0"></path>
+            </svg>
+            <svg class="wave-svg wave-2" viewBox="0 0 1200 180" preserveAspectRatio="none">
+              <path d="M0,160L48,149.3C96,139,192,117,288,112C384,107,480,117,576,133.3C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="#c0c0c0"></path>
+            </svg>
+            <svg class="wave-svg wave-3" viewBox="0 0 1200 180" preserveAspectRatio="none">
+              <path d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,112C960,117,1056,107,1152,101.3C1248,96,1344,96,1392,96L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="#c0c0c0"></path>
+            </svg>
+          </div>
+        </div>
+        
+        <div class="card-face card-back">
+          <div class="card-lines">
+            <div class="horizontal-line horizontal-line-1"></div>
+            <div class="horizontal-line horizontal-line-2"></div>
+            <div class="horizontal-line horizontal-line-3"></div>
+            <div class="horizontal-line horizontal-line-4"></div>
+            <div class="horizontal-line horizontal-line-5"></div>
+            <div class="vertical-line vertical-line-1"></div>
+            <div class="vertical-line vertical-line-2"></div>
+          </div>
+          
+          <div class="card-back-content">
+            <div class="site-links">
+              <div class="site-link">个人主页</div>
+              <div class="site-link">笔记页面</div>
+              <div class="site-link">文集页面</div>
+            </div>
+            
+            <div class="site-brand">SANSUIZ.</div>
+          </div>
+          
+          <div class="card-wave-bg">
+            <svg class="wave-svg wave-1" viewBox="0 0 1200 180" preserveAspectRatio="none">
+              <path d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,144C960,149,1056,139,1152,122.7C1248,107,1344,85,1392,74.7L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="#c0c0c0"></path>
+            </svg>
+            <svg class="wave-svg wave-2" viewBox="0 0 1200 180" preserveAspectRatio="none">
+              <path d="M0,160L48,149.3C96,139,192,117,288,112C384,107,480,117,576,133.3C672,149,768,171,864,165.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="#c0c0c0"></path>
+            </svg>
+            <svg class="wave-svg wave-3" viewBox="0 0 1200 180" preserveAspectRatio="none">
+              <path d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,90.7C672,85,768,107,864,112C960,117,1056,107,1152,101.3C1248,96,1344,96,1392,96L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" fill="#c0c0c0"></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
 
     <div class="logo-container">
       <a href="/">
@@ -38,5 +102,7 @@
       </a>
     </div>
   </main>
+
+  <script src="js/about-card.js"></script>
 </body>
 </html>

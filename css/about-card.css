@@ -1,0 +1,301 @@
+.about-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+  overflow: hidden;
+}
+
+.card-container {
+  perspective: 1500px;
+  z-index: 10;
+}
+
+.card {
+  width: 600px;
+  height: 350px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 25px;
+  background: white;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.card-wave-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.wave-svg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 200%;
+  height: 100%;
+}
+
+.wave-1 {
+  animation: wave1 8s linear infinite;
+  opacity: 0.3;
+}
+
+.wave-2 {
+  animation: wave2 12s linear infinite;
+  opacity: 0.2;
+  bottom: 10px;
+}
+
+.wave-3 {
+  animation: wave3 16s linear infinite;
+  opacity: 0.15;
+  bottom: 20px;
+}
+
+@keyframes wave1 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes wave2 {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes wave3 {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.card-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.horizontal-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 200, 255, 0.5), transparent);
+}
+
+.horizontal-line-1 {
+  top: 20%;
+}
+
+.horizontal-line-2 {
+  top: 35%;
+}
+
+.horizontal-line-3 {
+  top: 50%;
+}
+
+.horizontal-line-4 {
+  top: 65%;
+}
+
+.horizontal-line-5 {
+  top: 80%;
+}
+
+.vertical-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(200, 200, 255, 0.5), transparent);
+}
+
+.vertical-line-1 {
+  left: 10%;
+}
+
+.vertical-line-2 {
+  left: 20%;
+}
+
+.card-front-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.personal-info {
+  margin-top: 20px;
+}
+
+.personal-name {
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+}
+
+.personal-mbti {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+  letter-spacing: 3px;
+}
+
+.personal-location {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 1px;
+}
+
+.social-icons {
+  display: flex;
+  gap: 25px;
+  z-index: 1;
+  position: relative;
+}
+
+.social-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #333;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: scale(1.15);
+  color: #ed627e;
+}
+
+.card-back-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.site-links {
+  margin-top: 50px;
+}
+
+.site-link {
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  transition: color 0.3s ease;
+}
+
+.site-link:hover {
+  color: #ed627e;
+}
+
+.site-brand {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #333;
+  letter-spacing: 2px;
+  text-align: right;
+  z-index: 1;
+  position: relative;
+}
+
+.logo-container {
+  position: absolute;
+  bottom: 30px;
+  right: 40px;
+  z-index: 100;
+}
+
+.logo-container img {
+  height: 60px;
+  width: auto;
+}
+
+@media (max-width: 768px) {
+  .about-page {
+    padding-left: 2%;
+    padding-right: 2%;
+    justify-content: center;
+  }
+
+  .card {
+    width: 90%;
+    max-width: 450px;
+    height: 300px;
+  }
+
+  .card-face {
+    padding: 25px;
+  }
+
+  .personal-name {
+    font-size: 2.2rem;
+  }
+
+  .personal-mbti {
+    font-size: 1.2rem;
+  }
+
+  .personal-location {
+    font-size: 1rem;
+  }
+
+  .site-link {
+    font-size: 1.4rem;
+  }
+
+  .social-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+  }
+}

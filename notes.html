@@ -57,6 +57,7 @@ title: Personal Notes
         title: "{{ note.title | escape }}",
         date: "{{ note.date | escape }}",
         tag: "{{ note.tag | escape }}",
+        logo: "{{ note.logo | escape }}",
         content: {{ note.content | jsonify }}
       }{% unless forloop.last %},{% endunless %}
       {% endfor %}

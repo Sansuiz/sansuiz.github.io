@@ -269,11 +269,14 @@ body::before {
 }
 
 .note-dot {
-  width: 20px;
-  height: 20px;
-  background: #e74c3c;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
-  box-shadow: 0 0 15px rgba(231, 76, 60, 0.3);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: #e74c3c;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .note-divider {

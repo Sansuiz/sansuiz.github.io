@@ -37,10 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
     filteredNotes.forEach(note => {
       const card = document.createElement('div');
       card.className = 'note-card';
+      
+      let dotHtml = '';
+      if (note.logo) {
+        dotHtml = `<div class="note-dot" style="background-image: url('${note.logo}');"></div>`;
+      } else {
+        dotHtml = `<div class="note-dot"></div>`;
+      }
+      
       card.innerHTML = `
         <div class="note-header">
           <div class="note-date">${note.date}</div>
-          <div class="note-dot"></div>
+          ${dotHtml}
         </div>
         <hr class="note-divider">
         <div class="note-title">${note.title}</div>

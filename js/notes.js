@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
       
       let dotHtml = '';
       if (note.logo) {
-        dotHtml = `<div class="note-dot" style="background-image: url('${note.logo}');"></div>`;
+        dotHtml = `<div class="note-dot" style="background-image: url('${note.logo}'); background-color: transparent;"></div>`;
       } else {
         dotHtml = `<div class="note-dot"></div>`;
       }

@@ -332,3 +332,128 @@ body::before {
   background: rgba(255, 255, 255, 0.2);
   transform: rotate(90deg);
 }
+
+@media (max-width: 768px) {
+  .notebooks-wrapper {
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .notebook {
+    width: 240px;
+    height: 320px;
+  }
+
+  .notebook-top {
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  .notebook-title {
+    font-size: 16px;
+  }
+
+  .notebook-count {
+    font-size: 36px;
+  }
+
+  .notes-content {
+    max-width: 100%;
+    max-height: 85vh;
+  }
+
+  .notes-header {
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .header-left,
+  .header-right {
+    padding: 8px 12px;
+  }
+
+  .page-icon {
+    font-size: 28px;
+  }
+
+  .page-count {
+    font-size: 14px;
+  }
+
+  .last-read-label {
+    font-size: 14px;
+  }
+
+  .last-read-date {
+    font-size: 18px;
+  }
+
+  .note-card {
+    padding: 20px;
+    margin-bottom: 12px;
+    border-radius: 16px;
+  }
+
+  .note-date {
+    font-size: 18px;
+  }
+
+  .note-dot {
+    width: 24px;
+    height: 24px;
+  }
+
+  .note-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .note-content {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .close-btn {
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 480px) {
+  .notebooks-wrapper {
+    gap: 15px;
+    padding: 15px;
+    flex-direction: column;
+  }
+
+  .notebook {
+    width: 200px;
+    height: 280px;
+  }
+
+  .notes-header {
+    padding: 12px;
+  }
+
+  .notes-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .header-left,
+  .header-right {
+    width: 100%;
+    align-items: center;
+  }
+
+  .header-right {
+    align-items: center;
+  }
+
+  .note-card {
+    padding: 16px;
+  }
+}

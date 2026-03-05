@@ -1,3 +1,10 @@
+@font-face {
+  font-family: 'huiwen';
+  src: url('../fonts/huiwen.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -266,6 +273,7 @@ body::before {
   font-size: 24px;
   font-weight: 600;
   letter-spacing: 2px;
+  font-family: 'huiwen', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .note-dot {
@@ -290,6 +298,7 @@ body::before {
   font-size: 24px;
   margin-bottom: 24px;
   font-weight: 400;
+  font-family: 'huiwen', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .note-content {
@@ -297,6 +306,7 @@ body::before {
   font-size: 20px;
   line-height: 1.8;
   white-space: pre-wrap;
+  font-family: 'huiwen', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
 
 .close-btn {

@@ -7,36 +7,80 @@
   <link rel="shortcut icon" href="https://blog.sansuiz.cn/assets/fav.svg">
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/about-card.css">
 </head>
 
 <body>
   <script type="module" src="js/shared.js"></script>
 
-  <main class="container">
-    <header>
-      <h1>关于我</h1>
-      <small>知行合一，格物致知</small>
-    </header>
-
-    <section class="bio about-content">
-      <div id="about-markdown"></div>
-
-      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-      <script>
-        fetch('about.md')
-          .then(response => response.text())
-          .then(text => {
-            document.getElementById('about-markdown').innerHTML = marked.parse(text);
-          })
-          .catch(err => console.error('加载关于页面失败:', err));
-      </script>
-    </section>
-
-    <div class="logo-container">
-      <a href="/">
-        <img src="/images/sansuiz-zimu-26.gif" alt="返回主页" class="logo">
-      </a>
+  <div class="card-container">
+    <div class="card">
+      <div class="card-face card-front">
+        <div class="card-header">
+          <div class="card-avatar">
+            <i class="fa-solid fa-user"></i>
+          </div>
+          <h2 class="card-name">Sansuiz</h2>
+          <p class="card-tagline">知行合一，格物致知</p>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-content">
+          <p>真抱歉，这个人不懂得如何介绍自己，他也很懒，选择了放弃。</p>
+          <p>但他相信，通过代码和文字，可以表达内心的思考与情感。</p>
+        </div>
+        <div class="card-footer">
+          <p class="flip-hint">
+            <i class="fa-solid fa-arrow-right"></i>
+            点击翻转查看网站信息
+          </p>
+        </div>
+      </div>
+      
+      <div class="card-face card-back">
+        <div class="card-header">
+          <div class="card-avatar">
+            <i class="fa-solid fa-globe"></i>
+          </div>
+          <h2 class="card-name">SANSUIZ</h2>
+          <p class="card-tagline">个人博客网站</p>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-content">
+          <ul class="info-list">
+            <li>
+              <i class="fa-solid fa-link"></i>
+              <a href="https://blog.sansuiz.cn" target="_blank">blog.sansuiz.cn</a>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <span>欢迎交流</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-heart"></i>
+              <span>用心记录生活与思考</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-code"></i>
+              <span>用代码构建美好世界</span>
+            </li>
+          </ul>
+        </div>
+        <div class="card-footer">
+          <p class="flip-hint">
+            <i class="fa-solid fa-arrow-left"></i>
+            点击翻转查看个人信息
+          </p>
+        </div>
+      </div>
     </div>
-  </main>
+  </div>
+
+  <div class="logo-about">
+    <a href="/">
+      <img src="/images/sansuiz-zimu-26.gif" alt="返回主页" class="logo">
+    </a>
+  </div>
+
+  <script src="js/about-card.js"></script>
 </body>
 </html>

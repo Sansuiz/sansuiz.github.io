@@ -1,16 +1,9 @@
-@font-face {
-  font-family: 'Huiwen';
-  src: url('/fonts/huiwen.otf') format('opentype');
-  font-weight: normal;
-  font-style: normal;
-}
-
 .about-page {
   position: relative;
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding-left: 15%;
+  padding-left: 5%;
   overflow: hidden;
 }
 
@@ -169,7 +162,7 @@
 }
 
 .personal-name {
-  font-family: 'Huiwen', 'Source Han Serif CN', 'SimSun', serif;
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
   font-size: 3.2rem;
   font-weight: 700;
   color: #222;
@@ -177,28 +170,17 @@
   letter-spacing: 2px;
 }
 
-.personal-mbti-container {
-  height: 3rem;
-  overflow: hidden;
-  position: relative;
-}
-
-.personal-mbti-scroll {
-  transition: transform 0.5s ease;
-}
-
 .personal-mbti {
-  font-family: 'Huiwen', 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-size: 1.5rem;
   font-weight: 600;
   color: #333;
   margin-bottom: 10px;
   letter-spacing: 3px;
-  line-height: 3rem;
 }
 
 .personal-location {
-  font-family: 'Huiwen', 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-size: 1.3rem;
   font-weight: 600;
   color: #333;
@@ -242,7 +224,7 @@
 }
 
 .site-link {
-  font-family: 'Huiwen', 'Source Han Serif CN', 'SimSun', serif;
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
   font-size: 1.8rem;
   font-weight: 600;
   color: #222;
@@ -256,7 +238,7 @@
 }
 
 .site-brand {
-  font-family: 'Huiwen', 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   font-size: 1.1rem;
   font-weight: 700;
   color: #333;

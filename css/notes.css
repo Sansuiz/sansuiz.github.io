@@ -334,6 +334,13 @@ body::before {
 }
 
 @media (max-width: 768px) {
+  body {
+    overflow: auto;
+    align-items: flex-start;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
   .notebooks-wrapper {
     gap: 20px;
     padding: 20px;
@@ -423,6 +430,11 @@ body::before {
 }
 
 @media (max-width: 480px) {
+  body {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
   .notebooks-wrapper {
     gap: 15px;
     padding: 15px;
@@ -430,8 +442,21 @@ body::before {
   }
 
   .notebook {
-    width: 200px;
-    height: 280px;
+    width: 220px;
+    height: 300px;
+  }
+
+  .notebook-top {
+    height: 55px;
+    padding: 0 14px;
+  }
+
+  .notebook-title {
+    font-size: 15px;
+  }
+
+  .notebook-count {
+    font-size: 32px;
   }
 
   .notes-header {

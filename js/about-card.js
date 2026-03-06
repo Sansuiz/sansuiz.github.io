@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   if (card) {
     card.addEventListener('click', function(e) {
-      if (!e.target.closest('.site-btn') && !e.target.closest('.timeline-container')) {
+      if (!e.target.closest('.site-link-icon') && !e.target.closest('.timeline-container')) {
         card.classList.toggle('flipped');
       }
     });

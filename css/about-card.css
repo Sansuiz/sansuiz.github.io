@@ -157,57 +157,84 @@
   justify-content: space-between;
 }
 
-.personal-info {
-  margin-top: 20px;
+.personal-section {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .personal-name {
   font-family: 'Source Han Serif CN', 'SimSun', serif;
-  font-size: 3.2rem;
-  font-weight: 700;
-  color: #222;
-  margin-bottom: 15px;
-  letter-spacing: 2px;
-}
-
-.personal-mbti {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: #1a1a1a;
   letter-spacing: 3px;
 }
 
-.personal-location {
+.personal-name-en {
   font-family: 'Segoe UI', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 600;
-  color: #333;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #666;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.personal-divider {
+  width: 40px;
+  height: 2px;
+  background: #e0e0e0;
+  margin: 20px 0;
+}
+
+.personal-meta {
+  display: flex;
+  gap: 30px;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #aaa;
   letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.meta-value {
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 0.95rem;
+  color: #333;
 }
 
 .social-icons {
   display: flex;
-  gap: 25px;
+  gap: 20px;
   z-index: 1;
   position: relative;
 }
 
 .social-icon {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  color: #333;
+  font-size: 1.5rem;
+  color: #555;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .social-icon:hover {
-  transform: scale(1.15);
-  color: #ed627e;
+  transform: translateY(-3px);
+  color: #1a1a1a;
 }
 
 .card-back-content {
@@ -219,153 +246,57 @@
   justify-content: space-between;
 }
 
-.timeline-container {
-  position: absolute;
-  bottom: 65px;
-  left: 40px;
-  right: 40px;
-  z-index: 5;
+.site-section {
+  margin-top: 20px;
 }
 
-.timeline {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 10px;
-}
-
-.timeline-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: default;
-}
-
-.timeline-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #999;
-  margin: 4px 0;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  z-index: 2;
-}
-
-.timeline-item:hover .timeline-dot {
-  transform: scale(1.4);
-  background: #ed627e;
-}
-
-.timeline-date {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: #888;
-  white-space: nowrap;
-}
-
-.timeline-text {
+.site-title {
   font-family: 'Source Han Serif CN', 'SimSun', serif;
-  font-size: 0.7rem;
-  color: #666;
-  white-space: nowrap;
-}
-
-.site-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  height: 100%;
-}
-
-.site-intro {
-  margin-top: 10px;
-}
-
-.site-intro-title {
-  font-family: 'Source Han Serif CN', 'SimSun', serif;
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #222;
-  margin-bottom: 12px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 20px;
   letter-spacing: 1px;
 }
 
-.site-intro-text {
+.site-description {
   font-family: 'Source Han Serif CN', 'SimSun', serif;
   font-size: 0.95rem;
-  color: #666;
-  line-height: 1.8;
+  color: #555;
+  line-height: 1.9;
+  margin-bottom: 30px;
 }
 
-.site-links {
-  display: flex;
-  gap: 25px;
-  margin-top: 25px;
-  z-index: 10;
-  position: relative;
-}
-
-.site-link-icon {
-  position: relative;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  color: #333;
-  transition: transform 0.3s ease, color 0.3s ease;
-  pointer-events: auto;
-}
-
-.site-link-icon i {
-  font-size: 1.8rem;
-  z-index: 2;
-}
-
-.site-link-icon span {
-  position: absolute;
-  bottom: -30px;
-  left: 50%;
-  transform: translateX(-50%) translateY(10px);
+.site-quote {
   font-family: 'Source Han Serif CN', 'SimSun', serif;
-  font-size: 0.8rem;
-  font-weight: 500;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  padding: 5px 12px;
-  border-radius: 15px;
+  font-size: 1rem;
+  color: #888;
+  font-style: italic;
+  line-height: 1.8;
+  border-left: 2px solid #e0e0e0;
+  padding-left: 20px;
 }
 
-.site-link-icon:hover {
-  transform: scale(1.15);
-  color: #ed627e;
-}
-
-.site-link-icon:hover span {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
+.site-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 
 .site-brand {
   font-family: 'Segoe UI', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 300;
   color: #333;
-  letter-spacing: 2px;
-  text-align: right;
-  z-index: 1;
-  position: relative;
-  margin-top: auto;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.site-year {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.85rem;
+  color: #aaa;
+  letter-spacing: 1px;
 }
 
 .logo-container {
@@ -398,24 +329,24 @@
   }
 
   .personal-name {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
-  .personal-mbti {
-    font-size: 1.2rem;
-  }
-
-  .personal-location {
-    font-size: 1rem;
-  }
-
-  .site-link {
-    font-size: 1.4rem;
+  .personal-name-en {
+    font-size: 0.85rem;
   }
 
   .social-icon {
-    width: 40px;
-    height: 40px;
-    font-size: 1.6rem;
+    width: 35px;
+    height: 35px;
+    font-size: 1.3rem;
+  }
+
+  .site-title {
+    font-size: 1.2rem;
+  }
+
+  .site-description {
+    font-size: 0.85rem;
   }
 }

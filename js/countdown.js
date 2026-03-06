@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  fetch('/data/days.yml')
+  fetch('/_data/days.yml')
     .then(res => res.text())
     .then(yaml => {
       const events = jsyaml.load(yaml).events;

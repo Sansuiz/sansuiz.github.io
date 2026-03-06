@@ -17,7 +17,7 @@ title: 我的回答
   <div class="notebooks-wrapper">
     {% for notebook in site.data.notebooks %}
     <div class="notebook-container">
-      <div class="notebook" data-tag="{{ notebook.tag }}" data-cover="{{ notebook.cover }}" style="background: {% if notebook.tag == '生活' %}linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%){% elsif notebook.tag == '工作' %}linear-gradient(135deg, #3498db 0%, #2980b9 50%, #3498db 100%){% else %}linear-gradient(135deg, #9b59b6 0%, #8e44ad 50%, #9b59b6 100%){% endif %};">
+      <div class="notebook" data-tag="{{ notebook.tag }}" data-cover="{{ notebook.cover }}" style="background: {% if notebook.tag == '生活的答案' %}linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%){% elsif notebook.tag == '工作的意义' %}linear-gradient(135deg, #3498db 0%, #2980b9 50%, #3498db 100%){% else %}linear-gradient(135deg, #9b59b6 0%, #8e44ad 50%, #9b59b6 100%){% endif %};">
         <div class="notebook-top">
           <div class="notebook-title">/ {{ notebook.tag }}</div>
           <div class="notebook-count" data-tag="{{ notebook.tag }}">0</div>

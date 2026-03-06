@@ -31,12 +31,13 @@
   height: 100%;
   backface-visibility: hidden;
   border-radius: 25px;
-  background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  background: white;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 35px;
+  justify-content: space-between;
+  padding: 40px;
   box-sizing: border-box;
 }
 
@@ -52,7 +53,6 @@
   height: 180px;
   overflow: hidden;
   pointer-events: none;
-  opacity: 0.1;
 }
 
 .wave-svg {
@@ -95,6 +95,59 @@
   100% { transform: translateX(-50%); }
 }
 
+.card-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.horizontal-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(200, 200, 255, 0.5), transparent);
+}
+
+.horizontal-line-1 {
+  top: 20%;
+}
+
+.horizontal-line-2 {
+  top: 35%;
+}
+
+.horizontal-line-3 {
+  top: 50%;
+}
+
+.horizontal-line-4 {
+  top: 65%;
+}
+
+.horizontal-line-5 {
+  top: 80%;
+}
+
+.vertical-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgba(200, 200, 255, 0.5), transparent);
+}
+
+.vertical-line-1 {
+  left: 10%;
+}
+
+.vertical-line-2 {
+  left: 20%;
+}
+
 .card-front-content {
   position: relative;
   z-index: 1;
@@ -104,143 +157,84 @@
   justify-content: space-between;
 }
 
-.card-header {
-  display: flex;
-  gap: 40px;
-  flex: 1;
-}
-
 .personal-section {
-  flex: 1;
-}
-
-.personal-name {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 4rem;
-  font-weight: 700;
-  color: #ffffff;
-  margin-bottom: 8px;
-  letter-spacing: -1px;
-}
-
-.personal-title {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 2rem;
-  font-weight: 300;
-  color: #b0b0b0;
-  margin-bottom: 30px;
-}
-
-.contact-section {
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  color: #d0d0d0;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.contact-item:hover {
-  color: #ed627e;
-}
-
-.contact-item i {
-  font-size: 1.5rem;
-  width: 30px;
-  text-align: center;
-}
-
-.contact-item span {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.1rem;
-  font-weight: 400;
-}
-
-.stats-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.stats-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 20px;
-}
-
-.stats-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 15px;
-}
-
-.stats-title i {
-  font-size: 1.3rem;
-  color: #888;
-}
-
-.stats-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.stat-item {
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  padding: 0 12px;
   gap: 8px;
 }
 
-.stat-dot {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+.personal-name {
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  letter-spacing: 3px;
 }
 
-.stat-dot.teal {
-  background: #4ecdc4;
+.personal-name-en {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: #666;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
 
-.stat-dot.amber {
-  background: #ffd166;
+.personal-divider {
+  width: 40px;
+  height: 2px;
+  background: #e0e0e0;
+  margin: 20px 0;
 }
 
-.stat-bar {
-  flex: 1;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
-}
-
-.card-footer {
+.personal-meta {
   display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  gap: 10px;
+  gap: 30px;
 }
 
-.footer-dot {
-  width: 35px;
-  height: 8px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 4px;
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.meta-label {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: #aaa;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.meta-value {
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.social-icons {
+  display: flex;
+  gap: 20px;
+  z-index: 1;
+  position: relative;
+}
+
+.social-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #555;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.social-icon:hover {
+  transform: translateY(-3px);
+  color: #1a1a1a;
 }
 
 .card-back-content {
@@ -252,176 +246,57 @@
   justify-content: space-between;
 }
 
-.back-header {
-  display: flex;
-  gap: 30px;
-  flex: 1;
+.site-section {
+  margin-top: 20px;
 }
 
-.milestone-section {
-  flex: 1;
+.site-title {
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #1a1a1a;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
 }
 
-.milestone-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 20px;
+.site-description {
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.9;
+  margin-bottom: 30px;
 }
 
-.milestone-title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 15px;
-}
-
-.milestone-title-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.milestone-title i {
-  font-size: 1.3rem;
+.site-quote {
+  font-family: 'Source Han Serif CN', 'SimSun', serif;
+  font-size: 1rem;
   color: #888;
+  font-style: italic;
+  line-height: 1.8;
+  border-left: 2px solid #e0e0e0;
+  padding-left: 20px;
 }
 
-.mileline-lines {
+.site-footer {
   display: flex;
-  gap: 4px;
-}
-
-.mileline-line {
-  width: 25px;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 2px;
-}
-
-.milestone-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 12px;
-  margin-bottom: 10px;
-}
-
-.milestone-dot {
-  width: 26px;
-  height: 26px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #ed627e 0%, #9d4edd 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.milestone-dot i {
-  color: white;
-  font-size: 0.8rem;
-}
-
-.milestone-text {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: #ffffff;
-}
-
-.roadmap-section {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-.roadmap-card {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding: 20px;
-}
-
-.roadmap-title {
-  display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: flex-end;
+}
+
+.site-brand {
   font-family: 'Segoe UI', sans-serif;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #ffffff;
-  margin-bottom: 15px;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: #333;
+  letter-spacing: 3px;
+  text-transform: uppercase;
 }
 
-.roadmap-title i {
-  font-size: 1.3rem;
-  color: #888;
-}
-
-.roadmap-progress {
-  display: flex;
-  gap: 8px;
-}
-
-.roadmap-progress-bar {
-  flex: 1;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 12px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-}
-
-.roadmap-progress-fill {
-  flex: 1;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  padding: 0 15px;
-  gap: 8px;
-}
-
-.roadmap-progress-fill .progress-label {
+.site-year {
   font-family: 'Segoe UI', sans-serif;
-  font-size: 1.1rem;
-  color: #ffffff;
-}
-
-.roadmap-progress-fill .progress-indicator {
-  width: 40px;
-  height: 6px;
-  background: #4ecdc4;
-  border-radius: 3px;
-  flex: 1;
-}
-
-.roadmap-progress-fill .progress-completed {
-  font-family: 'Segoe UI', sans-serif;
-  font-size: 1.1rem;
-  color: #ffffff;
-  font-weight: 500;
-}
-
-.roadmap-progress-bars {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 8px;
-  margin-top: 12px;
-}
-
-.roadmap-progress-bar-small {
-  height: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 5px;
+  font-size: 0.85rem;
+  color: #aaa;
+  letter-spacing: 1px;
 }
 
 .logo-container {
@@ -432,9 +307,8 @@
 }
 
 .logo-container img {
-  height: 50px;
+  height: 60px;
   width: auto;
-  opacity: 0.8;
 }
 
 @media (max-width: 768px) {
@@ -447,8 +321,7 @@
   .card {
     width: 90%;
     max-width: 450px;
-    height: auto;
-    min-height: 350px;
+    height: 300px;
   }
 
   .card-face {
@@ -456,16 +329,24 @@
   }
 
   .personal-name {
-    font-size: 2.5rem;
+    font-size: 2rem;
   }
 
-  .personal-title {
+  .personal-name-en {
+    font-size: 0.85rem;
+  }
+
+  .social-icon {
+    width: 35px;
+    height: 35px;
     font-size: 1.3rem;
   }
 
-  .card-header,
-  .back-header {
-    flex-direction: column;
-    gap: 20px;
+  .site-title {
+    font-size: 1.2rem;
+  }
+
+  .site-description {
+    font-size: 0.85rem;
   }
 }

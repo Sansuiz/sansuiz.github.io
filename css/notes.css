@@ -180,15 +180,15 @@ body::before {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
 }
 
-.notes-header.tag-生活 {
+.notes-header.tag-生活的答案 {
   background: linear-gradient(135deg, #e74c3c 0%, #c0392b 50%, #e74c3c 100%);
 }
 
-.notes-header.tag-工作 {
+.notes-header.tag-工作的意义 {
   background: linear-gradient(135deg, #3498db 0%, #2980b9 50%, #3498db 100%);
 }
 
-.notes-header.tag-心流 {
+.notes-header.tag-无关的问题 {
   background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 50%, #9b59b6 100%);
 }
 

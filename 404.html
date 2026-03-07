@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>404 - SANSUIZ</title>
+  <link rel="icon" href="/images/fav.png" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/mouse.css">
+  <style>
+    .error-container {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .error-code {
+      font-size: 8rem;
+      font-weight: bold;
+      color: #ed627e;
+      text-shadow: 3px 3px 6px rgba(237, 98, 126, 0.3);
+      margin-bottom: 1rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .error-message {
+      font-size: 1.5rem;
+      color: #666;
+      margin-bottom: 1rem;
+      font-family: 'Source Han Serif CN', serif;
+    }
+    
+    .error-quote {
+      font-size: 1.1rem;
+      color: #ed556a;
+      margin-bottom: 2rem;
+      font-family: '楷体', serif;
+    }
+    
+    .home-btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      background: linear-gradient(135deg, #ed627e, #ed556a);
+      color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(237, 98, 126, 0.3);
+    }
+    
+    .home-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(237, 98, 126, 0.4);
+    }
+    
+    .logo-404 {
+      margin-top: 3rem;
+    }
+    
+    .logo-404 img {
+      width: 120px;
+      height: auto;
+    }
+    
+    @media (max-width: 480px) {
+      .error-code {
+        font-size: 5rem;
+      }
+      
+      .error-message {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="hover-background"></div>
+  <script type="module" src="js/shared.js"></script>
+  <script type="module" src="js/mouse.js"></script>
+  
+  <div class="error-container">
+    <div class="error-code">404</div>
+    <div class="error-message">页面走丢了</div>
+    <div class="error-quote">花有重开日，人无再少年</div>
+    <a href="/" class="home-btn">返回首页</a>
+    <div class="logo-404">
+      <a href="/">
+        <img src="/images/sansuiz-zimu-26.gif" alt="SANSUIZ">
+      </a>
+    </div>
+  </div>
+</body>
+</html>
